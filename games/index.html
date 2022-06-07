@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../img/icon.png">
+    <script src="/js/themes/loadGames.js"></script>
+    <link rel="stylesheet" href="/vendor/normalize.css/normalize.css">
+    <link rel="stylesheet" href="/vendor/aos/aos.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="/toggles.js"></script>
+    <script src="/header.js"></script>
+    <title>Games</title>
+    <link rel="manifest" href="/manifest.json">
+    <script>
+        if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/pwabuilder-sw.js').then((reg) => {
+            console.log('Service worker registered.', reg);
+            });
+        });
+    }   
+    </script>
+</head>
+<body id="body">
+    <script src="/vendor/aos/aos.js"></script>
+    <script src="/main.js"></script> <!--header moment-->
+<div class="top-header" data-aos="fade-down" data-aos-duration="1000">
+    <div id="title-background" class="title-background"><a id="nav-toggle" class="mobile-toggle" onclick="openNav()"><svg class="menu-bar" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg></a></div>
+</div>
+<div id="sidenav" class="sidenav">
+    <a class="closebtn" onclick="closeNav()">&times;</a>
+    <br>
+    <a href="/" class="mobile-nav-header-item"><svg xmlns="http://www.w3.org/2000/svg" class="header-icon" viewBox="0 0 576 512"><path d="M575.8 255.5C575.8 273.5 560.8 287.6 543.8 287.6H511.8L512.5 447.7C512.5 450.5 512.3 453.1 512 455.8V472C512 494.1 494.1 512 472 512H456C454.9 512 453.8 511.1 452.7 511.9C451.3 511.1 449.9 512 448.5 512H392C369.9 512 352 494.1 352 472V384C352 366.3 337.7 352 320 352H256C238.3 352 224 366.3 224 384V472C224 494.1 206.1 512 184 512H128.1C126.6 512 125.1 511.9 123.6 511.8C122.4 511.9 121.2 512 120 512H104C81.91 512 64 494.1 64 472V360C64 359.1 64.03 358.1 64.09 357.2V287.6H32.05C14.02 287.6 0 273.5 0 255.5C0 246.5 3.004 238.5 10.01 231.5L266.4 8.016C273.4 1.002 281.4 0 288.4 0C295.4 0 303.4 2.004 309.5 7.014L564.8 231.5C572.8 238.5 576.9 246.5 575.8 255.5L575.8 255.5z"/></svg> Home</a>
+    <a href="/proxies" class="mobile-nav-header-item"><svg xmlns="http://www.w3.org/2000/svg" class="header-icon" viewBox="0 0 512 512"><path d="M432 64H208C199.2 64 192 71.16 192 80V96H128V80C128 35.82 163.8 0 208 0H432C476.2 0 512 35.82 512 80V304C512 348.2 476.2 384 432 384H416V320H432C440.8 320 448 312.8 448 304V80C448 71.16 440.8 64 432 64zM0 192C0 156.7 28.65 128 64 128H320C355.3 128 384 156.7 384 192V448C384 483.3 355.3 512 320 512H64C28.65 512 0 483.3 0 448V192zM96 256H288C305.7 256 320 241.7 320 224C320 206.3 305.7 192 288 192H96C78.33 192 64 206.3 64 224C64 241.7 78.33 256 96 256z"/></svg> Proxies</a>
+    <a href="/games" class="mobile-nav-header-item"><svg xmlns="http://www.w3.org/2000/svg" class="header-icon" viewBox="0 0 640 512"><path d="M448 64H192C85.96 64 0 149.1 0 256s85.96 192 192 192h256c106 0 192-85.96 192-192S554 64 448 64zM247.1 280h-32v32c0 13.2-10.78 24-23.98 24c-13.2 0-24.02-10.8-24.02-24v-32L136 279.1C122.8 279.1 111.1 269.2 111.1 256c0-13.2 10.85-24.01 24.05-24.01L167.1 232v-32c0-13.2 10.82-24 24.02-24c13.2 0 23.98 10.8 23.98 24v32h32c13.2 0 24.02 10.8 24.02 24C271.1 269.2 261.2 280 247.1 280zM431.1 344c-22.12 0-39.1-17.87-39.1-39.1s17.87-40 39.1-40s39.1 17.88 39.1 40S454.1 344 431.1 344zM495.1 248c-22.12 0-39.1-17.87-39.1-39.1s17.87-40 39.1-40c22.12 0 39.1 17.88 39.1 40S518.1 248 495.1 248z"/></svg> Games</a>
+    <div class="divider"></div>
+    <a href="/bookmarklets" class="mobile-nav-header-item"><svg xmlns="http://www.w3.org/2000/svg" class="header-icon-sm" viewBox="0 0 384 512"><path d="M384 48V512l-192-112L0 512V48C0 21.5 21.5 0 48 0h288C362.5 0 384 21.5 384 48z"/></svg> Bookmarklets</a>
+    <a href="/settings" class="mobile-nav-header-item"><svg xmlns="http://www.w3.org/2000/svg" class="header-icon" viewBox="0 0 512 512"><path d="M495.9 166.6C499.2 175.2 496.4 184.9 489.6 191.2L446.3 230.6C447.4 238.9 448 247.4 448 256C448 264.6 447.4 273.1 446.3 281.4L489.6 320.8C496.4 327.1 499.2 336.8 495.9 345.4C491.5 357.3 486.2 368.8 480.2 379.7L475.5 387.8C468.9 398.8 461.5 409.2 453.4 419.1C447.4 426.2 437.7 428.7 428.9 425.9L373.2 408.1C359.8 418.4 344.1 427 329.2 433.6L316.7 490.7C314.7 499.7 307.7 506.1 298.5 508.5C284.7 510.8 270.5 512 255.1 512C241.5 512 227.3 510.8 213.5 508.5C204.3 506.1 197.3 499.7 195.3 490.7L182.8 433.6C167 427 152.2 418.4 138.8 408.1L83.14 425.9C74.3 428.7 64.55 426.2 58.63 419.1C50.52 409.2 43.12 398.8 36.52 387.8L31.84 379.7C25.77 368.8 20.49 357.3 16.06 345.4C12.82 336.8 15.55 327.1 22.41 320.8L65.67 281.4C64.57 273.1 64 264.6 64 256C64 247.4 64.57 238.9 65.67 230.6L22.41 191.2C15.55 184.9 12.82 175.3 16.06 166.6C20.49 154.7 25.78 143.2 31.84 132.3L36.51 124.2C43.12 113.2 50.52 102.8 58.63 92.95C64.55 85.8 74.3 83.32 83.14 86.14L138.8 103.9C152.2 93.56 167 84.96 182.8 78.43L195.3 21.33C197.3 12.25 204.3 5.04 213.5 3.51C227.3 1.201 241.5 0 256 0C270.5 0 284.7 1.201 298.5 3.51C307.7 5.04 314.7 12.25 316.7 21.33L329.2 78.43C344.1 84.96 359.8 93.56 373.2 103.9L428.9 86.14C437.7 83.32 447.4 85.8 453.4 92.95C461.5 102.8 468.9 113.2 475.5 124.2L480.2 132.3C486.2 143.2 491.5 154.7 495.9 166.6V166.6zM256 336C300.2 336 336 300.2 336 255.1C336 211.8 300.2 175.1 256 175.1C211.8 175.1 176 211.8 176 255.1C176 300.2 211.8 336 256 336z"/></svg> Settings</a>
+    <div class="divider"></div>
+    <a href="/credits" class="mobile-nav-header-item"><svg xmlns="http://www.w3.org/2000/svg" class="header-icon-sm" viewBox="0 0 448 512"><path d="M256 96H32C14.33 96 0 81.67 0 64C0 46.33 14.33 32 32 32H256C273.7 32 288 46.33 288 64C288 81.67 273.7 96 256 96zM256 352H32C14.33 352 0 337.7 0 320C0 302.3 14.33 288 32 288H256C273.7 288 288 302.3 288 320C288 337.7 273.7 352 256 352zM0 192C0 174.3 14.33 160 32 160H416C433.7 160 448 174.3 448 192C448 209.7 433.7 224 416 224H32C14.33 224 0 209.7 0 192zM416 480H32C14.33 480 0 465.7 0 448C0 430.3 14.33 416 32 416H416C433.7 416 448 430.3 448 448C448 465.7 433.7 480 416 480z"/></svg> Credits</a>
+    <a href="/docs.html" class="mobile-nav-header-item"><svg xmlns="http://www.w3.org/2000/svg" class="header-icon-sm" viewBox="0 0 448 512"><path d="M448 336v-288C448 21.49 426.5 0 400 0H352v191.1c0 13.41-15.52 20.88-25.1 12.49L272 160L217.1 204.5C207.5 212.8 192 205.4 192 191.1V0H96C42.98 0 0 42.98 0 96v320c0 53.02 42.98 96 96 96h320c17.67 0 32-14.33 32-32c0-11.72-6.607-21.52-16-27.1v-81.36C441.8 362.8 448 350.2 448 336zM384 448H96c-17.67 0-32-14.33-32-32c0-17.67 14.33-32 32-32h288V448z"/></svg> Docs</a>
+  </div>
+</div>
+
+<h1 class="title-text">Games</h1>
+<p class="subtitle-text">The ultimate distraction</p>
+
+<div class="grid">
+    <div class="games">
+        <a href="./1v1.lol"><img class="game-img" src="/games/1v1.lol/logo.png" alt=""></a>
+        <p class="game-title">1v1.lol</p>
+    </div>
+    <div class="games">
+        <a href="./fall_boys"><img class="game-img" src="/games/fall_boys/icon.png" alt=""></a>
+        <p class="game-title">Fall Boys</p>
+    </div>
+    <div class="games">
+        <a href="./osu"><img class="game-img" src="./img/os1.png" alt=""></a>
+        <p class="game-title">osu!</p>
+    </div>
+    <div class="games">
+        <a href="./baldi"><img class="game-img" src="/games/baldi/baldi.png" alt=""></a>
+        <p class="game-title">Baldi's Basics</p>
+    </div>
+    <div class="games">
+        <a href="./fnaf"><img class="game-img" src="/games/fnaf/fnaf.png" alt=""></a>
+        <p class="game-title">FNaF 1</p>
+    </div>
+    <div class="games">
+        <a href="./fnaf2"><img class="game-img" src="/games/fnaf2/fnaf2.webp" alt=""></a>
+        <p class="game-title">FNaF 2</p>
+    </div>
+    <div class="games">
+        <a href="./fnaf3"><img class="game-img" src="/games/fnaf3/fnaf3.webp" alt=""></a>
+        <p class="game-title">FNaF 3</p>
+    </div>
+    <div class="games">
+        <a href="./fnaf4"><img class="game-img" src="/games/fnaf4/fnaf4.webp" alt=""></a>
+        <p class="game-title">FNaF 4</p>
+    </div>
+    <div class="games">
+        <a href="./ul6"><img class="game-img" src="./img/ul6.png" alt=""></a>
+        <p class="game-title">Ultima 6</p>
+    </div>
+    <div class="games">
+        <a href="./doom"><img class="game-img" src="./doom/doom.png" alt=""></a>
+        <p class="game-title">Doom (1993)</p>
+    </div>
+    <div class="games">
+        <a href="./sm64"><img class="game-img" src="./img/sm64.png" alt="sm64"></a>
+        <p class="game-title">Super Mario 64</p>
+    </div>
+    <div class="games">
+        <a href="./cookie-clicker"><img class="game-img" src="./cookie-clicker/cookie-clicker.png" alt="cookie-clicker"></a>
+        <p class="game-title">Cookie Clicker</p>
+    </div>
+    <div class="games">
+        <a href="./backrooms"><img class="game-img" src="/games/backrooms/img/splash.jpg" alt=""></a>
+        <p class="game-title">The Backrooms</p>
+    </div>
+    <div class="games">
+        <a href="./vex3"><img class="game-img" src="https://is2-ssl.mzstatic.com/image/thumb/Purple128/v4/23/cc/ea/23ccea49-28e1-2327-8b95-5d05a00a312e/source/512x512bb.jpg" alt=""></a>
+        <p class="game-title">Vex 3</p>
+    </div>
+    <div class="games">
+        <a href="./vex4"><img class="game-img" src="https://store-images.s-microsoft.com/image/apps.16029.14622517353732960.576abfa8-e499-4dbe-adc4-750c6ba65c7f.72a18063-f8b6-41b6-a6ca-8d549bd33d53?mode=scale&q=90&h=200&w=200&background=%23FFFFFF" alt=""></a>
+        <p class="game-title">Vex 4</p>
+    </div>
+    <div class="games">
+        <a href="./vex5"><img class="game-img" src="data:image/jpeg;base64,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" alt=""></a>
+        <p class="game-title">Vex 5</p>
+    </div>
+    <div class="games">
+        <a href="./vex6"><img class="game-img" src="/games/vex6/logo.png" alt=""></a>
+        <p class="game-title">Vex 6</p>
+    </div>
+    <div class="games">
+        <a href="./firewater"><img class="game-img" src="/games/img/firewater.webp" alt=""></a>
+        <p class="game-title">Fireboy and<br> Watergirl 1</p>
+    </div>
+    <div class="games">
+        <a href="./firewater2"><img class="game-img" src="/games//img/firewater2.webp" alt=""></a>
+        <p class="game-title">Fireboy and<br> Watergirl 2</p>
+    </div>
+    <div class="games">
+        <a href="./2048"><img class="game-img" src="/games/img/2048.png" alt="2048"></a>
+        <p class="game-title">2048</p>
+    </div>
+    <div class="games">
+        <a href="./retro-bowl"><img class="game-img" src="/games/retro-bowl/img/icon.jpg" alt=""></a>
+        <p class="game-title">Retro Bowl</p>
+    </div>
+    <div class="games">
+        <a href="./cell-machine/"><img class="game-img" src="/games/cell-machine/img/icon.png" alt="run3"></a>
+        <p class="game-title">Cell Machine</p>
+    </div>
+    <div class="games">
+        <a href="./death-run-3d"><img class="game-img" src="/games/death-run-3d/img/death.png" alt=""></a>
+        <p class="game-title">Death Run 3D</p>
+    </div>
+    <div class="games">
+        <a href="./DogeMiner"><img class="game-img" src="/games/DogeMiner/img/dogeminer_300x300.webp" alt=""></a>
+        <p class="game-title">DogeMiner</p>
+    </div>
+    <div class="games">
+        <a href="./csgo-clicker/"><img class="game-img" src="/games/csgo-clicker/images/case_clicker.jpg" alt=""></a>
+        <p class="game-title">CSGO Clicker</p>
+    </div>
+    <div class="games">
+        <a href="./slope"><img class="game-img" src="/games/slope/slope4.jpeg" alt=""></a>
+        <p class="game-title">Slope</p>
+    </div>
+    <div class="games">
+        <a href="./mario"><img class="game-img" src="/games/mario/mario.png" alt=""></a>
+        <p class="game-title">Full Screen Mario</p>
+    </div>
+    <div class="games">
+        <a href="./game-inside/"><img loading="lazy" class="game-img" src="/games/game-inside/img/display.png" alt=""></a>
+        <p class="game-title">Game Inside</p>
+    </div>
+    <div class="games">
+        <a href="/games/doodle-jump"><img loading="lazy" class="game-img" src="/games/doodle-jump/doodle.png" alt=""></a>
+        <p class="game-title">Doodle Jump</p>
+    </div>
+    <div class="games">
+        <a href="./draw-the-hill/"><img loading="lazy" class="game-img" src="/games/draw-the-hill/icons/icon-512.png" alt=""></a>
+        <p class="game-title">Draw The Hill</p>
+    </div>
+    <div class="games">
+        <a href="./line-rider"><img loading="lazy" class="game-img" src="/games/line-rider/_v1885.0/boshicon.png" alt=""></a>
+        <p class="game-title">Line Rider</p>
+    </div>
+    <div class="games">
+        <a href="./idle-breakout/"><img loading="lazy" class="game-img" src="/games/idle-breakout/img/favicon.png" alt=""></a>
+        <p class="game-title">Idle Breakout</p>
+    </div>
+    <div class="games">
+        <a href="./ctr"><img loading="lazy" class="game-img" src="/games/ctr/images/logo.png" alt=""></a>
+        <p class="game-title">Cut The Rope</p><br>
+    </div>
+    <div class="games">
+        <a href="./ctr-holiday"><img loading="lazy" class="game-img" src="/games/ctr-holiday/Holiday_Gift.webp" alt=""></a>
+        <p class="game-title">Cut The Rope:<br>Holiday Gift</p>
+    </div>
+    <div class="games">
+        <a href="./ctr-tr"><img loading="lazy" class="game-img" src="/games/ctr-tr/logo.png" alt=""></a>
+        <p class="game-title">Cut The Rope:<br>Time Travel</p>
+    </div>
+    <div class="games">
+        <a href="./motox3m"><img loading="lazy" class="game-img" src="/games/motox3m/splash.jpg" alt=""></a>
+        <p class="game-title">Moto X3M</p><br>
+    </div>
+    <div class="games">
+        <a href="./motox3m-pool/"><img loading="lazy" class="game-img" src="/games/motox3m-pool/splash.jpg" alt=""></a>
+        <p class="game-title">Moto X3M:<br> Pool Party</p>  
+    </div>
+    <div class="games">
+        <a href="./motox3m-winter"><img loading="lazy" class="game-img" src="/games/motox3m-winter/download.jpeg" alt=""></a>
+        <p class="game-title">Moto X3M:<br> Winter</p>
+    </div>
+    <div class="games">
+        <a href="./motox3m-spooky"><img loading="lazy" class="game-img" src="/games/motox3m-spooky/splash.jpeg" alt=""></a>
+        <p class="game-title">Moto X3M:<br> Spooky</p>
+    </div>
+    <div class="games">
+        <a href="./chrome-dino"><img loading="lazy" class="game-img" src="/games/chrome-dino/icons/icon-128.png" alt=""></a>
+        <p class="game-title">Chrome Dino</p><br>
+    </div>
+    <div class="games">
+        <a href="./cannon-basketball-4/"><img loading="lazy" class="game-img" src="/games/cannon-basketball-4/img/splash.png" alt=""></a>
+        <p class="game-title">Canon Basketball<br>4</p>
+    </div>
+    <div class="games">
+        <a href="./superhot"><img loading="lazy" class="game-img" src="/games/superhot/hot.jpg" alt=""></a>
+        <p class="game-title">Superhot</p><br>
+    </div>
+    <div class="games">
+        <a href="./worlds-hardest-game/"><img loading="lazy" class="game-img" src="/games/worlds-hardest-game/images/splash.jpg" alt=""></a>
+        <p class="game-title">World's Hardest<br>Game</p>
+    </div>
+    <div class="games">
+        <a href="./worlds-hardest-game-2"><img loading="lazy" class="game-img" src="/games/worlds-hardest-game/images/splash.jpg" alt=""></a>
+        <p class="game-title">World's Hardest<br>Game 2</p>
+    </div>
+    <div class="games">
+        <a href="./you-are-bezos"><img loading="lazy" class="game-img" src="/games/you-are-bezos/img/banner.png" alt=""></a>
+        <p class="game-title">You are<br>Jeff Bezos</p>
+    </div>
+    <div class="games">
+        <a href="./solitaire/"><img loading="lazy" class="game-img" src="/games/solitaire/img/solitaire-32x32.png" alt=""></a>
+        <p class="game-title">Solitaire</p>
+    </div>
+    <div class="games">
+        <a href="./evil-glitch"><img loading="lazy" class="game-img" src="/games/evil-glitch/icon.jpeg" alt=""></a>
+        <p class="game-title">Evil Glitch</p>
+    </div>
+    <div class="games">
+        <a href="./google-snake/"><img loading="lazy" class="game-img" src="/games/google-snake/img/snake.png" alt=""></a>
+        <p class="game-title">Snake</p>
+    </div>
+    <div class="games">
+        <a href="./just-one-boss/"><img loading="lazy" class="game-img" src="/games/just-one-boss/pv1Gr5.png" alt=""></a>
+        <p class="game-title">Just One Boss</p>
+    </div>
+    <div class="games">
+        <a href="./grindcraft/"><img loading="lazy" class="game-img" src="/games/grindcraft/img/splash.png" alt=""></a>
+        <p class="game-title">Grindcraft</p>
+    </div>
+    <div class="games">
+        <a href=""><img class="game-img" src="" alt=""></a>
+    </div>
+    <div class="games">
+        <a href=""><img class="game-img" src="" alt=""></a>
+    </div>
+    <div class="games">
+        <a href=""><img class="game-img" src="" alt=""></a>
+    </div>
+    <div class="games">
+        <a href=""><img class="game-img" src="" alt=""></a>
+    </div>
+        </div>
+  </div>
+
+  <div id="footer">
+    <div class="footerflex">
+        <div class="footerbrand">
+            <h3><a href="/">Alu's Unblocker</a></h3>
+            <p>Made with ❤️ by <a href="#">wearr</a></p>
+        </div>
+        <div class="footerlist">
+            <h3>Services</h3>
+            <ul>
+                <li><a target="_blank" href="https://github.com/titaniumnetwork-dev/Ultraviolet">Ultraviolet</a></li>
+                <li><a target="_blank" href="https://github.com/binary-person/rammerhead">Rammerhead</a></li>
+            </ul>
+        </div>
+        <div class="footerlist">
+            <h3>Socials</h3>
+            <ul>
+                <li><a target="_blank" href="https://github.com/titaniumnetwork-dev/Holy-Unblocker">GitHub</a></li>
+                <li><a href="/terms.html">Instagram</a></li>
+                <div class="tooltip">
+                    <span class="tooltiptext" id="myTooltip">Copy to clipboard</span>
+                    <li><a onclick="copyDiscord();" onmouseout="outFunc();" class="discord-text">Discord</a></li>
+                </div>
+            </ul>
+        </div>
+    </div>
+    <p class="copyright">Alu's Unblocker &copy; 2022</p>
+    </div>
+</body>
+</html>

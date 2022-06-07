@@ -1,0 +1,34 @@
+var cssId = 'main';  // you could encode the css path itself to generate id..
+
+ if (!document.getElementById(cssId))
+
+    var head  = document.getElementsByTagName('head')[0];
+    var link  = document.createElement('link');
+    {
+        if (localStorage.getItem('siteTheme') == "Light") {
+            link.href = "https://alusunlocker.gq/css/light/proxies.css"
+        } else {
+            link.href = 'https://alusunblocker.gq/css/dark/proxies.css';
+        }
+    link.type = 'text/css';
+    link.id   = cssId;
+    link.rel  = 'stylesheet';
+    head.appendChild(link);
+}
+var cssId = 'boilerplate';  // you could encode the css path itself to generate id..
+
+ if (!document.getElementById(cssId))
+
+    var head  = document.getElementsByTagName('head')[0];
+    var link  = document.createElement('link');
+    {
+        if (localStorage.getItem('siteTheme') == "Light") {
+            link.href = "https://alusunblocker.gq/css/light/boilerplate.css"
+        } else {
+            link.href = 'http://alusunblocker.gq/css/dark/boilerplate.css';
+        }
+    link.type = 'text/css';
+    link.id   = cssId;
+    link.rel  = 'stylesheet';
+    head.appendChild(link);
+}
