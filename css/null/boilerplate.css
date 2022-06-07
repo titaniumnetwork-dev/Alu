@@ -1,0 +1,509 @@
+@import url("https://fonts.googleapis.com/css2?family=Varela+Round&display=swap");
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.menu-bar {
+  width: 2rem;
+  fill: #eaecef;
+}
+.header-icon {
+  width: 20px;
+  fill: #eaecef;
+}
+.header-icon-sm {
+  width: 15px;
+  fill: #eaecef;
+}
+body {
+    font-family: 'Varela Round', sans-serif;
+    background-color: #46494C;
+    max-width: 100vw;
+    margin: 0;
+}
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+    /* Support for IE. */
+    -webkit-font-feature-settings: 'liga';
+            font-feature-settings: 'liga';
+}
+.card {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    position: relative;
+    background-color: #1985A1;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-top: 3rem;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+.mid-content-title {
+    font-size: 1.5em;
+    color: #D8DEE9;
+  }
+  
+  .middle-content {
+    font-size: 1.5rem;
+    text-align: center;
+    color: #D8DEE9;
+  }
+  .main-content {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin-top: 50px;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  
+  .fade-in {
+    -webkit-animation: fadein 1s;
+            animation: fadein 1s;
+  }
+  
+  @-webkit-keyframes fadein {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes fadein {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  .title-text {
+    color: white;
+    text-align: center;
+  }
+  
+  .subtitle-text {
+    text-align: center;
+    color: #D8DEE9;
+    font-size: 1.5rem;
+  }
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+    /* Support for IE. */
+    -webkit-font-feature-settings: 'liga';
+            font-feature-settings: 'liga';
+  }
+  
+  @media only screen and (max-width: 1269px) {
+    .header-item {
+      display: none !important;
+    }
+    .mobile-toggle {
+      display: -webkit-box !important;
+      display: -ms-flexbox !important;
+      display: flex !important;
+    }
+  }
+  
+  /* mobile support moment*/
+.mobile-toggle {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    cursor: pointer;
+    color: #D8DEE9;
+    text-decoration: none;
+    -webkit-transition: 750ms ease-in-out;
+    transition: 750ms ease-in-out;
+    margin-left: 20px;
+  }
+
+  @media only screen and (min-width: 1269px) {
+    .mobile-header {
+      height: 0%;
+    }
+  }
+  
+  .top-header {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    -webkit-transition: 250ms ease-in;
+    transition: 250ms ease-in;
+  }
+  
+  .title-background {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    height: 90px;
+    width: 100%;
+    background-color: #1985A1;
+    font-size: 1.05rem;
+    list-style-type: none;
+    border: none !important;
+    z-index: 10;
+    -webkit-transition: 250ms ease-in;
+    transition: 250ms ease-in;
+  }
+  
+  @media only screen and (max-width: 1003px) {
+    .title-background {
+      width: 500%;
+    }
+  }
+  
+  .title {
+    color: #D8DEE9;
+    margin-left: 3rem;
+    text-decoration: none;
+    -webkit-transition: 500ms;
+    transition: 500ms;
+  }
+  
+  .title:hover {
+    font-size: 1.11em;
+  }
+  
+  .header {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    font-size: 1.05rem;
+    width: 100%;
+    margin: 0 auto;
+    -webkit-box-pack: right;
+        -ms-flex-pack: right;
+            justify-content: right;
+    list-style-type: none;
+    gap: 3rem;
+    -webkit-box-align: end;
+        -ms-flex-align: end;
+            align-items: flex-end;
+    background-color: #81A1C1;
+    padding: 2%;
+    height: 90px;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  
+  .header-item {
+    color: #D8DEE9;
+    text-decoration: none;
+    -webkit-transition: 350ms ease-in-out;
+    transition: 350ms ease-in-out;
+  }
+  
+  .header-item:hover {
+    font-size: 1.07em;
+}
+.sidenav {
+    overflow: hidden;
+    height: 100%;
+    /* 100% Full-height */
+    width: 0;
+    /* 0 width - change this with JavaScript */
+    position: fixed;
+    /* Stay in place */
+    z-index: 11;
+    /* Stay on top */
+    top: 0;
+    /* Stay at the top */
+    left: 0;
+    background-color: #3a3c3e;
+    padding-top: 60px;
+    /* Place content 60px from the top */
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+  }
+  
+  /* The navigation menu links */
+  .sidenav a {
+    width: 100vw;
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    color: #ffffff;
+    display: block;
+    overflow: hidden;
+  }
+  
+  /* When you mouse over the navigation links, change their color */
+  .sidenav a:hover {
+    color: #D8DEE9;
+  }
+  
+  /* Position and style the close button (top right corner) */
+  .sidenav .closebtn {
+    position: absolute;
+    top: 12px;
+    left: 0;
+    font-size: 36px;
+    cursor: pointer;
+  }
+  
+  /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+  @media screen and (max-height: 450px) {
+    .sidenav {
+      padding-top: 15px;
+    }
+    .sidenav a {
+      font-size: 18px;
+    }
+  }
+  
+  .divider {
+    width: 100%;
+    height: 2px;
+    background-color: #DCDCDD;
+    margin-top: 5px;
+    margin-bottom: 10px;
+  }
+
+  .tooltip {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 140px;
+    background-color: #D8DEE9;
+    color: #3B4252;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: -200%;
+    left: 50%;
+    margin-left: -75px;
+    opacity: 0;
+    -webkit-transition: opacity 0.3s;
+    transition: opacity 0.3s;
+  }
+  
+  .tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: -30%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #D8DEE9 transparent transparent transparent;
+    -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+  }
+  
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+  }
+  
+  .discord-text {
+    position: relative;
+    left: 1.5px;
+    text-decoration: underline;
+  }
+
+  .btn-icn {
+    width: 2rem;
+    fill: #D8DEE9;
+  }
+  .patreon {
+    margin-top: 5px;
+  }
+
+.donate-button {
+  border: none;
+  cursor: pointer;
+  -ms-flex-negative: 1;
+      flex-shrink: 1;
+  position: inherit;
+}
+
+#footer {
+  -webkit-transform: translateY(140px);
+          transform: translateY(140px);
+  padding-top: 20vw;
+  background-image: url("/img/darkwaves.svg");
+  background-repeat: no-repeat;
+  background-size: 100vw auto;
+}
+
+@media only screen and (max-width: 800px) {
+  #footer {
+    display: none;
+  }
+}
+
+.footerflex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.footersocials {
+  text-align: center;
+}
+
+.footerflex > div {
+  margin: 25px 50px;
+}
+
+@media only screen and (max-width: 600px) {
+  .footerflex > div {
+    margin: 15px 25px;
+  }
+}
+
+@media only screen and (max-width: 380px) {
+  .footerflex > div {
+    margin: 5px 10px;
+  }
+}
+
+.footerbrand h3 a {
+  font-family: 'Varela Round', sans-serif;
+  color: #fff !important;
+}
+
+.footerbrand h3 a:hover {
+  text-decoration: underline !important;
+}
+
+.footerbrand p {
+  font-family: 'Varela Round', sans-serif;
+  color: #fff;
+  margin-top: 20px;
+}
+
+.footerbrand a {
+  font-family: 'Varela Round', sans-serif;
+  color: #fff;
+}
+
+.footerlist ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footerlist ul > li {
+  padding: 2px;
+}
+
+.footerlist ul > li > a {
+  color: #fff;
+}
+
+.footerlist > * {
+  font-family: 'Varela Round', sans-serif;
+  color: #fff;
+}
+
+.footersocials {
+  font-size: 20px;
+}
+
+.footersocials a {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  padding: 6px;
+  margin: 0 5px;
+  border-radius: 50%;
+}
+
+.copyright {
+  color: #D8DEE9;
+  text-align: center;
+}
+.credits {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  
+  .credit-item {
+    color: #D8DEE9;
+  }

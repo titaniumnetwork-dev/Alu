@@ -1,0 +1,49 @@
+.proxy-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    width: 150px;
+    height: 100px;
+    padding: 20px;
+  }
+  
+  .proxy-list {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    width: 50%;
+  }
+  
+  .proxy-list-item {
+    color: white;
+    text-decoration: none;
+    background-color: #4C566A;
+    padding: 20px;
+    font-size: 1.25rem;
+    border-radius: 35px;
+    -webkit-transition: 250ms ease-in-out;
+    transition: 250ms ease-in-out;
+  }
+  
+  .proxy-list-item:hover {
+    color: #D8DEE9;
+    background-color: #464e61;
+  }
+  
+  @media only screen and (max-width: 680px) {
+    .proxy-list {
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+          -ms-flex-direction: column;
+              flex-direction: column;
+      -webkit-box-align: center;
+          -ms-flex-align: center;
+              align-items: center;
+      text-align: center;
+    }
+  }

@@ -1,0 +1,73 @@
+.options {
+    text-align: center;
+    padding: 5px;
+    color: #D8DEE9;
+    list-style: none;
+  }
+  
+  .games {
+    border: 2px solid #D8DEE9;
+    padding: 1rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  
+  .grid {
+    color: #fff;
+    margin-top: -10px;
+    height: -webkit-max-content;
+    height: -moz-max-content;
+    height: max-content;
+    width: calc(100% - 60px);
+    -webkit-columns: 3 auto;
+            columns: 3 auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    text-align: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    gap: 1rem;
+    margin-left: 20px;
+  }
+  
+  @media only screen and (max-width: 973px) {
+    .grid {
+      grid-template-columns: repeat(3, 1fr);
+      padding: 0;
+    }
+  }
+  
+  @media only screen and (max-width: 467px) {
+    .grid {
+          grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  .game-img {
+    width: 128px;
+    height: 128px;
+  }
+  
+  .game-title {
+    color: white;
+    text-align: center;
+  }

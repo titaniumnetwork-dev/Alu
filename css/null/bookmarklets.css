@@ -1,0 +1,47 @@
+.bookmarklets {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    gap: 1rem;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  
+  .bookmarklet-btn {
+    color: #D8DEE9;
+    padding: 4px;
+    cursor: pointer;
+    border: 2px solid white;
+    -webkit-transition: background-color 300ms ease-in-out;
+    transition: background-color 300ms ease-in-out;
+  }
+  
+  .bookmarklet-btn:hover {
+    background-color: #232831;
+  }
+  
+  .bookmarklets > a {
+    width: 15%;
+    text-align: center;
+  }
+  
+  @media only screen and (max-width: 629px) {
+    .bookmarklets > a {
+      width: -webkit-fit-content;
+      width: -moz-fit-content;
+      width: fit-content;
+    }
+  }
+  
+  .note {
+    color: #D8DEE9;
+    text-align: center;
+  }

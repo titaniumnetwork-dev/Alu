@@ -1,0 +1,62 @@
+.proxies-button {
+    color: #393b3e;
+    text-decoration: none;
+    padding: 15px;
+    padding-left: 40px;
+    padding-right: 40px;
+    border: 5px solid rgb(35, 35, 35);
+    -webkit-transition: 400ms ease-out;
+    transition: 400ms ease-out;
+    border-radius: 30px;
+  }
+.proxies-button:hover {
+    background-color: #393b3e;
+    color: rgb(228, 228, 228);
+}
+  
+  
+  .get-involved {
+    width: 100%;
+  }
+  
+  .gi-title {
+    text-align: center;
+    color: #2b2b2b;
+  }
+  
+  .gi-card {
+    width: 80%;
+    margin: auto;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    background-color: #641ddf;
+    border-radius: 1em;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  
+  .donate {
+    color: #D8DEE9;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .buttons {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    gap: 5em;
+  }
