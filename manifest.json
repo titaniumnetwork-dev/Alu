@@ -1,0 +1,17 @@
+{
+	"lang": "en",
+	"dir": "ltr",
+	"name": "Alu's Unblocker",
+	"short_name": "Alu's UB",
+	"description": "Access your favorite websites from anywhere",    
+	"icons": [{
+		"src": "/favicon.png",
+		"sizes": "512x512",
+		"type": "image/png",
+		"purpose": "any maskable"
+	}],
+	"start_url": "/",
+	"display": "standalone",
+	"theme_color": "#81A1C1",
+	"background_color": "#ffffff"
+}
