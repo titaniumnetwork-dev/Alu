@@ -1,0 +1,21 @@
+---
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import Layout from "../layouts/Layout.astro";
+
+---
+
+<Layout title="404 | Alu">
+    <Header></Header>
+    <div class="main-content error-page">
+        <h1>404!</h1>
+        <p>The content you have requested could not be found!</p>
+    </div>
+    <Footer></Footer>
+</Layout>
+
+<style>
+    .error-page {
+        color: white
+    }
+</style>

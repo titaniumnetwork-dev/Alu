@@ -7,26 +7,19 @@ import UVRegistrar from '../components/UVRegistrar.astro';
 
 <Layout title="Alu's Unblocker">
 	<Header></Header>
-	<div class="main-content" data-barba="container" data-barba-namespace="home">
+	<div class="main-content">
 		<h1 id="title-text" class="title-text">Welcome to Alu</h1>
 		<form>
 			<input placeholder="Enter a URL...">
 		</form>
 		<p id="loading-content">Loading Content...</p>
 	</div>
-	<UVRegistrar></UVRegistrar>
+  <UVRegistrar></UVRegistrar>
+
 	<Footer></Footer>
 </Layout>
 
 <style>
-.main-content {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-	width: 100%;
-	height: 60vh;
-}
 form {
   width: 30%;
 }

@@ -25,6 +25,10 @@ app.use(express.urlencoded({
 app.use("/", express.static('dist/client/'));
 app.use(ssrHandler);
 
+app.get('*', function(req, res){
+  res.status(200).sendFile("404.html", {root: path.resolve("dist/client")});
+});
+
 server.on("request", (req, res) => {
     if (bareServer.shouldRoute(req)) {
       bareServer.routeRequest(req, res);
