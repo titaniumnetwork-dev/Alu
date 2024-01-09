@@ -1,0 +1,29 @@
+---
+const { name, image, slugName } = Astro.props;
+---
+
+<div class="game">
+    <a href=`./${slugName || name}`><img class="game-img" src=`${image}` alt=""></a>
+    <p class="game-title">{name}</p>
+</div>
+
+<style>
+.game {
+    border: 2px solid #D8DEE9;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.game-img {
+    width: 128px;
+    height: 128px;
+}
+
+.game-title {
+    color: white;
+    text-align: center;
+    max-width: 125px;
+}
+</style>
