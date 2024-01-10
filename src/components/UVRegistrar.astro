@@ -23,8 +23,6 @@
         iframe.addEventListener('load', () => {
             let topBar = document.getElementById('top-bar');
             loadingContent.style.opacity = 0;
-            iframe.style.opacity = 1;
-            topBar.style.opacity = 1;
             topBar.innerHTML = "";
             topBar.classList.add("top-bar");
             let closeButton = document.createElement('button');
@@ -39,6 +37,8 @@
             let urlText = document.createElement('p');
             urlText.classList.add("url-text");
             urlText.innerText = url
+            iframe.style.opacity = 1;
+            topBar.style.opacity = 1;
             topBar.style.pointerEvents = "auto";
             topBar.appendChild(closeButton);
             topBar.appendChild(urlText);
