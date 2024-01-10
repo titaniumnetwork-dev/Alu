@@ -1,22 +1,17 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
 import UVRegistrar from '../components/UVRegistrar.astro';
 ---
 
-<Layout title="Alu's Unblocker">
-	<Header></Header>
+<Layout title="Alu">
 	<div class="main-content">
-		<h1 id="title-text" class="title-text">Welcome to Alu</h1>
-		<form>
-			<input placeholder="Enter a URL...">
-		</form>
-		<p id="loading-content">Loading Content...</p>
+		<h1 class="title-text">Welcome to Alu</h1>
+    <form class="url-input-form" id="url-input-form">
+      <input class="url-input" type="text" placeholder="Search...">
+      <div id="loading-content">Loading...</div>
+    </form>
 	</div>
   <UVRegistrar></UVRegistrar>
-
-	<Footer></Footer>
 </Layout>
 
 <style>
@@ -24,27 +19,44 @@ form {
   width: 30%;
 }
 
-form > input {
-  background-color: #393b3e;
+.title-text {
+  font-size: 38px;
+}
+
+.url-input-form {
+  border: none;
+  padding: 0;
+}
+
+.url-input {
+  display: block;
+  background: transparent url("/img/search.svg") no-repeat 13px center;
+}
+
+.url-input {
+  background-color: #080808;
   color: #D8DEE9;
-  border: 5px solid white;
+  border: 3px solid white;
   border-radius: 30px;
   padding: 15px;
   width: 100%;
   text-align: center;
   transition: 400ms ease-out;
   outline: none;
+  font-family: 'Varela Round', sans-serif;
+  font-size: 16px;
 }
 
-form > input::placeholder {
+.url-input::placeholder {
   color: #D8DEE9;
 }
 
 #loading-content {
   color: white;
-  padding: 3px;
+  padding: 8px;
   position: relative;
   opacity: 0;
   transition: 250ms ease-in-out;
+  text-align: center;
 }
 </style>

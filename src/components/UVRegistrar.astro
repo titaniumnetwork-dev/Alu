@@ -9,16 +9,73 @@
   
   form.addEventListener('submit', (event) => {
       event.preventDefault();
+        let loadingContent = document.getElementById('loading-content');
+        loadingContent.style.opacity = 1;
         let url = input.value.trim();
         if (!isUrl(url)) url = 'https://www.google.com/search?q=' + url;
         else if (!(url.startsWith('https://') || url.startsWith('http://'))) url = 'http://' + url;
-        let loadingContent = document.getElementById('loading-content');
-        if (loadingContent) loadingContent.style.opacity = "1";
 
-        console.log("here")
-          
-        window.location.href = window.__uv$config.prefix + window.__uv$config.encodeUrl(url);
+        let iframe = document.createElement('iframe');
+        iframe.src = window.__uv$config.prefix + window.__uv$config.encodeUrl(url);
+        iframe.classList.add("proxy-frame");
+        iframe.style.opacity = 0;
+        document.body.appendChild(iframe);
+        iframe.addEventListener('load', () => {
+            loadingContent.style.opacity = 0;
+            iframe.style.opacity = 1;
+            let topBar = document.createElement('div');
+            topBar.classList.add("top-bar");
+            let closeButton = document.createElement('button');
+            closeButton.classList.add("close-button")
+            closeButton.innerText = "Close";
+            closeButton.addEventListener('click', () => {
+                iframe.style.opacity = 0;
+                topBar.style.opacity = 0;
+                setTimeout(() => {
+                    iframe.remove();
+                    topBar.remove();
+                }, 500);
+            });
+            let urlText = document.createElement('p');
+            urlText.classList.add("url-text");
+            urlText.innerText = url
+            topBar.appendChild(closeButton);
+            topBar.appendChild(urlText);
+            document.body.appendChild(topBar);
+        })
   });
+
+//   function checkReadyState(iframe) {
+//     // Recursive function that checks if the iframe is ready to be used.
+//     console.log(iframe.contentWindow.document.readyState)
+//     if (iframe.contentWindow.document.readyState === "complete") {
+//             // The iframe is ready to be used.
+//             // We can now add the top bar.
+//             let topBar = document.createElement('div');
+//             topBar.classList.add("top-bar");
+//             let backButton = document.createElement('button');
+//             backButton.classList.add("back-button");
+//             backButton.innerHTML = "Back";
+//             backButton.addEventListener('click', (event) => {
+//                 iframe.remove();
+//                 topBar.remove();
+//             });
+//             let urlText = document.createElement('p');
+//             urlText.classList.add("url-text");
+//             urlText.innerHTML = iframe.src;
+//             topBar.appendChild(backButton);
+//             topBar.appendChild(urlText);
+//             document.body.appendChild(topBar);
+//             } else {
+//             // The iframe is not ready yet.
+//             // We will wait 100ms and then check again.
+//             setTimeout(() => {
+//                 console.log("Not ready...")
+//                 checkReadyState(iframe);
+//             }, 100);
+//         }
+
+//   }
   
   function isUrl(val = ''){
       if (/^http(s?):\/\//.test(val) || val.includes('.') && val.substr(0, 1) !== ' ') return true;

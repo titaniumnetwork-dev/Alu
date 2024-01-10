@@ -1,12 +1,10 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import GameItem from "../components/GameItem.astro";
 ---
 
-<Layout title="Games | Alu's Unblocker">
-    <Header />
+<Layout title="Games | Alu">
     <h1 class="title-text">Games</h1>
         <div class="grid">
             <GameItem name="1v1.lol" image="/games/1v1.lol/logo.png"></GameItem>
@@ -62,7 +60,6 @@ import GameItem from "../components/GameItem.astro";
             <GameItem name="World's Hardest Game 2" image="/games/worlds-hardest-game-2/logo.png" slugName="worlds-hardest-game-2"></GameItem>
             <GameItem name="You are Bezos" image="/games/you-are-bezos/logo.png" slugName="you-are-bezos"></GameItem>
         </div>
-    <Footer />
 </Layout>
 
 <style>
