@@ -1,0 +1,29 @@
+---
+import Switch from "../components/Switch.astro";
+import TabList from "../components/TabList.astro";
+import Layout from "../layouts/Layout.astro";
+
+---
+
+<Layout title="Settings | Alu">
+    <h1 class="title-text">Settings</h1>
+    <TabList></TabList>
+
+</Layout>
+
+<style>
+    .switch-group {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .switch-group-item {
+        display: flex;
+        justify-items: center;
+        align-items: center;
+        gap: 10px;
+    }
+    .switch-title {
+        color: white;
+    }
+</style>
