@@ -83,23 +83,27 @@ body > * {
     width: 100%;
     height: 60vh;
 }
-.proxy-frame {
+#proxy-frame {
   display: block;
   position: absolute;
   z-index: 1000;
   width: 100vw;
-  height: 90vh;
-  top: 10vh;
+  height: 100vh;
+  top: 5vh;
   border: none;
   background-color: #080808;
-  transition: opacity 250ms ease-in-out
+  transition: opacity 250ms ease-in-out;
+  pointer-events: none;
+}
+#proxy-frame {
+  opacity: 0;
 }
 .top-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 1rem;
-  height: 10vh;
+  height: 5vh;
   background-color: #080808;
   color: white;
   position: fixed;
@@ -108,6 +112,7 @@ body > * {
   width: 100vw;
   z-index: 100;
   transition: opacity 250ms ease-in-out;
+  pointer-events: none;
 }
 .close-button {
   padding: 5px;

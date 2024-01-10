@@ -15,15 +15,17 @@
         if (!isUrl(url)) url = 'https://www.google.com/search?q=' + url;
         else if (!(url.startsWith('https://') || url.startsWith('http://'))) url = 'http://' + url;
 
-        let iframe = document.createElement('iframe');
+        let iframe = document.getElementById('proxy-frame');
         iframe.src = window.__uv$config.prefix + window.__uv$config.encodeUrl(url);
+        iframe.style.pointerEvents = "auto";
         iframe.classList.add("proxy-frame");
-        iframe.style.opacity = 0;
         document.body.appendChild(iframe);
         iframe.addEventListener('load', () => {
+            let topBar = document.getElementById('top-bar');
             loadingContent.style.opacity = 0;
             iframe.style.opacity = 1;
-            let topBar = document.createElement('div');
+            topBar.style.opacity = 1;
+            topBar.innerHTML = "";
             topBar.classList.add("top-bar");
             let closeButton = document.createElement('button');
             closeButton.classList.add("close-button")
@@ -31,14 +33,13 @@
             closeButton.addEventListener('click', () => {
                 iframe.style.opacity = 0;
                 topBar.style.opacity = 0;
-                setTimeout(() => {
-                    iframe.remove();
-                    topBar.remove();
-                }, 500);
+                iframe.style.pointerEvents = "none";
+                topBar.style.pointerEvents = "none";
             });
             let urlText = document.createElement('p');
             urlText.classList.add("url-text");
             urlText.innerText = url
+            topBar.style.pointerEvents = "auto";
             topBar.appendChild(closeButton);
             topBar.appendChild(urlText);
             document.body.appendChild(topBar);
