@@ -1,22 +1,69 @@
+<div class="content-hidden">
+    <div id="content-setting-tab-proxy">
+        <h1 style="color: white;">Proxy</h1>
+        <p style="color: white;">Proxy settings</p>
+    </div>
+    <div id="content-setting-tab-customization">
+        <h1 style="color: white;">Customization</h1>
+        <p style="color: white;">Customization settings</p>
+    </div>
+    <div id="content-setting-tab-cloaking">
+        <h1 style="color: white;">Cloaking</h1>
+        <p style="color: white;">Cloaking settings</p>
+    </div>
+    <div id="content-setting-tab-credits">
+        <h1 style="color: white;">Credits</h1>
+        <p style="color: white;">Credits settings</p>
+    </div>
+</div>
+
 <div class="popup">
     <div class="tabs">
-          <input type="radio" id="tab1" name="tab" checked="true">        
-        <label for="tab1">Proxy</label>
-          <input type="radio" id="tab2" name="tab">
-        <label for="tab2">Customization</label>
-          <input type="radio" id="tab3" name="tab">
-        <label for="tab3">Cloaking</label>
-          <input type="radio" id="tab4" name="tab">
-        <label for="tab4">Credits</label>
+          <input type="radio" id="setting-tab-proxy" class="setting-tab" name="tab" checked="true">        
+        <label for="setting-tab-proxy">Proxy</label>
+          <input type="radio" id="setting-tab-customization" class="setting-tab" name="tab">
+        <label for="setting-tab-customization">Customization</label>
+          <input type="radio" id="setting-tab-cloaking" class="setting-tab" name="tab">
+        <label for="setting-tab-cloaking">Cloaking</label>
+          <input type="radio" id="setting-tab-credits" class="setting-tab" name="tab">
+        <label for="setting-tab-credits">Credits</label>
         <div class="marker">
            <div id="top"></div>
            <div id="bottom"></div>
         </div>
     </div>
-    
+    <div id="current-content">
+        <h1 style="color: white;">Testing testing</h1>
+    </div>
   </div>
-
+  <script>
+    Array.from(document.getElementsByClassName('setting-tab')).forEach((tab)=>{
+        tab.addEventListener('click', (event: any) =>{
+            loadContent(event.target.id)
+        })
+    })
+    let currentlySelectedTab: string;
+    function loadContent(tabToLoad: string) {
+        if (currentlySelectedTab == tabToLoad) return
+        else currentlySelectedTab = tabToLoad
+        let currentContent = document.getElementById('current-content')
+        let contentToLoad = document.getElementById('content-' + tabToLoad)
+        if (currentContent && contentToLoad) {
+            currentContent.style.opacity = '0'
+            setTimeout(() => {
+                currentContent!.innerHTML = contentToLoad!.innerHTML
+                currentContent!.style.opacity = '1'
+            }, 250);
+        }
+    }
+</script>
 <style>
+.content-hidden {
+    display: none;
+}
+#current-content {
+    transition: opacity 250ms ease-in-out;
+}
 label{
   font-size: 24px;
   font-weight: 700; 
@@ -29,6 +76,8 @@ label{
   text-align: right; 
   z-index: 100; 
   user-select: none;
+  text-align: start;
+  margin-left: 20px;
 }
 input[type="radio"]{
   display: none;
@@ -38,7 +87,7 @@ label:hover, input[type="radio"]:checked+label {
   opacity: 1; 
 }
 .popup{
-  width: 80%;
+  width: 800px;
   height: 80%;
   min-height: 400px; 
   max-height: 400px; 
@@ -59,6 +108,7 @@ label:hover, input[type="radio"]:checked+label {
   flex-direction: column; 
   justify-content: space-around; 
   position: relative;
+  gap: 25px
 }
 .marker{
   position: absolute; 
@@ -83,8 +133,8 @@ label:hover, input[type="radio"]:checked+label {
   height: calc(50% - 72px);
   border-radius: 0 32px 0 0; 
 }
-#tab1:checked ~ .marker{transform: translateY(calc(calc(7% / 6) * 1));}
-#tab2:checked ~ .marker{transform: translateY(calc(calc(80% / 6) * 1));}
-#tab3:checked ~ .marker{transform: translateY(calc(calc(78% / 6) * 2));}
-#tab4:checked ~ .marker{transform: translateY(calc(calc(77% / 6) * 3));}
+#setting-tab-proxy:checked ~ .marker{transform: translateY(0%)}
+#setting-tab-customization:checked ~ .marker{transform: translateY(13.5%)}
+#setting-tab-cloaking:checked ~ .marker{transform: translateY(27%)}
+#setting-tab-credits:checked ~ .marker{transform: translateY(40.5%)}
 </style>
