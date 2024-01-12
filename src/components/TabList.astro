@@ -1,7 +1,12 @@
+---
+import Dropdown from "./Dropdown.astro";
+---
+
 <div class="content-hidden">
     <div id="content-setting-tab-proxy">
         <h1 style="color: white;">Proxy</h1>
-        <p style="color: white;">Proxy settings</p>
+        <p style="color: white; font-size: 18px;">Selected Proxy</p>
+        <Dropdown></Dropdown>
     </div>
     <div id="content-setting-tab-customization">
         <h1 style="color: white;">Customization</h1>
@@ -33,29 +38,92 @@
         </div>
     </div>
     <div id="current-content">
-        <h1 style="color: white;">Testing testing</h1>
+        
     </div>
   </div>
-  <script>
+  <script is:inline>
+    let currentlySelectedTab;
+    let loadedContentStorage = {}
+
     Array.from(document.getElementsByClassName('setting-tab')).forEach((tab)=>{
-        tab.addEventListener('click', (event: any) =>{
-            loadContent(event.target.id)
-        })
+      let contentToLoad = document.getElementById('content-' + tab.id)
+      if (contentToLoad) {
+        loadedContentStorage[tab.id] = contentToLoad.innerHTML
+        contentToLoad.remove()
+      }
+
+      tab.addEventListener('click', (event) => {
+        loadContent(event.target.id)
+      })
     })
-    let currentlySelectedTab: string;
-    function loadContent(tabToLoad: string) {
-        if (currentlySelectedTab == tabToLoad) return
-        else currentlySelectedTab = tabToLoad
+
+    function loadContent(tabID) {
+      if (currentlySelectedTab == tabID) return
+        else currentlySelectedTab = tabID
         let currentContent = document.getElementById('current-content')
-        let contentToLoad = document.getElementById('content-' + tabToLoad)
-        if (currentContent && contentToLoad) {
-            currentContent.style.opacity = '0'
-            setTimeout(() => {
-                currentContent!.innerHTML = contentToLoad!.innerHTML
-                currentContent!.style.opacity = '1'
-            }, 250);
+        if (currentContent) {
+          currentContent.style.opacity = '0'
+          setTimeout(() => {
+            currentContent.innerHTML = loadedContentStorage[tabID]
+            currentContent.style.opacity = '1'
+            document.dispatchEvent(new CustomEvent('setting-tabChange', {detail: tabID}))
+            document.dispatchEvent(new CustomEvent('setting-tabLoad', {detail: 'setting-tab-proxy'}))
+          }, 250);
         }
     }
+    document.addEventListener('setting-tabChange', (event) => {
+      if (event.detail == "setting-tab-proxy") {
+        addDropdownListener()
+
+      }
+    })
+    loadContent('setting-tab-proxy')
+
+    function addDropdownListener() {
+      let dropdown_toggle = document.getElementById('dropdown-toggle');
+        if (dropdown_toggle) {
+            dropdown_toggle.addEventListener('click', () => {
+            let dropdown = document.getElementsByClassName('dropdown-menu')[0];
+            if (dropdown) {
+                if (dropdown.style.height == '0px' || dropdown.style.height == '') {
+                    dropdown.style.height = '80px';
+                    dropdown_toggle.style.borderRadius = '10px 10px 0 0';
+                } else {
+                    dropdown.style.height = '0px';
+                    setTimeout(() => {
+                        dropdown_toggle.style.borderRadius = '10px';
+                    }, 300);
+                }
+            }
+    
+        });
+        }
+    }
+
+    document.addEventListener('setting-tabLoad', (event) => {
+      if (event.detail == "setting-tab-proxy") {
+        if (localStorage.getItem('selectedProxy')) {
+          let dropdown_toggle = document.getElementById('dropdown-toggle');
+
+          if (dropdown_toggle) {
+            dropdown_toggle.innerText = localStorage.getItem('selectedProxy').charAt(0).toUpperCase() + localStorage.getItem('selectedProxy').slice(1)
+          }
+        }
+        Array.from(document.getElementsByClassName('dropdown-item')).forEach((item) => {
+            item.addEventListener('click', (event) => {
+              console.log(event.target.dataset)
+              localStorage.setItem('selectedProxy', event.target.dataset.setting)
+              let dropdown = document.getElementsByClassName('dropdown-menu')[0];
+              if (dropdown) {
+                let dropdown_toggle = document.getElementById('dropdown-toggle');
+                dropdown_toggle.innerText = event.target.innerText
+                dropdown.style.height = '0px';
+                dropdown_toggle.style.borderRadius = '10px';
+              }
+            })
+          })
+        }
+      })
 </script>
 <style>
 .content-hidden {
@@ -63,6 +131,7 @@
 }
 #current-content {
     transition: opacity 250ms ease-in-out;
+    margin-left: 20px;
 }
 label{
   font-size: 24px;

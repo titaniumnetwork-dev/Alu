@@ -1,0 +1,49 @@
+---
+// TODO: Add Props to make this component more dynamic!!
+---
+
+<div class="dropdown">
+    <button id="dropdown-toggle" class="dropdown-toggle" type="button" data-toggle="dropdown">
+        Auto
+        <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+        <li class="dropdown-item" id="proxy-auto" data-setting="auto">Auto</li>
+        <li class="dropdown-item" id="proxy-ultraviolet" data-setting="ultraviolet">Ultraviolet</li>
+    </ul>
+</div>
+<style>
+    .dropdown {
+        box-shadow: 4px 6px 15px 0px #0e0e0e;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+    .dropdown-toggle {
+        background-color: #2e2e2e;
+        border: none;
+        color: white;
+        padding: 12px 16px;
+        font-size: 16px;
+        cursor: pointer;
+        font-family: 'Varela Round', sans-serif;
+        width: 100%;
+        border-radius: 10px;
+    }
+    .dropdown-menu {
+        margin: 0;
+        list-style: none;
+        padding: 0;
+        text-align: center;
+        height: 0px;
+        overflow: hidden;
+        transition: 350ms ease-in-out;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        background-color: #212121;
+    }
+    .dropdown-item {
+        border-bottom: 1px solid #4d4d4d;
+        padding: 10px;
+        color: white;
+        cursor: pointer;
+    }
+</style>
