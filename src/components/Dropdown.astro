@@ -1,14 +1,23 @@
 ---
 // TODO: Add Props to make this component more dynamic!!
+
+const { buttonNameDefault, dropdownList } = Astro.props;
 ---
 
 <div class="dropdown">
     <button id="dropdown-toggle" class="dropdown-toggle" type="button" data-toggle="dropdown">
-        Auto
+        {buttonNameDefault}
         <span class="caret"></span></button>
     <ul class="dropdown-menu">
-        <li class="dropdown-item" id="proxy-auto" data-setting="auto">Auto</li>
-        <li class="dropdown-item" id="proxy-ultraviolet" data-setting="ultraviolet">Ultraviolet</li>
+    {
+        dropdownList.map((item: any) => {
+            return (
+                <li class="dropdown-item" id={`proxy-${item.toLowerCase()}`} data-setting={item.toLowerCase()}>{item}</li>
+            )
+        })
+    }
+        <!-- <li class="dropdown-item" id="proxy-auto" data-setting="auto">Auto</li>
+        <li class="dropdown-item" id="proxy-ultraviolet" data-setting="ultraviolet">Ultraviolet</li> -->
     </ul>
 </div>
 <style>

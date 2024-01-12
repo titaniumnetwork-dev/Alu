@@ -6,7 +6,7 @@ import Dropdown from "./Dropdown.astro";
     <div id="content-setting-tab-proxy">
         <h1 style="color: white;">Proxy</h1>
         <p style="color: white; font-size: 18px;">Selected Proxy</p>
-        <Dropdown></Dropdown>
+        <Dropdown buttonDefaultName="Auto" dropdownList={["Auto", "Ultraviolet", "Dynamic"]}></Dropdown>
     </div>
     <div id="content-setting-tab-customization">
         <h1 style="color: white;">Customization</h1>
@@ -79,6 +79,8 @@ import Dropdown from "./Dropdown.astro";
     })
     loadContent('setting-tab-proxy')
 
+    const dropdownHeight = '120px'
+
     function addDropdownListener() {
       let dropdown_toggle = document.getElementById('dropdown-toggle');
         if (dropdown_toggle) {
@@ -86,7 +88,7 @@ import Dropdown from "./Dropdown.astro";
             let dropdown = document.getElementsByClassName('dropdown-menu')[0];
             if (dropdown) {
                 if (dropdown.style.height == '0px' || dropdown.style.height == '') {
-                    dropdown.style.height = '80px';
+                    dropdown.style.height = dropdownHeight;
                     dropdown_toggle.style.borderRadius = '10px 10px 0 0';
                 } else {
                     dropdown.style.height = '0px';
