@@ -6,7 +6,7 @@ import Dropdown from "./Dropdown.astro";
     <div id="content-setting-tab-proxy">
         <h1 style="color: white;">Proxy</h1>
         <p style="color: white; font-size: 18px;">Selected Proxy</p>
-        <Dropdown buttonDefaultName="Auto" dropdownList={["Auto", "Ultraviolet", "Dynamic"]}></Dropdown>
+        <Dropdown buttonDefaultName="Auto" dropdownList={["Auto", "Ultraviolet", "Dynamic"]}, id="dropdown__selected-proxy"></Dropdown>
     </div>
     <div id="content-setting-tab-customization">
         <h1 style="color: white;">Customization</h1>
@@ -42,13 +42,18 @@ import Dropdown from "./Dropdown.astro";
     </div>
   </div>
   <script is:inline>
-    let currentlySelectedTab;
-    let loadedContentStorage = {}
+    document.addEventListener("astro:before-swap", () => {
+      window.currentlySelectedTab = ""
+      document.removeEventListener('setting-tabChange', determineListener)
+      document.removeEventListener('setting-tabLoad', setLocalStorageItem)
+    })
+    window.currentlySelectedTab;
+    window.loadedContentStorage = {}
 
     Array.from(document.getElementsByClassName('setting-tab')).forEach((tab)=>{
       let contentToLoad = document.getElementById('content-' + tab.id)
       if (contentToLoad) {
-        loadedContentStorage[tab.id] = contentToLoad.innerHTML
+        window.loadedContentStorage[tab.id] = contentToLoad.innerHTML
         contentToLoad.remove()
       }
 
@@ -58,37 +63,28 @@ import Dropdown from "./Dropdown.astro";
     })
 
     function loadContent(tabID) {
-      if (currentlySelectedTab == tabID) return
-        else currentlySelectedTab = tabID
+      if (window.currentlySelectedTab == tabID) return
+        else window.currentlySelectedTab = tabID
         let currentContent = document.getElementById('current-content')
         if (currentContent) {
           currentContent.style.opacity = '0'
           setTimeout(() => {
-            currentContent.innerHTML = loadedContentStorage[tabID]
+            currentContent.innerHTML = window.loadedContentStorage[tabID]
             currentContent.style.opacity = '1'
-            document.dispatchEvent(new CustomEvent('setting-tabChange', {detail: tabID}))
-            document.dispatchEvent(new CustomEvent('setting-tabLoad', {detail: 'setting-tab-proxy'}))
+            document.dispatchEvent(new CustomEvent('setting-tabChange', {detail: tabID }))
+            document.dispatchEvent(new CustomEvent('setting-tabLoad', {detail: tabID }))
           }, 250);
         }
     }
-    document.addEventListener('setting-tabChange', (event) => {
-      if (event.detail == "setting-tab-proxy") {
-        addDropdownListener()
-
-      }
-    })
-    loadContent('setting-tab-proxy')
-
-    const dropdownHeight = '120px'
 
     function addDropdownListener() {
-      let dropdown_toggle = document.getElementById('dropdown-toggle');
+      let dropdown_toggle = document.getElementById('dropdown__selected-proxy');
         if (dropdown_toggle) {
             dropdown_toggle.addEventListener('click', () => {
-            let dropdown = document.getElementsByClassName('dropdown-menu')[0];
+            let dropdown = document.getElementById('dropdown__selected-proxy-menu');
             if (dropdown) {
                 if (dropdown.style.height == '0px' || dropdown.style.height == '') {
-                    dropdown.style.height = dropdownHeight;
+                    dropdown.style.height = "120px";
                     dropdown_toggle.style.borderRadius = '10px 10px 0 0';
                 } else {
                     dropdown.style.height = '0px';
@@ -97,15 +93,24 @@ import Dropdown from "./Dropdown.astro";
                     }, 300);
                 }
             }
-    
         });
-        }
+      }
     }
 
-    document.addEventListener('setting-tabLoad', (event) => {
+    function determineListener(event) {
+      if (event.detail == "setting-tab-proxy") {
+        addDropdownListener()
+      }
+    }
+
+    document.addEventListener('setting-tabChange', determineListener)
+
+    loadContent('setting-tab-proxy')
+
+    function setLocalStorageItem(event) {
       if (event.detail == "setting-tab-proxy") {
         if (localStorage.getItem('selectedProxy')) {
-          let dropdown_toggle = document.getElementById('dropdown-toggle');
+          let dropdown_toggle = document.getElementById('dropdown__selected-proxy');
 
           if (dropdown_toggle) {
             dropdown_toggle.innerText = localStorage.getItem('selectedProxy').charAt(0).toUpperCase() + localStorage.getItem('selectedProxy').slice(1)
@@ -115,9 +120,9 @@ import Dropdown from "./Dropdown.astro";
             item.addEventListener('click', (event) => {
               console.log(event.target.dataset)
               localStorage.setItem('selectedProxy', event.target.dataset.setting)
-              let dropdown = document.getElementsByClassName('dropdown-menu')[0];
+              let dropdown = document.getElementById('dropdown__selected-proxy-menu');
               if (dropdown) {
-                let dropdown_toggle = document.getElementById('dropdown-toggle');
+                let dropdown_toggle = document.getElementById('dropdown__selected-proxy');
                 dropdown_toggle.innerText = event.target.innerText
                 dropdown.style.height = '0px';
                 dropdown_toggle.style.borderRadius = '10px';
@@ -125,7 +130,9 @@ import Dropdown from "./Dropdown.astro";
             })
           })
         }
-      })
+    }
+
+    document.addEventListener('setting-tabLoad', setLocalStorageItem)
 </script>
 <style>
 .content-hidden {
