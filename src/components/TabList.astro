@@ -5,8 +5,16 @@ import Dropdown from "./Dropdown.astro";
 <div class="content-hidden">
     <div id="content-setting-tab-proxy">
         <h1 style="color: white;">Proxy</h1>
-        <p style="color: white; font-size: 18px;">Selected Proxy</p>
-        <Dropdown buttonDefaultName="Auto" dropdownList={["Auto", "Ultraviolet", "Dynamic"]}, id="dropdown__selected-proxy"></Dropdown>
+        <div class="settings-container">
+          <div class="setting__selected-proxy">
+            <p style="color: white; font-size: 18px;">Selected Proxy</p>
+            <Dropdown buttonNameDefault="Auto" dropdownList={["Auto", "Ultraviolet", "Dynamic"]}, id="dropdown__selected-proxy"></Dropdown>
+          </div>
+          <div class="setting__search-engine">
+            <p style="color: white; font-size: 18px;">Search Engine</p>
+            <Dropdown buttonNameDefault="Google" dropdownList={["Google", "Bing", "Brave", "Searx"]}, id="dropdown__search-engine"></Dropdown>
+          </div>
+        </div>
     </div>
     <div id="content-setting-tab-customization">
         <h1 style="color: white;">Customization</h1>
@@ -78,28 +86,48 @@ import Dropdown from "./Dropdown.astro";
     }
 
     function addDropdownListener() {
-      let dropdown_toggle = document.getElementById('dropdown__selected-proxy');
-        if (dropdown_toggle) {
-            dropdown_toggle.addEventListener('click', () => {
-            let dropdown = document.getElementById('dropdown__selected-proxy-menu');
-            if (dropdown) {
-                if (dropdown.style.height == '0px' || dropdown.style.height == '') {
-                    dropdown.style.height = "120px";
-                    dropdown_toggle.style.borderRadius = '10px 10px 0 0';
-                } else {
-                    dropdown.style.height = '0px';
-                    setTimeout(() => {
-                        dropdown_toggle.style.borderRadius = '10px';
-                    }, 300);
-                }
+      let dropdown_toggles = document.getElementsByClassName('dropdown-toggle')
+      Array.from(dropdown_toggles).forEach((toggle) => {
+        toggle.addEventListener('click', () => {
+          let dropdown = document.getElementById(toggle.id + "-menu")
+          if (dropdown) {
+            if (dropdown.style.maxHeight == '0px' || dropdown.style.maxHeight == '') {
+              dropdown.style.maxHeight = dropdown.scrollHeight + 'px'; /* Set max-height dynamically */
+              toggle.style.borderRadius = '10px 10px 0 0';
+            } else {
+              dropdown.style.maxHeight = '0px';
+              setTimeout(() => {
+                toggle.style.borderRadius = '10px';
+              }, 300);
             }
-        });
-      }
+          }
+        })
+      })
     }
 
     function determineListener(event) {
       if (event.detail == "setting-tab-proxy") {
         addDropdownListener()
+      }
+    }
+
+    function closeDropdown(dropdownID) {
+      let dropdown = document.getElementById(dropdownID)
+      if (dropdown) {
+        dropdown.style.maxHeight = '0px';
+        setTimeout(() => {
+          let dropdown_toggle = document.getElementById(dropdownID.replace('-menu', ''));
+          dropdown_toggle.style.borderRadius = '10px';
+        }, 300);
+      }
+    }
+
+    function applySavedLocalStorage(localStorageItem, dropdownID) {
+      if (localStorage.getItem(localStorageItem)) {
+        let dropdown_toggle = document.getElementById(dropdownID);
+        if (dropdown_toggle) {
+          dropdown_toggle.innerText = localStorage.getItem(localStorageItem).charAt(0).toUpperCase() + localStorage.getItem(localStorageItem).slice(1)
+        }
       }
     }
 
@@ -109,26 +137,37 @@ import Dropdown from "./Dropdown.astro";
 
     function setLocalStorageItem(event) {
       if (event.detail == "setting-tab-proxy") {
-        if (localStorage.getItem('selectedProxy')) {
-          let dropdown_toggle = document.getElementById('dropdown__selected-proxy');
-
-          if (dropdown_toggle) {
-            dropdown_toggle.innerText = localStorage.getItem('selectedProxy').charAt(0).toUpperCase() + localStorage.getItem('selectedProxy').slice(1)
-          }
-        }
-        Array.from(document.getElementsByClassName('dropdown-item')).forEach((item) => {
-            item.addEventListener('click', (event) => {
-              console.log(event.target.dataset)
-              localStorage.setItem('selectedProxy', event.target.dataset.setting)
-              let dropdown = document.getElementById('dropdown__selected-proxy-menu');
-              if (dropdown) {
-                let dropdown_toggle = document.getElementById('dropdown__selected-proxy');
-                dropdown_toggle.innerText = event.target.innerText
-                dropdown.style.height = '0px';
-                dropdown_toggle.style.borderRadius = '10px';
-              }
-            })
+        applySavedLocalStorage('selectedProxy', 'dropdown__selected-proxy')
+        applySavedLocalStorage('selectedSearchEngine', 'dropdown__search-engine')
+        let selectedProxyDropdown = document.getElementById('dropdown__selected-proxy-menu')
+        let searchEngineDropdown = document.getElementById('dropdown__search-engine-menu')
+        Array.from(searchEngineDropdown.children).forEach((item) => {
+          item.addEventListener('click', () => {
+            localStorage.setItem('selectedSearchEngine', item.dataset.setting)
+            applySavedLocalStorage('selectedSearchEngine', 'dropdown__search-engine')
+            closeDropdown(searchEngineDropdown.id);
           })
+        })
+        Array.from(selectedProxyDropdown.children).forEach((item) => {
+          item.addEventListener('click', () => {
+            localStorage.setItem('selectedProxy', item.dataset.setting)
+            applySavedLocalStorage('selectedProxy', 'dropdown__selected-proxy')
+            closeDropdown(selectedProxyDropdown.id);
+          })
+        })
+        // Array.from(document.getElementsByClassName('dropdown-item')).forEach((item) => {
+        //     item.addEventListener('click', (event) => {
+        //       console.log(event.target.dataset)
+        //       localStorage.setItem('selectedProxy', event.target.dataset.setting)
+        //       let dropdown = document.getElementById('dropdown__selected-proxy-menu');
+        //       if (dropdown) {
+        //         let dropdown_toggle = document.getElementById('dropdown__selected-proxy');
+        //         dropdown_toggle.innerText = event.target.innerText
+        //         dropdown.style.height = '0px';
+        //         dropdown_toggle.style.borderRadius = '10px';
+        //       }
+        //     })
+        //   })
         }
     }
 
@@ -142,7 +181,11 @@ import Dropdown from "./Dropdown.astro";
     transition: opacity 250ms ease-in-out;
     margin-left: 20px;
 }
-label{
+.settings-container {
+    display: flex;
+    gap: 20px;
+}
+label {
   font-size: 24px;
   font-weight: 700; 
   cursor: pointer; 

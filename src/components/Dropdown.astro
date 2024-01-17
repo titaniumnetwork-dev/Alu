@@ -16,8 +16,6 @@ const { buttonNameDefault, dropdownList, id } = Astro.props;
             )
         })
     }
-        <!-- <li class="dropdown-item" id="proxy-auto" data-setting="auto">Auto</li>
-        <li class="dropdown-item" id="proxy-ultraviolet" data-setting="ultraviolet">Ultraviolet</li> -->
     </ul>
 </div>
 <style>
@@ -42,9 +40,9 @@ const { buttonNameDefault, dropdownList, id } = Astro.props;
         list-style: none;
         padding: 0;
         text-align: center;
-        height: 0px;
+        max-height: 0px; /* Set max-height to 0 instead of height */
         overflow: hidden;
-        transition: 350ms ease-in-out;
+        transition: max-height 350ms ease-in-out; /* Use max-height in the transition property */
         border-bottom-left-radius: 10px;
         border-bottom-right-radius: 10px;
         background-color: #212121;
@@ -54,5 +52,8 @@ const { buttonNameDefault, dropdownList, id } = Astro.props;
         padding: 10px;
         color: white;
         cursor: pointer;
+    }
+    .dropdown-item:nth-last-child(1) {
+        border-bottom: none;
     }
 </style>
