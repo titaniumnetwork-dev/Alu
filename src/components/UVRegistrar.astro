@@ -36,7 +36,7 @@
             });
             let urlText = document.createElement('p');
             urlText.classList.add("url-text");
-            urlText.innerText = url
+            urlText.innerText = window.__uv$config.decodeUrl(iframe.src.split(__uv$config.prefix)[1]);
             iframe.style.opacity = 1;
             topBar.style.opacity = 1;
             topBar.style.pointerEvents = "auto";
