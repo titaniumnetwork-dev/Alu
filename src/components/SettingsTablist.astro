@@ -21,8 +21,12 @@ import Input from "./Input.astro";
           </div>
           <div class="setting__bare-url">
             <p class="setting-label">Bare URL</p>
-            <Input inputName="bare-url" defaultTextContent="/bare/" />
+            <Input inputName="bare-url" />
           </div>
+        </div>
+        <div class="setting__searxng-url">
+          <div class="setting-label">Searxng URL</div>
+          <Input inputName="searxng-url" defaultTextContent="https://searxng.site/" />
         </div>
     </div>
     <div id="content-setting-tab-customization">
@@ -140,12 +144,16 @@ import Input from "./Input.astro";
       }
     }
 
-    function applyDropdownEventListeners(item, dropdownID, localStorageItem) {
+    function applyDropdownEventListeners(item, dropdownID, localStorageItem, optionalCallback) {
       Array.from(item.children).forEach((item) => {
           item.addEventListener('click', () => {
             localStorage.setItem(localStorageItem, item.dataset.setting)
             applySavedLocalStorage(localStorageItem, dropdownID)
             closeDropdown(item.parentElement.id);
+
+            if (typeof optionalCallback == "function") {
+              optionalCallback();
+            }
           })
         })
     }
@@ -157,7 +165,7 @@ import Input from "./Input.astro";
     function setupSettings(event) {
       if (event.detail == "setting-tab-proxy") {
         applySavedLocalStorage('selectedProxy', 'dropdown__selected-proxy');
-        applySavedLocalStorage('selectedSearchEngine', 'dropdown__search-engine');
+        applySavedLocalStorage('alu__search_engine', 'dropdown__search-engine');
         applySavedLocalStorage("selectedOpenWith", 'dropdown__open-with');
         let selectedProxyDropdown = document.getElementById('dropdown__selected-proxy-menu')
         let searchEngineDropdown = document.getElementById('dropdown__search-engine-menu')
@@ -166,7 +174,7 @@ import Input from "./Input.astro";
         bareUrlInput.addEventListener('change', () => {
           localStorage.setItem('bareUrl', bareUrlInput.value)
         })
-        applyDropdownEventListeners(searchEngineDropdown, 'dropdown__search-engine', 'selectedSearchEngine');
+        applyDropdownEventListeners(searchEngineDropdown, 'dropdown__search-engine', 'alu__search_engine', checkSearxng);
         applyDropdownEventListeners(selectedProxyDropdown, 'dropdown__selected-proxy', 'selectedProxy');
         applyDropdownEventListeners(openWithDropdown, 'dropdown__open-with', 'selectedOpenWith');
         if (localStorage.getItem('bareUrl')) {
@@ -176,6 +184,13 @@ import Input from "./Input.astro";
         }
         
         }
+    }
+
+    function checkSearxng() {
+      // This function checks if the "searxng" option was clicked, display an additional option if so.
+      if (localStorage.getItem("alu__search_engine")) {
+
+      }
     }
 
     document.addEventListener('setting-tabLoad', setupSettings)
