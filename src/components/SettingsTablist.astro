@@ -1,5 +1,6 @@
 ---
 import Dropdown from "./Dropdown.astro";
+import Input from "./Input.astro";
 ---
 
 <div class="content-hidden">
@@ -7,12 +8,20 @@ import Dropdown from "./Dropdown.astro";
         <h1 style="color: white;">Proxy</h1>
         <div class="settings-container">
           <div class="setting__selected-proxy">
-            <p style="color: white; font-size: 18px;">Selected Proxy</p>
+            <p class="setting-label">Selected Proxy</p>
             <Dropdown buttonNameDefault="Auto" dropdownList={["Auto", "Ultraviolet", "Dynamic"]}, id="dropdown__selected-proxy"></Dropdown>
           </div>
           <div class="setting__search-engine">
-            <p style="color: white; font-size: 18px;">Search Engine</p>
+            <p class="setting-label">Search Engine</p>
             <Dropdown buttonNameDefault="Google" dropdownList={["Google", "Bing", "Brave", "Searx"]}, id="dropdown__search-engine"></Dropdown>
+          </div>
+          <div class="setting__open_with">
+            <p class="setting-label">Open With</p>
+            <Dropdown buttonNameDefault="Embed" dropdownList={["Embed", "About:Blank", "New Tab"]}, id="dropdown__open-with"></Dropdown>
+          </div>
+          <div class="setting__bare-url">
+            <p class="setting-label">Bare URL</p>
+            <Input />
           </div>
         </div>
     </div>
@@ -92,7 +101,7 @@ import Dropdown from "./Dropdown.astro";
           let dropdown = document.getElementById(toggle.id + "-menu")
           if (dropdown) {
             if (dropdown.style.maxHeight == '0px' || dropdown.style.maxHeight == '') {
-              dropdown.style.maxHeight = dropdown.scrollHeight + 'px'; /* Set max-height dynamically */
+              dropdown.style.maxHeight = dropdown.scrollHeight + 'px';
               toggle.style.borderRadius = '10px 10px 0 0';
             } else {
               dropdown.style.maxHeight = '0px';
@@ -131,43 +140,33 @@ import Dropdown from "./Dropdown.astro";
       }
     }
 
+    function applyEventListeners(item, dropdownID, localStorageItem) {
+      Array.from(item.children).forEach((item) => {
+          item.addEventListener('click', () => {
+            localStorage.setItem(localStorageItem, item.dataset.setting)
+            applySavedLocalStorage(localStorageItem, dropdownID)
+            closeDropdown(item.parentElement.id);
+          })
+        })
+    }
+
     document.addEventListener('setting-tabChange', determineListener)
 
     loadContent('setting-tab-proxy')
 
     function setLocalStorageItem(event) {
       if (event.detail == "setting-tab-proxy") {
-        applySavedLocalStorage('selectedProxy', 'dropdown__selected-proxy')
-        applySavedLocalStorage('selectedSearchEngine', 'dropdown__search-engine')
+        applySavedLocalStorage('selectedProxy', 'dropdown__selected-proxy');
+        applySavedLocalStorage('selectedSearchEngine', 'dropdown__search-engine');
+        applySavedLocalStorage("selectedOpenWith", 'dropdown__open-with');
         let selectedProxyDropdown = document.getElementById('dropdown__selected-proxy-menu')
         let searchEngineDropdown = document.getElementById('dropdown__search-engine-menu')
-        Array.from(searchEngineDropdown.children).forEach((item) => {
-          item.addEventListener('click', () => {
-            localStorage.setItem('selectedSearchEngine', item.dataset.setting)
-            applySavedLocalStorage('selectedSearchEngine', 'dropdown__search-engine')
-            closeDropdown(searchEngineDropdown.id);
-          })
-        })
-        Array.from(selectedProxyDropdown.children).forEach((item) => {
-          item.addEventListener('click', () => {
-            localStorage.setItem('selectedProxy', item.dataset.setting)
-            applySavedLocalStorage('selectedProxy', 'dropdown__selected-proxy')
-            closeDropdown(selectedProxyDropdown.id);
-          })
-        })
-        // Array.from(document.getElementsByClassName('dropdown-item')).forEach((item) => {
-        //     item.addEventListener('click', (event) => {
-        //       console.log(event.target.dataset)
-        //       localStorage.setItem('selectedProxy', event.target.dataset.setting)
-        //       let dropdown = document.getElementById('dropdown__selected-proxy-menu');
-        //       if (dropdown) {
-        //         let dropdown_toggle = document.getElementById('dropdown__selected-proxy');
-        //         dropdown_toggle.innerText = event.target.innerText
-        //         dropdown.style.height = '0px';
-        //         dropdown_toggle.style.borderRadius = '10px';
-        //       }
-        //     })
-        //   })
+        let openWithDropdown = document.getElementById('dropdown__open-with-menu')
+        applyEventListeners(searchEngineDropdown, 'dropdown__search-engine', 'selectedSearchEngine');
+        applyEventListeners(selectedProxyDropdown, 'dropdown__selected-proxy', 'selectedProxy');
+        applyEventListeners(openWithDropdown, 'dropdown__open-with', 'selectedOpenWith');
+
+        
         }
     }
 
@@ -184,6 +183,10 @@ import Dropdown from "./Dropdown.astro";
 .settings-container {
     display: flex;
     gap: 20px;
+}
+.setting-label {
+  color: white;
+  font-size: 18px;
 }
 label {
   font-size: 24px;
@@ -208,7 +211,7 @@ label:hover, input[type="radio"]:checked+label {
   opacity: 1; 
 }
 .popup{
-  width: 800px;
+  width: 1000px;
   height: 80%;
   min-height: 400px; 
   max-height: 400px; 
