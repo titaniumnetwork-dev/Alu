@@ -1,7 +1,29 @@
 ---
-const { type }  = Astro.props; 
+const { type, inputName, defaultTextContent }  = Astro.props; 
+// as any should not be necessary here... but it is womp womp.
+interface Props {
+    type?: string;
+    inputName: string;
+    defaultTextContent?: string;
+}
 ---
 
 <div class="input-container">
-    <input type={type || "input"}>
+    <input id={inputName + "-input"} type={type as any}  />
 </div>
+
+<style>
+    input {
+        height: 43px;
+        width: 100%;
+        border: 4px solid #E0E0E0;
+        border-radius: 10px;
+        background-color: #1b1b1b;
+        color: white;
+        transition: 100ms ease-in-out;
+    }
+    input:focus {
+        outline: none;
+        border: 4px solid #7900e1;
+    }
+</style>

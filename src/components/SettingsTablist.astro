@@ -21,7 +21,7 @@ import Input from "./Input.astro";
           </div>
           <div class="setting__bare-url">
             <p class="setting-label">Bare URL</p>
-            <Input />
+            <Input inputName="bare-url" defaultTextContent="/bare/" />
           </div>
         </div>
     </div>
@@ -140,7 +140,7 @@ import Input from "./Input.astro";
       }
     }
 
-    function applyEventListeners(item, dropdownID, localStorageItem) {
+    function applyDropdownEventListeners(item, dropdownID, localStorageItem) {
       Array.from(item.children).forEach((item) => {
           item.addEventListener('click', () => {
             localStorage.setItem(localStorageItem, item.dataset.setting)
@@ -154,7 +154,7 @@ import Input from "./Input.astro";
 
     loadContent('setting-tab-proxy')
 
-    function setLocalStorageItem(event) {
+    function setupSettings(event) {
       if (event.detail == "setting-tab-proxy") {
         applySavedLocalStorage('selectedProxy', 'dropdown__selected-proxy');
         applySavedLocalStorage('selectedSearchEngine', 'dropdown__search-engine');
@@ -162,15 +162,23 @@ import Input from "./Input.astro";
         let selectedProxyDropdown = document.getElementById('dropdown__selected-proxy-menu')
         let searchEngineDropdown = document.getElementById('dropdown__search-engine-menu')
         let openWithDropdown = document.getElementById('dropdown__open-with-menu')
-        applyEventListeners(searchEngineDropdown, 'dropdown__search-engine', 'selectedSearchEngine');
-        applyEventListeners(selectedProxyDropdown, 'dropdown__selected-proxy', 'selectedProxy');
-        applyEventListeners(openWithDropdown, 'dropdown__open-with', 'selectedOpenWith');
-
+        let bareUrlInput = document.getElementById('bare-url-input')
+        bareUrlInput.addEventListener('change', () => {
+          localStorage.setItem('bareUrl', bareUrlInput.value)
+        })
+        applyDropdownEventListeners(searchEngineDropdown, 'dropdown__search-engine', 'selectedSearchEngine');
+        applyDropdownEventListeners(selectedProxyDropdown, 'dropdown__selected-proxy', 'selectedProxy');
+        applyDropdownEventListeners(openWithDropdown, 'dropdown__open-with', 'selectedOpenWith');
+        if (localStorage.getItem('bareUrl')) {
+          bareUrlInput.value = localStorage.getItem('bareUrl')
+        } else {
+          bareUrlInput.value = '/bare/'
+        }
         
         }
     }
 
-    document.addEventListener('setting-tabLoad', setLocalStorageItem)
+    document.addEventListener('setting-tabLoad', setupSettings)
 </script>
 <style>
 .content-hidden {
