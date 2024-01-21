@@ -66,7 +66,6 @@ import Input from "./Input.astro";
     document.addEventListener("astro:before-swap", () => {
       window.currentlySelectedTab = ""
       document.removeEventListener('setting-tabChange', determineListener)
-      document.removeEventListener('setting-tabLoad', setLocalStorageItem)
     })
     window.currentlySelectedTab;
     window.loadedContentStorage = {}
@@ -158,38 +157,53 @@ import Input from "./Input.astro";
         })
     }
 
+    function applyInputListeners(item, localStorageItem) {
+      item.addEventListener('input', () => {
+        localStorage.setItem(localStorageItem, item.value)
+      })
+    }
+
     document.addEventListener('setting-tabChange', determineListener)
 
     loadContent('setting-tab-proxy')
 
     function setupSettings(event) {
       if (event.detail == "setting-tab-proxy") {
-        applySavedLocalStorage('selectedProxy', 'dropdown__selected-proxy');
-        applySavedLocalStorage('alu__search_engine', 'dropdown__search-engine');
-        applySavedLocalStorage("selectedOpenWith", 'dropdown__open-with');
-        let selectedProxyDropdown = document.getElementById('dropdown__selected-proxy-menu')
-        let searchEngineDropdown = document.getElementById('dropdown__search-engine-menu')
-        let openWithDropdown = document.getElementById('dropdown__open-with-menu')
-        let bareUrlInput = document.getElementById('bare-url-input')
-        bareUrlInput.addEventListener('change', () => {
-          localStorage.setItem('bareUrl', bareUrlInput.value)
-        })
-        applyDropdownEventListeners(searchEngineDropdown, 'dropdown__search-engine', 'alu__search_engine', checkSearxng);
-        applyDropdownEventListeners(selectedProxyDropdown, 'dropdown__selected-proxy', 'selectedProxy');
-        applyDropdownEventListeners(openWithDropdown, 'dropdown__open-with', 'selectedOpenWith');
-        if (localStorage.getItem('bareUrl')) {
-          bareUrlInput.value = localStorage.getItem('bareUrl')
-        } else {
-          bareUrlInput.value = '/bare/'
-        }
-        
+          applySavedLocalStorage('alu__selectedProxy', 'dropdown__selected-proxy');
+          applySavedLocalStorage('alu__search_engine', 'dropdown__search-engine');
+          applySavedLocalStorage("alu__selectedOpenWith", 'dropdown__open-with');
+          let selectedProxyDropdown = document.getElementById('dropdown__selected-proxy-menu')
+          let searchEngineDropdown = document.getElementById('dropdown__search-engine-menu')
+          let openWithDropdown = document.getElementById('dropdown__open-with-menu')
+          let bareUrlInput = document.getElementById('bare-url-input')
+          let searxngUrlInput = document.getElementById('searxng-url-input')
+          let savedSearxngUrl = localStorage.getItem("alu__searxngUrl")
+          if (savedSearxngUrl != undefined) {
+            if (savedSearxngUrl == "") localStorage.setItem("alu__searxngUrl", "https://searxng.site/")
+            searxngUrlInput.value = localStorage.getItem("alu__searxngUrl")
+          }
+          applyInputListeners(bareUrlInput, 'alu__bareUrl')
+          applyInputListeners(searxngUrlInput, 'alu__searxngUrl')
+          applyDropdownEventListeners(searchEngineDropdown, 'dropdown__search-engine', 'alu__search_engine', checkSearxng);
+          applyDropdownEventListeners(selectedProxyDropdown, 'dropdown__selected-proxy', 'alu__selectedProxy');
+          applyDropdownEventListeners(openWithDropdown, 'dropdown__open-with', 'alu__selectedOpenWith');
+          if (localStorage.getItem('bareUrl')) {
+            bareUrlInput.value = localStorage.getItem('bareUrl')
+          } else {
+            bareUrlInput.value = '/bare/'
+          }
+          checkSearxng();
         }
     }
 
     function checkSearxng() {
       // This function checks if the "searxng" option was clicked, display an additional option if so.
       if (localStorage.getItem("alu__search_engine")) {
-
+        if (localStorage.getItem("alu__search_engine").toLowerCase() == "searx") {
+          document.getElementsByClassName('setting__searxng-url')[0].style.opacity = '1'
+        } else {
+          document.getElementsByClassName('setting__searxng-url')[0].style.opacity = '0'
+        }
       }
     }
 
@@ -206,10 +220,18 @@ import Input from "./Input.astro";
 .settings-container {
     display: flex;
     gap: 20px;
+    position: relative;
+    z-index: 2;
 }
 .setting-label {
   color: white;
   font-size: 18px;
+}
+
+.setting__searxng-url {
+  margin-top: 10px;
+  opacity: 0;
+  transition: opacity 250ms ease-in-out;
 }
 label {
   font-size: 24px;

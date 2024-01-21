@@ -63,7 +63,14 @@
             return "https://search.brave.com/search?q=";
         }
         case "searx": {
-            return "https://searxng.site/search?q=";
+            let localStorageURL = localStorage.getItem("alu__searxngUrl");
+            if (localStorageURL) {
+                if (localStorageURL == "") return "https://searxng.site/search?q=";
+                // Ugly hack to remove the trailing slash :)
+                if (localStorageURL.endsWith("/")) localStorageURL = localStorageURL.slice(0, -1);
+                return localStorageURL + "/search?q=";
+            }
+            else return "https://searxng.site/search?q=";
         }
         default: {
             return "https://google.com/search?q="
