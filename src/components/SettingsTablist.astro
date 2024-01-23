@@ -1,44 +1,24 @@
 ---
-import Dropdown from "./Dropdown.astro";
-import Input from "./Input.astro";
+import ProxyTab from "./SettingsContent/ProxyTab.astro";
+import CustomizationTab from "./SettingsContent/CustomizationTab.astro";
 ---
 
 <div class="content-hidden">
     <div id="content-setting-tab-proxy">
-        <h1 style="color: white;">Proxy</h1>
-        <div class="settings-container">
-          <div class="setting__selected-proxy">
-            <p class="setting-label">Selected Proxy</p>
-            <Dropdown buttonNameDefault="Auto" dropdownList={["Auto", "Ultraviolet", "Dynamic"]}, id="dropdown__selected-proxy"></Dropdown>
-          </div>
-          <div class="setting__search-engine">
-            <p class="setting-label">Search Engine</p>
-            <Dropdown buttonNameDefault="Google" dropdownList={["Google", "Bing", "Brave", "Searx"]}, id="dropdown__search-engine"></Dropdown>
-          </div>
-          <div class="setting__open_with">
-            <p class="setting-label">Open With</p>
-            <Dropdown buttonNameDefault="Embed" dropdownList={["Embed", "About:Blank", "New Tab"]}, id="dropdown__open-with"></Dropdown>
-          </div>
-          <div class="setting__bare-url">
-            <p class="setting-label">Bare URL</p>
-            <Input inputName="bare-url" />
-          </div>
-        </div>
-        <div class="setting__searxng-url">
-          <div class="setting-label">Searxng URL</div>
-          <Input inputName="searxng-url" defaultTextContent="https://searxng.site/" />
-        </div>
+        <h1 class="content-setting-header">Proxy</h1>
+        <ProxyTab />
+
     </div>
     <div id="content-setting-tab-customization">
-        <h1 style="color: white;">Customization</h1>
-        <p style="color: white;">Customization settings</p>
+        <h1 class="content-setting-header">Customization</h1>
+        <CustomizationTab />
     </div>
     <div id="content-setting-tab-cloaking">
-        <h1 style="color: white;">Cloaking</h1>
+        <h1 class="content-setting-header">Cloaking</h1>
         <p style="color: white;">Cloaking settings</p>
     </div>
     <div id="content-setting-tab-credits">
-        <h1 style="color: white;">Credits</h1>
+        <h1 class="content-setting-header">Credits</h1>
         <p style="color: white;">Credits settings</p>
     </div>
 </div>
@@ -120,6 +100,8 @@ import Input from "./Input.astro";
     function determineListener(event) {
       if (event.detail == "setting-tab-proxy") {
         addDropdownListener()
+      } else if (event.detail == "setting-tab-customization") {
+        addDropdownListener()
       }
     }
 
@@ -167,6 +149,23 @@ import Input from "./Input.astro";
 
     loadContent('setting-tab-proxy')
 
+    function setupCustomizationSettings() {
+      applySavedLocalStorage('alu__selectedTheme', 'dropdown__selected-theme');
+      let dropdown = document.getElementById('dropdown__selected-theme-menu')
+      applyDropdownEventListeners(dropdown, 'dropdown__selected-theme', 'alu__selectedTheme', changeTheme);
+    }
+
+    function changeTheme() {
+      let theme = localStorage.getItem('alu__selectedTheme')
+      if (theme) {
+        document.documentElement.setAttribute('data-theme', theme.toLowerCase())
+      }
+      let footer = document.getElementById('footer');
+      if (footer) {
+          footer.dataset.theme = theme.toLowerCase();
+      }
+    }
+
     function setupSettings(event) {
       if (event.detail == "setting-tab-proxy") {
           applySavedLocalStorage('alu__selectedProxy', 'dropdown__selected-proxy');
@@ -182,6 +181,7 @@ import Input from "./Input.astro";
             if (savedSearxngUrl == "") localStorage.setItem("alu__searxngUrl", "https://searxng.site/")
             searxngUrlInput.value = localStorage.getItem("alu__searxngUrl")
           }
+          // Proxy settings
           applyInputListeners(bareUrlInput, 'alu__bareUrl')
           applyInputListeners(searxngUrlInput, 'alu__searxngUrl')
           applyDropdownEventListeners(searchEngineDropdown, 'dropdown__search-engine', 'alu__search_engine', checkSearxng);
@@ -193,6 +193,8 @@ import Input from "./Input.astro";
             bareUrlInput.value = '/bare/'
           }
           checkSearxng();
+        } else if (event.detail == "setting-tab-customization") {
+          setupCustomizationSettings();
         }
     }
 
@@ -209,7 +211,7 @@ import Input from "./Input.astro";
 
     document.addEventListener('setting-tabLoad', setupSettings)
 </script>
-<style>
+<style is:global>
 .content-hidden {
     display: none;
 }
@@ -223,9 +225,19 @@ import Input from "./Input.astro";
     position: relative;
     z-index: 2;
 }
+.content-setting-header {
+  color: var(--text-color);
+}
 .setting-label {
-  color: white;
+  color: var(--text-color);
   font-size: 18px;
+  /* annoying stuff with label elements. */
+  display: block;
+  opacity: 1.0;
+  margin-block: 1em;
+  margin-inline: 0;
+  user-select: none;
+  width: 100%;
 }
 
 .setting__searxng-url {

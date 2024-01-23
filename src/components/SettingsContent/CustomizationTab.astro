@@ -1,0 +1,11 @@
+---
+    import Dropdown from "../Dropdown.astro"
+    import Input from "../Input.astro"
+---
+
+<div class="settings-container">
+    <div class="setting__theme">
+        <label class="setting-label">Theme</label>
+        <Dropdown buttonNameDefault="Alu" dropdownList={["Alu", "Macchiato", "Mocha"]}, id="dropdown__selected-theme" />
+    </div>
+</div>

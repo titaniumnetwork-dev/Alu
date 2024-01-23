@@ -1,6 +1,8 @@
 <script src="/uv/uv.bundle.js" transition:persist is:inline></script>
 <script src="/uv.config.js" transition:persist is:inline></script>
-<script transition:persist>
+<script transition:persist defer>
+  // This is a hack to make sure window.__uv$config is defined, because this means everything has been.
+  if (window.__uv$config == undefined) window.location.reload();
   var form = document.querySelector('form');
   var input = document.querySelector('input');
   window.navigator.serviceWorker.register('/sw.js', {

@@ -1,0 +1,18 @@
+<script>
+    function switchTheme() {
+        let currentTheme = localStorage.getItem("alu__selectedTheme")
+
+        if (currentTheme) {
+            document.documentElement.setAttribute("data-theme", currentTheme.toLowerCase());
+            let footer = document.getElementById('footer');
+            if (footer) {
+                footer.dataset.theme = currentTheme.toLowerCase();
+            }
+        }
+    }
+    switchTheme()
+
+
+
+    document.addEventListener('astro:after-swap', switchTheme)
+</script>

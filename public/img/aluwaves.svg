@@ -1,6 +1,8 @@
-<svg width="100%" height="100%" preserveAspectRatio="none" id="svg" viewBox="0 0 1440 390" xmlns="http://www.w3.org/2000/svg" class="transition duration-300 ease-in-out delay-150"><style>
+<svg width="100%" height="100%" preserveAspectRatio="none" id="svg" viewBox="0 0 1440 390"
+  xmlns="http://www.w3.org/2000/svg" class="transition duration-300 ease-in-out delay-150">
+  <style>
           .path-0{
-            animation:pathAnim-0 4s;
+            animation:pathAnim-0 15s;
             animation-timing-function: linear;
             animation-iteration-count: infinite;
           }
@@ -20,9 +22,18 @@
             100%{
               d: path("M 0,400 L 0,100 C 124.53333333333336,122.66666666666667 249.06666666666672,145.33333333333334 415,143 C 580.9333333333333,140.66666666666666 788.2666666666667,113.33333333333333 966,102 C 1143.7333333333333,90.66666666666667 1291.8666666666668,95.33333333333334 1440,100 L 1440,400 L 0,400 Z");
             }
-          }</style><style class="darkreader darkreader--sync" media="screen"></style><defs><linearGradient id="gradient" x1="0%" y1="53%" x2="100%" y2="47%"><stop offset="5%" stop-color="#702dc2" data-darkreader-inline-stopcolor="" style="--darkreader-inline-stopcolor: #5a249b;"></stop><stop offset="95%" stop-color="#3d097d" data-darkreader-inline-stopcolor="" style="--darkreader-inline-stopcolor: #310764;"></stop></linearGradient></defs><path d="M 0,400 L 0,100 C 124.53333333333336,122.66666666666667 249.06666666666672,145.33333333333334 415,143 C 580.9333333333333,140.66666666666666 788.2666666666667,113.33333333333333 966,102 C 1143.7333333333333,90.66666666666667 1291.8666666666668,95.33333333333334 1440,100 L 1440,400 L 0,400 Z" stroke="none" stroke-width="0" fill="url(#gradient)" fill-opacity="0.53" class="transition-all duration-300 ease-in-out delay-150 path-0" data-darkreader-inline-stroke="" style="--darkreader-inline-stroke: none;"></path><style>
+          }</style>
+  <style media="screen"></style>
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="53%" x2="100%" y2="47%">
+      <stop offset="5%" stop-color="#702dc2"></stop>
+      <stop offset="95%" stop-color="#3d097d"></stop>
+    </linearGradient>
+  </defs>
+  <path d="M 0,400 L 0,100 C 124.53333333333336,122.66666666666667 249.06666666666672,145.33333333333334 415,143 C 580.9333333333333,140.66666666666666 788.2666666666667,113.33333333333333 966,102 C 1143.7333333333333,90.66666666666667 1291.8666666666668,95.33333333333334 1440,100 L 1440,400 L 0,400 Z" stroke="none" stroke-width="0" fill="url(#gradient)" fill-opacity="0.53" class="transition-all duration-300 ease-in-out delay-150 path-0"></path>
+  <style>
           .path-1{
-            animation:pathAnim-1 4s;
+            animation:pathAnim-1 15s;
             animation-timing-function: linear;
             animation-iteration-count: infinite;
           }
@@ -42,4 +53,13 @@
             100%{
               d: path("M 0,400 L 0,233 C 170.53333333333336,233.66666666666666 341.0666666666667,234.33333333333331 507,236 C 672.9333333333333,237.66666666666669 834.2666666666667,240.33333333333334 989,240 C 1143.7333333333333,239.66666666666666 1291.8666666666668,236.33333333333331 1440,233 L 1440,400 L 0,400 Z");
             }
-          }</style><style class="darkreader darkreader--sync" media="screen"></style><defs><linearGradient id="gradient" x1="0%" y1="53%" x2="100%" y2="47%"><stop offset="5%" stop-color="#702dc2" data-darkreader-inline-stopcolor="" style="--darkreader-inline-stopcolor: #5a249b;"></stop><stop offset="95%" stop-color="#3d097d" data-darkreader-inline-stopcolor="" style="--darkreader-inline-stopcolor: #310764;"></stop></linearGradient></defs><path d="M 0,400 L 0,233 C 170.53333333333336,233.66666666666666 341.0666666666667,234.33333333333331 507,236 C 672.9333333333333,237.66666666666669 834.2666666666667,240.33333333333334 989,240 C 1143.7333333333333,239.66666666666666 1291.8666666666668,236.33333333333331 1440,233 L 1440,400 L 0,400 Z" stroke="none" stroke-width="0" fill="url(#gradient)" fill-opacity="1" class="transition-all duration-300 ease-in-out delay-150 path-1" data-darkreader-inline-stroke="" style="--darkreader-inline-stroke: none;"></path></svg>
+          }</style>
+  <style media="screen"></style>
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="53%" x2="100%" y2="47%">
+      <stop offset="5%" stop-color="#702dc2"></stop>
+      <stop offset="95%" stop-color="#3d097d"></stop>
+    </linearGradient>
+  </defs>
+  <path d="M 0,400 L 0,233 C 170.53333333333336,233.66666666666666 341.0666666666667,234.33333333333331 507,236 C 672.9333333333333,237.66666666666669 834.2666666666667,240.33333333333334 989,240 C 1143.7333333333333,239.66666666666666 1291.8666666666668,236.33333333333331 1440,233 L 1440,400 L 0,400 Z" stroke="none" stroke-width="0" fill="url(#gradient)" fill-opacity="1" class="transition-all duration-300 ease-in-out delay-150 path-1"></path>
+</svg>

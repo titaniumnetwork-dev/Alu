@@ -1,0 +1,27 @@
+---
+    import Input from "../Input.astro"
+    import Dropdown from "../Dropdown.astro"
+---
+
+<div class="settings-container">
+    <div class="setting__selected-proxy">
+      <label class="setting-label">Selected Proxy</label>
+      <Dropdown buttonNameDefault="Auto" dropdownList={["Auto", "Ultraviolet", "Dynamic"]}, id="dropdown__selected-proxy" />
+    </div>
+    <div class="setting__search-engine">
+      <label class="setting-label">Search Engine</label>
+      <Dropdown buttonNameDefault="Google" dropdownList={["Google", "Bing", "Brave", "Searx"]}, id="dropdown__search-engine" />
+    </div>
+    <div class="setting__open_with">
+      <label class="setting-label">Open With</label>
+      <Dropdown buttonNameDefault="Embed" dropdownList={["Embed", "About:Blank", "New Tab"]}, id="dropdown__open-with" />
+    </div>
+    <div class="setting__bare-url">
+      <label class="setting-label">Bare URL</label>
+      <Input inputName="bare-url" />
+    </div>
+</div>
+<div class="setting__searxng-url">
+    <label for="searxng-url-input" class="setting-label">Searxng URL</label>
+    <Input inputName="searxng-url" defaultTextContent="https://searxng.site/" />
+</div>

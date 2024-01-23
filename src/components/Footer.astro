@@ -23,9 +23,18 @@
 </div>
 
 <style>
+:root {
+    --footer-svg-url: url("/img/aluwaves.svg");
+}
+[data-theme="mocha"] {
+    --footer-svg-url: url("/img/mochawaves.svg");
+}
+[data-theme="macchiato"] {
+    --footer-svg-url: url("/img/macchiatowaves.svg");
+}
 #footer {
     padding-top: 20vh;
-    background-image: url("/img/purplewaves.svg");
+    background-image: var(--footer-svg-url);
     background-repeat: no-repeat;
     background-size: 100vw auto;
     width: 100%;
@@ -62,19 +71,19 @@
 
 .footerbrand div a {
     font-family: 'Varela Round', sans-serif;
-    color: #fff !important;
+    color: var(--text-color) !important;
     font-size: 20px;
     font-weight: bold;
 }
 
 .footerbrand p {
     font-family: 'Varela Round', sans-serif;
-    color: #fff;
+    color: var(--text-color);
 }
 
 .footerbrand a {
     font-family: 'Varela Round', sans-serif;
-    color: #fff;
+    color: var(--text-color);
 }
 
 .footerlist-heading {
@@ -93,12 +102,12 @@
 }
 
 .footerlist ul > li > a {
-    color: #fff;
+    color: var(--text-color);
 }
 
 .footerlist > * {
     font-family: 'Varela Round', sans-serif;
-    color: #fff;
+    color: var(--text-color);
 }
 
 .footersocials {

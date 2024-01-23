@@ -1,0 +1,96 @@
+<svg width="100%" height="100%" id="svg" viewBox="0 0 1440 590"
+  xmlns="http://www.w3.org/2000/svg" class="transition duration-300 ease-in-out delay-150">
+  <style>
+          .path-0{
+            animation:pathAnim-0 15s;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+          }
+          @keyframes pathAnim-0{
+            0%{
+              d: path("M 0,600 L 0,112 C 283.5,125.5 567,139 807,139 C 1047,139 1243.5,125.5 1440,112 L 1440,600 L 0,600 Z");
+            }
+            25%{
+              d: path("M 0,600 L 0,112 C 289.5,106 579,100 819,100 C 1059,100 1249.5,106 1440,112 L 1440,600 L 0,600 Z");
+            }
+            50%{
+              d: path("M 0,600 L 0,112 C 300.5,84 601,56 841,56 C 1081,56 1260.5,84 1440,112 L 1440,600 L 0,600 Z");
+            }
+            75%{
+              d: path("M 0,600 L 0,112 C 256,112.5 512,113 752,113 C 992,113 1216,112.5 1440,112 L 1440,600 L 0,600 Z");
+            }
+            100%{
+              d: path("M 0,600 L 0,112 C 283.5,125.5 567,139 807,139 C 1047,139 1243.5,125.5 1440,112 L 1440,600 L 0,600 Z");
+            }
+          }</style>
+  <style media="screen"></style>
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="50%" x2="100%" y2="50%">
+      <stop offset="5%" stop-color="#1e2030"></stop>
+      <stop offset="95%" stop-color="#181926"></stop>
+    </linearGradient>
+  </defs>
+  <path d="M 0,600 L 0,112 C 283.5,125.5 567,139 807,139 C 1047,139 1243.5,125.5 1440,112 L 1440,600 L 0,600 Z" stroke="none" stroke-width="0" fill="url(#gradient)" fill-opacity="0.4" class="transition-all duration-300 ease-in-out delay-150 path-0"></path>
+  <style>
+          .path-1{
+            animation:pathAnim-1 15s;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+          }
+          @keyframes pathAnim-1{
+            0%{
+              d: path("M 0,600 L 0,262 C 259,246.5 518,231 758,231 C 998,231 1219,246.5 1440,262 L 1440,600 L 0,600 Z");
+            }
+            25%{
+              d: path("M 0,600 L 0,262 C 191,240.5 382,219 622,219 C 862,219 1151,240.5 1440,262 L 1440,600 L 0,600 Z");
+            }
+            50%{
+              d: path("M 0,600 L 0,262 C 305.5,268.5 611,275 851,275 C 1091,275 1265.5,268.5 1440,262 L 1440,600 L 0,600 Z");
+            }
+            75%{
+              d: path("M 0,600 L 0,262 C 286,273.5 572,285 812,285 C 1052,285 1246,273.5 1440,262 L 1440,600 L 0,600 Z");
+            }
+            100%{
+              d: path("M 0,600 L 0,262 C 259,246.5 518,231 758,231 C 998,231 1219,246.5 1440,262 L 1440,600 L 0,600 Z");
+            }
+          }</style>
+  <style media="screen"></style>
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="50%" x2="100%" y2="50%">
+      <stop offset="5%" stop-color="#1e2030"></stop>
+      <stop offset="95%" stop-color="#181926"></stop>
+    </linearGradient>
+  </defs>
+  <path d="M 0,600 L 0,262 C 259,246.5 518,231 758,231 C 998,231 1219,246.5 1440,262 L 1440,600 L 0,600 Z" stroke="none" stroke-width="0" fill="url(#gradient)" fill-opacity="0.53" class="transition-all duration-300 ease-in-out delay-150 path-1"></path>
+  <style>
+          .path-2{
+            animation:pathAnim-2 15s;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+          }
+          @keyframes pathAnim-2{
+            0%{
+              d: path("M 0,600 L 0,412 C 209,406.5 418,401 658,401 C 898,401 1169,406.5 1440,412 L 1440,600 L 0,600 Z");
+            }
+            25%{
+              d: path("M 0,600 L 0,412 C 218,423 436,434 676,434 C 916,434 1178,423 1440,412 L 1440,600 L 0,600 Z");
+            }
+            50%{
+              d: path("M 0,600 L 0,412 C 264,431 528,450 768,450 C 1008,450 1224,431 1440,412 L 1440,600 L 0,600 Z");
+            }
+            75%{
+              d: path("M 0,600 L 0,412 C 245.5,439.5 491,467 731,467 C 971,467 1205.5,439.5 1440,412 L 1440,600 L 0,600 Z");
+            }
+            100%{
+              d: path("M 0,600 L 0,412 C 209,406.5 418,401 658,401 C 898,401 1169,406.5 1440,412 L 1440,600 L 0,600 Z");
+            }
+          }</style>
+  <style media="screen"></style>
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="50%" x2="100%" y2="50%">
+      <stop offset="5%" stop-color="#1e2030"></stop>
+      <stop offset="95%" stop-color="#181926"></stop>
+    </linearGradient>
+  </defs>
+  <path d="M 0,600 L 0,412 C 209,406.5 418,401 658,401 C 898,401 1169,406.5 1440,412 L 1440,600 L 0,600 Z" stroke="none" stroke-width="0" fill="url(#gradient)" fill-opacity="1" class="transition-all duration-300 ease-in-out delay-150 path-2"></path>
+</svg>
