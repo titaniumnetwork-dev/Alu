@@ -151,8 +151,11 @@ import CustomizationTab from "./SettingsContent/CustomizationTab.astro";
 
     function setupCustomizationSettings() {
       applySavedLocalStorage('alu__selectedTheme', 'dropdown__selected-theme');
-      let dropdown = document.getElementById('dropdown__selected-theme-menu')
-      applyDropdownEventListeners(dropdown, 'dropdown__selected-theme', 'alu__selectedTheme', changeTheme);
+      applySavedLocalStorage('alu__selectedLanguage', 'dropdown__selected-language');
+      let dropdownTheme = document.getElementById('dropdown__selected-theme-menu')
+      let dropdownLanguage = document.getElementById('dropdown__selected-language-menu')
+      applyDropdownEventListeners(dropdownTheme, 'dropdown__selected-theme', 'alu__selectedTheme', changeTheme);
+      applyDropdownEventListeners(dropdownLanguage, 'dropdown__selected-language', 'alu__selectedLanguage');
     }
 
     function changeTheme() {
@@ -268,16 +271,15 @@ label:hover, input[type="radio"]:checked+label {
   opacity: 1; 
 }
 .popup{
-  width: 1000px;
+  width: 98%;
   height: 80%;
+  margin: 0 auto;
   min-height: 400px; 
   max-height: 400px; 
   border-radius: 48px;
   box-sizing: border-box; 
-  border: 16px solid #2b2b2b;
-  background-color: #1b1b1b;
+  background-color: var(--background-color);
   overflow: hidden;
-  box-shadow: 16px 16px 48px #2e364330;
   display: flex;
   align-self: center;
 }
@@ -299,11 +301,11 @@ label:hover, input[type="radio"]:checked+label {
   flex-direction: column;
   top: calc(-100% );
   left: 0;
-  transition: transform .2s ease-in-out; 
+  transition: transform .2s ease-in-out;
+  background-color: var(--accent-color);
 }
 .marker #bottom, .marker #top{
-  background-color: #383838;
-  box-shadow: 32px 32px 48px #2e364315; 
+  background-color: var(--background-highlight);
 }
 .marker #top{
   height: calc(50%);
@@ -317,5 +319,5 @@ label:hover, input[type="radio"]:checked+label {
 #setting-tab-proxy:checked ~ .marker{transform: translateY(0%)}
 #setting-tab-customization:checked ~ .marker{transform: translateY(13.5%)}
 #setting-tab-cloaking:checked ~ .marker{transform: translateY(27%)}
-#setting-tab-credits:checked ~ .marker{transform: translateY(40.5%)}
+#setting-tab-credits:checked ~ .marker{transform: translateY(41%)}
 </style>

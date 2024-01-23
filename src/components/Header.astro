@@ -1,19 +1,21 @@
+---
+    import { t } from "astro-i18n"
+---
+
 <div class="top-header">
     <div id="title-background" class="title-background">
         <div class="left">
-            <a href="/" class="header-item">Alu</a>
+            <a href="/" class="header-item">{t("nav.brand")}</a>
         </div>
         <div class="right">
-            <a href="/games/" class="header-item"><i class="fa-solid fa-gamepad-modern"></i> Games</a>
-            <a href="/settings/" class="header-item"><i class="fa-solid fa-gear"></i> Settings</a>
+            <a href="/games/" class="header-item">Games</a>
+            <a href="/settings/" class="header-item">Settings</a>
         </div>
     </div>
 </div>
 
 <style>
 .top-header {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
     box-sizing: border-box;
     transition: 250ms ease-in;
