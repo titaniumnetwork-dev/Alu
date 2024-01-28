@@ -1,13 +1,24 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import UVRegistrar from "../../components/UVRegistrar.astro";
+
+import { getLangFromUrl, useTranslations } from "../../i18n/utils"
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+export function getStaticPaths () {
+ return [
+    {params: {lang: 'en'}},
+    {params: {lang: 'jp'}},
+  ];
+}
 ---
 
 <Layout title="Alu">
 	<div class="main-content">
-		<h1 class="title-text">Welcome to Alu</h1>
+		<h1 class="title-text">{t("menu.welcome")}</h1>
     <form class="url-input-form" id="url-input-form">
-      <input class="url-input" type="text" placeholder="Search...">
+      <input class="url-input" type="text" placeholder={t("menu.search")}>
       <div id="loading-content">Loading...</div>
       <div id="top-bar"></div>
       <iframe title="proxy-iframe" id="proxy-frame"></iframe>

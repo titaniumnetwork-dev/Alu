@@ -1,6 +1,13 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import GameItem from "../../components/GameItem.astro";
+
+export function getStaticPaths () {
+ return [
+    {params: {lang: 'en'}},
+    {params: {lang: 'jp'}},
+  ];
+}
 ---
 
 <Layout title="Games | Alu">
