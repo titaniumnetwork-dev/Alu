@@ -54,7 +54,7 @@
   };
 
   function getSearchEngine() {
-    switch (localStorage.getItem("alu__search_engine").toLowerCase()) {
+    switch (JSON.parse(localStorage.getItem("alu__search_engine")).value.toLowerCase()) {
         case "google": {
             return "https://google.com/search?q=";
         }

@@ -10,9 +10,7 @@ const { buttonNameDefault, dropdownList, id } = Astro.props;
     <ul class="dropdown-menu" id={id + "-menu"}>
     {
         dropdownList.map((item: any) => {
-            return (
-                <li class="dropdown-item" id={`proxy-${item.toLowerCase()}`} data-setting={item}>{item}</li>
-            )
+            return <li class="dropdown-item" data-setting={item.value}>{item.name}</li>
         })
     }
     </ul>

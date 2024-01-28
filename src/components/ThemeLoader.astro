@@ -3,10 +3,10 @@
         let currentTheme = localStorage.getItem("alu__selectedTheme")
 
         if (currentTheme) {
-            document.documentElement.setAttribute("data-theme", currentTheme.toLowerCase());
+            document.documentElement.setAttribute("data-theme", JSON.parse(currentTheme).value.toLowerCase());
             let footer = document.getElementById('footer');
             if (footer) {
-                footer.dataset.theme = currentTheme.toLowerCase();
+                footer.dataset.theme = JSON.parse(currentTheme).value.toLowerCase();
             }
         }
     }

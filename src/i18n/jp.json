@@ -7,8 +7,20 @@
     "menu.search": "検索...",
 
     "footer.brand": "アルー",
-    "footer.madeWithLove": "「wearr」による❤️で作られました",
+    "footer.madeWithLove": "wearrによる❤️で作られました",
     "footer.services": "サービス",
     "footer.socials": "ソーシャル",
-    "footer.aluProject": "アループロジェクト"
+    "footer.aluProject": "アループロジェクト",
+
+    "games.title": "ゲーム",
+
+    "settings.title": "設定",
+    "settings.proxy": "プロキシ",
+    "settings.proxy.selectedProxy": "選択されたプロキシ",
+    "settings.proxy.searchEngine": "検索エンジン",
+    "settings.proxy.openPageWith": "開く",
+    "settings.proxy.searxngURL": "SearxのURL",
+    "settings.proxy.openPageWith.embed": "埋め込み",
+    "settings.proxy.openPageWith.newTab": "新しいタブ",
+    "settings.proxy.bareURL": "BareのURL"
 }

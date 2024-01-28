@@ -1,15 +1,25 @@
 ---
     import Dropdown from "../Dropdown.astro"
-    import Input from "../Input.astro"
+    
+    const themeList = [
+        {"name": "Alu", "value": "alu"},
+        {"name": "Macchiato", "value": "macchiato"},
+        {"name": "Mocha", "value": "mocha"}
+    ]
+
+    const languageList = [
+        {"name": "English", "value": "en"},
+        {"name": "日本語", "value": "jp"}
+    ]
 ---
 
 <div class="settings-container">
     <div class="setting__theme">
         <label class="setting-label">Theme</label>
-        <Dropdown buttonNameDefault="Alu" dropdownList={["Alu", "Macchiato", "Mocha"]}, id="dropdown__selected-theme" />
+        <Dropdown buttonNameDefault="Alu" dropdownList={themeList}, id="dropdown__selected-theme" />
     </div>
     <div class="setting__language">
         <label class="setting-label">Language</label>
-        <Dropdown buttonNameDefault="English" dropdownList={["English", "日本語"]}, id="dropdown__selected-language" />
+        <Dropdown buttonNameDefault="English" dropdownList={languageList}, id="dropdown__selected-language" />
     </div>
 </div>

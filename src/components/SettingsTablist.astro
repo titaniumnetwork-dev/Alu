@@ -42,53 +42,35 @@ import CustomizationTab from "./SettingsContent/CustomizationTab.astro";
         
     </div>
   </div>
-  <script>
-    import { navigate } from 'astro:transitions/client';
-
-    // Extend window object to store currently selected tab.
-    declare global {
-        interface Window { 
-          currentlySelectedTab: string,
-          loadedContentStorage: any // Technically this is an object storing strings of html, but im lazy.
-        }
-    }
-
+  <script is:inline>
     document.addEventListener("astro:before-swap", () => {
       window.currentlySelectedTab = ""
-      document.removeEventListener('setting-tabChange', determineListener as EventListener)
+      document.removeEventListener('setting-tabChange', determineListener)
     })
     window.currentlySelectedTab;
     window.loadedContentStorage = {}
 
-    function beginLoad() {
-        Array.from(document.getElementsByClassName('setting-tab')).forEach((tab)=>{
-          let contentToLoad = document.getElementById('content-' + tab.id)
-          if (contentToLoad) {
-            window.loadedContentStorage[tab.id] = contentToLoad.innerHTML
-            contentToLoad.remove()
-          }
+    Array.from(document.getElementsByClassName('setting-tab')).forEach((tab)=>{
+      let contentToLoad = document.getElementById('content-' + tab.id)
+      if (contentToLoad) {
+        window.loadedContentStorage[tab.id] = contentToLoad.innerHTML
+        contentToLoad.remove()
+      }
 
-          tab.addEventListener('click', (event) => {
-            loadContent((event.target as HTMLElement).id)
-          })
+      tab.addEventListener('click', (event) => {
+        loadContent(event.target.id)
       })
-    }
-    beginLoad();
+    })
 
-
-    function loadContent(tabID: string) {
+    function loadContent(tabID) {
       if (window.currentlySelectedTab == tabID) return
         else window.currentlySelectedTab = tabID
         let currentContent = document.getElementById('current-content')
         if (currentContent) {
           currentContent.style.opacity = '0'
           setTimeout(() => {
-            if (currentContent) {
-              currentContent.innerHTML = window.loadedContentStorage[tabID]
-              currentContent.style.opacity = '1'
-            } else {
-              throw new Error("Current content not found!")
-            }
+            currentContent.innerHTML = window.loadedContentStorage[tabID]
+            currentContent.style.opacity = '1'
             document.dispatchEvent(new CustomEvent('setting-tabChange', {detail: tabID }))
             document.dispatchEvent(new CustomEvent('setting-tabLoad', {detail: tabID }))
           }, 250);
@@ -103,11 +85,11 @@ import CustomizationTab from "./SettingsContent/CustomizationTab.astro";
           if (dropdown) {
             if (dropdown.style.maxHeight == '0px' || dropdown.style.maxHeight == '') {
               dropdown.style.maxHeight = dropdown.scrollHeight + 'px';
-              document.getElementById(toggle.id)!.style.borderRadius = '10px 10px 0 0';
+              toggle.style.borderRadius = '10px 10px 0 0';
             } else {
               dropdown.style.maxHeight = '0px';
               setTimeout(() => {
-                document.getElementById(toggle.id)!.style.borderRadius = '10px';
+                toggle.style.borderRadius = '10px';
               }, 300);
             }
           }
@@ -115,7 +97,7 @@ import CustomizationTab from "./SettingsContent/CustomizationTab.astro";
       })
     }
 
-    function determineListener(event: CustomEvent) {
+    function determineListener(event) {
       if (event.detail == "setting-tab-proxy") {
         addDropdownListener()
       } else if (event.detail == "setting-tab-customization") {
@@ -123,110 +105,98 @@ import CustomizationTab from "./SettingsContent/CustomizationTab.astro";
       }
     }
 
-    function closeDropdown(dropdownID: string) {
+    function closeDropdown(dropdownID) {
       let dropdown = document.getElementById(dropdownID)
       if (dropdown) {
         dropdown.style.maxHeight = '0px';
         setTimeout(() => {
           let dropdown_toggle = document.getElementById(dropdownID.replace('-menu', ''));
-          if (dropdown_toggle) {
-            dropdown_toggle.style.borderRadius = '10px';
-          } else {
-            throw new Error("Dropdown toggle not found!")
-          }
+          dropdown_toggle.style.borderRadius = '10px';
         }, 300);
       }
     }
 
-    function applySavedLocalStorage(localStorageItem: string, dropdownID: string) {
+    function applySavedLocalStorage(localStorageItem, dropdownID) {
       if (localStorage.getItem(localStorageItem)) {
         let dropdown_toggle = document.getElementById(dropdownID);
         if (dropdown_toggle) {
-          dropdown_toggle.innerText = (localStorage.getItem(localStorageItem) || "").charAt(0).toUpperCase() + (localStorage.getItem(localStorageItem) || "").slice(1)
+          dropdown_toggle.innerText = JSON.parse(localStorage.getItem(localStorageItem)).name.charAt(0).toUpperCase() + JSON.parse(localStorage.getItem(localStorageItem)).name.slice(1)
         }
       }
     }
 
-    function applyDropdownEventListeners(item: HTMLElement, dropdownID: string, localStorageItem: string, optionalCallback: Function | undefined = undefined) {
+    function applyDropdownEventListeners(item, dropdownID, localStorageItem, optionalCallback) {
       Array.from(item.children).forEach((item) => {
-          item.addEventListener('click', () => {
-            // TODO: Allow an optional field for a custom localStorage value, instead of the input value.
-            localStorage.setItem(localStorageItem, ((item as HTMLElement).dataset.setting) || "")
-            applySavedLocalStorage(localStorageItem, dropdownID)
-            if (item.parentElement) {
-              closeDropdown(item.parentElement.id);
-            }
-
-            if (typeof optionalCallback == "function") {
-              optionalCallback();
-            }
-          })
+        item.addEventListener('click', () => {
+          // Get position in item.children array
+          localStorage.setItem(localStorageItem, JSON.stringify({
+            "name": item.innerText,
+            "value": item.dataset.setting
+          }))
+          applySavedLocalStorage(localStorageItem, dropdownID)
+          closeDropdown(item.parentElement.id);
+          if (typeof optionalCallback == "function") {
+            optionalCallback();
+          }
         })
+      })
+      // Array.from(item.children).forEach((item) => {
+      //     item.addEventListener('click', () => {
+      //       localStorage.setItem(localStorageItem, item.dataset.setting)
+      //       applySavedLocalStorage(localStorageItem, dropdownID)
+      //       closeDropdown(item.parentElement.id);
+
+      //       if (typeof optionalCallback == "function") {
+      //         optionalCallback();
+      //       }
+      //     })
+      //   })
     }
 
-    function applyInputListeners(item: HTMLInputElement, localStorageItem: string) {
+    function applyInputListeners(item, localStorageItem) {
       item.addEventListener('input', () => {
-        // TODO: Allow an optional field for a custom localStorage value, instead of the input value.
         localStorage.setItem(localStorageItem, item.value)
       })
     }
 
-    document.addEventListener('setting-tabChange', determineListener as EventListener)
+    document.addEventListener('setting-tabChange', determineListener)
 
     loadContent('setting-tab-proxy')
 
     function setupCustomizationSettings() {
       applySavedLocalStorage('alu__selectedTheme', 'dropdown__selected-theme');
       applySavedLocalStorage('alu__selectedLanguage', 'dropdown__selected-language');
-      // TODO: Null checking lol.
-      let dropdownTheme = document.getElementById('dropdown__selected-theme-menu') as HTMLElement
-      let dropdownLanguage = document.getElementById('dropdown__selected-language-menu') as HTMLElement
-      applyDropdownEventListeners(dropdownTheme, 'dropdown__selected-theme', 'alu__selectedTheme', changeTheme);
-      applyDropdownEventListeners(dropdownLanguage, 'dropdown__selected-language', 'alu__selectedLanguage', navigateToNewLangaugePage);
-    }
-
-    function navigateToNewLangaugePage() {
-      console.log("Here")
-      console.log(localStorage.getItem("alu__selectedLanguage"))
-      switch (localStorage.getItem("alu__selectedLanguage")) {
-        case "English":
-          window.location.href = "/en/settings/"
-          break;
-        case "日本語":
-          window.location.href = "/jp/settings/"
-          break;
-      }
-      beginLoad();
-
+      let themeDropdown = document.getElementById('dropdown__selected-theme-menu')
+      let languageDropdown = document.getElementById('dropdown__selected-language-menu')
+      applyDropdownEventListeners(themeDropdown, 'dropdown__selected-theme', 'alu__selectedTheme', changeTheme);
+      applyDropdownEventListeners(languageDropdown, 'dropdown__selected-language', 'alu__selectedLanguage', navigateToNewLangaugePage);
     }
 
     function changeTheme() {
-      // || "" is safe to use here, because it will default to the default theme if the localStorage item is not found.
-      let theme = localStorage.getItem('alu__selectedTheme') || ""
+      let theme = JSON.parse(localStorage.getItem('alu__selectedTheme')).value
       if (theme) {
         document.documentElement.setAttribute('data-theme', theme.toLowerCase())
-      }
-      let footer = document.getElementById('footer');
-      if (footer) {
+        let footer = document.getElementById('footer');
+        if (footer) {
           footer.dataset.theme = theme.toLowerCase();
+        }
       }
     }
 
-    function setupSettings(event: CustomEvent) {
+    function setupSettings(event) {
       if (event.detail == "setting-tab-proxy") {
           applySavedLocalStorage('alu__selectedProxy', 'dropdown__selected-proxy');
           applySavedLocalStorage('alu__search_engine', 'dropdown__search-engine');
           applySavedLocalStorage("alu__selectedOpenWith", 'dropdown__open-with');
-          let selectedProxyDropdown = document.getElementById('dropdown__selected-proxy-menu') as HTMLElement
-          let searchEngineDropdown = document.getElementById('dropdown__search-engine-menu') as HTMLElement
-          let openWithDropdown = document.getElementById('dropdown__open-with-menu') as HTMLElement
-          let bareUrlInput = document.getElementById('bare-url-input') as HTMLInputElement
-          let searxngUrlInput = document.getElementById('searxng-url-input') as HTMLInputElement
+          let selectedProxyDropdown = document.getElementById('dropdown__selected-proxy-menu')
+          let searchEngineDropdown = document.getElementById('dropdown__search-engine-menu')
+          let openWithDropdown = document.getElementById('dropdown__open-with-menu')
+          let bareUrlInput = document.getElementById('bare-url-input')
+          let searxngUrlInput = document.getElementById('searxng-url-input')
           let savedSearxngUrl = localStorage.getItem("alu__searxngUrl")
           if (savedSearxngUrl != undefined) {
             if (savedSearxngUrl == "") localStorage.setItem("alu__searxngUrl", "https://searxng.site/")
-            // Typescript.. we literally make sure that it won't be undefined RIGHT ABOVE THIS COMMENT.
-            if (searxngUrlInput) searxngUrlInput.value = localStorage.getItem("alu__searxngUrl") || "https://searxng.site/"
+            searxngUrlInput.value = JSON.parse(localStorage.getItem("alu__searxngUrl")).value
           }
           // Proxy settings
           applyInputListeners(bareUrlInput, 'alu__bareUrl')
@@ -234,9 +204,8 @@ import CustomizationTab from "./SettingsContent/CustomizationTab.astro";
           applyDropdownEventListeners(searchEngineDropdown, 'dropdown__search-engine', 'alu__search_engine', checkSearxng);
           applyDropdownEventListeners(selectedProxyDropdown, 'dropdown__selected-proxy', 'alu__selectedProxy');
           applyDropdownEventListeners(openWithDropdown, 'dropdown__open-with', 'alu__selectedOpenWith');
-          // Currently does nothing functionally, but it's here for future use.
-          if (localStorage.getItem('alu__bareUrl')) {
-            bareUrlInput.value = localStorage.getItem('bareUrl') || ""
+          if (localStorage.getItem('bareUrl')) {
+            bareUrlInput.value = localStorage.getItem('bareUrl')
           } else {
             bareUrlInput.value = '/bare/'
           }
@@ -249,15 +218,26 @@ import CustomizationTab from "./SettingsContent/CustomizationTab.astro";
     function checkSearxng() {
       // This function checks if the "searxng" option was clicked, display an additional option if so.
       if (localStorage.getItem("alu__search_engine")) {
-        if ((localStorage.getItem("alu__search_engine") || "").toLowerCase() == "searx") {
-          (document.getElementsByClassName('setting__searxng-url')[0] as HTMLElement).style.opacity = '1'
+        if (JSON.parse(localStorage.getItem("alu__search_engine")).value.toLowerCase() == "searx") {
+          document.getElementsByClassName('setting__searxng-url')[0].style.opacity = '1'
         } else {
-          (document.getElementsByClassName('setting__searxng-url')[0] as HTMLElement).style.opacity = '0'
+          document.getElementsByClassName('setting__searxng-url')[0].style.opacity = '0'
         }
       }
     }
 
-    document.addEventListener('setting-tabLoad', setupSettings as EventListener);
+    document.addEventListener('setting-tabLoad', setupSettings)
+
+    function navigateToNewLangaugePage() {
+      switch (JSON.parse(localStorage.getItem("alu__selectedLanguage")).value) {
+        case "en":
+          window.location.href = "/en/settings/"
+          break;
+        case "jp":
+          window.location.href = "/jp/settings/"
+          break;
+      }
+    }
 </script>
 <style is:global>
 .content-hidden {

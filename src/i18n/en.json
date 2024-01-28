@@ -10,5 +10,18 @@
     "footer.madeWithLove": "Made with ❤️ by wearr",
     "footer.services": "Services",
     "footer.socials": "Socials",
-    "footer.aluProject": "Alu Project"
+    "footer.aluProject": "Alu Project",
+
+    "games.title": "Games",
+
+    "settings.title": "Settings",
+    "settings.proxy": "Proxy",
+    "settings.proxy.auto": "Auto",
+    "settings.proxy.selectedProxy": "Selected Proxy",
+    "settings.proxy.searchEngine": "Search Engine",
+    "settings.proxy.openPageWith": "Open With",
+    "settings.proxy.openPageWith.embed": "Embed",
+    "settings.proxy.openPageWith.newTab": "New Tab",
+    "settings.proxy.searxngURL": "Searx URL",
+    "settings.proxy.bareURL": "Bare URL"
 }

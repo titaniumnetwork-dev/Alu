@@ -2,6 +2,10 @@
 import Layout from "../../layouts/Layout.astro";
 import GameItem from "../../components/GameItem.astro";
 
+import { getLangFromUrl, useTranslations } from "../../i18n/utils"
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
 export function getStaticPaths () {
  return [
     {params: {lang: 'en'}},
@@ -11,7 +15,7 @@ export function getStaticPaths () {
 ---
 
 <Layout title="Games | Alu">
-    <h1 class="title-text">Games</h1>
+    <h1 class="title-text">{t("games.title")}</h1>
         <div class="grid">
             <GameItem name="1v1.lol" image="/games/1v1.lol/logo.png"></GameItem>
             <GameItem name="2048" image="/games/2048/logo.png"></GameItem>
@@ -28,7 +32,7 @@ export function getStaticPaths () {
             <GameItem name="Death Run 3D" image="/games/death-run-3d/logo.png" slugName="death-run-3d"></GameItem>
             <GameItem name="Doge Miner" image="/games/doge-miner/logo.png" slugName="doge-miner"></GameItem>
             <GameItem name="Doodle Jump" image="/games/doodle-jump/logo.png" slugName="doodle-jump"></GameItem>
-            <GameItem name="doom" image="/games/doom/logo.png" slugName="doom"></GameItem>
+            <GameItem name="Doom" image="/games/doom/logo.png" slugName="doom"></GameItem>
             <GameItem name="Draw The Hill" image="/games/draw-the-hill/logo.png" slugName="draw-the-hill"></GameItem>
             <GameItem name="Evil Glitch" image="/games/evil-glitch/logo.png" slugName="evil-glitch"></GameItem>
             <GameItem name="Fall Boys" image="/games/fall-boys/logo.png" slugName="fall-boys"></GameItem>
