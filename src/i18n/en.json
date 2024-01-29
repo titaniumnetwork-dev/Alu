@@ -1,4 +1,9 @@
 {
+    "pages.home": "Home | Alu",
+    "pages.games": "Games | Alu",
+    "pages.settings": "Settings | Alu",
+
+
     "nav.brand": "Alu",
     "nav.games": "Games",
     "nav.settings": "Settings",
@@ -30,5 +35,7 @@
     "settings.customization.theme.Alu": "Alu",
     "settings.customization.theme.Macchiato": "Macchiato",
     "settings.customization.theme.Mocha": "Mocha",
-    "settings.customization.language": "Language"
+    "settings.customization.language": "Language",
+
+    "settings.cloaking": "Cloaking"
 }

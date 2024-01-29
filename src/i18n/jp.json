@@ -1,4 +1,8 @@
 {
+    "pages.home": "ホーム | アルー",
+    "pages.games": "ゲーム | アルー",
+    "pages.settings": "設定 | アルー",
+
     "nav.brand": "アルー",
     "nav.games": "ゲーム",
     "nav.settings": "設定",
@@ -29,5 +33,7 @@
     "settings.customization.theme.Alu": "アルー",
     "settings.customization.theme.Macchiato": "マキアート",
     "settings.customization.theme.Mocha": "モカ",
-    "settings.customization.language": "言語"
+    "settings.customization.language": "言語",
+    
+    "settings.cloaking": "クローキング"
 }

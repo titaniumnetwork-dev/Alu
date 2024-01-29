@@ -3,6 +3,7 @@ import ProxyTab from "./SettingsContent/ProxyTab.astro";
 import CustomizationTab from "./SettingsContent/CustomizationTab.astro";
 
 import { getLangFromUrl, useTranslations } from "../i18n/utils"
+import CloakingTab from "./SettingsContent/CloakingTab.astro";
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
@@ -18,12 +19,13 @@ const t = useTranslations(lang);
         <CustomizationTab />
     </div>
     <div id="content-setting-tab-cloaking">
-        <h1 class="content-setting-header">Cloaking</h1>
-        <p style="color: white;">Cloaking settings</p>
+        <h1 class="content-setting-header">{t("settings.cloaking")}</h1>
+        <p class="content-setting-subtext">Change how your tab looks...</p>
+        <CloakingTab />
     </div>
     <div id="content-setting-tab-credits">
         <h1 class="content-setting-header">Credits</h1>
-        <p style="color: white;">Credits settings</p>
+        <p style="color: white;">Credits..</p>
     </div>
 </div>
 
@@ -151,7 +153,6 @@ const t = useTranslations(lang);
             "name": item.innerText,
             "value": item.dataset.setting,
           }
-          console.log(localStorageItem)
           localStorage.setItem(localStorageItem, JSON.stringify(localStorageItemContent))
           applySavedLocalStorage(localStorageItem, dropdownID)
           closeDropdown(item.parentElement.id);
@@ -277,6 +278,11 @@ const t = useTranslations(lang);
   color: var(--text-color);
   font-weight: 400;
 }
+.content-setting-subtext {
+  font-size: 20px;
+  color: var(--text-color-accent);
+}
+
 .setting-label {
   color: var(--text-color);
   font-size: 18px;
