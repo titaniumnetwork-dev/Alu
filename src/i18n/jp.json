@@ -22,5 +22,12 @@
     "settings.proxy.searxngURL": "SearxのURL",
     "settings.proxy.openPageWith.embed": "埋め込み",
     "settings.proxy.openPageWith.newTab": "新しいタブ",
-    "settings.proxy.bareURL": "BareのURL"
+    "settings.proxy.bareURL": "BareのURL",
+
+    "settings.customization": "カスタマイズ",
+    "settings.customization.theme": "テーマ",
+    "settings.customization.theme.Alu": "アルー",
+    "settings.customization.theme.Macchiato": "マキアート",
+    "settings.customization.theme.Mocha": "モカ",
+    "settings.customization.language": "言語"
 }

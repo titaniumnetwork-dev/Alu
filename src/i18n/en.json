@@ -23,5 +23,12 @@
     "settings.proxy.openPageWith.embed": "Embed",
     "settings.proxy.openPageWith.newTab": "New Tab",
     "settings.proxy.searxngURL": "Searx URL",
-    "settings.proxy.bareURL": "Bare URL"
+    "settings.proxy.bareURL": "Bare URL",
+
+    "settings.customization": "Customization",
+    "settings.customization.theme": "Theme",
+    "settings.customization.theme.Alu": "Alu",
+    "settings.customization.theme.Macchiato": "Macchiato",
+    "settings.customization.theme.Mocha": "Mocha",
+    "settings.customization.language": "Language"
 }

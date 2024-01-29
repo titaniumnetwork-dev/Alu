@@ -6,9 +6,10 @@ import ThemeLoader from '../components/ThemeLoader.astro';
 
 interface Props {
 	title: string;
+  optionalPreloads?: string[];
 }
 
-const { title } = Astro.props;
+const { title, optionalPreloads } = Astro.props;
 
 import i18next from 'i18next';
 ---
@@ -23,7 +24,10 @@ import i18next from 'i18next';
 		<link rel="icon" type="image/svg+xml" href="/favicon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet" as="style">
+    {optionalPreloads?.map((item) => {
+      return <link rel="preload" href={item} />
+    })}
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
     <ViewTransitions />

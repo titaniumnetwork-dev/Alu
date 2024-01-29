@@ -21,9 +21,9 @@ const searchEngineList = [
 ]
 
 const openPageWith = [
-  { "name": t("settings.proxy.openPageWith.embed"), "value": "embed"},
+  { "name": t("settings.proxy.openPageWith.embed"), "value": "embed" },
   { "name": "About:Blank", "value": "about:blank" },
-  { "name": t("settings.proxy.openPageWith.newTab"), "value": "newTab"}
+  { "name": t("settings.proxy.openPageWith.newTab"), "value": "newTab" },
 ]
 ---
 
@@ -41,7 +41,7 @@ const openPageWith = [
       <Dropdown buttonNameDefault={t("settings.proxy.openPageWith.embed")} dropdownList={openPageWith}, id="dropdown__open-with" />
     </div>
     <div class="setting__bare-url">
-      <label class="setting-label">{t("settings.proxy.bareURL")}</label>
+      <label class="setting-label" for="bare-url-input">{t("settings.proxy.bareURL")}</label>
       <Input inputName="bare-url" />
     </div>
 </div>

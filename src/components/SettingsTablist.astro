@@ -1,16 +1,20 @@
 ---
 import ProxyTab from "./SettingsContent/ProxyTab.astro";
 import CustomizationTab from "./SettingsContent/CustomizationTab.astro";
+
+import { getLangFromUrl, useTranslations } from "../i18n/utils"
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <div class="content-hidden">
     <div id="content-setting-tab-proxy">
-        <h1 class="content-setting-header">Proxy</h1>
+        <h1 class="content-setting-header">{t("settings.proxy")}</h1>
         <ProxyTab />
 
     </div>
     <div id="content-setting-tab-customization">
-        <h1 class="content-setting-header">Customization</h1>
+        <h1 class="content-setting-header">{t("settings.customization")}</h1>
         <CustomizationTab />
     </div>
     <div id="content-setting-tab-cloaking">
@@ -116,11 +120,26 @@ import CustomizationTab from "./SettingsContent/CustomizationTab.astro";
       }
     }
 
+    function getLocalStorageValue(localStorageItem, dropdownID) {
+      // I was kinda dumb for not doing this earlier.
+      let dropdown = document.getElementById(dropdownID);
+      let dropdownMenu = document.getElementById(dropdownID + "-menu");
+
+      if (dropdown && dropdownMenu) {
+        // Now we find the child that matches localStorageItem.value.
+        let dropdownItem = Array.from(dropdownMenu.children).find((item) => {
+          return JSON.parse(localStorage.getItem(localStorageItem)).value == item.dataset.setting
+        })
+        // Now set the inner text to the name in the dropdownItem.
+        return dropdownItem.innerText
+      }
+    }
+
     function applySavedLocalStorage(localStorageItem, dropdownID) {
       if (localStorage.getItem(localStorageItem)) {
         let dropdown_toggle = document.getElementById(dropdownID);
         if (dropdown_toggle) {
-          dropdown_toggle.innerText = JSON.parse(localStorage.getItem(localStorageItem)).name.charAt(0).toUpperCase() + JSON.parse(localStorage.getItem(localStorageItem)).name.slice(1)
+          dropdown_toggle.innerText = getLocalStorageValue(localStorageItem, dropdownID)
         }
       }
     }
@@ -128,11 +147,12 @@ import CustomizationTab from "./SettingsContent/CustomizationTab.astro";
     function applyDropdownEventListeners(item, dropdownID, localStorageItem, optionalCallback) {
       Array.from(item.children).forEach((item) => {
         item.addEventListener('click', () => {
-          // Get position in item.children array
-          localStorage.setItem(localStorageItem, JSON.stringify({
+          let localStorageItemContent = {
             "name": item.innerText,
-            "value": item.dataset.setting
-          }))
+            "value": item.dataset.setting,
+          }
+          console.log(localStorageItem)
+          localStorage.setItem(localStorageItem, JSON.stringify(localStorageItemContent))
           applySavedLocalStorage(localStorageItem, dropdownID)
           closeDropdown(item.parentElement.id);
           if (typeof optionalCallback == "function") {
@@ -196,7 +216,7 @@ import CustomizationTab from "./SettingsContent/CustomizationTab.astro";
           let savedSearxngUrl = localStorage.getItem("alu__searxngUrl")
           if (savedSearxngUrl != undefined) {
             if (savedSearxngUrl == "") localStorage.setItem("alu__searxngUrl", "https://searxng.site/")
-            searxngUrlInput.value = JSON.parse(localStorage.getItem("alu__searxngUrl")).value
+            searxngUrlInput.value = localStorage.getItem("alu__searxngUrl")
           }
           // Proxy settings
           applyInputListeners(bareUrlInput, 'alu__bareUrl')
@@ -255,10 +275,12 @@ import CustomizationTab from "./SettingsContent/CustomizationTab.astro";
 }
 .content-setting-header {
   color: var(--text-color);
+  font-weight: 400;
 }
 .setting-label {
   color: var(--text-color);
   font-size: 18px;
+  font-weight: 400;
   /* annoying stuff with label elements. */
   display: block;
   opacity: 1.0;
@@ -266,6 +288,7 @@ import CustomizationTab from "./SettingsContent/CustomizationTab.astro";
   margin-inline: 0;
   user-select: none;
   width: 100%;
+  cursor: auto;
 }
 
 .setting__searxng-url {
@@ -278,7 +301,7 @@ label {
   font-weight: 700; 
   cursor: pointer; 
   color: #d8d8d8; 
-  opacity: .4; 
+  opacity: .6; 
   transition: opacity .4s ease-in-out;
   display: block; 
   width: calc(100% - 48px) ;
