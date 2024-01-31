@@ -3,15 +3,19 @@ import { ViewTransitions } from 'astro:transitions';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import ThemeLoader from '../components/ThemeLoader.astro';
+import CloakLoader from '../components/CloakLoader.astro';
+
+type Preload = {
+  "href": string
+  "as": string
+}
 
 interface Props {
 	title: string;
-  optionalPreloads?: string[];
+  optionalPreloads?: Preload[];
 }
 
 const { title, optionalPreloads } = Astro.props;
-
-import i18next from 'i18next';
 ---
 
 
@@ -21,17 +25,17 @@ import i18next from 'i18next';
 		<meta charset="UTF-8" />
 		<meta name="description" content="Astro description" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet" as="style">
     {optionalPreloads?.map((item) => {
-      return <link rel="preload" href={item} />
+      return <link rel="preload" href={item.href} as={item.as} />
     })}
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
     <ViewTransitions />
     <ThemeLoader />
+    <CloakLoader transition:persist />
 	</head>
 	<body>
     <Header></Header>
@@ -60,7 +64,8 @@ body {
 :root {
   --background-color: #080808;
   --background-highlight: #252525;
-  --accent-color: #7900e1;
+  --accent-color: #6b00c9;
+  --accent-color-brighter: #8800ff;
   --text-color: #fff;
   --text-color-accent: #c7c7c7;
   --dropdown-background-color: #1e1e1e;
@@ -71,6 +76,7 @@ body {
   --background-color: #1e1e2e;
   --background-highlight: #45475a;
   --accent-color: #181825;
+  --accent-color-brighter: #242539;
   --text-color: #cdd6f4;
   --text-color-accent: #bac2de;
   --dropdown-background-color: #32324e; 
@@ -81,6 +87,7 @@ body {
   --background-color: #24273a;
   --background-highlight: #494d64;
   --accent-color: #1e2030;
+  --accent-color-brighter: #525571;
   --text-color: #cad3f5;
   --text-color-accent: #b8c0e0;
   --dropdown-background-color: #323550;

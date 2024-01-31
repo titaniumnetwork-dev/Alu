@@ -193,6 +193,78 @@ const t = useTranslations(lang);
       applyDropdownEventListeners(languageDropdown, 'dropdown__selected-language', 'alu__selectedLanguage', navigateToNewLangaugePage);
     }
 
+    function setupCloakingSettings() {
+      Array.from(document.getElementById('cloak-list').children).forEach((cloak) => {
+        cloak.addEventListener('click', () => {
+          console.log("Here!")
+          let cloakName = cloak.dataset.cloakName
+          let cloakIcon = cloak.dataset.cloakIcon
+
+          let localStorageItem = {
+            "name": cloakName,
+            "icon": cloakIcon,
+            "isCustom": false,
+          }
+          localStorage.setItem('alu__selectedCloak', JSON.stringify(localStorageItem))
+
+          if (cloakName == "None") {
+            localStorage.removeItem('alu__selectedCloak')
+            cloakName = "Settings | Alu"
+            cloakIcon = "/favicon.png"
+          } 
+          let link = document.querySelector("link[rel~='icon']");
+          if (!link) {
+              link = document.createElement('link');
+              link.rel = 'icon';
+              document.head.appendChild(link);
+          }
+          link.href = cloakIcon;
+          document.title = cloakName;
+
+          if (!cloak.classList.contains("selected")) {
+              Array.from(document.getElementById('cloak-list').children).forEach((cloak2) => {
+                cloak2.classList.remove('selected')
+              })
+              cloak.classList.add('selected')
+            }
+        })
+      })
+
+      let customNameInput = document.getElementById('cloak-custom-name-input')
+      let customFaviconInput = document.getElementById('cloak-custom-favicon-input')
+      if (localStorage.getItem('alu__selectedCloak')) {
+        let selectedCloak = JSON.parse(localStorage.getItem('alu__selectedCloak'))
+        if (selectedCloak.isCustom) {
+          customNameInput.value = selectedCloak.name
+          customFaviconInput.value = selectedCloak.icon
+        }
+      }
+
+      document.getElementById('cloak-custom-button').addEventListener("click", () => {
+        let cloakName = document.getElementById('cloak-custom-name-input').value
+        let cloakIcon = document.getElementById('cloak-custom-favicon-input').value
+        let localStorageItem = {
+          "name": cloakName,
+          "icon": cloakIcon,
+          "isCustom": true,
+        }
+        localStorage.setItem('alu__selectedCloak', JSON.stringify(localStorageItem))
+        if (cloakName == "None") {
+          localStorage.removeItem('alu__selectedCloak')
+          cloakName = "Settings | Alu"
+          cloakIcon = "/favicon.png"
+        } 
+        let link = document.querySelector("link[rel~='icon']");
+        if (!link) {
+            link = document.createElement('link');
+            link.rel = 'icon';
+            document.head.appendChild(link);
+        }
+        link.href = cloakIcon;
+        document.title = cloakName;
+      })
+    }
+
     function changeTheme() {
       let theme = JSON.parse(localStorage.getItem('alu__selectedTheme')).value
       if (theme) {
@@ -233,6 +305,8 @@ const t = useTranslations(lang);
           checkSearxng();
         } else if (event.detail == "setting-tab-customization") {
           setupCustomizationSettings();
+        } else if (event.detail == "setting-tab-cloaking") {
+          setupCloakingSettings();
         }
     }
 

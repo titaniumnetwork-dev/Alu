@@ -1,29 +1,31 @@
 ---
-const { type, inputName, defaultTextContent }  = Astro.props; 
-// as any should not be necessary here... but it is womp womp.
+const { type, inputName, defaultTextContent, height, placeholder }  = Astro.props; 
+
+// typescript brainrot
+type HTMLInputTypeAttribute = "button" | "checkbox" | "color" | "date" | "datetime-local" | "email" | "file" | "hidden" | "image" | "month" | "number" | "password" | "radio" | "range" | "reset" | "search" | "submit" | "tel" | "text" | "time" | "url" | "week";
+
 interface Props {
-    type?: string;
+    type?: HTMLInputTypeAttribute;
     inputName: string;
     defaultTextContent?: string;
+    height: string;
+    placeholder?: string;
 }
 ---
 
-<div class="input-container">
-    <input id={inputName + "-input"} value={defaultTextContent || ""} type={type as any}  />
-</div>
+<input style={`height: ${height}`} id={inputName + "-input"} placeholder={placeholder || ""} value={defaultTextContent || ""} type={type}  />
 
 <style>
     input {
-        height: 50px;
         width: 100%;
-        border: 4px solid #E0E0E0;
+        border: 2px solid var(--accent-color-brighter);
         border-radius: 10px;
         background-color: #1b1b1b;
         color: var(--text-color);
-        transition: 100ms ease-in-out;
+        transition: .1s ease-in-out;
     }
     input:focus {
         outline: none;
-        border: 4px solid #7900e1;
+        border: 2px solid var(--text-color);
     }
 </style>

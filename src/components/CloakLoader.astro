@@ -1,0 +1,32 @@
+<script>
+    function loadCloak() {
+        let localStorageCloak = localStorage.getItem('alu__selectedCloak');
+        if (localStorageCloak) {
+            let parsedCloak = JSON.parse(localStorageCloak);
+            if (parsedCloak) {
+                if (parsedCloak.name != "None") {
+                    document.title = parsedCloak.name
+                    let link = document.querySelector("link[rel~='icon']") as HTMLLinkElement;
+                    if (!link) {
+                        link = document.createElement('link');
+                        link.rel = 'icon';
+                    }
+                    link.href = parsedCloak.icon;
+                    document.getElementsByTagName('head')[0].appendChild(link);
+                }
+            }
+        } else {
+            // Load default cloak
+            let link = document.querySelector("link[rel~='icon']") as HTMLLinkElement;
+            if (!link) {
+                link = document.createElement('link');
+                link.rel = 'icon';
+            }
+            link.href = "/favicon.png";
+            document.getElementsByTagName('head')[0].appendChild(link);
+        }
+    }
+
+    loadCloak();
+    document.addEventListener("astro:after-swap", loadCloak);
+</script>
