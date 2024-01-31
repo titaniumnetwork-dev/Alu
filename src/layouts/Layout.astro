@@ -4,6 +4,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import ThemeLoader from '../components/ThemeLoader.astro';
 import CloakLoader from '../components/CloakLoader.astro';
+import WelcomeLogging from '../components/WelcomeLogging.astro';
 
 type Preload = {
   "href": string
@@ -40,6 +41,7 @@ const { title, optionalPreloads } = Astro.props;
 	<body>
     <Header></Header>
       <slot transition:animate={"fade"} />
+      <WelcomeLogging />
     <Footer></Footer>
 	</body>
 </html>

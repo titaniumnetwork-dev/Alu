@@ -196,7 +196,6 @@ const t = useTranslations(lang);
     function setupCloakingSettings() {
       Array.from(document.getElementById('cloak-list').children).forEach((cloak) => {
         cloak.addEventListener('click', () => {
-          console.log("Here!")
           let cloakName = cloak.dataset.cloakName
           let cloakIcon = cloak.dataset.cloakIcon
 
@@ -324,7 +323,11 @@ const t = useTranslations(lang);
     document.addEventListener('setting-tabLoad', setupSettings)
 
     function navigateToNewLangaugePage() {
-      switch (JSON.parse(localStorage.getItem("alu__selectedLanguage")).value) {
+      let value = JSON.parse(localStorage.getItem("alu__selectedLanguage")).value
+      let currentLanguage = window.location.pathname.split("/")[1]
+      // Do nothing.. because we're already on the page.
+      if (value == currentLanguage) return;
+      switch (value) {
         case "en":
           window.location.href = "/en/settings/"
           break;

@@ -12,7 +12,9 @@ import { ViewTransitions } from "astro:transitions";
       if (localStorage.getItem("alu__selectedLanguage") === null) window.location.href = "/en/";
       let currentLang = localStorage.getItem("alu__selectedLanguage");
       if (currentLang) {
-        switch (JSON.parse(currentLang).value) {
+        try {
+          let parsed = JSON.parse(currentLang).value
+          switch (parsed) {
             case "en":
                 window.location.href = "/en/";
                 break;
@@ -22,6 +24,10 @@ import { ViewTransitions } from "astro:transitions";
             default:
                 window.location.href = "/en/";
                 break;
+        }
+        } catch {
+          localStorage.clear();
+          window.location.reload();
         }
       }
 
