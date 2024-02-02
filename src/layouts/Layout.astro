@@ -23,6 +23,8 @@ const { title, optionalPreloads } = Astro.props;
 <!doctype html>
 <html lang="en">
 	<head>
+    <ThemeLoader />
+    <CloakLoader transition:persist />
 		<meta charset="UTF-8" />
 		<meta name="description" content="Astro description" />
 		<meta name="viewport" content="width=device-width" />
@@ -35,8 +37,6 @@ const { title, optionalPreloads } = Astro.props;
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
     <ViewTransitions />
-    <ThemeLoader />
-    <CloakLoader transition:persist />
 	</head>
 	<body>
     <Header></Header>
@@ -52,7 +52,7 @@ const { title, optionalPreloads } = Astro.props;
 
 body {
   opacity: 0;
-  animation: fadeIn ease 0.15s forwards;
+  animation: fadeIn ease 0.2s forwards;
 }
 @keyframes fadeIn {
   0% {
@@ -67,7 +67,7 @@ body {
   --background-color: #080808;
   --background-highlight: #252525;
   --accent-color: #6b00c9;
-  --accent-color-brighter: #8800ff;
+  --accent-color-brighter: #7e00e0;
   --text-color: #fff;
   --text-color-accent: #c7c7c7;
   --dropdown-background-color: #1e1e1e;
@@ -89,10 +89,21 @@ body {
   --background-color: #24273a;
   --background-highlight: #494d64;
   --accent-color: #1e2030;
-  --accent-color-brighter: #525571;
+  --accent-color-brighter: #2a2d42;
   --text-color: #cad3f5;
   --text-color-accent: #b8c0e0;
   --dropdown-background-color: #323550;
+}
+
+[data-theme="rose_pine"] {
+  /* Rosé Pine Theme */
+  --background-color: #191724;
+  --background-highlight: #1f1d2e;
+  --accent-color: #26233a;
+  --accent-color-brighter: #2e2b4a;
+  --text-color: #e0def4;
+  --text-color-accent: #c7c5e0;
+  --dropdown-background-color: #1f1d2e;
 }
 
 body, html {
