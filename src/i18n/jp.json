@@ -1,4 +1,6 @@
 {
+    "ultraviolet": "ウルトラバイオレット",
+    
     "pages.home": "ホーム | アルー",
     "pages.games": "ゲーム | アルー",
     "pages.settings": "設定 | アルー",
@@ -35,5 +37,10 @@
     "settings.customization.theme.Mocha": "モカ",
     "settings.customization.language": "言語",
     
-    "settings.cloaking": "クローキング"
+    "settings.cloaking": "クローキング",
+    "settings.cloaking.subtext": "タブの外観を変更します...",
+
+    "settings.credits": "クレジット",
+    "settings.credits.mochaandmacchiatothemes": "モカとマキアートテーマ",
+    "settings.credits.japaneseTranslations": "日本語翻訳"
 }

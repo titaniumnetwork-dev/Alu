@@ -1,4 +1,6 @@
 {
+    "ultraviolet": "Ultraviolet",
+
     "pages.home": "Home | Alu",
     "pages.games": "Games | Alu",
     "pages.settings": "Settings | Alu",
@@ -37,5 +39,10 @@
     "settings.customization.theme.Mocha": "Mocha",
     "settings.customization.language": "Language",
 
-    "settings.cloaking": "Cloaking"
+    "settings.cloaking": "Cloaking",
+    "settings.cloaking.subtext": "Change how your tab looks...",
+
+    "settings.credits": "Credits",
+    "settings.credits.mochaandmacchiatothemes": "Mocha & Macchiato Themes",
+    "settings.credits.japaneseTranslations": "Japanese Translations"
 }

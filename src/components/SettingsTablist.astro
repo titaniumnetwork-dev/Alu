@@ -4,6 +4,7 @@ import CustomizationTab from "./SettingsContent/CustomizationTab.astro";
 
 import { getLangFromUrl, useTranslations } from "../i18n/utils"
 import CloakingTab from "./SettingsContent/CloakingTab.astro";
+import CreditsTab from "./SettingsContent/CreditsTab.astro";
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
@@ -20,12 +21,12 @@ const t = useTranslations(lang);
     </div>
     <div id="content-setting-tab-cloaking">
         <h1 class="content-setting-header">{t("settings.cloaking")}</h1>
-        <p class="content-setting-subtext">Change how your tab looks...</p>
+        <p class="content-setting-subtext">{t("settings.cloaking.subtext")}</p>
         <CloakingTab />
     </div>
     <div id="content-setting-tab-credits">
-        <h1 class="content-setting-header">Credits</h1>
-        <p style="color: white;">Credits..</p>
+        <h1 class="content-setting-header">{t("settings.credits")}</h1>
+        <CreditsTab />
     </div>
 </div>
 
