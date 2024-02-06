@@ -31,34 +31,13 @@ const t = useTranslations(lang);
 
 <div class="popup">
   <div class="tabs">
-    <input
-      type="radio"
-      id="setting-tab-proxy"
-      class="setting-tab"
-      name="tab"
-      checked="true"
-    />
+    <input type="radio" id="setting-tab-proxy" class="setting-tab" name="tab" checked="true" />
     <label for="setting-tab-proxy">Proxy</label>
-    <input
-      type="radio"
-      id="setting-tab-customization"
-      class="setting-tab"
-      name="tab"
-    />
+    <input type="radio" id="setting-tab-customization" class="setting-tab" name="tab" />
     <label for="setting-tab-customization">Customization</label>
-    <input
-      type="radio"
-      id="setting-tab-cloaking"
-      class="setting-tab"
-      name="tab"
-    />
+    <input type="radio" id="setting-tab-cloaking" class="setting-tab" name="tab" />
     <label for="setting-tab-cloaking">Cloaking</label>
-    <input
-      type="radio"
-      id="setting-tab-credits"
-      class="setting-tab"
-      name="tab"
-    />
+    <input type="radio" id="setting-tab-credits" class="setting-tab" name="tab" />
     <label for="setting-tab-credits">Credits</label>
     <div class="marker">
       <div id="top"></div>
@@ -96,12 +75,8 @@ const t = useTranslations(lang);
       setTimeout(() => {
         currentContent.innerHTML = window.loadedContentStorage[tabID];
         currentContent.style.opacity = "1";
-        document.dispatchEvent(
-          new CustomEvent("setting-tabChange", { detail: tabID })
-        );
-        document.dispatchEvent(
-          new CustomEvent("setting-tabLoad", { detail: tabID })
-        );
+        document.dispatchEvent(new CustomEvent("setting-tabChange", { detail: tabID }));
+        document.dispatchEvent(new CustomEvent("setting-tabLoad", { detail: tabID }));
       }, 250);
     }
   }
@@ -112,10 +87,7 @@ const t = useTranslations(lang);
       toggle.addEventListener("click", () => {
         let dropdown = document.getElementById(toggle.id + "-menu");
         if (dropdown) {
-          if (
-            dropdown.style.maxHeight == "0px" ||
-            dropdown.style.maxHeight == ""
-          ) {
+          if (dropdown.style.maxHeight == "0px" || dropdown.style.maxHeight == "") {
             dropdown.style.maxHeight = dropdown.scrollHeight + "px";
             toggle.style.borderRadius = "10px 10px 0 0";
           } else {
@@ -142,9 +114,7 @@ const t = useTranslations(lang);
     if (dropdown) {
       dropdown.style.maxHeight = "0px";
       setTimeout(() => {
-        let dropdown_toggle = document.getElementById(
-          dropdownID.replace("-menu", "")
-        );
+        let dropdown_toggle = document.getElementById(dropdownID.replace("-menu", ""));
         dropdown_toggle.style.borderRadius = "10px";
       }, 300);
     }
@@ -158,10 +128,7 @@ const t = useTranslations(lang);
     if (dropdown && dropdownMenu) {
       // Now we find the child that matches localStorageItem.value.
       let dropdownItem = Array.from(dropdownMenu.children).find((item) => {
-        return (
-          JSON.parse(localStorage.getItem(localStorageItem)).value ==
-          item.dataset.setting
-        );
+        return JSON.parse(localStorage.getItem(localStorageItem)).value == item.dataset.setting;
       });
       // Now set the inner text to the name in the dropdownItem.
       return dropdownItem.innerText;
@@ -172,30 +139,19 @@ const t = useTranslations(lang);
     if (localStorage.getItem(localStorageItem)) {
       let dropdown_toggle = document.getElementById(dropdownID);
       if (dropdown_toggle) {
-        dropdown_toggle.innerText = getLocalStorageValue(
-          localStorageItem,
-          dropdownID
-        );
+        dropdown_toggle.innerText = getLocalStorageValue(localStorageItem, dropdownID);
       }
     }
   }
 
-  function applyDropdownEventListeners(
-    item,
-    dropdownID,
-    localStorageItem,
-    optionalCallback
-  ) {
+  function applyDropdownEventListeners(item, dropdownID, localStorageItem, optionalCallback) {
     Array.from(item.children).forEach((item) => {
       item.addEventListener("click", () => {
         let localStorageItemContent = {
           name: item.innerText,
           value: item.dataset.setting,
         };
-        localStorage.setItem(
-          localStorageItem,
-          JSON.stringify(localStorageItemContent)
-        );
+        localStorage.setItem(localStorageItem, JSON.stringify(localStorageItemContent));
         applySavedLocalStorage(localStorageItem, dropdownID);
         closeDropdown(item.parentElement.id);
         if (typeof optionalCallback == "function") {
@@ -228,16 +184,9 @@ const t = useTranslations(lang);
 
   function setupCustomizationSettings() {
     applySavedLocalStorage("alu__selectedTheme", "dropdown__selected-theme");
-    applySavedLocalStorage(
-      "alu__selectedLanguage",
-      "dropdown__selected-language"
-    );
-    let themeDropdown = document.getElementById(
-      "dropdown__selected-theme-menu"
-    );
-    let languageDropdown = document.getElementById(
-      "dropdown__selected-language-menu"
-    );
+    applySavedLocalStorage("alu__selectedLanguage", "dropdown__selected-language");
+    let themeDropdown = document.getElementById("dropdown__selected-theme-menu");
+    let languageDropdown = document.getElementById("dropdown__selected-language-menu");
     applyDropdownEventListeners(
       themeDropdown,
       "dropdown__selected-theme",
@@ -253,80 +202,18 @@ const t = useTranslations(lang);
   }
 
   function setupCloakingSettings() {
-    Array.from(document.getElementById("cloak-list").children).forEach(
-      (cloak) => {
-        cloak.addEventListener("click", () => {
-          let cloakName = cloak.dataset.cloakName;
-          let cloakIcon = cloak.dataset.cloakIcon;
+    Array.from(document.getElementById("cloak-list").children).forEach((cloak) => {
+      cloak.addEventListener("click", () => {
+        let cloakName = cloak.dataset.cloakName;
+        let cloakIcon = cloak.dataset.cloakIcon;
 
-          let localStorageItem = {
-            name: cloakName,
-            icon: cloakIcon,
-            isCustom: false,
-          };
-          localStorage.setItem(
-            "alu__selectedCloak",
-            JSON.stringify(localStorageItem)
-          );
-
-          if (cloakName == "None") {
-            localStorage.removeItem("alu__selectedCloak");
-            cloakName = "Settings | Alu";
-            cloakIcon = "/favicon.png";
-          }
-          let link = document.querySelector("link[rel~='icon']");
-          if (!link) {
-            link = document.createElement("link");
-            link.rel = "icon";
-            document.head.appendChild(link);
-          }
-          link.href = cloakIcon;
-          document.title = cloakName;
-
-          if (!cloak.classList.contains("selected")) {
-            Array.from(document.getElementById("cloak-list").children).forEach(
-              (cloak2) => {
-                cloak2.classList.remove("selected");
-              }
-            );
-            cloak.classList.add("selected");
-          }
-        });
-      }
-    );
-
-    let customNameInput = document.getElementById("cloak-custom-name-input");
-    let customFaviconInput = document.getElementById(
-      "cloak-custom-favicon-input"
-    );
-    if (localStorage.getItem("alu__selectedCloak")) {
-      let selectedCloak = JSON.parse(
-        localStorage.getItem("alu__selectedCloak")
-      );
-      if (selectedCloak.isCustom) {
-        customNameInput.value = selectedCloak.name;
-        customFaviconInput.value = selectedCloak.icon;
-      }
-    }
-
-    document
-      .getElementById("cloak-custom-button")
-      .addEventListener("click", () => {
-        let cloakName = document.getElementById(
-          "cloak-custom-name-input"
-        ).value;
-        let cloakIcon = document.getElementById(
-          "cloak-custom-favicon-input"
-        ).value;
         let localStorageItem = {
           name: cloakName,
           icon: cloakIcon,
-          isCustom: true,
+          isCustom: false,
         };
-        localStorage.setItem(
-          "alu__selectedCloak",
-          JSON.stringify(localStorageItem)
-        );
+        localStorage.setItem("alu__selectedCloak", JSON.stringify(localStorageItem));
+
         if (cloakName == "None") {
           localStorage.removeItem("alu__selectedCloak");
           cloakName = "Settings | Alu";
@@ -340,7 +227,49 @@ const t = useTranslations(lang);
         }
         link.href = cloakIcon;
         document.title = cloakName;
+
+        if (!cloak.classList.contains("selected")) {
+          Array.from(document.getElementById("cloak-list").children).forEach((cloak2) => {
+            cloak2.classList.remove("selected");
+          });
+          cloak.classList.add("selected");
+        }
       });
+    });
+
+    let customNameInput = document.getElementById("cloak-custom-name-input");
+    let customFaviconInput = document.getElementById("cloak-custom-favicon-input");
+    if (localStorage.getItem("alu__selectedCloak")) {
+      let selectedCloak = JSON.parse(localStorage.getItem("alu__selectedCloak"));
+      if (selectedCloak.isCustom) {
+        customNameInput.value = selectedCloak.name;
+        customFaviconInput.value = selectedCloak.icon;
+      }
+    }
+
+    document.getElementById("cloak-custom-button").addEventListener("click", () => {
+      let cloakName = document.getElementById("cloak-custom-name-input").value;
+      let cloakIcon = document.getElementById("cloak-custom-favicon-input").value;
+      let localStorageItem = {
+        name: cloakName,
+        icon: cloakIcon,
+        isCustom: true,
+      };
+      localStorage.setItem("alu__selectedCloak", JSON.stringify(localStorageItem));
+      if (cloakName == "None") {
+        localStorage.removeItem("alu__selectedCloak");
+        cloakName = "Settings | Alu";
+        cloakIcon = "/favicon.png";
+      }
+      let link = document.querySelector("link[rel~='icon']");
+      if (!link) {
+        link = document.createElement("link");
+        link.rel = "icon";
+        document.head.appendChild(link);
+      }
+      link.href = cloakIcon;
+      document.title = cloakName;
+    });
   }
 
   function changeTheme() {
@@ -359,21 +288,14 @@ const t = useTranslations(lang);
       applySavedLocalStorage("alu__selectedProxy", "dropdown__selected-proxy");
       applySavedLocalStorage("alu__search_engine", "dropdown__search-engine");
       applySavedLocalStorage("alu__selectedOpenWith", "dropdown__open-with");
-      let selectedProxyDropdown = document.getElementById(
-        "dropdown__selected-proxy-menu"
-      );
-      let searchEngineDropdown = document.getElementById(
-        "dropdown__search-engine-menu"
-      );
-      let openWithDropdown = document.getElementById(
-        "dropdown__open-with-menu"
-      );
+      let selectedProxyDropdown = document.getElementById("dropdown__selected-proxy-menu");
+      let searchEngineDropdown = document.getElementById("dropdown__search-engine-menu");
+      let openWithDropdown = document.getElementById("dropdown__open-with-menu");
       let bareUrlInput = document.getElementById("bare-url-input");
       let searxngUrlInput = document.getElementById("searxng-url-input");
       let savedSearxngUrl = localStorage.getItem("alu__searxngUrl");
       if (savedSearxngUrl != undefined) {
-        if (savedSearxngUrl == "")
-          localStorage.setItem("alu__searxngUrl", "https://searxng.site/");
+        if (savedSearxngUrl == "") localStorage.setItem("alu__searxngUrl", "https://searxng.site/");
         searxngUrlInput.value = localStorage.getItem("alu__searxngUrl");
       }
       // Proxy settings
@@ -390,11 +312,7 @@ const t = useTranslations(lang);
         "dropdown__selected-proxy",
         "alu__selectedProxy"
       );
-      applyDropdownEventListeners(
-        openWithDropdown,
-        "dropdown__open-with",
-        "alu__selectedOpenWith"
-      );
+      applyDropdownEventListeners(openWithDropdown, "dropdown__open-with", "alu__selectedOpenWith");
       if (localStorage.getItem("bareUrl")) {
         bareUrlInput.value = localStorage.getItem("bareUrl");
       } else {
@@ -411,18 +329,10 @@ const t = useTranslations(lang);
   function checkSearxng() {
     // This function checks if the "searxng" option was clicked, display an additional option if so.
     if (localStorage.getItem("alu__search_engine")) {
-      if (
-        JSON.parse(
-          localStorage.getItem("alu__search_engine")
-        ).value.toLowerCase() == "searx"
-      ) {
-        document.getElementsByClassName(
-          "setting__searxng-url"
-        )[0].style.opacity = "1";
+      if (JSON.parse(localStorage.getItem("alu__search_engine")).value.toLowerCase() == "searx") {
+        document.getElementsByClassName("setting__searxng-url")[0].style.opacity = "1";
       } else {
-        document.getElementsByClassName(
-          "setting__searxng-url"
-        )[0].style.opacity = "0";
+        document.getElementsByClassName("setting__searxng-url")[0].style.opacity = "0";
       }
     }
   }

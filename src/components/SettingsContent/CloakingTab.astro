@@ -10,8 +10,7 @@ const presetCloaks = [
   },
   {
     cloakTitle: "Instructure",
-    favicon:
-      "https://du11hjcvx0uqb.cloudfront.net/dist/images/favicon-e10d657a73.ico",
+    favicon: "https://du11hjcvx0uqb.cloudfront.net/dist/images/favicon-e10d657a73.ico",
   },
   {
     cloakTitle: "Google Classroom",
@@ -24,13 +23,11 @@ const presetCloaks = [
   },
   {
     cloakTitle: "Google Drive",
-    favicon:
-      "https://ssl.gstatic.com/docs/doclist/images/drive_2022q3_32dp.png",
+    favicon: "https://ssl.gstatic.com/docs/doclist/images/drive_2022q3_32dp.png",
   },
   {
     cloakTitle: "Schoology",
-    favicon:
-      "https://asset-cdn.schoology.com/sites/all/themes/schoology_theme/favicon.ico",
+    favicon: "https://asset-cdn.schoology.com/sites/all/themes/schoology_theme/favicon.ico",
   },
 ];
 ---
@@ -45,27 +42,15 @@ const presetCloaks = [
               class="cloak-item"
               data-cloak-name={cloak.cloakTitle}
               data-cloak-icon={cloak.favicon}>
-              <img
-                class="cloak-image"
-                src={cloak.favicon}
-                alt={cloak.cloakTitle}
-              />
+              <img class="cloak-image" src={cloak.favicon} alt={cloak.cloakTitle} />
             </div>
           );
         })
       }
     </div>
     <div class="cloak-custom-override">
-      <Input
-        inputName="cloak-custom-name"
-        placeholder="Custom Name"
-        height="30px"
-      />
-      <Input
-        inputName="cloak-custom-favicon"
-        placeholder="Custom Favicon"
-        height="30px"
-      />
+      <Input inputName="cloak-custom-name" placeholder="Custom Name" height="30px" />
+      <Input inputName="cloak-custom-favicon" placeholder="Custom Favicon" height="30px" />
       <button id="cloak-custom-button">Update Cloak</button>
     </div>
   </div>

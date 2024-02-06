@@ -181,10 +181,7 @@ const { inputID } = Astro.props;
   }
 
   .switch input:checked + .slider::before {
-    left: calc(
-      100% - var(--effect-width) - (var(--effect-width) / 2) -
-        var(--switch-offset)
-    );
+    left: calc(100% - var(--effect-width) - (var(--effect-width) / 2) - var(--switch-offset));
   }
 
   .switch input:checked + .slider .circle {

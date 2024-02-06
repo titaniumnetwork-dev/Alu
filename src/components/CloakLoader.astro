@@ -6,9 +6,7 @@
       if (parsedCloak) {
         if (parsedCloak.name != "None") {
           document.title = parsedCloak.name;
-          let link = document.querySelector(
-            "link[rel~='icon']"
-          ) as HTMLLinkElement;
+          let link = document.querySelector("link[rel~='icon']") as HTMLLinkElement;
           if (!link) {
             link = document.createElement("link");
             link.rel = "icon";

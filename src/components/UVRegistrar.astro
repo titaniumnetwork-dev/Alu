@@ -15,8 +15,7 @@
     loadingContent.style.opacity = 1;
     let url = input.value.trim();
     if (!isUrl(url)) url = getSearchEngine() + url;
-    else if (!(url.startsWith("https://") || url.startsWith("http://")))
-      url = "http://" + url;
+    else if (!(url.startsWith("https://") || url.startsWith("http://"))) url = "http://" + url;
 
     let iframe = document.getElementById("proxy-frame");
     iframe.src = window.__uv$config.prefix + window.__uv$config.encodeUrl(url);
@@ -39,9 +38,7 @@
       });
       let urlText = document.createElement("p");
       urlText.classList.add("url-text");
-      urlText.innerText = window.__uv$config.decodeUrl(
-        iframe.src.split(__uv$config.prefix)[1]
-      );
+      urlText.innerText = window.__uv$config.decodeUrl(iframe.src.split(__uv$config.prefix)[1]);
       iframe.style.opacity = 1;
       topBar.style.opacity = 1;
       topBar.style.pointerEvents = "auto";
@@ -52,11 +49,7 @@
   });
 
   function isUrl(val = "") {
-    if (
-      /^http(s?):\/\//.test(val) ||
-      (val.includes(".") && val.substr(0, 1) !== " ")
-    )
-      return true;
+    if (/^http(s?):\/\//.test(val) || (val.includes(".") && val.substr(0, 1) !== " ")) return true;
     return false;
   }
 
@@ -65,9 +58,7 @@
     if (!localStorageSearchEngine) {
       return "https://google.com/search?q=";
     }
-    switch (
-      JSON.parse(localStorage.getItem("alu__search_engine")).value.toLowerCase()
-    ) {
+    switch (JSON.parse(localStorage.getItem("alu__search_engine")).value.toLowerCase()) {
       case "google": {
         return "https://google.com/search?q=";
       }
@@ -82,8 +73,7 @@
         if (localStorageURL) {
           if (localStorageURL == "") return "https://searxng.site/search?q=";
           // Ugly hack to remove the trailing slash :)
-          if (localStorageURL.endsWith("/"))
-            localStorageURL = localStorageURL.slice(0, -1);
+          if (localStorageURL.endsWith("/")) localStorageURL = localStorageURL.slice(0, -1);
           return localStorageURL + "/search?q=";
         } else return "https://searxng.site/search?q=";
       }

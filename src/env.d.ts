@@ -53,9 +53,7 @@ declare module "astro-i18n" {
     srcDir: string;
   }
   /** Typed astro-i18n config definition. */
-  export function defineAstroI18nConfig(
-    config: Partial<AstroI18nConfig>
-  ): Partial<AstroI18nConfig>;
+  export function defineAstroI18nConfig(config: Partial<AstroI18nConfig>): Partial<AstroI18nConfig>;
   /** The `astro-i18n` middleware. */
   export function useAstroI18n(
     config?: Partial<AstroI18nConfig> | string,
@@ -63,9 +61,7 @@ declare module "astro-i18n" {
   ): (...args: any[]) => any;
   /** Workaround function to make astroI18n work inside getStaticPaths. This is because Astro's getStaticPaths runs before everything which doesn't allows astroI18n to update its state automatically. */
   function createGetStaticPaths(
-    callback: (
-      props: GetStaticPathsProps
-    ) => GetStaticPathsItem[] | Promise<GetStaticPathsItem[]>
+    callback: (props: GetStaticPathsProps) => GetStaticPathsItem[] | Promise<GetStaticPathsItem[]>
   ): (
     props: GetStaticPathsProps & {
       astroI18n?: {
@@ -227,9 +223,7 @@ declare module "astro-i18n" {
     /** Adds new translation formatters at runtime. */
     addFormatters(translationFormatters: TranslationFormatters): this;
     /** Adds new translation loading rules at runtime. */
-    addTranslationLoadingRules(
-      translationLoadingRules: TranslationLoadingRules
-    ): this;
+    addTranslationLoadingRules(translationLoadingRules: TranslationLoadingRules): this;
     /** Adds new route segment translations at runtime. */
     addRoutes(routes: SegmentTranslations): this;
     /** Tries to parse one of the configured locales out of the given route. If no configured locale is found it will return `null`. */

@@ -6,6 +6,7 @@ const config = {
   bracketSameLine: true,
   arrowParens: "always",
   plugins: ["prettier-plugin-astro"],
+  printWidth: 100,
 };
 
 export default config;
