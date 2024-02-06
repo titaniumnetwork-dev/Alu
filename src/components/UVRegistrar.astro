@@ -3,80 +3,93 @@
 <script transition:persist defer>
   // This is a hack to make sure window.__uv$config is defined, because this means everything has been.
   if (window.__uv$config == undefined) window.location.reload();
-  var form = document.querySelector('form');
-  var input = document.querySelector('input');
-  window.navigator.serviceWorker.register('/sw.js', {
-      scope: window.__uv$config.prefix
-  })
-  
-  form.addEventListener('submit', (event) => {
-      event.preventDefault();
-        let loadingContent = document.getElementById('loading-content');
-        loadingContent.style.opacity = 1;
-        let url = input.value.trim();
-        if (!isUrl(url)) url = getSearchEngine() + url;
-        else if (!(url.startsWith('https://') || url.startsWith('http://'))) url = 'http://' + url;
-
-        let iframe = document.getElementById('proxy-frame');
-        iframe.src = window.__uv$config.prefix + window.__uv$config.encodeUrl(url);
-        iframe.style.pointerEvents = "auto";
-        iframe.classList.add("proxy-frame");
-        document.body.appendChild(iframe);
-        iframe.addEventListener('load', () => {
-            let topBar = document.getElementById('top-bar');
-            loadingContent.style.opacity = 0;
-            topBar.innerHTML = "";
-            topBar.classList.add("top-bar");
-            let closeButton = document.createElement('button');
-            closeButton.classList.add("close-button")
-            closeButton.innerText = "Close";
-            closeButton.addEventListener('click', () => {
-                iframe.style.opacity = 0;
-                topBar.style.opacity = 0;
-                iframe.style.pointerEvents = "none";
-                topBar.style.pointerEvents = "none";
-            });
-            let urlText = document.createElement('p');
-            urlText.classList.add("url-text");
-            urlText.innerText = window.__uv$config.decodeUrl(iframe.src.split(__uv$config.prefix)[1]);
-            iframe.style.opacity = 1;
-            topBar.style.opacity = 1;
-            topBar.style.pointerEvents = "auto";
-            topBar.appendChild(closeButton);
-            topBar.appendChild(urlText);
-            document.body.appendChild(topBar);
-        })
+  var form = document.querySelector("form");
+  var input = document.querySelector("input");
+  window.navigator.serviceWorker.register("/sw.js", {
+    scope: window.__uv$config.prefix,
   });
-  
-  function isUrl(val = ''){
-      if (/^http(s?):\/\//.test(val) || val.includes('.') && val.substr(0, 1) !== ' ') return true;
-      return false;
-  };
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    let loadingContent = document.getElementById("loading-content");
+    loadingContent.style.opacity = 1;
+    let url = input.value.trim();
+    if (!isUrl(url)) url = getSearchEngine() + url;
+    else if (!(url.startsWith("https://") || url.startsWith("http://")))
+      url = "http://" + url;
+
+    let iframe = document.getElementById("proxy-frame");
+    iframe.src = window.__uv$config.prefix + window.__uv$config.encodeUrl(url);
+    iframe.style.pointerEvents = "auto";
+    iframe.classList.add("proxy-frame");
+    document.body.appendChild(iframe);
+    iframe.addEventListener("load", () => {
+      let topBar = document.getElementById("top-bar");
+      loadingContent.style.opacity = 0;
+      topBar.innerHTML = "";
+      topBar.classList.add("top-bar");
+      let closeButton = document.createElement("button");
+      closeButton.classList.add("close-button");
+      closeButton.innerText = "Close";
+      closeButton.addEventListener("click", () => {
+        iframe.style.opacity = 0;
+        topBar.style.opacity = 0;
+        iframe.style.pointerEvents = "none";
+        topBar.style.pointerEvents = "none";
+      });
+      let urlText = document.createElement("p");
+      urlText.classList.add("url-text");
+      urlText.innerText = window.__uv$config.decodeUrl(
+        iframe.src.split(__uv$config.prefix)[1]
+      );
+      iframe.style.opacity = 1;
+      topBar.style.opacity = 1;
+      topBar.style.pointerEvents = "auto";
+      topBar.appendChild(closeButton);
+      topBar.appendChild(urlText);
+      document.body.appendChild(topBar);
+    });
+  });
+
+  function isUrl(val = "") {
+    if (
+      /^http(s?):\/\//.test(val) ||
+      (val.includes(".") && val.substr(0, 1) !== " ")
+    )
+      return true;
+    return false;
+  }
 
   function getSearchEngine() {
-    switch (JSON.parse(localStorage.getItem("alu__search_engine")).value.toLowerCase()) {
-        case "google": {
-            return "https://google.com/search?q=";
-        }
-        case "bing": {
-            return "https://bing.com/search?q=d";
-        }
-        case "brave": {
-            return "https://search.brave.com/search?q=";
-        }
-        case "searx": {
-            let localStorageURL = localStorage.getItem("alu__searxngUrl");
-            if (localStorageURL) {
-                if (localStorageURL == "") return "https://searxng.site/search?q=";
-                // Ugly hack to remove the trailing slash :)
-                if (localStorageURL.endsWith("/")) localStorageURL = localStorageURL.slice(0, -1);
-                return localStorageURL + "/search?q=";
-            }
-            else return "https://searxng.site/search?q=";
-        }
-        default: {
-            return "https://google.com/search?q="
-        }
+    let localStorageSearchEngine = localStorage.getItem("alu__search_engine");
+    if (!localStorageSearchEngine) {
+      return "https://google.com/search?q=";
+    }
+    switch (
+      JSON.parse(localStorage.getItem("alu__search_engine")).value.toLowerCase()
+    ) {
+      case "google": {
+        return "https://google.com/search?q=";
+      }
+      case "bing": {
+        return "https://bing.com/search?q=d";
+      }
+      case "brave": {
+        return "https://search.brave.com/search?q=";
+      }
+      case "searx": {
+        let localStorageURL = localStorage.getItem("alu__searxngUrl");
+        if (localStorageURL) {
+          if (localStorageURL == "") return "https://searxng.site/search?q=";
+          // Ugly hack to remove the trailing slash :)
+          if (localStorageURL.endsWith("/"))
+            localStorageURL = localStorageURL.slice(0, -1);
+          return localStorageURL + "/search?q=";
+        } else return "https://searxng.site/search?q=";
+      }
+      default: {
+        return "https://google.com/search?q=";
+      }
     }
   }
-  </script>
+</script>

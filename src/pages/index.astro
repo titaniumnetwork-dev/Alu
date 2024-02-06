@@ -1,6 +1,5 @@
 ---
 import { ViewTransitions } from "astro:transitions";
-
 ---
 
 <!doctype html>
@@ -9,28 +8,28 @@ import { ViewTransitions } from "astro:transitions";
     <meta charset="UTF-8" />
     <ViewTransitions />
     <script>
-      if (localStorage.getItem("alu__selectedLanguage") === null) window.location.href = "/en/";
+      if (localStorage.getItem("alu__selectedLanguage") === null)
+        window.location.href = "/en/";
       let currentLang = localStorage.getItem("alu__selectedLanguage");
       if (currentLang) {
         try {
-          let parsed = JSON.parse(currentLang).value
+          let parsed = JSON.parse(currentLang).value;
           switch (parsed) {
             case "en":
-                window.location.href = "/en/";
-                break;
+              window.location.href = "/en/";
+              break;
             case "jp":
-                window.location.href = "/jp/";
-                break;
+              window.location.href = "/jp/";
+              break;
             default:
-                window.location.href = "/en/";
-                break;
-        }
+              window.location.href = "/en/";
+              break;
+          }
         } catch {
           localStorage.clear();
           window.location.reload();
         }
       }
-
     </script>
   </head>
   <body></body>

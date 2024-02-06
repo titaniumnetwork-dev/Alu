@@ -5,6 +5,7 @@ const config = {
   bracketSpacing: true,
   bracketSameLine: true,
   arrowParens: "always",
+  plugins: ["prettier-plugin-astro"],
 };
 
 export default config;

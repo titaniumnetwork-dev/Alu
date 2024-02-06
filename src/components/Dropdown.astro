@@ -1,61 +1,65 @@
 ---
-
 const { buttonNameDefault, dropdownList, id } = Astro.props;
 ---
 
 <div class="dropdown">
-    <button id={id} class="dropdown-toggle" type="button" data-toggle="dropdown">
-        {buttonNameDefault}
-        <span class="caret"></span></button>
-    <ul class="dropdown-menu" id={id + "-menu"}>
+  <button id={id} class="dropdown-toggle" type="button" data-toggle="dropdown">
+    {buttonNameDefault}
+    <span class="caret"></span></button
+  >
+  <ul class="dropdown-menu" id={id + "-menu"}>
     {
-        dropdownList.map((item: any) => {
-            return <li class="dropdown-item" data-setting={item.value}>{item.name}</li>
-        })
+      dropdownList.map((item: any) => {
+        return (
+          <li class="dropdown-item" data-setting={item.value}>
+            {item.name}
+          </li>
+        );
+      })
     }
-    </ul>
+  </ul>
 </div>
 <style>
-    .dropdown {
-        box-shadow: 4px 6px 15px 0px var(--background-color);
-        border-bottom-left-radius: 10px;
-        border-bottom-right-radius: 10px;
-        position: relative;
-    }
-    .dropdown-toggle {
-        background-color: var(--accent-color);
-        border: none;
-        color: var(--text-color);
-        padding: 12px 16px;
-        font-size: 16px;
-        cursor: pointer;
-        font-family: 'Varela Round', sans-serif;
-        width: 100%;
-        border-radius: 10px;
-        min-width: 140px;
-        height: 50px;
-    }
-    .dropdown-menu {
-        margin: 0;
-        list-style: none;
-        padding: 0;
-        text-align: center;
-        max-height: 0px; /* Set max-height to 0 instead of height */
-        overflow: hidden;
-        transition: max-height 350ms ease-in-out; /* Use max-height in the transition property */
-        border-bottom-left-radius: 10px;
-        border-bottom-right-radius: 10px;
-        background-color: var(--dropdown-background-color);
-        position: absolute;
-        width: 100%;
-    }
-    .dropdown-item {
-        border-bottom: 1px solid var(--text-color-accent);
-        padding: 10px;
-        color: var(--text-color);
-        cursor: pointer;
-    }
-    .dropdown-item:nth-last-child(1) {
-        border-bottom: none;
-    }
+  .dropdown {
+    box-shadow: 4px 6px 15px 0px var(--background-color);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    position: relative;
+  }
+  .dropdown-toggle {
+    background-color: var(--accent-color);
+    border: none;
+    color: var(--text-color);
+    padding: 12px 16px;
+    font-size: 16px;
+    cursor: pointer;
+    font-family: "Varela Round", sans-serif;
+    width: 100%;
+    border-radius: 10px;
+    min-width: 140px;
+    height: 50px;
+  }
+  .dropdown-menu {
+    margin: 0;
+    list-style: none;
+    padding: 0;
+    text-align: center;
+    max-height: 0px; /* Set max-height to 0 instead of height */
+    overflow: hidden;
+    transition: max-height 350ms ease-in-out; /* Use max-height in the transition property */
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background-color: var(--dropdown-background-color);
+    position: absolute;
+    width: 100%;
+  }
+  .dropdown-item {
+    border-bottom: 1px solid var(--text-color-accent);
+    padding: 10px;
+    color: var(--text-color);
+    cursor: pointer;
+  }
+  .dropdown-item:nth-last-child(1) {
+    border-bottom: none;
+  }
 </style>

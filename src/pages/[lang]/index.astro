@@ -2,74 +2,71 @@
 import Layout from "../../layouts/Layout.astro";
 import UVRegistrar from "../../components/UVRegistrar.astro";
 
-import { getLangFromUrl, useTranslations } from "../../i18n/utils"
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
-export function getStaticPaths () {
- return [
-    {params: {lang: 'en'}},
-    {params: {lang: 'jp'}},
-  ];
+export function getStaticPaths() {
+  return [{ params: { lang: "en" } }, { params: { lang: "jp" } }];
 }
 ---
 
 <Layout title={t("pages.home")}>
-	<div class="main-content">
-		<h1 class="title-text">{t("menu.welcome")}</h1>
+  <div class="main-content">
+    <h1 class="title-text">{t("menu.welcome")}</h1>
     <form class="url-input-form" id="url-input-form">
-      <input class="url-input" type="text" placeholder={t("menu.search")}>
+      <input class="url-input" type="text" placeholder={t("menu.search")} />
       <div id="loading-content">Loading...</div>
       <div id="top-bar"></div>
       <iframe title="proxy-iframe" id="proxy-frame"></iframe>
     </form>
-	</div>
-  <UVRegistrar></UVRegistrar>
+  </div>
+  <UVRegistrar />
 </Layout>
 
 <style>
-form {
-  width: 30%;
-}
+  form {
+    width: 30%;
+  }
 
-.title-text {
-  font-size: 38px;
-}
+  .title-text {
+    font-size: 38px;
+  }
 
-.url-input-form {
-  border: none;
-  padding: 0;
-}
+  .url-input-form {
+    border: none;
+    padding: 0;
+  }
 
-.url-input {
-  display: block;
-  background: transparent url("/img/search.svg") no-repeat 13px center;
-}
+  .url-input {
+    display: block;
+    background: transparent url("/img/search.svg") no-repeat 13px center;
+  }
 
-.url-input {
-  background-color: #080808;
-  color: #D8DEE9;
-  border: 3px solid white;
-  border-radius: 30px;
-  padding: 15px;
-  width: 100%;
-  text-align: center;
-  transition: 400ms ease-out;
-  outline: none;
-  font-family: 'Varela Round', sans-serif;
-  font-size: 16px;
-}
+  .url-input {
+    background-color: var(--dropdown-background-color);
+    color: var(--text-color);
+    border: 3px solid var(--text-color);
+    border-radius: 30px;
+    padding: 15px;
+    width: 100%;
+    text-align: center;
+    transition: 400ms ease-out;
+    outline: none;
+    font-family: "Varela Round", sans-serif;
+    font-size: 16px;
+  }
 
-.url-input::placeholder {
-  color: #D8DEE9;
-}
+  .url-input::placeholder {
+    color: var(--text-color);
+  }
 
-#loading-content {
-  color: white;
-  padding: 8px;
-  position: relative;
-  opacity: 0;
-  transition: 250ms ease-in-out;
-  text-align: center;
-}
+  #loading-content {
+    color: var(--text-color);
+    padding: 8px;
+    position: relative;
+    opacity: 0;
+    transition: 250ms ease-in-out;
+    text-align: center;
+  }
 </style>

@@ -1,38 +1,36 @@
 ---
-
-import { getLangFromUrl, useTranslations } from "../i18n/utils"
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
 import WaveSVG from "./WaveSVG.astro";
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
-
 ---
 
 <div class="footer">
-    <div class="wave-svg-container">
-        <WaveSVG />
+  <div class="wave-svg-container">
+    <WaveSVG />
+  </div>
+  <div class="footer-top">
+    <div class="footer-title">
+      <h2>{t("footer.brand")}</h2>
     </div>
-    <div class="footer-top">
-        <div class="footer-title">
-            <h2>{t("footer.brand")}</h2>
-        </div>
-    
-        <div class="footer-madeby">
-            <a href="https://wearr.dev">{t("footer.madeWithLove")}</a>
-        </div>
+
+    <div class="footer-madeby">
+      <a href="https://wearr.dev">{t("footer.madeWithLove")}</a>
     </div>
-    <div class="footer-bottom">
-        <div class="footer-links">
-            <a href="https://titaniumnetwork.org">Titanium Network</a>
-        </div>
-    
-        <div class="footer-copyright">
-            <p>&copy; {t("footer.aluProject")} 2024</p>
-        </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-links">
+      <a href="https://titaniumnetwork.org">Titanium Network</a>
     </div>
+
+    <div class="footer-copyright">
+      <p>&copy; {t("footer.aluProject")} 2024</p>
+    </div>
+  </div>
 </div>
 
 <style>
-.wave-svg-container {
+  .wave-svg-container {
     bottom: 0;
     left: 0;
     position: absolute;
@@ -40,9 +38,10 @@ const t = useTranslations(lang);
     z-index: -1;
     overflow: hidden;
     height: 300px;
-}
+    filter: brightness(1.5);
+  }
 
-.footer {
+  .footer {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -50,18 +49,18 @@ const t = useTranslations(lang);
     position: relative;
     padding-top: 100px;
     gap: 50px;
-}
-.footer-top, .footer-bottom {
+  }
+  .footer-top,
+  .footer-bottom {
     width: 90%;
     margin: 0 auto;
-}
+  }
 
-.footer-title {
+  .footer-title {
     font-size: 20px;
-}
+  }
 
-a {
+  a {
     color: var(--text-color);
-}
-
+  }
 </style>
