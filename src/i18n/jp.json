@@ -1,46 +1,46 @@
 {
-    "ultraviolet": "ウルトラバイオレット",
-    
-    "pages.home": "ホーム | アルー",
-    "pages.games": "ゲーム | アルー",
-    "pages.settings": "設定 | アルー",
+  "ultraviolet": "ウルトラバイオレット",
 
-    "nav.brand": "アルー",
-    "nav.games": "ゲーム",
-    "nav.settings": "設定",
+  "pages.home": "ホーム | アルー",
+  "pages.games": "ゲーム | アルー",
+  "pages.settings": "設定 | アルー",
 
-    "menu.welcome": "アルーにようこそ",
-    "menu.search": "検索...",
+  "nav.brand": "アルー",
+  "nav.games": "ゲーム",
+  "nav.settings": "設定",
 
-    "footer.brand": "アルー",
-    "footer.madeWithLove": "wearrによる❤️で作られました",
-    "footer.services": "サービス",
-    "footer.socials": "ソーシャル",
-    "footer.aluProject": "アループロジェクト",
+  "menu.welcome": "アルーにようこそ",
+  "menu.search": "検索...",
 
-    "games.title": "ゲーム",
+  "footer.brand": "アルー",
+  "footer.madeWithLove": "wearrによる❤️で作られました",
+  "footer.services": "サービス",
+  "footer.socials": "ソーシャル",
+  "footer.aluProject": "アループロジェクト",
 
-    "settings.title": "設定",
-    "settings.proxy": "プロキシ",
-    "settings.proxy.selectedProxy": "選択されたプロキシ",
-    "settings.proxy.searchEngine": "検索エンジン",
-    "settings.proxy.openPageWith": "開く",
-    "settings.proxy.searxngURL": "SearxのURL",
-    "settings.proxy.openPageWith.embed": "埋め込み",
-    "settings.proxy.openPageWith.newTab": "新しいタブ",
-    "settings.proxy.bareURL": "BareのURL",
+  "games.title": "ゲーム",
 
-    "settings.customization": "カスタマイズ",
-    "settings.customization.theme": "テーマ",
-    "settings.customization.theme.Alu": "アルー",
-    "settings.customization.theme.Macchiato": "マキアート",
-    "settings.customization.theme.Mocha": "モカ",
-    "settings.customization.language": "言語",
-    
-    "settings.cloaking": "クローキング",
-    "settings.cloaking.subtext": "タブの外観を変更します...",
+  "settings.title": "設定",
+  "settings.proxy": "プロキシ",
+  "settings.proxy.selectedProxy": "選択されたプロキシ",
+  "settings.proxy.searchEngine": "検索エンジン",
+  "settings.proxy.openPageWith": "開く",
+  "settings.proxy.searxngURL": "SearxのURL",
+  "settings.proxy.openPageWith.embed": "埋め込み",
+  "settings.proxy.openPageWith.newTab": "新しいタブ",
+  "settings.proxy.bareURL": "BareのURL",
 
-    "settings.credits": "クレジット",
-    "settings.credits.mochaandmacchiatothemes": "モカとマキアートテーマ",
-    "settings.credits.japaneseTranslations": "日本語翻訳"
+  "settings.customization": "カスタマイズ",
+  "settings.customization.theme": "テーマ",
+  "settings.customization.theme.Alu": "アルー",
+  "settings.customization.theme.Macchiato": "マキアート",
+  "settings.customization.theme.Mocha": "モカ",
+  "settings.customization.language": "言語",
+
+  "settings.cloaking": "クローキング",
+  "settings.cloaking.subtext": "タブの外観を変更します...",
+
+  "settings.credits": "クレジット",
+  "settings.credits.mochaandmacchiatothemes": "モカとマキアートテーマ",
+  "settings.credits.japaneseTranslations": "日本語翻訳"
 }

@@ -1,12 +1,12 @@
-import { createBareServer } from "@tomphttp/bare-server-node"
-import { uvPath } from "@nebula-services/ultraviolet"
-import http from 'node:http';
-import path from 'node:path';
-import express from 'express';
-import { handler as ssrHandler } from './dist/server/entry.mjs';
-import dotenv from 'dotenv';
-import compression from "compression"
-import chalk from "chalk"
+import { createBareServer } from "@tomphttp/bare-server-node";
+import { uvPath } from "@nebula-services/ultraviolet";
+import http from "node:http";
+import path from "node:path";
+import express from "express";
+import { handler as ssrHandler } from "./dist/server/entry.mjs";
+import dotenv from "dotenv";
+import compression from "compression";
+import chalk from "chalk";
 dotenv.config();
 
 const PORT = process.env.PORT || 3000;
@@ -19,15 +19,16 @@ app.use(express.static(path.join(process.cwd(), "static")));
 app.use(express.static(path.join(process.cwd(), "build")));
 app.use("/uv/", express.static(uvPath));
 app.use(express.json());
-app.use(express.urlencoded({
-    extended: true
+app.use(
+  express.urlencoded({
+    extended: true,
   })
 );
-app.use("/", express.static('dist/client/'));
+app.use("/", express.static("dist/client/"));
 app.use(ssrHandler);
 
-app.get('*', function(req, res){
-  res.status(200).sendFile("404.html", {root: path.resolve("dist/client")});
+app.get("*", function (req, res) {
+  res.status(200).sendFile("404.html", { root: path.resolve("dist/client") });
 });
 
 server.on("request", (req, res) => {
@@ -37,7 +38,7 @@ server.on("request", (req, res) => {
     app(req, res);
   }
 });
-  
+
 server.on("upgrade", (req, socket, head) => {
   if (bareServer.shouldRoute(req)) {
     bareServer.routeUpgrade(req, socket, head);
@@ -46,11 +47,11 @@ server.on("upgrade", (req, socket, head) => {
   }
 });
 
-console.log(chalk.gray("Starting Alu..."))
+console.log(chalk.gray("Starting Alu..."));
 server.on("listening", () => {
   console.log(chalk.green(`Server running at http://localhost:${PORT}/.`));
 });
 
 server.listen({
-  port: PORT
+  port: PORT,
 });

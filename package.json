@@ -1,27 +1,32 @@
 {
-	"name": "alus-unblocker",
-	"type": "module",
-	"version": "0.0.1",
-	"scripts": {
-		"start": "node .",
-		"build": "astro build"
-	},
-	"dependencies": {
-		"@astrojs/check": "^0.4.0",
-		"@astrojs/node": "^7.0.4",
-		"@nebula-services/ultraviolet": "^1.0.1-1.patch.5",
-		"@tomphttp/bare-server-node": "^2.0.1",
-		"astro": "^4.1.1",
-		"astro-i18n": "^2.2.4",
-		"astro-i18next": "^1.0.0-beta.21",
-		"chalk": "^5.3.0",
-		"compression": "^1.7.4",
-		"dotenv": "^16.3.1",
-		"express": "^4.18.2",
-		"i": "^0.3.7",
-		"i18next": "^23.7.18",
-		"i18next-browser-languagedetector": "^7.2.0",
-		"npm": "^10.2.5",
-		"typescript": "^5.3.3"
-	}
+  "name": "alus-unblocker",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "start": "node .",
+    "build": "astro build",
+    "lint": "prettier --write .",
+    "lint:check": "prettier --check ."
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.4.0",
+    "@astrojs/node": "^7.0.4",
+    "@nebula-services/ultraviolet": "^1.0.1-1.patch.5",
+    "@tomphttp/bare-server-node": "^2.0.1",
+    "astro": "^4.3.3",
+    "astro-i18n": "^2.2.4",
+    "astro-i18next": "^1.0.0-beta.21",
+    "chalk": "^5.3.0",
+    "compression": "^1.7.4",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "i": "^0.3.7",
+    "i18next": "^23.7.18",
+    "i18next-browser-languagedetector": "^7.2.0",
+    "npm": "^10.2.5",
+    "typescript": "^5.3.3"
+  },
+  "devDependencies": {
+    "prettier": "3.2.5"
+  }
 }
