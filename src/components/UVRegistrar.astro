@@ -1,15 +1,23 @@
-<script src="/uv/uv.bundle.js" transition:persist is:inline></script>
-<script src="/uv.config.js" transition:persist is:inline></script>
-<script transition:persist defer>
-  // This is a hack to make sure window.__uv$config is defined, because this means everything has been.
-  if (window.__uv$config == undefined) window.location.reload();
-  var form = document.querySelector("form");
-  var input = document.querySelector("input");
+<script src="/uv/uv.bundle.js" transition:persist></script>
+<script src="/uv.config.js" transition:persist></script>
+<script transition:persist>
+  let form = document.querySelector("form");
+  let input = document.querySelector("input");
   window.navigator.serviceWorker.register("/sw.js", {
     scope: window.__uv$config.prefix,
   });
+  if (form) {
+    document.addEventListener("astro:after-swap", () => {
+      form = document.querySelector("form");
+      input = document.querySelector("input");
+      if (form) {
+        form.addEventListener("submit", formEventListener);
+      }
 
-  form.addEventListener("submit", (event) => {
+    });
+    form.addEventListener("submit", formEventListener);
+
+  function formEventListener(event) {
     event.preventDefault();
     let loadingContent = document.getElementById("loading-content");
     loadingContent.style.opacity = 1;
@@ -46,7 +54,9 @@
       topBar.appendChild(urlText);
       document.body.appendChild(topBar);
     });
-  });
+  }
+  }
+
 
   function isUrl(val = "") {
     if (/^http(s?):\/\//.test(val) || (val.includes(".") && val.substr(0, 1) !== " ")) return true;

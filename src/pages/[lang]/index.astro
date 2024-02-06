@@ -1,6 +1,5 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import UVRegistrar from "../../components/UVRegistrar.astro";
 
 import { getLangFromUrl, useTranslations } from "../../i18n/utils";
 const lang = getLangFromUrl(Astro.url);
@@ -21,7 +20,6 @@ export function getStaticPaths() {
       <iframe title="proxy-iframe" id="proxy-frame"></iframe>
     </form>
   </div>
-  <UVRegistrar />
 </Layout>
 
 <style>
