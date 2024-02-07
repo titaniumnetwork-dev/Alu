@@ -23,7 +23,7 @@ const { title, optionalPreloads } = Astro.props;
 <!doctype html>
 <html lang="en">
   <head>
-    <ThemeLoader />
+    <ThemeLoader transition:persist />
     <CloakLoader transition:persist />
     <meta charset="UTF-8" />
     <meta name="description" content="Astro description" />
@@ -51,23 +51,6 @@ const { title, optionalPreloads } = Astro.props;
     <UVRegistrar />
     <Footer />
     <style is:global>
-      * {
-        box-sizing: border-box;
-      }
-
-      body {
-        opacity: 0;
-        animation: fadeIn ease 0.2s forwards;
-      }
-      @keyframes fadeIn {
-        0% {
-          opacity: 0;
-        }
-        100% {
-          opacity: 1;
-        }
-      }
-
       :root {
         --background-color: #080808;
         --background-highlight: #252525;
@@ -76,6 +59,23 @@ const { title, optionalPreloads } = Astro.props;
         --text-color: #fff;
         --text-color-accent: #c7c7c7;
         --dropdown-background-color: #1e1e1e;
+      }
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        opacity: 0;
+        animation: fadeIn ease 0.4s forwards;
+      }
+
+      @keyframes fadeIn {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
       }
 
       [data-theme="mocha"] {
@@ -153,6 +153,7 @@ const { title, optionalPreloads } = Astro.props;
         width: 100vw;
         height: 95vh;
         top: 5vh;
+        left: 0;
         border: none;
         background-color: var(--background-color);
         transition: opacity 250ms ease-in-out;
