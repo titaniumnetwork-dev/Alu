@@ -17,7 +17,7 @@
     form.addEventListener("submit", formEventListener);
   }
 
-  function formEventListener(event) {
+  async function formEventListener(event) {
     event.preventDefault();
     let loadingContent = document.getElementById("loading-content");
     loadingContent.style.opacity = 1;
@@ -26,7 +26,24 @@
     else if (!(url.startsWith("https://") || url.startsWith("http://"))) url = "http://" + url;
 
     let iframe = document.getElementById("proxy-frame");
-    iframe.src = window.__uv$config.prefix + window.__uv$config.encodeUrl(url);
+    let preference = getProxyPreference();
+    if (preference === "ultraviolet") {
+      iframe.src = window.__uv$config.prefix + window.__uv$config.encodeUrl(url);
+    } else if (preference == "rammerhead") {
+      // Check if rammerhead-session exists in cookies
+      let rammerheadSession = getCookie("rammerhead-session");
+      console.log(rammerheadSession);
+      if (!rammerheadSession) {
+        let session = await fetch("/newsession");
+        let sessionID = await session.text();
+        // Now save it in a cookie that expires in 72 hours.
+        document.cookie = `rammerhead-session=${sessionID}; max-age=${60 * 60 * 72}; path=/`;
+      }
+      iframe.src = `/${getCookie("rammerhead-session")}/${url}`;
+    } else {
+      // Default to UV
+      iframe.src = window.__uv$config.prefix + window.__uv$config.encodeUrl(url);
+    }
     iframe.style.pointerEvents = "auto";
     iframe.classList.add("proxy-frame");
     document.body.appendChild(iframe);
@@ -61,6 +78,12 @@
     return false;
   }
 
+  function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(";").shift();
+  }
+
   function getSearchEngine() {
     let localStorageSearchEngine = localStorage.getItem("alu__search_engine");
     if (!localStorageSearchEngine) {
@@ -87,6 +110,26 @@
       }
       default: {
         return "https://google.com/search?q=";
+      }
+    }
+  }
+
+  function getProxyPreference() {
+    let localStorageItem = localStorage.getItem("alu__selectedProxy");
+
+    if (!localStorageItem) return "uv";
+
+    switch (JSON.parse(localStorageItem).value.toLowerCase()) {
+      case "ultraviolet": {
+        return "ultraviolet";
+      }
+      case "rammerhead":
+        return "rammerhead";
+      case "dynamic":
+        // temporary because dynamic is not implemented yet :)
+        return "ultraviolet";
+      default: {
+        return "uv";
       }
     }
   }

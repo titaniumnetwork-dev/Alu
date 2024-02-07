@@ -1,19 +1,79 @@
-import { createBareServer } from "@tomphttp/bare-server-node";
 import { uvPath } from "@nebula-services/ultraviolet";
-import http from "node:http";
-import path from "node:path";
+import { createBareServer } from "@tomphttp/bare-server-node";
 import express from "express";
-import { handler as ssrHandler } from "./dist/server/entry.mjs";
-import dotenv from "dotenv";
+import { createServer } from "http";
+import path from "node:path";
+import createRammerhead from "rammerhead/src/server/index.js";
 import compression from "compression";
+import { build } from "astro";
 import chalk from "chalk";
+import { existsSync } from "fs";
+import dotenv from "dotenv";
 dotenv.config();
+
+if (!existsSync("./dist")) build();
 
 const PORT = process.env.PORT || 3000;
 
-const server = http.createServer();
-const app = express(server);
-const bareServer = createBareServer("/bare/");
+const bare = createBareServer("/bare/");
+
+const rh = createRammerhead();
+
+const rammerheadScopes = [
+  "/rammerhead.js",
+  "/hammerhead.js",
+  "/transport-worker.js",
+  "/task.js",
+  "/iframe-task.js",
+  "/worker-hammerhead.js",
+  "/messaging",
+  "/sessionexists",
+  "/deletesession",
+  "/newsession",
+  "/editsession",
+  "/needpassword",
+  "/syncLocalStorage",
+  "/api/shuffleDict",
+  "/mainport",
+];
+
+const rammerheadSession = /^\/[a-z0-9]{32}/;
+
+function shouldRouteRh(req) {
+  const url = new URL(req.url, "http://0.0.0.0");
+  return rammerheadScopes.includes(url.pathname) || rammerheadSession.test(url.pathname);
+}
+
+function routeRhRequest(req, res) {
+  rh.emit("request", req, res);
+}
+
+function routeRhUpgrade(req, socket, head) {
+  rh.emit("upgrade", req, socket, head);
+}
+
+let server = createServer();
+server.on("request", (req, res) => {
+  if (bare.shouldRoute(req)) {
+    bare.routeRequest(req, res);
+  } else if (shouldRouteRh(req)) {
+    routeRhRequest(req, res);
+  } else {
+    app(req, res);
+  }
+});
+
+server.on("upgrade", (req, socket, head) => {
+  if (bare.shouldRoute(req)) {
+    bare.routeUpgrade(req, socket, head);
+  } else if (shouldRouteRh(req)) {
+    routeRhUpgrade(req, socket, head);
+  } else {
+    socket.end();
+  }
+});
+
+const app = express();
 app.use(compression());
 app.use(express.static(path.join(process.cwd(), "static")));
 app.use(express.static(path.join(process.cwd(), "build")));
@@ -25,27 +85,6 @@ app.use(
   })
 );
 app.use("/", express.static("dist/client/"));
-app.use(ssrHandler);
-
-app.get("*", function (req, res) {
-  res.status(200).sendFile("404.html", { root: path.resolve("dist/client") });
-});
-
-server.on("request", (req, res) => {
-  if (bareServer.shouldRoute(req)) {
-    bareServer.routeRequest(req, res);
-  } else {
-    app(req, res);
-  }
-});
-
-server.on("upgrade", (req, socket, head) => {
-  if (bareServer.shouldRoute(req)) {
-    bareServer.routeUpgrade(req, socket, head);
-  } else {
-    socket.end();
-  }
-});
 
 console.log(chalk.gray("Starting Alu..."));
 server.on("listening", () => {

@@ -19,11 +19,14 @@
     "chalk": "^5.3.0",
     "compression": "^1.7.4",
     "dotenv": "^16.3.1",
+    "dotenv-flow": "^4.1.0",
     "express": "^4.18.2",
     "i": "^0.3.7",
     "i18next": "^23.7.18",
     "i18next-browser-languagedetector": "^7.2.0",
     "npm": "^10.2.5",
+    "path": "^0.12.7",
+    "rammerhead": "https://github.com/holy-unblocker/rammerhead/releases/download/v1.2.41-holy.5/rammerhead-1.2.41-holy.5.tgz",
     "typescript": "^5.3.3"
   },
   "devDependencies": {
