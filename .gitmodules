@@ -1,0 +1,3 @@
+[submodule "public/games"]
+	path = public/games
+	url = https://github.com/wearrrrr/alu-games
