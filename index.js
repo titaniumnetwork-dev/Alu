@@ -16,8 +16,10 @@ if (!existsSync("./dist")) build();
 const PORT = process.env.PORT || 3000;
 
 const bare = createBareServer("/bare/");
+console.log(chalk.gray("Starting Bare..."));
 
 const rh = createRammerhead();
+console.log(chalk.gray("Starting Rammerhead..."));
 
 const rammerheadScopes = [
   "/rammerhead.js",
@@ -87,9 +89,11 @@ app.use(
 app.use("/", express.static("dist/client/"));
 
 console.log(chalk.gray("Starting Alu..."));
+console.log(chalk.green("Alu started successfully!"))
 server.on("listening", () => {
   console.log(chalk.green(`Server running at http://localhost:${PORT}/.`));
 });
+
 
 server.listen({
   port: PORT,
