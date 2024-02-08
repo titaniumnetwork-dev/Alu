@@ -1,0 +1,262 @@
+{
+  "1v1.lol": {
+    "name": "1v1.lol",
+    "image": "/games/1v1.lol/logo.png",
+    "slug": "1v1.lol"
+  },
+  "2048": {
+    "name": "2048",
+    "image": "/games/2048/logo.png",
+    "slug": "2048"
+  },
+  "backrooms": {
+    "name": "The Backrooms",
+    "image": "/games/backrooms/logo.png",
+    "slug": "backrooms"
+  },
+  "baldi": {
+    "name": "Baldi's Basics",
+    "image": "/games/baldi/logo.png",
+    "slug": "baldi"
+  },
+  "cannon-basketball-4": {
+    "name": "Cannon Basketball 4",
+    "image": "/games/cannon-basketball-4/logo.png",
+    "slug": "cannon-basketball-4"
+  },
+  "cell-machine": {
+    "name": "Cell Machine",
+    "image": "/games/cell-machine/logo.png",
+    "slug": "cell-machine"
+  },
+  "chrome-dino": {
+    "name": "Chrome Dino",
+    "image": "/games/chrome-dino/logo.png",
+    "slug": "chrome-dino"
+  },
+  "cookie-clicker": {
+    "name": "Cookie Clicker",
+    "image": "/games/cookie-clicker/logo.png",
+    "slug": "cookie-clicker"
+  },
+  "csgo-clicker": {
+    "name": "CSGO Clicker",
+    "image": "/games/csgo-clicker/logo.png",
+    "slug": "csgo-clicker"
+  },
+  "ctr": {
+    "name": "Cut The Rope",
+    "image": "/games/ctr/logo.png",
+    "slug": "ctr"
+  },
+  "ctr-holiday": {
+    "name": "Cut The Rope - Holiday",
+    "image": "/games/ctr-holiday/logo.png",
+    "slug": "ctr-holiday"
+  },
+  "ctr-tr": {
+    "name": "Cut The Rope - Time Travel",
+    "image": "/games/ctr-tr/logo.png",
+    "slug": "ctr-tr"
+  },
+  "death-run-3d": {
+    "name": "Death Run 3D",
+    "image": "/games/death-run-3d/logo.png",
+    "slug": "death-run-3d"
+  },
+  "doge-miner": {
+    "name": "Doge Miner",
+    "image": "/games/doge-miner/logo.png",
+    "slug": "doge-miner"
+  },
+  "doodle-jump": {
+    "name": "Doodle Jump",
+    "image": "/games/doodle-jump/logo.png",
+    "slug": "doodle-jump"
+  },
+  "doom": {
+    "name": "Doom",
+    "image": "/games/doom/logo.png",
+    "slug": "doom"
+  },
+  "draw-the-hill": {
+    "name": "Draw The Hill",
+    "image": "/games/draw-the-hill/logo.png",
+    "slug": "draw-the-hill"
+  },
+  "evil-glitch": {
+    "name": "Evil Glitch",
+    "image": "/games/evil-glitch/logo.png",
+    "slug": "evil-glitch"
+  },
+  "fall-boys": {
+    "name": "Fall Boys",
+    "image": "/games/fall-boys/logo.png",
+    "slug": "fall-boys"
+  },
+  "firewater": {
+    "name": "Fireboy and Watergirl",
+    "image": "/games/firewater/logo.png",
+    "slug": "firewater"
+  },
+  "firewater2": {
+    "name": "Fireboy and Watergirl 2",
+    "image": "/games/firewater2/logo.png",
+    "slug": "firewater2"
+  },
+  "fnaf": {
+    "name": "Five Nights at Freddy's",
+    "image": "/games/fnaf/logo.png",
+    "slug": "fnaf"
+  },
+  "fnaf2": {
+    "name": "Five Nights at Freddy's 2",
+    "image": "/games/fnaf2/logo.png",
+    "slug": "fnaf2"
+  },
+  "fnaf3": {
+    "name": "Five Nights at Freddy's 3",
+    "image": "/games/fnaf3/logo.png",
+    "slug": "fnaf3"
+  },
+  "fnaf4": {
+    "name": "Five Nights at Freddy's 4",
+    "image": "/games/fnaf4/logo.png",
+    "slug": "fnaf4"
+  },
+  "game-inside": {
+    "name": "Game Inside",
+    "image": "/games/game-inside/logo.png",
+    "slug": "game-inside"
+  },
+  "google-snake": {
+    "name": "Google Snake",
+    "image": "/games/google-snake/logo.png",
+    "slug": "google-snake"
+  },
+  "grindcraft": {
+    "name": "Grindcraft",
+    "image": "/games/grindcraft/logo.png",
+    "slug": "grindcraft"
+  },
+  "idle-breakout": {
+    "name": "Idle Breakout",
+    "image": "/games/idle-breakout/logo.png",
+    "slug": "idle-breakout"
+  },
+  "just-one-boss": {
+    "name": "Just One Boss",
+    "image": "/games/just-one-boss/logo.png",
+    "slug": "just-one-boss"
+  },
+  "line-rider": {
+    "name": "Line Rider",
+    "image": "/games/line-rider/logo.png",
+    "slug": "line-rider"
+  },
+  "minecraft-classic": {
+    "name": "Minecraft Classic",
+    "image": "/games/minecraft-classic/logo.png",
+    "slug": "minecraft-classic"
+  },
+  "minesweeper": {
+    "name": "Minesweeper",
+    "image": "/games/minesweeper/logo.png",
+    "slug": "minesweeper"
+  },
+  "moto-x3m": {
+    "name": "Moto X3M",
+    "image": "/games/moto-x3m/logo.png",
+    "slug": "moto-x3m"
+  },
+  "moto-x3m-pool": {
+    "name": "Moto X3M Pool Party",
+    "image": "/games/moto-x3m-pool/logo.png",
+    "slug": "moto-x3m-pool"
+  },
+  "moto-x3m-spooky": {
+    "name": "Moto X3M Spooky Land",
+    "image": "/games/moto-x3m-spooky/logo.png",
+    "slug": "moto-x3m-spooky"
+  },
+  "moto-x3m-winter": {
+    "name": "Moto X3M Winter",
+    "image": "/games/moto-x3m-winter/logo.png",
+    "slug": "moto-x3m-winter"
+  },
+  "osu": {
+    "name": "osu!",
+    "image": "/games/osu/logo.png",
+    "slug": "osu"
+  },
+  "retro-bowl": {
+    "name": "Retro Bowl",
+    "image": "/games/retro-bowl/logo.png",
+    "slug": "retro-bowl"
+  },
+  "slope": {
+    "name": "Slope",
+    "image": "/games/slope/logo.png",
+    "slug": "slope"
+  },
+  "sm64": {
+    "name": "Super Mario 64",
+    "image": "/games/sm64/logo.png",
+    "slug": "sm64"
+  },
+  "solitaire": {
+    "name": "Solitaire",
+    "image": "/games/solitaire/logo.png",
+    "slug": "solitaire"
+  },
+  "superhot": {
+    "name": "Superhot",
+    "image": "/games/superhot/logo.png",
+    "slug": "superhot"
+  },
+  "there-is-no-game": {
+    "name": "There is No Game",
+    "image": "/games/there-is-no-game/logo.png",
+    "slug": "there-is-no-game"
+  },
+  "ul6": {
+    "name": "Ultima 6",
+    "image": "/games/ul6/logo.png",
+    "slug": "ul6"
+  },
+  "vex3": {
+    "name": "Vex 3",
+    "image": "/games/vex3/logo.png",
+    "slug": "vex3"
+  },
+  "vex4": {
+    "name": "Vex 4",
+    "image": "/games/vex4/logo.png",
+    "slug": "vex4"
+  },
+  "vex5": {
+    "name": "Vex 5",
+    "image": "/games/vex5/logo.png",
+    "slug": "vex5"
+  },
+  "vex6": {
+    "name": "Vex 6",
+    "image": "/games/vex6/logo.png",
+    "slug": "vex6"
+  },
+  "worlds-hardest-game": {
+    "name": "World's Hardest Game",
+    "image": "/games/worlds-hardest-game/logo.png",
+    "slug": "worlds-hardest-game"
+  },
+  "worlds-hardest-game-2": {
+    "name": "World's Hardest Game 2",
+    "image": "/games/worlds-hardest-game-2/logo.png",
+    "slug": "worlds-hardest-game-2"
+  },
+  "you-are-bezos": {
+    "name": "You are Bezos",
+    "image": "/games/you-are-bezos/logo.png",
+    "slug": "you-are-bezos"
+  }
+}

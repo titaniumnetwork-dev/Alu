@@ -1,7 +1,7 @@
 {
-    "nav": {
-        "brand": "Alu",
-        "games": "Games",
-        "settings": "Settings"
-    }
+  "nav": {
+    "brand": "Alu",
+    "games": "Games",
+    "settings": "Settings"
+  }
 }

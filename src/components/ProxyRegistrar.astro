@@ -1,0 +1,136 @@
+<script src="/uv/uv.bundle.js" transition:persist></script>
+<script src="/uv.config.js" transition:persist></script>
+<script>
+  //@ts-nocheck
+  let form = document.querySelector("form");
+  let input = document.querySelector("input");
+  window.navigator.serviceWorker.register("/sw.js", {
+    scope: window.__uv$config.prefix,
+  });
+  document.addEventListener("astro:after-swap", initForm);
+  function initForm() {
+    let formEle = document.querySelector("form");
+    input = document.querySelector("input");
+    if (formEle) formEle.addEventListener("submit", formEventListener);
+  }
+  if (form) {
+    form.addEventListener("submit", formEventListener);
+  }
+
+  async function formEventListener(event) {
+    event.preventDefault();
+    let loadingContent = document.getElementById("loading-content");
+    loadingContent.style.opacity = 1;
+    let url = input.value.trim();
+    if (!isUrl(url)) url = getSearchEngine() + url;
+    else if (!(url.startsWith("https://") || url.startsWith("http://"))) url = "http://" + url;
+
+    let iframe = document.getElementById("proxy-frame");
+    let preference = getProxyPreference();
+    if (preference === "ultraviolet") {
+      iframe.src = window.__uv$config.prefix + window.__uv$config.encodeUrl(url);
+    } else if (preference == "rammerhead") {
+      // Check if rammerhead-session exists in cookies
+      let rammerheadSession = getCookie("rammerhead-session");
+      console.log(rammerheadSession);
+      if (!rammerheadSession) {
+        let session = await fetch("/newsession");
+        let sessionID = await session.text();
+        // Now save it in a cookie that expires in 72 hours.
+        document.cookie = `rammerhead-session=${sessionID}; max-age=${60 * 60 * 72}; path=/`;
+      }
+      iframe.src = `/${getCookie("rammerhead-session")}/${url}`;
+    } else {
+      // Default to UV
+      iframe.src = window.__uv$config.prefix + window.__uv$config.encodeUrl(url);
+    }
+    iframe.style.pointerEvents = "auto";
+    iframe.classList.add("proxy-frame");
+    document.body.appendChild(iframe);
+    iframe.addEventListener("load", () => {
+      let topBar = document.getElementById("top-bar");
+      loadingContent.style.opacity = 0;
+      topBar.innerHTML = "";
+      topBar.classList.add("top-bar");
+      let closeButton = document.createElement("button");
+      closeButton.classList.add("close-button");
+      closeButton.innerText = "Close";
+      closeButton.addEventListener("click", () => {
+        iframe.style.opacity = 0;
+        topBar.style.opacity = 0;
+        iframe.style.pointerEvents = "none";
+        topBar.style.pointerEvents = "none";
+      });
+      let urlText = document.createElement("p");
+      urlText.classList.add("url-text");
+      urlText.innerText = window.__uv$config.decodeUrl(iframe.src.split(__uv$config.prefix)[1]);
+      iframe.style.opacity = 1;
+      topBar.style.opacity = 1;
+      topBar.style.pointerEvents = "auto";
+      topBar.appendChild(closeButton);
+      topBar.appendChild(urlText);
+      document.body.appendChild(topBar);
+    });
+  }
+
+  function isUrl(val = "") {
+    if (/^http(s?):\/\//.test(val) || (val.includes(".") && val.substr(0, 1) !== " ")) return true;
+    return false;
+  }
+
+  function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(";").shift();
+  }
+
+  function getSearchEngine() {
+    let localStorageSearchEngine = localStorage.getItem("alu__search_engine");
+    if (!localStorageSearchEngine) {
+      return "https://google.com/search?q=";
+    }
+    switch (JSON.parse(localStorage.getItem("alu__search_engine")).value.toLowerCase()) {
+      case "google": {
+        return "https://google.com/search?q=";
+      }
+      case "bing": {
+        return "https://bing.com/search?q=d";
+      }
+      case "brave": {
+        return "https://search.brave.com/search?q=";
+      }
+      case "searx": {
+        let localStorageURL = localStorage.getItem("alu__searxngUrl");
+        if (localStorageURL) {
+          if (localStorageURL == "") return "https://searxng.site/search?q=";
+          // Ugly hack to remove the trailing slash :)
+          if (localStorageURL.endsWith("/")) localStorageURL = localStorageURL.slice(0, -1);
+          return localStorageURL + "/search?q=";
+        } else return "https://searxng.site/search?q=";
+      }
+      default: {
+        return "https://google.com/search?q=";
+      }
+    }
+  }
+
+  function getProxyPreference() {
+    let localStorageItem = localStorage.getItem("alu__selectedProxy");
+
+    if (!localStorageItem) return "uv";
+
+    switch (JSON.parse(localStorageItem).value.toLowerCase()) {
+      case "ultraviolet": {
+        return "ultraviolet";
+      }
+      case "rammerhead":
+        return "rammerhead";
+      case "dynamic":
+        // temporary because dynamic is not implemented yet :)
+        return "ultraviolet";
+      default: {
+        return "uv";
+      }
+    }
+  }
+</script>

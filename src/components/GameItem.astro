@@ -3,27 +3,30 @@ const { name, image, slugName } = Astro.props;
 ---
 
 <div class="game">
-    <a href=`/games/${slugName || name}`><img class="game-img" src=`${image}` alt=""></a>
-    <p class="game-title">{name}</p>
+  <a href=`/games/${slugName || name}`>
+    <img class="game-img" src={image} alt="" />
+  </a>
+  <p class="game-title">{name}</p>
 </div>
 
 <style>
-.game {
-    border: 2px solid #D8DEE9;
+  .game {
+    border: 2px solid var(--text-color);
     padding: 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-}
-.game-img {
+    border-radius: 15px;
+  }
+  .game-img {
     width: 128px;
     height: 128px;
-}
+  }
 
-.game-title {
+  .game-title {
     color: var(--text-color);
     text-align: center;
     max-width: 125px;
-}
+  }
 </style>

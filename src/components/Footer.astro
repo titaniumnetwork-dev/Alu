@@ -1,139 +1,66 @@
 ---
-
-import { getLangFromUrl, useTranslations } from "../i18n/utils"
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+import WaveSVG from "./WaveSVG.astro";
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
-
 ---
 
-<div id="footer">
-    <div class="footerflex">
-        <div class="footerbrand">
-            <p class="footerlist-heading"><a href="/">{t("footer.brand")}</a></p>
-            <p><a target="_blank" rel="noopener noreferrer" href="https://wearr.dev">{t("footer.madeWithLove")}</a></p>
-        </div>
-    <div class="footerlist">
-        <p class="footerlist-heading">{t("footer.services")}</p>
-        <ul>
-            <li><a target="_blank" rel="noopener noreferrer" href="https://github.com/titaniumnetwork-dev/Ultraviolet">Ultraviolet</a></li>
-        </ul>
+<div class="footer">
+  <div class="wave-svg-container">
+    <WaveSVG />
+  </div>
+  <div class="footer-top">
+    <div class="footer-title">
+      <h2>{t("footer.brand")}</h2>
     </div>
-    <div class="footerlist">
-        <p class="footerlist-heading">{t("footer.socials")}</p>
-        <ul>
-            <li><a target="_blank" rel="noopener noreferrer" href="https://github.com/wearrrrr/AlusUnblocker">GitHub</a></li>
-            <li><a target="_blank" rel="noopener noreferrer" href="#">Discord</a></li>
-        </ul>
+
+    <div class="footer-madeby">
+      <a href="https://wearr.dev">{t("footer.madeWithLove")}</a>
     </div>
-</div>
-<p class="copyright">{t("footer.aluProject")} &copy; 2024</p>
-</div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-links">
+      <a href="https://titaniumnetwork.org">{t("footer.poweredBy")}</a>
+    </div>
+
+    <div class="footer-copyright">
+      <p>&copy; {t("footer.aluProject")} 2024</p>
+    </div>
+  </div>
 </div>
 
 <style>
-:root {
-    --footer-svg-url: url("/img/aluwaves.svg");
-}
-[data-theme="mocha"] {
-    --footer-svg-url: url("/img/mochawaves.svg");
-}
-[data-theme="macchiato"] {
-    --footer-svg-url: url("/img/macchiatowaves.svg");
-}
-#footer {
-    padding-top: 22vh;
-    background-image: var(--footer-svg-url);
-    background-repeat: no-repeat;
-    background-size: 100vw auto;
+  .wave-svg-container {
+    bottom: 0;
+    left: 0;
+    position: absolute;
     width: 100%;
-}
+    z-index: -1;
+    overflow: hidden;
+    height: 300px;
+    filter: brightness(1.5);
+  }
 
-.footerflex {
-    display: -webkit-box;
-    display: -ms-flexbox;
+  .footer {
     display: flex;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-}
+    flex-direction: column;
+    justify-content: space-around;
+    color: var(--text-color);
+    position: relative;
+    padding-top: 100px;
+    gap: 50px;
+  }
+  .footer-top,
+  .footer-bottom {
+    width: 90%;
+    margin: 0 auto;
+  }
 
-.footersocials {
-    text-align: center;
-}
-
-.footerflex > div {
-    margin: 25px 50px;
-}
-
-@media only screen and (max-width: 600px) {
-    .footerflex > div {
-        margin: 15px 25px;
-    }
-}
-
-@media only screen and (max-width: 380px) {
-    .footerflex > div {
-        margin: 5px 10px;
-    }
-}
-
-.footerbrand div a {
-    font-family: 'Varela Round', sans-serif;
-    color: var(--text-color) !important;
+  .footer-title {
     font-size: 20px;
-    font-weight: bold;
-}
+  }
 
-.footerbrand p {
-    font-family: 'Varela Round', sans-serif;
+  a {
     color: var(--text-color);
-}
-
-.footerbrand a {
-    font-family: 'Varela Round', sans-serif;
-    color: var(--text-color);
-}
-
-.footerlist-heading {
-    font-weight: bold;
-    font-size: 20px;
-}
-
-.footerlist ul {
-    list-style: none;
-    padding: 0;
-}
-
-.footerlist ul > li {
-    padding: 2px;
-    padding-bottom: 5px;
-}
-
-.footerlist ul > li > a {
-    color: var(--text-color);
-}
-
-.footerlist > * {
-    font-family: 'Varela Round', sans-serif;
-    color: var(--text-color);
-}
-
-.footersocials {
-    font-size: 20px;
-}
-
-.footersocials a {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    line-height: 20px;
-    padding: 6px;
-    margin: 0 5px;
-    border-radius: 50%;
-}
-
-.copyright {
-    color: #D8DEE9;
-    text-align: center;
-}
+  }
 </style>

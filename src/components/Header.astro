@@ -1,29 +1,29 @@
 ---
-    import { getLangFromUrl, useTranslations } from "../i18n/utils"
-    const lang = getLangFromUrl(Astro.url);
-    const t = useTranslations(lang);
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <div class="top-header">
-    <div id="title-background" class="title-background">
-        <div class="left">
-            <a href={`/${lang}/`} class="header-item">{t("nav.brand")}</a>
-        </div>
-        <div class="right">
-            <a href={`/${lang}/games/`} class="header-item">{t("nav.games")}</a>
-            <a href={`/${lang}/settings/`} class="header-item">{t("nav.settings")}</a>
-        </div>
+  <div id="title-background" class="title-background">
+    <div class="left">
+      <a href={`/${lang}/`} class="header-item">{t("nav.brand")}</a>
     </div>
+    <div class="right">
+      <a href={`/${lang}/games/`} class="header-item">{t("nav.games")}</a>
+      <a href={`/${lang}/settings/`} class="header-item">{t("nav.settings")}</a>
+    </div>
+  </div>
 </div>
 
 <style>
-.top-header {
+  .top-header {
     display: flex;
     box-sizing: border-box;
     transition: 250ms ease-in;
-}
+  }
 
-.title-background {
+  .title-background {
     background-color: var(--accent-color);
     display: flex;
     align-items: center;
@@ -37,28 +37,29 @@
     z-index: 10;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
-}
+  }
 
-.left, .right {
+  .left,
+  .right {
     display: flex;
     align-items: center;
     gap: 20px;
-}
+  }
 
-.header-item {
+  .header-item {
     color: var(--text-color);
     text-decoration: none;
     font-size: 22px;
     transition: 250ms ease-in-out;
-}
+  }
 
-.header-item:hover {
+  .header-item:hover {
     color: var(--text-color-accent);
-}
+  }
 
-@media only screen and (max-width: 1003px) {
+  @media only screen and (max-width: 1003px) {
     .title-background {
-        width: 500%;
+      width: 500%;
     }
-}
+  }
 </style>

@@ -1,91 +1,118 @@
 ---
-import Input from "../Input.astro"
+import Input from "../Input.astro";
 
-
-    const presetCloaks = [
-        {"cloakTitle": "None", "favicon": "/favicon.png"},
-        {"cloakTitle": "Google", "favicon": "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://google.com&size=128"},
-        {"cloakTitle": "Instructure", "favicon": "https://du11hjcvx0uqb.cloudfront.net/dist/images/favicon-e10d657a73.ico"},
-        {"cloakTitle": "Google Classroom", "favicon": "https://ssl.gstatic.com/classroom/ic_product_classroom_144.png"},
-        {"cloakTitle": "Classlink", "favicon": "https://cdn.classlink.com/production/launchpad/resources/images/favicon/favicon-32x32.png"},
-        {"cloakTitle": "Google Drive", "favicon": "https://ssl.gstatic.com/docs/doclist/images/drive_2022q3_32dp.png"},
-        {"cloakTitle": "Schoology", "favicon": "https://asset-cdn.schoology.com/sites/all/themes/schoology_theme/favicon.ico"}
-    ]
-
+const presetCloaks = [
+  { cloakTitle: "None", favicon: "/favicon.png" },
+  {
+    cloakTitle: "Google",
+    favicon:
+      "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://google.com&size=128",
+  },
+  {
+    cloakTitle: "Instructure",
+    favicon: "https://du11hjcvx0uqb.cloudfront.net/dist/images/favicon-e10d657a73.ico",
+  },
+  {
+    cloakTitle: "Google Classroom",
+    favicon: "https://ssl.gstatic.com/classroom/ic_product_classroom_144.png",
+  },
+  {
+    cloakTitle: "Classlink",
+    favicon:
+      "https://cdn.classlink.com/production/launchpad/resources/images/favicon/favicon-32x32.png",
+  },
+  {
+    cloakTitle: "Google Drive",
+    favicon: "https://ssl.gstatic.com/docs/doclist/images/drive_2022q3_32dp.png",
+  },
+  {
+    cloakTitle: "Schoology",
+    favicon: "https://asset-cdn.schoology.com/sites/all/themes/schoology_theme/favicon.ico",
+  },
+];
 ---
 
 <div class="settings-container">
-    <div class="cloak-container">
-        <div id="cloak-list">
-            {presetCloaks.map((cloak: any) => {
-                return <div class="cloak-item" data-cloak-name={cloak.cloakTitle} data-cloak-icon={cloak.favicon}><img class="cloak-image" src={cloak.favicon} alt={cloak.cloakTitle}/></div>
-            })}
-        </div>
-        <div class="cloak-custom-override">
-            <Input inputName="cloak-custom-name" placeholder="Custom Name" height="30px" />
-            <Input inputName="cloak-custom-favicon" placeholder="Custom Favicon" height="30px" />
-            <button id="cloak-custom-button">Update Cloak</button>
-        </div>
+  <div class="cloak-container">
+    <div id="cloak-list">
+      {
+        presetCloaks.map((cloak: any) => {
+          return (
+            <div
+              class="cloak-item"
+              data-cloak-name={cloak.cloakTitle}
+              data-cloak-icon={cloak.favicon}>
+              <img class="cloak-image" src={cloak.favicon} alt={cloak.cloakTitle} />
+            </div>
+          );
+        })
+      }
     </div>
+    <div class="cloak-custom-override">
+      <Input inputName="cloak-custom-name" placeholder="Custom Name" height="30px" />
+      <Input inputName="cloak-custom-favicon" placeholder="Custom Favicon" height="30px" />
+      <button id="cloak-custom-button">Update Cloak</button>
+    </div>
+  </div>
 </div>
 
 <style>
-    .cloak-container {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-    }
-    #cloak-list {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 15px;
-    }
-    .cloak-item {
-        width: 75px;
-        height: 75px;
-        border-radius: 50%;
-        padding: 15px;
-        background-color: var(--dropdown-background-color);
-        border: 3px solid var(--accent-color);
-        cursor: pointer;
-        transition: 250ms ease-in-out;
-    }
-    .cloak-item.selected {
-        /* Make border color brighter */
-        border: 3px solid var(--accent-color-brighter)
-    }
-    .cloak-image {
-        width: 100%;
-        height: 100%;
-    }
+  .cloak-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  #cloak-list {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+  }
+  .cloak-item {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    padding: 15px;
+    background-color: var(--dropdown-background-color);
+    border: 3px solid var(--accent-color);
+    cursor: pointer;
+    transition: 250ms ease-in-out;
+  }
+  .cloak-item.selected {
+    /* Make border color brighter */
+    border: 3px solid var(--accent-color-brighter);
+  }
+  .cloak-image {
+    width: 100%;
+    height: 100%;
+  }
 
-    .cloak-custom-override {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-        width: 50%;
-    }
-    #cloak-custom-button {
-        margin-top: 6px;
-        height: 25px;
-        border-radius: 10px;
-        background-color: var(--accent-color-brighter);
-        border: 0;
-        color: var(--text-color);
-        cursor: pointer;
-    }
-    .cloak-custom-input {
-        height: 40px;
-        width: 100%;
-        border: 2px solid var(--accent-color-brighter);
-        border-radius: 10px;
-        background-color: #1b1b1b;
-        color: var(--text-color);
-        transition: .1s ease-in-out;
-    }
-    .cloak-custom-input:focus {
-        outline: none;
-        border: 2px solid var(--text-color);
-    }
+  .cloak-custom-override {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 50%;
+  }
+  #cloak-custom-button {
+    margin-top: 6px;
+    height: 25px;
+    border-radius: 10px;
+    background-color: var(--accent-color-brighter);
+    border: 0;
+    color: var(--text-color);
+    cursor: pointer;
+  }
+  .cloak-custom-input {
+    height: 40px;
+    width: 100%;
+    border: 2px solid var(--accent-color-brighter);
+    border-radius: 10px;
+    background-color: #1b1b1b;
+    color: var(--text-color);
+    transition: 0.1s ease-in-out;
+  }
+  .cloak-custom-input:focus {
+    outline: none;
+    border: 2px solid var(--text-color);
+  }
 </style>

@@ -1,51 +1,66 @@
 ---
-import Input from "../Input.astro"
-import Dropdown from "../Dropdown.astro"
+import Input from "../Input.astro";
+import Dropdown from "../Dropdown.astro";
 
-import { getLangFromUrl, useTranslations } from "../../i18n/utils"
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 const proxyList = [
-  { "name": t("settings.proxy.auto"), "value": "auto" },
-  { "name": t("ultraviolet"), "value": "ultraviolet" },
-  { "name": "Rammerhead", "value": "rammerhead" },
-  { "name": "Dynamic", "value": "dynamic" }
-]
+  { name: t("settings.proxy.auto"), value: "auto" },
+  { name: t("ultraviolet"), value: "ultraviolet" },
+  { name: "Rammerhead", value: "rammerhead" },
+  { name: "Dynamic", value: "dynamic" },
+];
 
 const searchEngineList = [
-  { "name": "Google", "value": "google" },
-  { "name": "Bing", "value": "bing" },
-  { "name": "Brave", "value": "brave" },
-  { "name": "Searx", "value": "searx" }
-]
+  { name: "Google", value: "google" },
+  { name: "Bing", value: "bing" },
+  { name: "Brave", value: "brave" },
+  { name: "Searx", value: "searx" },
+];
 
 const openPageWith = [
-  { "name": t("settings.proxy.openPageWith.embed"), "value": "embed" },
-  { "name": "About:Blank", "value": "about:blank" },
-  { "name": t("settings.proxy.openPageWith.newTab"), "value": "newTab" },
-]
+  { name: t("settings.proxy.openPageWith.embed"), value: "embed" },
+  { name: "About:Blank", value: "about:blank" },
+  { name: t("settings.proxy.openPageWith.newTab"), value: "newTab" },
+];
 ---
 
 <div class="settings-container">
-    <div class="setting__selected-proxy">
-      <label class="setting-label">{t("settings.proxy.selectedProxy")}</label>
-      <Dropdown buttonNameDefault="Ultraviolet" dropdownList={proxyList}, id="dropdown__selected-proxy" />
-    </div>
-    <div class="setting__search-engine">
-      <label class="setting-label">{t("settings.proxy.searchEngine")}</label>
-      <Dropdown buttonNameDefault="Google" dropdownList={searchEngineList}, id="dropdown__search-engine" />
-    </div>
-    <div class="setting__open_with">
-      <label class="setting-label">{t("settings.proxy.openPageWith")}</label>
-      <Dropdown buttonNameDefault={t("settings.proxy.openPageWith.embed")} dropdownList={openPageWith}, id="dropdown__open-with" />
-    </div>
-    <div class="setting__bare-url">
-      <label class="setting-label" for="bare-url-input">{t("settings.proxy.bareURL")}</label>
-      <Input inputName="bare-url" height="50px" />
-    </div>
+  <div class="setting__selected-proxy">
+    <label class="setting-label">{t("settings.proxy.selectedProxy")}</label>
+    <Dropdown
+      buttonNameDefault="Ultraviolet"
+      dropdownList={proxyList}
+      ,
+      id="dropdown__selected-proxy"
+    />
+  </div>
+  <div class="setting__search-engine">
+    <label class="setting-label">{t("settings.proxy.searchEngine")}</label>
+    <Dropdown
+      buttonNameDefault="Google"
+      dropdownList={searchEngineList}
+      ,
+      id="dropdown__search-engine"
+    />
+  </div>
+  <div class="setting__open_with">
+    <label class="setting-label">{t("settings.proxy.openPageWith")}</label>
+    <Dropdown
+      buttonNameDefault={t("settings.proxy.openPageWith.embed")}
+      dropdownList={openPageWith}
+      ,
+      id="dropdown__open-with"
+    />
+  </div>
+  <div class="setting__bare-url">
+    <label class="setting-label" for="bare-url-input">{t("settings.proxy.bareURL")}</label>
+    <Input inputName="bare-url" height="50px" />
+  </div>
 </div>
 <div class="setting__searxng-url">
-    <label for="searxng-url-input" class="setting-label">{t("settings.proxy.searxngURL")}</label>
-    <Input height="50px" inputName="searxng-url" defaultTextContent="https://searxng.site/" />
+  <label for="searxng-url-input" class="setting-label">{t("settings.proxy.searxngURL")}</label>
+  <Input height="50px" inputName="searxng-url" defaultTextContent="https://searxng.site/" />
 </div>

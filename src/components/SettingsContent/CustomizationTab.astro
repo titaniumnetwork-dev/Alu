@@ -1,29 +1,35 @@
 ---
-import Dropdown from "../Dropdown.astro"
+import Dropdown from "../Dropdown.astro";
 
-import { getLangFromUrl, useTranslations } from "../../i18n/utils"
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 const themeList = [
-    {"name": t("settings.customization.theme.Alu"), "value": "alu"},
-    {"name": t("settings.customization.theme.Macchiato"), "value": "macchiato"},
-    {"name": t("settings.customization.theme.Mocha"), "value": "mocha"}
-]
+  { name: t("settings.customization.theme.Alu"), value: "alu" },
+  { name: t("settings.customization.theme.Macchiato"), value: "macchiato" },
+  { name: t("settings.customization.theme.Mocha"), value: "mocha" },
+  { name: "Rosé Pine", value: "rose_pine" },
+];
 
 const languageList = [
-    {"name": "English", "value": "en"},
-    {"name": "日本語", "value": "jp"}
-]
+  { name: "English", value: "en" },
+  { name: "日本語", value: "jp" },
+];
 ---
 
 <div class="settings-container">
-    <div class="setting__theme">
-        <label class="setting-label">{t("settings.customization.theme")}</label>
-        <Dropdown buttonNameDefault="Alu" dropdownList={themeList}, id="dropdown__selected-theme" />
-    </div>
-    <div class="setting__language">
-        <label class="setting-label">{t("settings.customization.language")}</label>
-        <Dropdown buttonNameDefault="English" dropdownList={languageList}, id="dropdown__selected-language" />
-    </div>
+  <div class="setting__theme">
+    <label class="setting-label">{t("settings.customization.theme")}</label>
+    <Dropdown buttonNameDefault="Alu" dropdownList={themeList} , id="dropdown__selected-theme" />
+  </div>
+  <div class="setting__language">
+    <label class="setting-label">{t("settings.customization.language")}</label>
+    <Dropdown
+      buttonNameDefault="English"
+      dropdownList={languageList}
+      ,
+      id="dropdown__selected-language"
+    />
+  </div>
 </div>

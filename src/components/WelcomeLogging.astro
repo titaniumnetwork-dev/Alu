@@ -1,11 +1,40 @@
-<script is:inline>
-    console.log("%cWelcome to Alu", "color: #0251d9; font-size: 2rem; font-weight: bold; text-shadow: 2px 2px 0 #033c9e;");
+<script>
+  declare global {
+    interface Navigator {
+      deviceMemory: number;
+    }
+  }
 
-    console.log("%cSystem Information: ", "color: #025bf5; font-size: 1rem; font-weight: bold;");
-    console.log("%cOS: %c" + navigator.platform, "color: #025bf5; font-size: 0.75rem; font-weight: bold;", "color: #025bf5; font-size: 0.75rem;");
-    console.log("%cBrowser: %c" + navigator.userAgent, "color: #025bf5; font-size: 0.75rem; font-weight: bold;", "color: #025bf5; font-size: 0.75rem;");
-    console.log("%cCPU Cores: %c" + navigator.hardwareConcurrency, "color: #025bf5; font-size: 0.75rem; font-weight: bold;", "color: #025bf5; font-size: 0.75rem;");
-    // Cmon firefox, do we really not support this?? Basic stuff here from the "indie browser".
-    console.log("%cMemory: %c" + navigator.deviceMemory + "GB", "color: #025bf5; font-size: 0.75rem; font-weight: bold;", "color: #025bf5; font-size: 0.75rem;");
-    console.log("%cPlease include this information in a bug report!", "color: #025bf5; font-size: 0.75rem; font-weight: bold;");
+  let primaryColor = "#8c25fa";
+  let secondaryColor = "#601aab";
+  console.log(
+    "%cWelcome to Alu",
+    `color: ${primaryColor}; font-size: 2rem; font-weight: bold; text-shadow: 2px 2px 0 ${secondaryColor};`
+  );
+
+  console.log(
+    "%cSystem Information: ",
+    `color: ${primaryColor}; font-size: 1rem; font-weight: bold;`
+  );
+  console.log(
+    "%cOS: " + navigator.platform,
+    `color: ${primaryColor}; font-size: 0.75rem; font-weight: bold;`
+  );
+  console.log(
+    "%cBrowser: " + navigator.userAgent,
+    `color: ${primaryColor}; font-size: 0.75rem; font-weight: bold;`
+  );
+  console.log(
+    "%cCPU Cores: " + navigator.hardwareConcurrency,
+    `color: ${primaryColor}; font-size: 0.75rem; font-weight: bold;`
+  );
+  // Cmon firefox, do we really not support this?? Basic stuff here from the "indie browser".
+  console.log(
+    "%cMemory: " + navigator.deviceMemory + "GB",
+    `color: ${primaryColor}; font-size: 0.75rem; font-weight: bold;`
+  );
+  console.log(
+    "%cPlease include this information in a bug report!",
+    `color: ${primaryColor}; font-size: 0.75rem; font-weight: bold;`
+  );
 </script>

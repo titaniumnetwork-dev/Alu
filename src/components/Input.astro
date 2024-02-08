@@ -1,31 +1,33 @@
 ---
-const { type, inputName, defaultTextContent, height, placeholder }  = Astro.props; 
-
-// typescript brainrot
-type HTMLInputTypeAttribute = "button" | "checkbox" | "color" | "date" | "datetime-local" | "email" | "file" | "hidden" | "image" | "month" | "number" | "password" | "radio" | "range" | "reset" | "search" | "submit" | "tel" | "text" | "time" | "url" | "week";
+const { inputName, defaultTextContent, height, placeholder } = Astro.props;
 
 interface Props {
-    type?: HTMLInputTypeAttribute;
-    inputName: string;
-    defaultTextContent?: string;
-    height: string;
-    placeholder?: string;
+  inputName: string;
+  defaultTextContent?: string;
+  height: string;
+  placeholder?: string;
 }
 ---
 
-<input style={`height: ${height}`} id={inputName + "-input"} placeholder={placeholder || ""} value={defaultTextContent || ""} type={type}  />
+<input
+  style={`height: ${height}`}
+  id={inputName + "-input"}
+  placeholder={placeholder || ""}
+  value={defaultTextContent || ""}
+  type="text"
+/>
 
 <style>
-    input {
-        width: 100%;
-        border: 2px solid var(--accent-color-brighter);
-        border-radius: 10px;
-        background-color: #1b1b1b;
-        color: var(--text-color);
-        transition: .1s ease-in-out;
-    }
-    input:focus {
-        outline: none;
-        border: 2px solid var(--text-color);
-    }
+  input {
+    width: 100%;
+    border: 2px solid var(--background-highlight);
+    border-radius: 10px;
+    background-color: var(--accent-color);
+    color: var(--text-color);
+    transition: 0.1s ease-in-out;
+  }
+  input:focus {
+    outline: none;
+    border: 2px solid var(--text-color);
+  }
 </style>

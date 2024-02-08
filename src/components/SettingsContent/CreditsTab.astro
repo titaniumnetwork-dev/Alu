@@ -1,27 +1,49 @@
 ---
-import { getLangFromUrl, useTranslations } from "../../i18n/utils"
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
-
 ---
 
 <div class="settings-container">
-
-    <div class="credits-container">
-        <p class="credit-item">{t("ultraviolet")} - <a href="https://titaniumnetwork.org/">Titanium Network</a></p>
-        <p class="credit-item">{t("settings.credits.japaneseTranslations")} - <a href="https://wearr.dev">wearr</a></p>
-        <p class="credit-item">{t("settings.credits.mochaandmacchiatothemes")} - <a href="">Catppuccin</a></p>
-    </div>
-
+  <div class="credits-container">
+    <p class="credit-item">
+      {t("ultraviolet")} - <a
+        target="_blank"
+        rel="noreferrer noopener"
+        href="https://titaniumnetwork.org/">Titanium Network</a
+      >
+    </p>
+    <p class="credit-item">
+      {t("settings.credits.japaneseTranslations")} - <a
+        target="_blank"
+        rel="noreferrer noopener"
+        href="https://wearr.dev">wearr</a
+      >
+    </p>
+    <p class="credit-item">
+      {t("settings.credits.mochaandmacchiatothemes")} - <a
+        target="_blank"
+        rel="noreferrer noopener"
+        href="https://github.com/catppuccin/catppuccin">Catppuccin</a
+      >
+    </p>
+    <p class="credit-item">
+      Rosé Pine Theme - <a
+        target="_blank"
+        rel="noreferrer noopener"
+        href="https://rosepinetheme.com/">Rosé Pine</a
+      >
+    </p>
+  </div>
 </div>
 
 <style>
-    .credit-item {
-        color: var(--text-color);
-        font-size: 18px;
-    }
-    .credit-item > a {
-        color: var(--text-color);
-        font-weight: bold;
-    }
+  .credit-item {
+    color: var(--text-color);
+    font-size: 18px;
+  }
+  .credit-item > a {
+    color: var(--text-color);
+    font-weight: bold;
+  }
 </style>
