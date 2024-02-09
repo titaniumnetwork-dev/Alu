@@ -1,3 +1,9 @@
+<p align="center">
+  <img src="https://github.com/wearrrrr/Alu/assets/99224452/dd1bef45-e96f-49bd-ac09-caa4ddc214d6" alt="AluLogo" width="250"/>
+</p>
+
+
+
 # Alu
 
 Alu is a beautiful, functional, and sleek web proxy, which focuses on customization and ease of use.
