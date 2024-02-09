@@ -4,12 +4,13 @@ Alu is a beautiful, functional, and sleek web proxy, which focuses on customizat
 
 # Features
 
-- UV and Rammerhead support
-- Themes
-- Multiple site cloaking options
-- 50+ Games to choose from
-- English and Japanese support
-- High performance
+- 🌐 UV and Rammerhead support
+- 🎨 Themes
+- 🕶 Multiple site cloaking options
+- 🎮 50+ Games to choose from
+- 🌎 English and Japanese support
+- 🚀 High performance
+- 🔍 Multiple Search Engines to pick from
 
 # Deploying Alu
 Deploying Alu is about as simple as it gets, from your terminal, type 
