@@ -59,6 +59,11 @@
     "image": "/games/death-run-3d/logo.png",
     "slug": "death-run-3d"
   },
+  "deepest-sword": {
+    "name": "Deepest Sword",
+    "image": "/games/deepest-sword/logo.webp",
+    "slug": "deepest-sword"
+  },
   "doge-miner": {
     "name": "Doge Miner",
     "image": "/games/doge-miner/logo.png",
