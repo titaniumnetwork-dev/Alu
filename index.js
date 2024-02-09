@@ -89,11 +89,10 @@ app.use(
 app.use("/", express.static("dist/client/"));
 
 console.log(chalk.gray("Starting Alu..."));
-console.log(chalk.green("Alu started successfully!"))
+console.log(chalk.green("Alu started successfully!"));
 server.on("listening", () => {
   console.log(chalk.green(`Server running at http://localhost:${PORT}/.`));
 });
-
 
 server.listen({
   port: PORT,

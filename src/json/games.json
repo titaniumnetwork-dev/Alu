@@ -1,9 +1,4 @@
 {
-  "1v1.lol": {
-    "name": "1v1.lol",
-    "image": "/games/1v1.lol/logo.png",
-    "slug": "1v1.lol"
-  },
   "2048": {
     "name": "2048",
     "image": "/games/2048/logo.png",
@@ -139,6 +134,11 @@
     "image": "/games/grindcraft/logo.png",
     "slug": "grindcraft"
   },
+  "help-no-brake": {
+    "name": "Help! No Brake",
+    "image": "/games/help-no-brake/logo.webp",
+    "slug": "help-no-brake"
+  },
   "idle-breakout": {
     "name": "Idle Breakout",
     "image": "/games/idle-breakout/logo.png",
@@ -208,6 +208,11 @@
     "name": "Solitaire",
     "image": "/games/solitaire/logo.png",
     "slug": "solitaire"
+  },
+  "sort-the-court": {
+    "name": "Sort the Court!",
+    "image": "/games/sort-the-court/logo.jpg",
+    "slug": "sort-the-court"
   },
   "superhot": {
     "name": "Superhot",
