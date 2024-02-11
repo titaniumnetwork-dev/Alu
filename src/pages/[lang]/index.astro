@@ -2,6 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 
 import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+import Link from "../../components/Link.astro";
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
@@ -19,12 +20,42 @@ export function getStaticPaths() {
       <div id="top-bar"></div>
       <iframe title="proxy-iframe" id="proxy-frame"></iframe>
     </form>
+    <div class="faq-section">
+      <div class="faq-card">
+        <h2>{t("faq.whatIsAProxy")}</h2>
+        <p>{t("faq.whatIsAProxy.answer")}</p>
+      </div>
+      <div class="faq-card">
+        <h2>{t("faq.whyIsAluSoSlow")}</h2>
+        <p>{t("faq.whyIsAluSoSlow.answer")}</p>
+      </div>
+      <div class="faq-card faq-large">
+        <h2>How can I contribute to the development of Alu?</h2>
+        <p>
+          Spreading the word of Alu is a great start, but if you really enjoy Alu, and want private
+          links, consider supporting me through Patreon! You can support me <Link
+            href="https://www.patreon.com/wearr/membership"
+            newTab
+            linkTextContent="Here!"
+          />, thank you for helping to make Alu great!
+        </p>
+      </div>
+    </div>
   </div>
 </Layout>
 
 <style>
+  .main-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 75vh;
+    margin-top: 50px;
+  }
   form {
-    width: 30%;
+    width: 40%;
   }
 
   .title-text {
@@ -66,5 +97,22 @@ export function getStaticPaths() {
     opacity: 0;
     transition: 250ms ease-in-out;
     text-align: center;
+  }
+  .faq-section {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin: 0 auto;
+    width: 90%;
+  }
+
+  .faq-card {
+    background-color: var(--dropdown-background-color);
+    border-radius: 10px;
+    padding: 20px;
+    color: var(--text-color);
+  }
+  .faq-large {
+    grid-column: span 2;
   }
 </style>

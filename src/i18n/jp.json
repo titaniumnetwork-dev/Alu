@@ -12,6 +12,12 @@
   "menu.welcome": "アルーにようこそ",
   "menu.search": "検索...",
 
+  "faq.whatIsAProxy": "プロキシとは何ですか？",
+  "faq.whatIsAProxy.answer": "プロキシは、ウェブサイトにアクセスするための中継サーバーです。プロキシを使用すると、ウェブサイトにアクセスする際に自分のIPアドレスを隠すことができます。",
+
+  "faq.whyIsAluSoSlow": "なぜアルーは遅いのですか？",
+  "faq.whyIsAluSoSlow.answer": "アルーは、プロキシを使用してウェブサイトにアクセスするため、ウェブサイトの読み込みに時間がかかることがあります。また、アルーはまだ開発中のため、パフォーマンスが低いことがあります。",
+
   "footer.brand": "アルー",
   "footer.madeWithLove": "wearrによる❤️で作られました",
   "footer.poweredBy": "「ウルトラバイオレット」による駆動",

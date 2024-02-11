@@ -47,7 +47,7 @@ const t = useTranslations(lang);
   <div id="current-content"></div>
 </div>
 <script is:inline>
-  document.addEventListener("astro:before-swap", () => {
+  document.addEventListener("astro:after-swap", () => {
     window.currentlySelectedTab = "";
     document.removeEventListener("setting-tabChange", determineListener);
   });

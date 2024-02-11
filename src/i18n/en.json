@@ -12,6 +12,11 @@
   "menu.welcome": "Welcome to Alu",
   "menu.search": "Search...",
 
+  "faq.whatIsAProxy": "What is a proxy?",
+  "faq.whatIsAProxy.answer": "A proxy is a method of making your internet traffic anonymous by sending your request to a server (proxy), having that make the request, and then send it back to you! This allows for a much larger level of security, as well as bypassing website restrictions in public spaces and censorship.",
+
+  "faq.whyIsAluSoSlow": "Why is Alu so slow?",
+  "faq.whyIsAluSoSlow.answer": "This could be for a number of reasons, but it is most likely due to the proxy you are using. If you are far away from where Alu is hosted, it will take longer for the request to be sent and received. If the proxy you are using is congested with traffic, it will also be slower.",
   "footer.brand": "Alu",
   "footer.madeWithLove": "Made with ❤️ by wearr",
   "footer.poweredBy": "Powered by Ultraviolet",

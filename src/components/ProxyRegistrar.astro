@@ -1,5 +1,5 @@
-<script src="/uv/uv.bundle.js" transition:persist></script>
-<script src="/uv.config.js" transition:persist></script>
+<script src="/uv/uv.bundle.js" transition:persist is:inline></script>
+<script src="/uv.config.js" transition:persist is:inline></script>
 <script>
   //@ts-nocheck
   let form = document.querySelector("form");
@@ -60,6 +60,22 @@
         topBar.style.opacity = 0;
         iframe.style.pointerEvents = "none";
         topBar.style.pointerEvents = "none";
+        setTimeout(() => {
+          iframe.remove();
+          topBar.remove();
+
+          // recreate them
+          iframe = document.createElement("iframe");
+          iframe.id = "proxy-frame";
+          iframe.style.opacity = 0;
+          iframe.style.pointerEvents = "none";
+          topBar = document.createElement("div");
+          topBar.id = "top-bar";
+          topBar.style.opacity = 0;
+          topBar.style.pointerEvents = "none";
+          document.body.appendChild(topBar);
+          document.body.appendChild(iframe);
+        }, 500);
       });
       let urlText = document.createElement("p");
       urlText.classList.add("url-text");
