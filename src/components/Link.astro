@@ -1,0 +1,19 @@
+---
+interface LinkProps {
+  href: string;
+  newTab?: boolean;
+  linkTextContent: string;
+}
+
+const { href, newTab, linkTextContent } = Astro.props;
+const target = newTab ? "_blank" : "_self";
+const rel = newTab ? "noopener noreferrer" : "";
+---
+
+<a href={href} target={target} rel={rel}>{linkTextContent}</a>
+
+<style>
+  a {
+    color: var(--text-color);
+  }
+</style>
