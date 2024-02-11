@@ -59,11 +59,6 @@
     "image": "/games/death-run-3d/logo.png",
     "slug": "death-run-3d"
   },
-  "deepest-sword": {
-    "name": "Deepest Sword",
-    "image": "/games/deepest-sword/logo.webp",
-    "slug": "deepest-sword"
-  },
   "doge-miner": {
     "name": "Doge Miner",
     "image": "/games/doge-miner/logo.png",
@@ -139,11 +134,6 @@
     "image": "/games/grindcraft/logo.png",
     "slug": "grindcraft"
   },
-  "help-no-brake": {
-    "name": "Help! No Brake",
-    "image": "/games/help-no-brake/logo.webp",
-    "slug": "help-no-brake"
-  },
   "idle-breakout": {
     "name": "Idle Breakout",
     "image": "/games/idle-breakout/logo.png",
@@ -213,11 +203,6 @@
     "name": "Solitaire",
     "image": "/games/solitaire/logo.png",
     "slug": "solitaire"
-  },
-  "sort-the-court": {
-    "name": "Sort the Court!",
-    "image": "/games/sort-the-court/logo.jpg",
-    "slug": "sort-the-court"
   },
   "superhot": {
     "name": "Superhot",
