@@ -14,12 +14,15 @@ export function getStaticPaths() {
 <Layout title={t("pages.home")}>
   <div class="main-content">
     <h1 class="title-text">{t("menu.welcome")}</h1>
-    <form class="url-input-form" id="url-input-form">
-      <input class="url-input" type="text" placeholder={t("menu.search")} />
-      <div id="loading-content">Loading...</div>
-      <div id="top-bar"></div>
-      <iframe title="proxy-iframe" id="proxy-frame"></iframe>
-    </form>
+    <div class="form-wrapper">
+      <form class="url-input-form" id="url-input-form">
+        <input class="url-input" type="text" placeholder={t("menu.search")} />
+        <div id="loading-content">Loading...</div>
+        <div id="top-bar"></div>
+        <iframe title="proxy-iframe" id="proxy-frame"></iframe>
+      </form>
+    </div>
+
     <div class="faq-section">
       <div class="faq-card">
         <h2>{t("faq.whatIsAProxy")}</h2>
@@ -46,16 +49,17 @@ export function getStaticPaths() {
 
 <style>
   .main-content {
+    width: 100%;
+    margin-top: 50px;
+  }
+
+  .form-wrapper {
     display: flex;
     justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    width: 100%;
-    height: 75vh;
-    margin-top: 50px;
   }
   form {
     width: 40%;
+    height: 56px;
   }
 
   .title-text {
@@ -104,6 +108,7 @@ export function getStaticPaths() {
     gap: 20px;
     margin: 0 auto;
     width: 90%;
+    margin-top: 20px;
   }
 
   .faq-card {
@@ -111,6 +116,11 @@ export function getStaticPaths() {
     border-radius: 10px;
     padding: 20px;
     color: var(--text-color);
+  }
+  @media (max-width: 768px) {
+    .faq-card {
+      grid-column: span 2;
+    }
   }
   .faq-large {
     grid-column: span 2;
