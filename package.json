@@ -11,7 +11,7 @@
   "dependencies": {
     "@astrojs/check": "^0.4.0",
     "@astrojs/node": "^7.0.4",
-    "@nebula-services/ultraviolet": "^1.0.1-1.patch.5",
+    "@nebula-services/ultraviolet": "^1.0.1-1.patch.7",
     "@tomphttp/bare-server-node": "^2.0.1",
     "astro": "^4.3.3",
     "astro-i18n": "^2.2.4",
