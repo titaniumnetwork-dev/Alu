@@ -14,6 +14,7 @@ dotenv.config();
 if (!existsSync("./dist")) build();
 
 const PORT = process.env.PORT || 3000;
+const SITE_URL = process.env.URL || "http://0.0.0.0";
 
 const bare = createBareServer("/bare/");
 console.log(chalk.gray("Starting Bare..."));
@@ -43,7 +44,7 @@ const rammerheadSession = /^\/[a-z0-9]{32}/;
 const rh_path = "node_modules/rammerhead/src/client";
 
 function shouldRouteRh(req) {
-  const url = new URL(req.url, "http://0.0.0.0");
+  const url = new URL(req.url, SITE_URL);
   return rammerheadScopes.includes(url.pathname) || rammerheadSession.test(url.pathname);
 }
 
