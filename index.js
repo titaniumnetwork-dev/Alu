@@ -40,6 +40,7 @@ const rammerheadScopes = [
 ];
 
 const rammerheadSession = /^\/[a-z0-9]{32}/;
+const rh_path = "node_modules/rammerhead/src/client";
 
 function shouldRouteRh(req) {
   const url = new URL(req.url, "http://0.0.0.0");
@@ -80,6 +81,7 @@ app.use(compression());
 app.use(express.static(path.join(process.cwd(), "static")));
 app.use(express.static(path.join(process.cwd(), "build")));
 app.use("/uv/", express.static(uvPath));
+app.use("/", express.static(rh_path));
 app.use(express.json());
 app.use(
   express.urlencoded({
