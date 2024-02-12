@@ -2,6 +2,5 @@
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
     "verbatimModuleSyntax": false,
-    "allowSyntheticDefaultImports": true
   }
 }
