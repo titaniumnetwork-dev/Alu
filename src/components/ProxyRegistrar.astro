@@ -17,8 +17,7 @@
     form.addEventListener("submit", formEventListener);
   }
 
-  async function formEventListener(event) {
-    event.preventDefault();
+  async function loadContent() {
     let loadingContent = document.getElementById("loading-content");
     loadingContent.style.opacity = 1;
     let url = input.value.trim();
@@ -32,7 +31,6 @@
     } else if (preference == "rammerhead") {
       // Check if rammerhead-session exists in cookies
       let rammerheadSession = getCookie("rammerhead-session");
-      console.log(rammerheadSession);
       if (!rammerheadSession) {
         let session = await fetch("/newsession");
         let sessionID = await session.text();
@@ -88,6 +86,12 @@
       document.body.appendChild(topBar);
     });
   }
+
+  function formEventListener(event) {
+    event.preventDefault();
+    loadContent();
+  }
+  window.loadContent = loadContent;
 
   function isUrl(val = "") {
     if (/^http(s?):\/\//.test(val) || (val.includes(".") && val.substr(0, 1) !== " ")) return true;
