@@ -47,14 +47,14 @@ const t = useTranslations(lang);
   <div id="current-content"></div>
 </div>
 <script is:inline>
-  document.addEventListener("astro:after-swap", () => {
-    window.currentlySelectedTab = "";
-    document.removeEventListener("setting-tabChange", determineListener);
-  });
-  window.currentlySelectedTab;
-  window.loadedContentStorage = {};
-
-  Array.from(document.getElementsByClassName("setting-tab")).forEach((tab) => {
+  function settingsLoad() {
+    document.addEventListener("astro:after-swap", () => {
+      window.currentlySelectedTab = "";
+      document.removeEventListener("setting-tabChange", determineListener);
+    });
+    window.currentlySelectedTab;
+    window.loadedContentStorage = {};
+    Array.from(document.getElementsByClassName("setting-tab")).forEach((tab) => {
     let contentToLoad = document.getElementById("content-" + tab.id);
     if (contentToLoad) {
       window.loadedContentStorage[tab.id] = contentToLoad.innerHTML;
@@ -159,17 +159,6 @@ const t = useTranslations(lang);
         }
       });
     });
-    // Array.from(item.children).forEach((item) => {
-    //     item.addEventListener('click', () => {
-    //       localStorage.setItem(localStorageItem, item.dataset.setting)
-    //       applySavedLocalStorage(localStorageItem, dropdownID)
-    //       closeDropdown(item.parentElement.id);
-
-    //       if (typeof optionalCallback == "function") {
-    //         optionalCallback();
-    //       }
-    //     })
-    //   })
   }
 
   function applyInputListeners(item, localStorageItem) {
@@ -353,6 +342,11 @@ const t = useTranslations(lang);
         break;
     }
   }
+  }
+  document.addEventListener('astro:after-swap', () => {
+    settingsLoad()
+  })
+  settingsLoad()
 </script>
 <style is:global>
   .content-hidden {

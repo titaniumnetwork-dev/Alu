@@ -42,7 +42,7 @@ const rammerheadScopes = [
 const rammerheadSession = /^\/[a-z0-9]{32}/;
 
 function shouldRouteRh(req) {
-  const url = new URL(req.url, 'http://0.0.0.0');
+  const url = new URL(req.url, "http://0.0.0.0");
   return rammerheadScopes.includes(url.pathname) || rammerheadSession.test(url.pathname);
 }
 
@@ -91,19 +91,18 @@ app.get("/search", async (req, res) => {
   try {
     const { query } = req.query;
 
-    const response = await fetch(
-      `http://api.duckduckgo.com/ac?q=${query}&format=json`
-    ).then((apiRes) => apiRes.json());
-  
+    const response = await fetch(`http://api.duckduckgo.com/ac?q=${query}&format=json`).then(
+      (apiRes) => apiRes.json()
+    );
+
     res.send(response);
   } catch (err) {
     res.redirect(302, "/404.html");
   }
 });
-app.get('*', function(req, res){
-  res.redirect(302, '/404.html');
+app.get("*", function (req, res) {
+  res.redirect(302, "/404.html");
 });
-
 
 console.log(chalk.gray("Starting Alu..."));
 console.log(chalk.green("Alu started successfully!"));

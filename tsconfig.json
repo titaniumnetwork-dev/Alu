@@ -2,6 +2,6 @@
   "extends": "astro/tsconfigs/strict",
   "exclude": ["node_modules/**", "dist/**"],
   "compilerOptions": {
-    "verbatimModuleSyntax": false,
+    "verbatimModuleSyntax": false
   }
 }
