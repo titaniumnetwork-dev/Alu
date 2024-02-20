@@ -81,7 +81,7 @@ export function getStaticPaths() {
               console.log("here")
                 urlInput.value = suggestion.phrase;
                 // I can't be bothered to extend the window object, so I'm just going to use any
-                (window as any).loadContent();
+                (window as any).loadFormContent();
             });
             searchSuggestions.appendChild(suggestionElement);
         });
