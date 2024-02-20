@@ -16,7 +16,7 @@ export function getStaticPaths() {
     <h1 class="title-text">{t("menu.welcome")}</h1>
     <div class="form-wrapper">
       <form class="url-input-form" id="url-input-form">
-        <input class="url-input" type="text" placeholder={t("menu.search")} />
+        <input class="url-input" id="url-input" type="text" placeholder={t("menu.search")} />
         <div id="loading-content">Loading...</div>
         <div id="top-bar"></div>
         <iframe title="proxy-iframe" id="proxy-frame"></iframe>
@@ -36,7 +36,8 @@ export function getStaticPaths() {
         <h2>How can I contribute to the development of Alu?</h2>
         <p>
           Spreading the word of Alu is a great start, but if you really enjoy Alu, and want private
-          links, consider supporting me through Patreon! You can support me <Link
+          links, consider supporting me through Patreon! You can support me 
+          <Link
             href="https://www.patreon.com/wearr/membership"
             newTab
             linkTextContent="Here!"
@@ -46,6 +47,35 @@ export function getStaticPaths() {
     </div>
   </div>
 </Layout>
+
+<script>
+    const debounce = (func, delay) => {
+        let debounceTimer;
+        return function () {
+            const context = this;
+            const args = arguments;
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                func.apply(context, args);
+            }, delay);
+        };
+    };
+
+    const urlInput = document.getElementById("url-input");
+
+    async function sendAPIRequest() {
+        let url = urlInput.value;
+        let request = await fetch("https://api.duckduckgo.com/?q=" + url + "&format=json");
+        let data = await request.json();
+        console.log(data);
+    }
+
+    const debouncedSendAPIRequest = debounce(sendAPIRequest, 500);
+
+    urlInput.addEventListener("keyup", () => {
+        debouncedSendAPIRequest();
+    });
+</script>
 
 <style>
   .main-content {

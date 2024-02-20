@@ -14,7 +14,6 @@ dotenv.config();
 if (!existsSync("./dist")) build();
 
 const PORT = process.env.PORT || 3000;
-const SITE_URL = process.env.URL || "http://0.0.0.0";
 
 const bare = createBareServer("/bare/");
 console.log(chalk.gray("Starting Bare..."));
@@ -41,10 +40,9 @@ const rammerheadScopes = [
 ];
 
 const rammerheadSession = /^\/[a-z0-9]{32}/;
-const rh_path = "node_modules/rammerhead/src/client";
 
 function shouldRouteRh(req) {
-  const url = new URL(req.url, SITE_URL);
+  const url = new URL(req.url, 'http://0.0.0.0');
   return rammerheadScopes.includes(url.pathname) || rammerheadSession.test(url.pathname);
 }
 
@@ -82,7 +80,6 @@ app.use(compression());
 app.use(express.static(path.join(process.cwd(), "static")));
 app.use(express.static(path.join(process.cwd(), "build")));
 app.use("/uv/", express.static(uvPath));
-app.use("/", express.static(rh_path));
 app.use(express.json());
 app.use(
   express.urlencoded({
@@ -90,6 +87,23 @@ app.use(
   })
 );
 app.use("/", express.static("dist/client/"));
+app.get("/search", async (req, res) => {
+  try {
+    const { query } = req.query;
+
+    const response = await fetch(
+      `http://api.duckduckgo.com/ac?q=${query}&format=json`
+    ).then((apiRes) => apiRes.json());
+  
+    res.send(response);
+  } catch (err) {
+    res.redirect(302, "/404.html");
+  }
+});
+app.get('*', function(req, res){
+  res.redirect(302, '/404.html');
+});
+
 
 console.log(chalk.gray("Starting Alu..."));
 console.log(chalk.green("Alu started successfully!"));

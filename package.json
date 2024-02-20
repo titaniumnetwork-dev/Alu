@@ -13,7 +13,7 @@
     "@astrojs/node": "^7.0.4",
     "@nebula-services/ultraviolet": "^1.0.1-1.patch.7",
     "@tomphttp/bare-server-node": "^2.0.1",
-    "astro": "^4.3.3",
+    "astro": "^4.4.1",
     "astro-i18n": "^2.2.4",
     "astro-i18next": "^1.0.0-beta.21",
     "chalk": "^5.3.0",
