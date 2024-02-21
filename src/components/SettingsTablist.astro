@@ -47,13 +47,13 @@ const t = useTranslations(lang);
   <div id="current-content"></div>
 </div>
 <script is:inline>
+  window.loadedContentStorage = {};
+  window.currentlySelectedTab;
   function settingsLoad() {
     document.addEventListener("astro:after-swap", () => {
       window.currentlySelectedTab = "";
       document.removeEventListener("setting-tabChange", determineListener);
     });
-    window.currentlySelectedTab;
-    window.loadedContentStorage = {};
     Array.from(document.getElementsByClassName("setting-tab")).forEach((tab) => {
     let contentToLoad = document.getElementById("content-" + tab.id);
     if (contentToLoad) {
@@ -344,7 +344,10 @@ const t = useTranslations(lang);
   }
   }
   document.addEventListener('astro:after-swap', () => {
-    settingsLoad()
+    setTimeout(() => {
+      settingsLoad();
+    }, 300);
+
   })
   settingsLoad()
 </script>
