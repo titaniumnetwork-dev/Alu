@@ -10,7 +10,7 @@
   "nav.settings": "Settings",
 
   "menu.welcome": "Welcome to Alu",
-  "menu.search": "Search...",
+  "menu.search": "Search the web...",
 
   "faq.whatIsAProxy": "What is a proxy?",
   "faq.whatIsAProxy.answer": "A proxy is a method of making your internet traffic anonymous by sending your request to a server (proxy), having that make the request, and then send it back to you! This allows for a much larger level of security, as well as bypassing website restrictions in public spaces and censorship.",

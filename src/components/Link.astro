@@ -2,15 +2,15 @@
 interface LinkProps {
   href: string;
   newTab?: boolean;
-  linkTextContent: string;
+  content: string;
 }
 
-const { href, newTab, linkTextContent } = Astro.props;
+const { href, newTab, content } = Astro.props;
 const target = newTab ? "_blank" : "_self";
 const rel = newTab ? "noopener noreferrer" : "";
 ---
 
-<a href={href} target={target} rel={rel}>{linkTextContent}</a>
+<a href={href} target={target} rel={rel}>{content}</a>
 
 <style>
   a {

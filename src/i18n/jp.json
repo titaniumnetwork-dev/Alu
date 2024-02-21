@@ -10,7 +10,7 @@
   "nav.settings": "設定",
 
   "menu.welcome": "アルーにようこそ",
-  "menu.search": "検索...",
+  "menu.search": "ウェブを検索する...",
 
   "faq.whatIsAProxy": "プロキシとは何ですか？",
   "faq.whatIsAProxy.answer": "プロキシは、ウェブサイトにアクセスするための中継サーバーです。プロキシを使用すると、ウェブサイトにアクセスする際に自分のIPアドレスを隠すことができます。",

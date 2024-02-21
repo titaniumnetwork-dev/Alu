@@ -50,9 +50,11 @@ const t = useTranslations(lang);
   window.loadedContentStorage = {};
   window.currentlySelectedTab;
   function settingsLoad() {
-    document.addEventListener("astro:after-swap", () => {
+    document.addEventListener("astro:before-swap", () => {
+      // Cleanup event, this should remove all added event listeners to prepare for if the page is visited again.
       window.currentlySelectedTab = "";
       document.removeEventListener("setting-tabChange", determineListener);
+
     });
     Array.from(document.getElementsByClassName("setting-tab")).forEach((tab) => {
     let contentToLoad = document.getElementById("content-" + tab.id);
@@ -84,22 +86,25 @@ const t = useTranslations(lang);
   function addDropdownListener() {
     let dropdown_toggles = document.getElementsByClassName("dropdown-toggle");
     Array.from(dropdown_toggles).forEach((toggle) => {
-      toggle.addEventListener("click", () => {
-        let dropdown = document.getElementById(toggle.id + "-menu");
-        if (dropdown) {
-          if (dropdown.style.maxHeight == "0px" || dropdown.style.maxHeight == "") {
-            dropdown.style.maxHeight = dropdown.scrollHeight + "px";
-            toggle.style.borderRadius = "10px 10px 0 0";
-          } else {
-            dropdown.style.maxHeight = "0px";
-            setTimeout(() => {
-              toggle.style.borderRadius = "10px";
-            }, 300);
-          }
-        }
-      });
+      toggle.onclick = function() {
+        toggleEventListener(toggle);
+      };
     });
   }
+
+  function toggleEventListener(toggle) {
+    let dropdown = document.getElementById(toggle.id + "-menu");
+    if (dropdown.style.maxHeight == "0px" || dropdown.style.maxHeight == "") {
+      dropdown.style.maxHeight = dropdown.scrollHeight + "px";
+      toggle.style.borderRadius = "10px 10px 0 0";
+    } else {
+      dropdown.style.maxHeight = "0px";
+      setTimeout(() => {
+        toggle.style.borderRadius = "10px";
+      }, 300);
+    }
+  }
+
 
   function determineListener(event) {
     if (event.detail == "setting-tab-proxy") {
@@ -146,7 +151,7 @@ const t = useTranslations(lang);
 
   function applyDropdownEventListeners(item, dropdownID, localStorageItem, optionalCallback) {
     Array.from(item.children).forEach((item) => {
-      item.addEventListener("click", () => {
+      item.onclick = () => {
         let localStorageItemContent = {
           name: item.innerText,
           value: item.dataset.setting,
@@ -157,7 +162,7 @@ const t = useTranslations(lang);
         if (typeof optionalCallback == "function") {
           optionalCallback();
         }
-      });
+      };
     });
   }
 
@@ -206,7 +211,7 @@ const t = useTranslations(lang);
         if (cloakName == "None") {
           localStorage.removeItem("alu__selectedCloak");
           cloakName = "Settings | Alu";
-          cloakIcon = "/favicon.png";
+          cloakIcon = "/favicon.svg";
         }
         let link = document.querySelector("link[rel~='icon']");
         if (!link) {
@@ -248,7 +253,7 @@ const t = useTranslations(lang);
       if (cloakName == "None") {
         localStorage.removeItem("alu__selectedCloak");
         cloakName = "Settings | Alu";
-        cloakIcon = "/favicon.png";
+        cloakIcon = "/favicon.svg";
       }
       let link = document.querySelector("link[rel~='icon']");
       if (!link) {
