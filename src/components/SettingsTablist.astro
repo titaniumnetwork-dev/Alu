@@ -87,12 +87,13 @@ const t = useTranslations(lang);
     let dropdown_toggles = document.getElementsByClassName("dropdown-toggle");
     Array.from(dropdown_toggles).forEach((toggle) => {
       toggle.onclick = function() {
-        toggleEventListener(toggle);
+        closeOtherDropdowns(toggle.id);
+        toggleDropdown(toggle);
       };
     });
   }
 
-  function toggleEventListener(toggle) {
+  function toggleDropdown(toggle) {
     let dropdown = document.getElementById(toggle.id + "-menu");
     if (dropdown.style.maxHeight == "0px" || dropdown.style.maxHeight == "") {
       dropdown.style.maxHeight = dropdown.scrollHeight + "px";
@@ -112,6 +113,19 @@ const t = useTranslations(lang);
     } else if (event.detail == "setting-tab-customization") {
       addDropdownListener();
     }
+  }
+
+  function closeOtherDropdowns(dropdownIDToExclude) {
+    let dropdowns = document.getElementsByClassName("dropdown-menu");
+    Array.from(dropdowns).forEach((dropdown) => {
+      dropdown.style.maxHeight = "0px";
+      setTimeout(() => {
+        if (dropdown.id != dropdownIDToExclude + "-menu") {
+          let dropdown_toggle = document.getElementById(dropdown.id.replace("-menu", ""));
+          dropdown_toggle.style.borderRadius = "10px";
+        }
+      }, 300);
+    });
   }
 
   function closeDropdown(dropdownID) {
