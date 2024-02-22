@@ -19,6 +19,8 @@ const bare = createBareServer("/bare/");
 console.log(chalk.gray("Starting Bare..."));
 console.log(chalk.gray("Starting Rammerhead..."));
 
+const rh = createRammerhead();
+
 const rammerheadScopes = [
   "/rammerhead.js",
   "/hammerhead.js",
