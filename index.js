@@ -17,8 +17,6 @@ const PORT = process.env.PORT || 3000;
 
 const bare = createBareServer("/bare/");
 console.log(chalk.gray("Starting Bare..."));
-
-const rh = createRammerhead();
 console.log(chalk.gray("Starting Rammerhead..."));
 
 const rammerheadScopes = [
@@ -35,15 +33,17 @@ const rammerheadScopes = [
   "/editsession",
   "/needpassword",
   "/syncLocalStorage",
-  "/api/shuffleDict",
-  "/mainport",
+  "/api/shuffleDict"
 ];
 
 const rammerheadSession = /^\/[a-z0-9]{32}/;
 
 function shouldRouteRh(req) {
   const url = new URL(req.url, "http://0.0.0.0");
-  return rammerheadScopes.includes(url.pathname) || rammerheadSession.test(url.pathname);
+  return (
+    rammerheadScopes.includes(url.pathname) ||
+    rammerheadSession.test(url.pathname)
+  );
 }
 
 function routeRhRequest(req, res) {
