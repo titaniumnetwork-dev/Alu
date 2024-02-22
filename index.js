@@ -14,13 +14,31 @@ dotenv.config();
 if (!existsSync("./dist")) build();
 
 const PORT = process.env.PORT || 3000;
-
+console.log(chalk.gray("Starting Rammerhead..."));
+const rh = createRammerhead();
+const rammerheadScopes = [
+  "/rammerhead.js",
+  "/hammerhead.js",
+  "/transport-worker.js",
+  "/task.js",
+  "/iframe-task.js",
+  "/worker-hammerhead.js",
+  "/messaging",
+  "/sessionexists",
+  "/deletesession",
+  "/newsession",
+  "/editsession",
+  "/needpassword",
+  "/syncLocalStorage",
+  "/api/shuffleDict"
+];
+const rammerheadSession = /^\/[a-z0-9]{32}/;
 const bare = createBareServer("/bare/");
 console.log(chalk.gray("Starting Bare..."));
-console.log(chalk.gray("Starting Rammerhead..."));
 
 const app = express();
-app.use(compression());
+app.use(compression({ threshold: 0, filter: () => true })
+);
 app.use(express.static(path.join(process.cwd(), "static")));
 app.use(express.static(path.join(process.cwd(), "build")));
 app.use("/uv/", express.static(uvPath));
@@ -48,26 +66,6 @@ app.get("*", function (req, res) {
   res.redirect(302, "/404.html");
 });
 
-const rh = createRammerhead();
-
-const rammerheadScopes = [
-  "/rammerhead.js",
-  "/hammerhead.js",
-  "/transport-worker.js",
-  "/task.js",
-  "/iframe-task.js",
-  "/worker-hammerhead.js",
-  "/messaging",
-  "/sessionexists",
-  "/deletesession",
-  "/newsession",
-  "/editsession",
-  "/needpassword",
-  "/syncLocalStorage",
-  "/api/shuffleDict"
-];
-const rammerheadSession = /^\/[a-z0-9]{32}/;
-
 let server = createServer();
 server.on("request", (req, res) => {
   if (bare.shouldRoute(req)) {
@@ -89,7 +87,6 @@ server.on("upgrade", (req, socket, head) => {
   }
 });
 
-
 function shouldRouteRh(req) {
   const url = new URL(req.url, "http://0.0.0.0");
   return (
@@ -105,6 +102,7 @@ function routeRhRequest(req, res) {
 function routeRhUpgrade(req, socket, head) {
   rh.emit("upgrade", req, socket, head);
 }
+
 
 console.log(chalk.gray("Starting Alu..."));
 console.log(chalk.green("Alu started successfully!"));
