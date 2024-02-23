@@ -9,6 +9,7 @@ import { build } from "astro";
 import chalk from "chalk";
 import { existsSync } from "fs";
 import dotenv from "dotenv";
+import helmet from "helmet";
 dotenv.config();
 
 if (!existsSync("./dist")) build();
@@ -47,6 +48,11 @@ app.use(
     extended: true,
   })
 );
+app.use(function(req, res, next) {
+  res.header("Cross-Origin-Embedder-Policy", "require-corp");
+  res.header("Cross-Origin-Opener-Policy", "same-origin");
+  next();
+});
 app.use("/", express.static("dist/client/"));
 app.get("/search", async (req, res) => {
   try {
