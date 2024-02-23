@@ -41,7 +41,7 @@
         // Now save it in a cookie that expires in 72 hours.
         document.cookie = `rammerhead-session=${sessionID}; max-age=${60 * 60 * 72}; path=/`;
       }
-      iframe.src = `/${getCookie("rammerhead-session")}/${url}`;
+      iframe.src = `https://aluu.xyz/${getCookie("rammerhead-session")}/${url}`;
     } else {
       // Default to UV
       iframe.src = window.__uv$config.prefix + window.__uv$config.encodeUrl(url);
