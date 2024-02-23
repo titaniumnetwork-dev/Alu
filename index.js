@@ -48,7 +48,7 @@ app.use(
     extended: true,
   })
 );
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   if (req.originalUrl.includes("/games")) {
     res.header("Cross-Origin-Embedder-Policy", "require-corp");
     res.header("Cross-Origin-Opener-Policy", "same-origin");

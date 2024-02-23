@@ -17,6 +17,12 @@
 
   "faq.whyIsAluSoSlow": "Why is Alu so slow?",
   "faq.whyIsAluSoSlow.answer": "This could be for a number of reasons, but it is most likely due to the proxy you are using. If you are far away from where Alu is hosted, it will take longer for the request to be sent and received. If the proxy you are using is congested with traffic, it will also be slower.",
+
+  "faq.contributeToAlu": "How can I contribute to Alu?",
+  "faq.contributeToAlu.answer.segment1": "Spreading the word of Alu is a great start, but if you really enjoy Alu, and want private links, consider supporting me through Patreon!",
+  "faq.contributeToAlu.answer.patreonLinkText": "You can support me here!",
+  "faq.contributeToAlu.answer.segment2": "Thank you for helping to make Alu great!",
+
   "footer.brand": "Alu",
   "footer.madeWithLove": "Made with ❤️ by wearr",
   "footer.poweredBy": "Powered by Ultraviolet",

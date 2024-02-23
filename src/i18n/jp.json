@@ -18,6 +18,11 @@
   "faq.whyIsAluSoSlow": "なぜアルーは遅いのですか？",
   "faq.whyIsAluSoSlow.answer": "アルーは、プロキシを使用してウェブサイトにアクセスするため、ウェブサイトの読み込みに時間がかかることがあります。また、アルーはまだ開発中のため、パフォーマンスが低いことがあります。",
 
+  "faq.contributeToAlu": "アルーの発展にどのように貢献できますか?",
+  "faq.contributeToAlu.answer.segment1": "アルーの言葉を広めることは素晴らしいスタートですが、Alu が本当に好きで、プライベート リンクが必要な場合は、Patreon を通じて私をサポートすることを検討してください。",
+  "faq.contributeToAlu.answer.patreonLinkText": "ここで私をサポートできます",
+  "faq.contributeToAlu.answer.segment2": "アルーを素晴らしいものにするのにご協力いただき、ありがとうございます。",
+
   "footer.brand": "アルー",
   "footer.madeWithLove": "wearrによる❤️で作られました",
   "footer.poweredBy": "「ウルトラバイオレット」による駆動",
