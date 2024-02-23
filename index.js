@@ -49,8 +49,10 @@ app.use(
   })
 );
 app.use(function(req, res, next) {
-  res.header("Cross-Origin-Embedder-Policy", "require-corp");
-  res.header("Cross-Origin-Opener-Policy", "same-origin");
+  if (req.originalUrl.includes("/games")) {
+    res.header("Cross-Origin-Embedder-Policy", "require-corp");
+    res.header("Cross-Origin-Opener-Policy", "same-origin");
+  }
   next();
 });
 app.use("/", express.static("dist/client/"));
