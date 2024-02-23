@@ -25,9 +25,12 @@ export function getStaticPaths() {
         />
         <div id="search-suggestions"></div>
         <div id="loading-content">Loading...</div>
-        <div id="top-bar"></div>
-        <iframe title="proxy-iframe" id="proxy-frame"></iframe>
       </form>
+      <div id="top-bar">
+        <button id="close-button">Close</button>
+        <span id="url-text"></span>
+      </div>
+      <iframe title="proxy-iframe" id="proxy-frame"></iframe>
     </div>
 
     <div class="faq-section">
@@ -44,8 +47,8 @@ export function getStaticPaths() {
         <p>
           Spreading the word of Alu is a great start, but if you really enjoy Alu, and want private
           links, consider supporting me through Patreon! You can support me
-          <Link href="https://www.patreon.com/wearr/membership" newTab content="Here!" />,
-          thank you for helping to make Alu great!
+          <Link href="https://www.patreon.com/wearr/membership" newTab content="Here!" />, thank you
+          for helping to make Alu great!
         </p>
       </div>
     </div>

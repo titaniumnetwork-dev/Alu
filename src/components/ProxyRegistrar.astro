@@ -1,6 +1,6 @@
 <script src="/uv/uv.bundle.js" transition:persist is:inline></script>
 <script src="/uv.config.js" transition:persist is:inline></script>
-<script>
+<script is:inline>
   //@ts-nocheck
   let form = document.querySelector("form");
   let input = document.querySelector("input");
@@ -25,6 +25,8 @@
     else if (!(url.startsWith("https://") || url.startsWith("http://"))) url = "http://" + url;
 
     let iframe = document.getElementById("proxy-frame");
+    let topbar = document.getElementById("top-bar");
+    let closeButton = document.getElementById("close-button");
     let preference = getProxyPreference();
     if (preference === "ultraviolet") {
       iframe.src = window.__uv$config.prefix + window.__uv$config.encodeUrl(url);
@@ -34,6 +36,8 @@
       if (!rammerheadSession) {
         let session = await fetch("/newsession");
         let sessionID = await session.text();
+        // Disable URL shuffling on rewrite, eventually I'll try and figure out how it works, but for now, it's disabled.
+        await fetch("/editsession?id=" + sessionID + "&enableShuffling=0");
         // Now save it in a cookie that expires in 72 hours.
         document.cookie = `rammerhead-session=${sessionID}; max-age=${60 * 60 * 72}; path=/`;
       }
@@ -45,46 +49,28 @@
     iframe.style.pointerEvents = "auto";
     iframe.classList.add("proxy-frame");
     document.body.appendChild(iframe);
-    iframe.addEventListener("load", () => {
-      let topBar = document.getElementById("top-bar");
-      loadingContent.style.opacity = 0;
-      topBar.innerHTML = "";
-      topBar.classList.add("top-bar");
-      let closeButton = document.createElement("button");
-      closeButton.classList.add("close-button");
-      closeButton.innerText = "Close";
-      closeButton.addEventListener("click", () => {
-        iframe.style.opacity = 0;
-        topBar.style.opacity = 0;
-        iframe.style.pointerEvents = "none";
-        topBar.style.pointerEvents = "none";
-        setTimeout(() => {
-          iframe.remove();
-          topBar.remove();
+    iframeURLChange(iframe, (newURL) => updateTopbarURL(preference, newURL));
+    const boundIFrameLoad = iframeLoad.bind(null, iframe, loadingContent, topbar, closeButton);
+    iframe.addEventListener("load", boundIFrameLoad);
 
-          // recreate them
-          iframe = document.createElement("iframe");
-          iframe.id = "proxy-frame";
-          iframe.style.opacity = 0;
-          iframe.style.pointerEvents = "none";
-          topBar = document.createElement("div");
-          topBar.id = "top-bar";
-          topBar.style.opacity = 0;
-          topBar.style.pointerEvents = "none";
-          document.body.appendChild(topBar);
-          document.body.appendChild(iframe);
-        }, 500);
-      });
-      let urlText = document.createElement("p");
-      urlText.classList.add("url-text");
-      urlText.innerText = window.__uv$config.decodeUrl(iframe.src.split(__uv$config.prefix)[1]);
+    function iframeLoad(iframe, loadingContent, topbar, closeButton) {
+      loadingContent.style.opacity = 0;
       iframe.style.opacity = 1;
-      topBar.style.opacity = 1;
-      topBar.style.pointerEvents = "auto";
-      topBar.appendChild(closeButton);
-      topBar.appendChild(urlText);
-      document.body.appendChild(topBar);
-    });
+      topbar.style.opacity = 1;
+      topbar.style.pointerEvents = "auto";
+
+      closeButton.onclick = () => {
+        iframe.style.opacity = 0;
+        topbar.style.opacity = 0;
+        iframe.style.pointerEvents = "none";
+        topbar.style.pointerEvents = "none";
+        iframe.removeEventListener("load", boundIFrameLoad);
+
+        setTimeout(() => {
+          iframe.src = "about:blank";
+        }, 500);
+      };
+    }
   }
 
   function formEventListener(event) {
@@ -151,6 +137,54 @@
       default: {
         return "uv";
       }
+    }
+  }
+
+  function iframeURLChange(iframe, callback) {
+    var lastDispatched = null;
+
+    var dispatchChange = function () {
+      var newHref = iframe.contentWindow.location.href;
+
+      if (newHref !== lastDispatched) {
+        callback(newHref);
+        lastDispatched = newHref;
+      }
+    };
+
+    var unloadHandler = function () {
+      // Timeout needed because the URL changes immediately after
+      // the `unload` event is dispatched.
+      setTimeout(dispatchChange, 0);
+    };
+
+    function attachUnload() {
+      // Remove the unloadHandler in case it was already attached.
+      // Otherwise, there will be two handlers, which is unnecessary.
+      iframe.contentWindow.removeEventListener("unload", unloadHandler);
+      iframe.contentWindow.addEventListener("unload", unloadHandler);
+    }
+
+    iframe.addEventListener("load", function () {
+      attachUnload();
+
+      // Just in case the change wasn't dispatched during the unload event...
+      dispatchChange();
+    });
+
+    attachUnload();
+  }
+  function updateTopbarURL(preference, newURL) {
+    if (newURL === "about:blank") return;
+    let urlText = document.getElementById("url-text");
+    if (urlText) {
+      if (preference === "rammerhead")
+        urlText.innerText = newURL.slice(
+          newURL.indexOf("/" + getCookie("rammerhead-session")) +
+            getCookie("rammerhead-session").length +
+            2
+        );
+      else urlText.innerText = window.__uv$config.decodeUrl(newURL.split(__uv$config.prefix)[1]);
     }
   }
 </script>

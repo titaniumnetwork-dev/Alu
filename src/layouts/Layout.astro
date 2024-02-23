@@ -28,16 +28,25 @@ const { title, optionalPreloads } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="title" content="Alu" />
-    <meta name="description" content="Alu is a sleek web proxy supporting multiple standards of communication, and wide levels of customization." />
+    <meta
+      name="description"
+      content="Alu is a sleek web proxy supporting multiple standards of communication, and wide levels of customization."
+    />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://aluu.xyz" />
     <meta property="og:title" content="Alu" />
-    <meta property="og:description" content="Alu is a sleek web proxy supporting multiple standards of communication, and wide levels of customization." />
+    <meta
+      property="og:description"
+      content="Alu is a sleek web proxy supporting multiple standards of communication, and wide levels of customization."
+    />
     <meta property="og:image" content="/logo.png" />
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="https://aluu.xyz" />
     <meta property="twitter:title" content="Alu" />
-    <meta property="twitter:description" content="Alu is a sleek web proxy supporting multiple standards of communication, and wide levels of customization." />
+    <meta
+      property="twitter:description"
+      content="Alu is a sleek web proxy supporting multiple standards of communication, and wide levels of customization."
+    />
     <meta property="twitter:image" content="/logo.png" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -166,7 +175,7 @@ const { title, optionalPreloads } = Astro.props;
       #proxy-frame {
         opacity: 0;
       }
-      .top-bar {
+      #top-bar {
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -179,10 +188,11 @@ const { title, optionalPreloads } = Astro.props;
         left: 0;
         width: 100vw;
         z-index: 100;
-        transition: opacity 350ms ease-in-out;
+        transition: opacity 250ms ease-in-out;
         pointer-events: none;
+        opacity: 0;
       }
-      .close-button {
+      #close-button {
         padding: 5px;
         padding-inline: 40px;
         border: none;

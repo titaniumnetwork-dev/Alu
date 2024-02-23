@@ -30,15 +30,14 @@ const rammerheadScopes = [
   "/editsession",
   "/needpassword",
   "/syncLocalStorage",
-  "/api/shuffleDict"
+  "/api/shuffleDict",
 ];
 const rammerheadSession = /^\/[a-z0-9]{32}/;
 const bare = createBareServer("/bare/");
 console.log(chalk.gray("Starting Bare..."));
 
 const app = express();
-app.use(compression({ threshold: 0, filter: () => true })
-);
+app.use(compression({ threshold: 0, filter: () => true }));
 app.use(express.static(path.join(process.cwd(), "static")));
 app.use(express.static(path.join(process.cwd(), "build")));
 app.use("/uv/", express.static(uvPath));
@@ -89,10 +88,7 @@ server.on("upgrade", (req, socket, head) => {
 
 function shouldRouteRh(req) {
   const url = new URL(req.url, "http://0.0.0.0");
-  return (
-    rammerheadScopes.includes(url.pathname) ||
-    rammerheadSession.test(url.pathname)
-  );
+  return rammerheadScopes.includes(url.pathname) || rammerheadSession.test(url.pathname);
 }
 
 function routeRhRequest(req, res) {
@@ -102,7 +98,6 @@ function routeRhRequest(req, res) {
 function routeRhUpgrade(req, socket, head) {
   rh.emit("upgrade", req, socket, head);
 }
-
 
 console.log(chalk.gray("Starting Alu..."));
 console.log(chalk.green("Alu started successfully!"));
