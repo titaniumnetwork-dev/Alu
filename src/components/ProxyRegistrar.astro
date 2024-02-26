@@ -63,12 +63,14 @@
       iframe.style.opacity = 1;
       topbar.style.opacity = 1;
       topbar.style.pointerEvents = "auto";
+      document.body.style.overflow = "hidden";
 
       closeButton.onclick = () => {
         iframe.style.opacity = 0;
         topbar.style.opacity = 0;
         iframe.style.pointerEvents = "none";
         topbar.style.pointerEvents = "none";
+        document.body.style.overflow = "auto";
         iframe.removeEventListener("load", boundIFrameLoad);
 
         setTimeout(() => {

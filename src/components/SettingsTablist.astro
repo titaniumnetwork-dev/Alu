@@ -385,6 +385,7 @@ const t = useTranslations(lang);
     gap: 20px;
     position: relative;
     z-index: 2;
+    flex-wrap: wrap;
   }
   .content-setting-header {
     color: var(--text-color);
@@ -460,6 +461,38 @@ const t = useTranslations(lang);
     position: relative;
     gap: 25px;
   }
+  @media (max-width: 880px) {
+    .popup {
+      flex-direction: column;
+      min-height: 80%;
+      max-height: 80%;
+    }
+    .tabs {
+      flex-direction: row;
+      max-width: 100%;
+      max-height: 70px;
+      min-height: 70px;
+      gap: 0;
+      align-items: center;
+    }
+    label {
+      width: auto;
+      margin-left: 0;
+    }
+  }
+  @media (max-width: 500px) {
+    label {
+      font-size: 20px;
+    }
+  }
+  @media (max-width: 375px) {
+    label {
+      font-size: 18px;
+    }
+  }
+  .setting {
+    width: 140px;
+  }
   .marker {
     position: absolute;
     width: 100%;
@@ -484,16 +517,18 @@ const t = useTranslations(lang);
     height: calc(50% - 72px);
     border-radius: 0 32px 0 0;
   }
-  #setting-tab-proxy:checked ~ .marker {
-    transform: translateY(0%);
-  }
-  #setting-tab-customization:checked ~ .marker {
-    transform: translateY(13.5%);
-  }
-  #setting-tab-cloaking:checked ~ .marker {
-    transform: translateY(27%);
-  }
-  #setting-tab-credits:checked ~ .marker {
-    transform: translateY(41%);
+  @media (min-width: 880px) {
+    #setting-tab-proxy:checked ~ .marker {
+      transform: translateY(0%);
+    }
+    #setting-tab-customization:checked ~ .marker {
+      transform: translateY(13.5%);
+    }
+    #setting-tab-cloaking:checked ~ .marker {
+      transform: translateY(27%);
+    }
+    #setting-tab-credits:checked ~ .marker {
+      transform: translateY(41%);
+    }
   }
 </style>

@@ -43,12 +43,15 @@ export function getStaticPaths() {
         <p>{t("faq.whyIsAluSoSlow.answer")}</p>
       </div>
       <div class="faq-card faq-large">
-        <h2>How can I contribute to the development of Alu?</h2>
+        <h2>{t("faq.contributeToAlu")}</h2>
         <p>
-          Spreading the word of Alu is a great start, but if you really enjoy Alu, and want private
-          links, consider supporting me through Patreon! You can support me
-          <Link href="https://www.patreon.com/wearr/membership" newTab content="Here!" />, thank you
-          for helping to make Alu great!
+          {t("faq.contributeToAlu.answer.segment1")}
+          <Link
+            href="https://www.patreon.com/wearr"
+            newTab
+            content={t("faq.contributeToAlu.answer.patreonLinkText")}
+          />
+          {t("faq.contributeToAlu.answer.segment2")}
         </p>
       </div>
     </div>
