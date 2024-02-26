@@ -9,7 +9,6 @@ import { build } from "astro";
 import chalk from "chalk";
 import { existsSync } from "fs";
 import dotenv from "dotenv";
-import helmet from "helmet";
 dotenv.config();
 
 if (!existsSync("./dist")) build();
