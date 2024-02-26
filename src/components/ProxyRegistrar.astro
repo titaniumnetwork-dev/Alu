@@ -53,7 +53,12 @@
     }
     iframe.style.pointerEvents = "auto";
     iframe.classList.add("proxy-frame");
-    document.body.appendChild(iframe);
+    try {
+      document.body.appendChild(iframe);
+    } catch {
+      window.open(iframe.src);
+    }
+
     iframeURLChange(iframe, (newURL) => updateTopbarURL(preference, newURL));
     const boundIFrameLoad = iframeLoad.bind(null, iframe, loadingContent, topbar, closeButton);
     iframe.addEventListener("load", boundIFrameLoad);
