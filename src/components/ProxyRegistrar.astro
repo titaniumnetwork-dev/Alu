@@ -39,9 +39,9 @@
         // Disable URL shuffling on rewrite, eventually I'll try and figure out how it works, but for now, it's disabled.
         await fetch("/editsession?id=" + sessionID + "&enableShuffling=0");
         // Now save it in a cookie that expires in 72 hours.
-        document.cookie += `rammerhead-session=${sessionID}; max-age=${60 * 60 * 72}; path=/`;
+        document.cookie = `rammerhead-session=${sessionID}; max-age=${60 * 60 * 72}; path=/`;
         // Now add an origin_proxy cookie for our domain
-        document.cookie += `origin_proxy=${window.location.origin}; max-age=${60 * 60 * 72}; path=/`;
+        document.cookie = `origin_proxy=${window.location.origin}; max-age=${60 * 60 * 72}; path=/`;
       }
       iframe.src = `/${getCookie("rammerhead-session")}/${url}`;
     } else {
@@ -180,12 +180,15 @@
     if (newURL === "about:blank") return;
     let urlText = document.getElementById("url-text");
     if (urlText) {
-      if (preference === "rammerhead")
-        urlText.innerText = newURL.slice(
+      if (preference === "rammerhead") {
+      let newurl = newURL.slice(
           newURL.indexOf("/" + getCookie("rammerhead-session")) +
             getCookie("rammerhead-session").length +
             2
         );
+        if (newurl.length > 30) newurl = newurl.slice(0, 50) + "...";
+        urlText.innerText = newurl;
+      }
       else urlText.innerText = window.__uv$config.decodeUrl(newURL.split(__uv$config.prefix)[1]);
     }
   }
