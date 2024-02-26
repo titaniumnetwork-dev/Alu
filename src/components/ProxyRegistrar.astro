@@ -17,12 +17,61 @@
     form.addEventListener("submit", formEventListener);
   }
 
-  async function loadContent() {
-    let loadingContent = document.getElementById("loading-content");
-    loadingContent.style.opacity = 1;
+  async function getProxyURL() {
+    let preference = getProxyPreference();
     let url = input.value.trim();
     if (!isUrl(url)) url = getSearchEngine() + url;
     else if (!(url.startsWith("https://") || url.startsWith("http://"))) url = "http://" + url;
+    if (preference === "ultraviolet") {
+      return window.__uv$config.prefix + window.__uv$config.encodeUrl(url);
+    } else if (preference == "rammerhead") {
+      // Check if rammerhead-session exists in cookies
+      let rammerheadSession = getCookie("rammerhead-session");
+      if (!rammerheadSession) {
+        let session = await fetch("/newsession");
+        let sessionID = await session.text();
+        // Disable URL shuffling on rewrite, eventually I'll try and figure out how it works, but for now, it's disabled.
+        await fetch("/editsession?id=" + sessionID + "&enableShuffling=0");
+        // Now save it in a cookie that expires in 72 hours.
+        document.cookie = `rammerhead-session=${sessionID}; max-age=${60 * 60 * 72}; path=/`;
+        // Now add an origin_proxy cookie for our domain
+        document.cookie = `origin_proxy=${window.location.origin}; max-age=${60 * 60 * 72}; path=/`;
+      }
+      return `/${getCookie("rammerhead-session")}/${url}`;
+    } else {
+      // Default to UV
+      return window.__uv$config.prefix + window.__uv$config.encodeUrl(url);
+    }
+  }
+
+  async function loadContent() {
+    let openWith = localStorage.getItem("alu__selectedOpenWith");
+    let url = input.value.trim();
+    if (!isUrl(url)) url = getSearchEngine() + url;
+    else if (!(url.startsWith("https://") || url.startsWith("http://"))) url = "http://" + url;
+    if (openWith) {
+      let openWithParsed = JSON.parse(openWith);
+      if (openWithParsed.value === "newTab") {
+        window.open(await getProxyURL(), "_blank");
+        return;
+      }
+      if (openWithParsed.value === "about:blank") {
+        // Open about:blank window and inject iframe into it
+        let newWindow = window.open("about:blank", "_blank");
+        let newWindowDocument = newWindow.document;
+        let iframe = newWindowDocument.createElement("iframe");
+        iframe.src = await getProxyURL();
+        // Inject css into the iframe
+        let css = newWindowDocument.createElement("link")
+        css.rel = "stylesheet";
+        css.href = "/iframe.css";
+        newWindowDocument.head.appendChild(css);
+        newWindowDocument.body.appendChild(iframe);
+        return;
+      }
+    }
+    let loadingContent = document.getElementById("loading-content");
+    loadingContent.style.opacity = 1;
 
     let iframe = document.getElementById("proxy-frame");
     let topbar = document.getElementById("top-bar");

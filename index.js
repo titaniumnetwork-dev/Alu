@@ -49,7 +49,6 @@ app.use(
 );
 app.use(function (req, res, next) {
   if (req.originalUrl.includes("/games")) {
-    res.header("Cross-Origin-Embedder-Policy", "require-corp");
     res.header("Cross-Origin-Opener-Policy", "same-origin");
   }
   next();
@@ -69,7 +68,7 @@ app.get("/search", async (req, res) => {
   }
 });
 app.get("*", function (req, res) {
-  res.redirect(302, "/404.html");
+  res.sendFile(path.join(process.cwd(), "dist/client/404.html"));
 });
 
 let server = createServer();
