@@ -110,6 +110,7 @@
       topbar.style.opacity = 1;
       topbar.style.pointerEvents = "auto";
 
+      updateProxiedFavicon();
       closeButton.onclick = () => {
         iframe.style.opacity = 0;
         topbar.style.opacity = 0;
@@ -191,6 +192,24 @@
     }
   }
 
+  function updateProxiedFavicon(iframe) {
+    let proxiedFavicon = document.getElementById("proxied-favicon");
+    if (iframe) {
+        if (iframe.contentDocument) {
+        let favicon = iframe.contentDocument.querySelector("link[rel='icon']") || iframe.contentDocument.querySelector("link[rel*='icon']");
+        if (favicon) {
+          proxiedFavicon.src = favicon.href;
+        } else {
+          proxiedFavicon.src = "/favicon.ico";
+        }
+        return;
+      }
+    }
+    setTimeout(() => updateProxiedFavicon(iframe), 400);
+
+  }
+
+
   function iframeURLChange(iframe, callback) {
     var lastDispatched = null;
 
@@ -199,6 +218,7 @@
 
       if (newHref !== lastDispatched) {
         callback(newHref);
+
         lastDispatched = newHref;
       }
     };
@@ -218,6 +238,7 @@
 
     iframe.addEventListener("load", function () {
       attachUnload();
+      updateProxiedFavicon(iframe);
 
       // Just in case the change wasn't dispatched during the unload event...
       dispatchChange();

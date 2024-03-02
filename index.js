@@ -54,6 +54,9 @@ app.use(function (req, res, next) {
   next();
 });
 app.use("/", express.static("dist/client/"));
+app.get("/favicon.ico", (req, res) => {
+  res.sendFile(path.join(process.cwd(), "dist/client/favicon.svg"));
+})
 app.get("/search", async (req, res) => {
   try {
     const { query } = req.query;

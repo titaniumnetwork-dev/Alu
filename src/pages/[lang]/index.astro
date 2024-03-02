@@ -27,8 +27,13 @@ export function getStaticPaths() {
         <div id="loading-content">Loading...</div>
       </form>
       <div id="top-bar">
-        <button id="close-button">Close</button>
-        <span id="url-text"></span>
+        <div class="top-bar-left">
+          <button id="close-button">Close</button>
+        </div>
+        <div class="top-bar-right">
+          <img id="proxied-favicon" />
+          <span id="url-text"></span>
+        </div>
       </div>
       <iframe title="proxy-iframe" id="proxy-frame"></iframe>
     </div>
