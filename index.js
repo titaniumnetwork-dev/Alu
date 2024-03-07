@@ -1,4 +1,6 @@
-import { uvPath } from "@nebula-services/ultraviolet";
+import { uvPath } from "@titaniumnetwork-dev/ultraviolet";
+import { epoxyPath } from "@mercuryworkshop/epoxy-transport";
+import { baremuxPath } from "@mercuryworkshop/bare-mux";
 import { createBareServer } from "@tomphttp/bare-server-node";
 import express from "express";
 import { createServer } from "http";
@@ -9,6 +11,7 @@ import { build } from "astro";
 import chalk from "chalk";
 import { existsSync } from "fs";
 import dotenv from "dotenv";
+import wisp from "wisp-server-node";
 dotenv.config();
 
 if (!existsSync("./dist")) build();
@@ -41,6 +44,8 @@ app.use(compression({ threshold: 0, filter: () => true }));
 app.use(express.static(path.join(process.cwd(), "static")));
 app.use(express.static(path.join(process.cwd(), "build")));
 app.use("/uv/", express.static(uvPath));
+app.use("/epoxy/", express.static(epoxyPath));
+app.use("/baremux/", express.static(baremuxPath));
 app.use(express.json());
 app.use(
   express.urlencoded({
@@ -90,6 +95,8 @@ server.on("upgrade", (req, socket, head) => {
     bare.routeUpgrade(req, socket, head);
   } else if (shouldRouteRh(req)) {
     routeRhUpgrade(req, socket, head);
+  } else if (req.url.endsWith("/wisp/")) {
+    wisp.routeRequest(req, socket, head);
   } else {
     socket.end();
   }

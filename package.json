@@ -10,7 +10,10 @@
   },
   "dependencies": {
     "@astrojs/node": "^8.2.0",
+    "@mercuryworkshop/bare-mux": "^1.0.4",
+    "@mercuryworkshop/epoxy-transport": "^1.0.2",
     "@nebula-services/ultraviolet": "^1.0.1-1.patch.7",
+    "@titaniumnetwork-dev/ultraviolet": "^3.0.0",
     "@tomphttp/bare-server-node": "^2.0.1",
     "astro": "^4.4.1",
     "chalk": "^5.3.0",
@@ -20,7 +23,8 @@
     "npm": "^10.2.5",
     "path": "^0.12.7",
     "rammerhead": "https://github.com/NebulaServices/rammerhead/releases/download/rammerhead-1.2.41-nebula.8/rammerhead-1.2.41-nebula.7.tgz",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "wisp-server-node": "^1.0.1"
   },
   "devDependencies": {
     "prettier": "3.2.5",

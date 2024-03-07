@@ -12,6 +12,32 @@ export function getStaticPaths() {
 ---
 
 <Layout title={t("pages.home")}>
+  <script src="/baremux/bare.cjs" is:inline></script>
+  <script src="/epoxy/index.js" is:inline></script>
+  <script>
+    import { SetTransport, registerRemoteListener } from "@mercuryworkshop/bare-mux"
+    const wispURLDefault = (location.protocol === "https:" ? "wss://" : "ws://") + location.host + "/wisp/"
+    class TransportManager {
+        private transport = localStorage.getItem("alu__currentTransport") || "EpxMod.EpoxyClient";
+
+        constructor(transport?: string) {
+            if (transport) {
+                this.transport = transport;
+            }
+        }
+        getTransport() {
+            return this.transport;
+        }
+
+        setTransport(transport: string, wispURL = wispURLDefault) {
+            this.transport = transport;
+            SetTransport(transport, { wisp: wispURL });
+        }
+    }
+    const TransportMgr = new TransportManager();
+    registerRemoteListener(navigator.serviceWorker.controller)
+    TransportMgr.setTransport(TransportMgr.getTransport());
+  </script>
   <div class="main-content">
     <h1 class="title-text">{t("menu.welcome")}</h1>
     <div class="form-wrapper">
