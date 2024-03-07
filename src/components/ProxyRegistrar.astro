@@ -62,7 +62,7 @@
         let iframe = newWindowDocument.createElement("iframe");
         iframe.src = await getProxyURL();
         // Inject css into the iframe
-        let css = newWindowDocument.createElement("link")
+        let css = newWindowDocument.createElement("link");
         css.rel = "stylesheet";
         css.href = "/iframe.css";
         newWindowDocument.head.appendChild(css);
@@ -195,8 +195,10 @@
   function updateProxiedFavicon(iframe) {
     let proxiedFavicon = document.getElementById("proxied-favicon");
     if (iframe) {
-        if (iframe.contentDocument) {
-        let favicon = iframe.contentDocument.querySelector("link[rel='icon']") || iframe.contentDocument.querySelector("link[rel*='icon']");
+      if (iframe.contentDocument) {
+        let favicon =
+          iframe.contentDocument.querySelector("link[rel='icon']") ||
+          iframe.contentDocument.querySelector("link[rel*='icon']");
         if (favicon) {
           proxiedFavicon.src = favicon.href;
         } else {
@@ -206,9 +208,7 @@
       }
     }
     setTimeout(() => updateProxiedFavicon(iframe), 400);
-
   }
-
 
   function iframeURLChange(iframe, callback) {
     var lastDispatched = null;
@@ -251,15 +251,14 @@
     let urlText = document.getElementById("url-text");
     if (urlText) {
       if (preference === "rammerhead") {
-      let newurl = newURL.slice(
+        let newurl = newURL.slice(
           newURL.indexOf("/" + getCookie("rammerhead-session")) +
             getCookie("rammerhead-session").length +
             2
         );
         if (newurl.length > 30) newurl = newurl.slice(0, 50) + "...";
         urlText.innerText = newurl;
-      }
-      else urlText.innerText = window.__uv$config.decodeUrl(newURL.split(__uv$config.prefix)[1]);
+      } else urlText.innerText = window.__uv$config.decodeUrl(newURL.split(__uv$config.prefix)[1]);
     }
   }
 </script>

@@ -1,11 +1,11 @@
 /* CSS for about:blank iframes */
 
 body {
-    margin: 0;
+  margin: 0;
 }
 
 iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
+  width: 100%;
+  height: 100%;
+  border: none;
 }

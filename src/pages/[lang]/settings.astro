@@ -2,12 +2,12 @@
 import SettingsTablist from "../../components/SettingsTablist.astro";
 import Layout from "../../layouts/Layout.astro";
 
-import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+import { STATIC_PATHS, getLangFromUrl, useTranslations } from "../../i18n/utils";
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 export function getStaticPaths() {
-  return [{ params: { lang: "en" } }, { params: { lang: "jp" } }];
+  return STATIC_PATHS;
 }
 ---
 

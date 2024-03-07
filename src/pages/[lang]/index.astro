@@ -1,43 +1,21 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 
-import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+import { STATIC_PATHS, getLangFromUrl, useTranslations } from "../../i18n/utils";
 import Link from "../../components/Link.astro";
+import TransportManager from "../../components/TransportManager.astro";
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 export function getStaticPaths() {
-  return [{ params: { lang: "en" } }, { params: { lang: "jp" } }];
+  return STATIC_PATHS;
 }
 ---
 
 <Layout title={t("pages.home")}>
   <script src="/baremux/bare.cjs" is:inline></script>
   <script src="/epoxy/index.js" is:inline></script>
-  <script>
-    import { SetTransport, registerRemoteListener } from "@mercuryworkshop/bare-mux"
-    const wispURLDefault = (location.protocol === "https:" ? "wss://" : "ws://") + location.host + "/wisp/"
-    class TransportManager {
-        private transport = localStorage.getItem("alu__currentTransport") || "EpxMod.EpoxyClient";
-
-        constructor(transport?: string) {
-            if (transport) {
-                this.transport = transport;
-            }
-        }
-        getTransport() {
-            return this.transport;
-        }
-
-        setTransport(transport: string, wispURL = wispURLDefault) {
-            this.transport = transport;
-            SetTransport(transport, { wisp: wispURL });
-        }
-    }
-    const TransportMgr = new TransportManager();
-    registerRemoteListener(navigator.serviceWorker.controller)
-    TransportMgr.setTransport(TransportMgr.getTransport());
-  </script>
+  <TransportManager />
   <div class="main-content">
     <h1 class="title-text">{t("menu.welcome")}</h1>
     <div class="form-wrapper">

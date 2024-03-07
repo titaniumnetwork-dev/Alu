@@ -1,0 +1,25 @@
+<script>
+  import { SetTransport, registerRemoteListener } from "@mercuryworkshop/bare-mux";
+  const wispURLDefault =
+    (location.protocol === "https:" ? "wss://" : "ws://") + location.host + "/wisp/";
+  class TransportManager {
+    private transport = localStorage.getItem("alu__currentTransport") || "EpxMod.EpoxyClient";
+
+    constructor(transport?: string) {
+      if (transport) {
+        this.transport = transport;
+      }
+    }
+    getTransport() {
+      return this.transport;
+    }
+
+    setTransport(transport: string, wispURL = wispURLDefault) {
+      this.transport = transport;
+      SetTransport(transport, { wisp: wispURL });
+    }
+  }
+  const TransportMgr = new TransportManager();
+  registerRemoteListener(navigator.serviceWorker.controller);
+  TransportMgr.setTransport(TransportMgr.getTransport());
+</script>
