@@ -18,7 +18,7 @@ export function getStaticPaths() {
   <script src="/libcurl/index.cjs" is:inline></script>
   <script>
     import { createBareClient } from '@tomphttp/bare-client';
-    createBareClient('http://localhost:8080/bare/');
+    createBareClient('/bare/');
   </script>
 
   <TransportManager />
