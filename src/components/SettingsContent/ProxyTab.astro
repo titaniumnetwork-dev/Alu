@@ -25,6 +25,12 @@ const openPageWith = [
   { name: "About:Blank", value: "about:blank" },
   { name: t("settings.proxy.openPageWith.newTab"), value: "newTab" },
 ];
+
+const transportsList = [
+  { name: "Bare", value: "BareMod.BareClient" },
+  { name: "Epoxy", value: "EpxMod.EpoxyClient" },
+  { name: "Libcurl", value: "CurlMod.LibcurlClient" }
+]
 ---
 
 <div class="settings-container">
@@ -33,7 +39,7 @@ const openPageWith = [
     <Dropdown
       buttonNameDefault="Ultraviolet"
       dropdownList={proxyList}
-      ,
+      localStorageKey="alu__selectedProxy"
       id="dropdown__selected-proxy"
     />
   </div>
@@ -42,7 +48,7 @@ const openPageWith = [
     <Dropdown
       buttonNameDefault="Google"
       dropdownList={searchEngineList}
-      ,
+      localStorageKey="alu__searchEngine"
       id="dropdown__search-engine"
     />
   </div>
@@ -51,8 +57,17 @@ const openPageWith = [
     <Dropdown
       buttonNameDefault={t("settings.proxy.openPageWith.embed")}
       dropdownList={openPageWith}
-      ,
+      localStorageKey="alu__selectedOpenWith"
       id="dropdown__open-with"
+    />
+  </div>
+  <div class="setting__transport">
+    <label class="setting-label">{t("settings.proxy.selectedTransport")}</label>
+    <Dropdown
+      buttonNameDefault="Bare"
+      dropdownList={transportsList}
+      localStorageKey="alu__selectedTransport"
+      id="dropdown__transport"
     />
   </div>
   <div class="setting__bare-url">

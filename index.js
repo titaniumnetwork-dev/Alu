@@ -1,6 +1,7 @@
 import { uvPath } from "@titaniumnetwork-dev/ultraviolet";
 import { epoxyPath } from "@mercuryworkshop/epoxy-transport";
 import { baremuxPath } from "@mercuryworkshop/bare-mux";
+import { libcurlPath } from "@mercuryworkshop/libcurl-transport";
 import { createBareServer } from "@tomphttp/bare-server-node";
 import express from "express";
 import { createServer } from "http";
@@ -16,7 +17,7 @@ import wisp from "wisp-server-node";
 dotenv.config();
 
 const LICENSE_SERVER_URL = "https://license.mercurywork.shop/validate?license=";
-const whiteListedDomains = ["aluu.xyz"]; // Add any public domains you have here
+const whiteListedDomains = ["aluu.xyz", "localhost:3000"]; // Add any public domains you have here
 const failureFile = fs.readFileSync("Checkfailed.html", "utf8");
 
 if (!existsSync("./dist")) build();
@@ -73,15 +74,15 @@ async function MasqFail(req, res) {
 
 // Woooooo masqr yayyyy (said no one)
 // uncomment for masqr
- /* app.use(async (req, res, next) => {
+app.use(async (req, res, next) => {
     if (req.headers.host && whiteListedDomains.includes(req.headers.host)) {
             next();
             return;
     }
-    if (req.url.includes("/bare/")) { // replace this with your bare endpoint
+    // set this to your bare endpoint
+    if (req.url.includes("/bare/")) {
         next();
         return;
-        // Bypass for UV and other bares
     }
 
     const authheader = req.headers.authorization;
@@ -121,7 +122,7 @@ async function MasqFail(req, res) {
     
     MasqFail(req, res)
     return; 
-}) */
+})
 
 
 app.use(express.static(path.join(process.cwd(), "static")));
@@ -129,6 +130,7 @@ app.use(express.static(path.join(process.cwd(), "build")));
 app.use("/uv/", express.static(uvPath));
 app.use("/epoxy/", express.static(epoxyPath));
 app.use("/baremux/", express.static(baremuxPath));
+app.use("/libcurl/", express.static(libcurlPath));
 app.use(express.json());
 app.use(
   express.urlencoded({

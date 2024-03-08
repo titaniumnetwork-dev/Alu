@@ -40,6 +40,7 @@
   "settings.proxy.openPageWith": "Open With",
   "settings.proxy.openPageWith.embed": "Embed",
   "settings.proxy.openPageWith.newTab": "New Tab",
+  "settings.proxy.selectedTransport": "Transport",
   "settings.proxy.searxngURL": "Searx URL",
   "settings.proxy.bareURL": "Bare URL",
 

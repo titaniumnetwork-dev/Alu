@@ -15,6 +15,12 @@ export function getStaticPaths() {
 <Layout title={t("pages.home")}>
   <script src="/baremux/bare.cjs" is:inline></script>
   <script src="/epoxy/index.js" is:inline></script>
+  <script src="/libcurl/index.cjs" is:inline></script>
+  <script>
+    import { createBareClient } from '@tomphttp/bare-client';
+    createBareClient('http://localhost:8080/bare/');
+  </script>
+
   <TransportManager />
   <div class="main-content">
     <h1 class="title-text">{t("menu.welcome")}</h1>
