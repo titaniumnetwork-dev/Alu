@@ -1,7 +1,23 @@
 <script>
+  // @ts-ignore
+  // I HATE YOU VSCODE AAAAAAAAAAAAAA
   import { SetTransport, registerRemoteListener } from "@mercuryworkshop/bare-mux";
+  // @ts-check
+  declare global {
+    interface Window {
+      __uv$config: {
+        prefix: string;
+      };
+    }
+  };
+
+  type transportConfig = {
+    wisp: string;
+    wasm?: string;
+  }
+
   const wispURLDefault =
-    (location.protocol === "https:" ? "wss://" : "ws://") + location.host + "/wisp/";
+    (location.protocol === "https:" ? "wss://" : "ws://") + location.host + "/";
   class TransportManager {
     private transport = "EpxMod.EpoxyClient";
 
@@ -16,6 +32,7 @@
         // Set the default transport for the next reload.
         localStorage.setItem("alu__selectedTransport", JSON.stringify({ value: this.transport }));
       }
+      console.log(this.transport)
     }
     getTransport() {
       return this.transport;
@@ -23,10 +40,21 @@
 
     setTransport(transport: string, wispURL = wispURLDefault) {
       this.transport = transport;
-      SetTransport(transport, { wisp: wispURL });
+      let transportConfig: transportConfig = { wisp: wispURL };
+      if (this.transport == "CurlMod.LibcurlClient") {
+        transportConfig.wasm = "https://cdn.jsdelivr.net/npm/libcurl.js@latest/libcurl.wasm";
+      }
+      SetTransport(this.transport, transportConfig);
     }
   }
   const TransportMgr = new TransportManager();
   registerRemoteListener(navigator.serviceWorker.controller!);
-  TransportMgr.setTransport(TransportMgr.getTransport());
+  let swRegister = navigator.serviceWorker.register("/sw.js", {
+    scope: window.__uv$config.prefix,
+  });
+  swRegister.then((registration) => {
+    registration.update().then(() => {
+      TransportMgr.setTransport(TransportMgr.getTransport());
+    });
+  });
 </script>

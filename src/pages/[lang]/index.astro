@@ -13,9 +13,9 @@ export function getStaticPaths() {
 ---
 
 <Layout title={t("pages.home")}>
-  <script src="/baremux/bare.cjs" is:inline></script>
   <script src="/epoxy/index.js" is:inline></script>
-  <script src="/libcurl/index.cjs" is:inline></script>
+  <script src="/libcurl/index.mjs" is:inline type="module"></script>
+  <script src="/baremux/bare.cjs" is:inline></script>
   <script>
     import { createBareClient } from '@tomphttp/bare-client';
     createBareClient('/bare/');

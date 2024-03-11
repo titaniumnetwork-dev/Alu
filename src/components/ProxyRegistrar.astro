@@ -4,9 +4,6 @@
   //@ts-nocheck
   let form = document.querySelector("form");
   let input = document.querySelector("input");
-  window.navigator.serviceWorker.register("/sw.js", {
-    scope: window.__uv$config.prefix,
-  });
   document.addEventListener("astro:after-swap", initForm);
   function initForm() {
     let formEle = document.querySelector("form");

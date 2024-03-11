@@ -180,7 +180,7 @@ server.on("upgrade", (req, socket, head) => {
     bare.routeUpgrade(req, socket, head);
   } else if (shouldRouteRh(req)) {
     routeRhUpgrade(req, socket, head);
-  } else if (req.url.endsWith("/wisp/")) {
+  } else if (req.url.endsWith("/")) {
     wisp.routeRequest(req, socket, head);
   } else {
     socket.end();
