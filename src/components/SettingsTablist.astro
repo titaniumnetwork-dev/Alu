@@ -298,8 +298,8 @@ const t = useTranslations(lang);
         let searchEngineDropdown = document.getElementById("dropdown__search-engine-menu");
         let openWithDropdown = document.getElementById("dropdown__open-with-menu");
         let currentTransportDropdown = document.getElementById("dropdown__transport-menu");
-        let bareUrlInput = document.getElementById("bare-url-input");
         let searxngUrlInput = document.getElementById("searxng-url-input");
+        let wispURLInput = document.getElementById("wisp-url-input");
         let savedSearxngUrl = localStorage.getItem("alu__searxngUrl");
         if (savedSearxngUrl != undefined) {
           if (savedSearxngUrl == "")
@@ -307,11 +307,11 @@ const t = useTranslations(lang);
           searxngUrlInput.value = localStorage.getItem("alu__searxngUrl");
         }
         // Proxy settings
-        applyInputListeners(bareUrlInput, "alu__bareUrl");
         applyInputListeners(searxngUrlInput, "alu__searxngUrl");
+        applyInputListeners(wispURLInput, "alu__wispUrl");
+
         [selectedProxyDropdown, openWithDropdown, currentTransportDropdown].forEach((dropdown) => {
           let dropdownButton = document.getElementById(dropdown.id.replace("-menu", ""))
-          console.log(dropdownButton)
           applyDropdownEventListeners(
             dropdown,
             dropdownButton.id,
@@ -324,21 +324,6 @@ const t = useTranslations(lang);
           "alu__searchEngine",
           checkSearxng
         );
-        // applyDropdownEventListeners(
-        //   selectedProxyDropdown,
-        //   "dropdown__selected-proxy",
-        //   "alu__selectedProxy"
-        // );
-        // applyDropdownEventListeners(
-        //   openWithDropdown,
-        //   "dropdown__open-with",
-        //   "alu__selectedOpenWith"
-        // );
-        if (localStorage.getItem("bareUrl")) {
-          bareUrlInput.value = localStorage.getItem("bareUrl");
-        } else {
-          bareUrlInput.value = "/bare/";
-        }
         checkSearxng();
       } else if (event.detail == "setting-tab-customization") {
         setupCustomizationSettings();

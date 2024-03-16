@@ -37,10 +37,11 @@
   "settings.proxy.selectedProxy": "選択されたプロキシ",
   "settings.proxy.searchEngine": "検索エンジン",
   "settings.proxy.openPageWith": "開く",
-  "settings.proxy.searxngURL": "SearxのURL",
   "settings.proxy.openPageWith.embed": "埋め込み",
   "settings.proxy.openPageWith.newTab": "新しいタブ",
-  "settings.proxy.bareURL": "BareのURL",
+  "settings.proxy.searxngURL": "SearxのURL",
+  "settings.proxy.transport": "トランスポート",
+  "settings.proxy.wispURL": "ウィスプのURL",
 
   "settings.customization": "カスタマイズ",
   "settings.customization.theme": "テーマ",

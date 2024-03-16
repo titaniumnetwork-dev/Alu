@@ -2,7 +2,6 @@ import { uvPath } from "@titaniumnetwork-dev/ultraviolet";
 import { epoxyPath } from "@mercuryworkshop/epoxy-transport";
 import { baremuxPath } from "@mercuryworkshop/bare-mux";
 import { libcurlPath } from "@mercuryworkshop/libcurl-transport";
-import { createBareServer } from "@tomphttp/bare-server-node";
 import express from "express";
 import { createServer } from "http";
 import path from "node:path";
@@ -42,16 +41,12 @@ const rammerheadScopes = [
   "/api/shuffleDict",
 ];
 const rammerheadSession = /^\/[a-z0-9]{32}/;
-const bare = createBareServer("/bare/");
-console.log(chalk.gray("Starting Bare..."));
-
 const app = express();
 app.use(compression({ threshold: 0, filter: () => true }));
 app.use(cookieParser());
 
 async function MasqFail(req, res) {
   if (!req.headers.host) {
-    // no bitch still using HTTP/1.0 go away
     return;
   }
   const unsafeSuffix = req.headers.host + ".html";
@@ -76,40 +71,30 @@ async function MasqFail(req, res) {
 // uncomment for masqr
 app.use(async (req, res, next) => {
     if (req.headers.host && whiteListedDomains.includes(req.headers.host)) {
-            next();
-            return;
+      next();
+      return;
     }
-    // set this to your bare endpoint
-    if (req.url.includes("/bare/")) {
-        next();
-        return;
-    }
-
     const authheader = req.headers.authorization;
-    
     if (req.cookies["authcheck"]) {
-        next();
-        return;
+      next();
+      return;
     }
 
 
-    if (req.cookies['refreshcheck'] != "true") {
-        res.cookie("refreshcheck",  "true",  {maxAge: 10000}) // 10s refresh check
-        MasqFail(req, res) 
-        return;
+  if (req.cookies['refreshcheck'] != "true") {
+      res.cookie("refreshcheck",  "true",  {maxAge: 10000}) // 10s refresh check
+      MasqFail(req, res) 
+      return;
     }
     
     if (!authheader) {
-        
-        res.setHeader('WWW-Authenticate', 'Basic'); // Yeah so we need to do this to get the auth params, kinda annoying and just showing a login prompt gives it away so its behind a 10s refresh check
-        res.status(401);
-        MasqFail(req, res) 
-        return;
+      res.setHeader('WWW-Authenticate', 'Basic'); // Yeah so we need to do this to get the auth params, kinda annoying and just showing a login prompt gives it away so its behind a 10s refresh check
+      res.status(401);
+      MasqFail(req, res) 
+      return;
     }
 
-    const auth = Buffer.from(authheader.split(' ')[1],
-        'base64').toString().split(':');
-    const user = auth[0];
+    const auth = Buffer.from(authheader.split(' ')[1], 'base64').toString().split(':');
     const pass = auth[1];
 
     const licenseCheck = ((await (await fetch(LICENSE_SERVER_URL + pass + "&host=" + req.headers.host)).json()))["status"]
@@ -130,7 +115,11 @@ app.use(express.static(path.join(process.cwd(), "build")));
 app.use("/uv/", express.static(uvPath));
 app.use("/epoxy/", express.static(epoxyPath));
 app.use("/baremux/", express.static(baremuxPath));
-app.use("/libcurl/", express.static(libcurlPath));
+// Make libcurl a middleware that will send application/javascript and serve the path
+app.use("/libcurl/", (req, res, next) => {
+  res.setHeader("Content-Type", "application/javascript");
+  next();
+}, express.static(libcurlPath));
 app.use(express.json());
 app.use(
   express.urlencoded({
@@ -138,8 +127,11 @@ app.use(
   })
 );
 app.use(function (req, res, next) {
-  if (req.originalUrl.includes("/games")) {
+  if (req.originalUrl.includes("/games/")) {
+    console.log("Game request");
     res.header("Cross-Origin-Opener-Policy", "same-origin");
+    res.header("Cross-Origin-Embedder-Policy", "require-corp");
+
   }
   next();
 });
@@ -166,9 +158,7 @@ app.get("*", function (req, res) {
 
 let server = createServer();
 server.on("request", (req, res) => {
-  if (bare.shouldRoute(req)) {
-    bare.routeRequest(req, res);
-  } else if (shouldRouteRh(req)) {
+  if (shouldRouteRh(req)) {
     routeRhRequest(req, res);
   } else {
     app(req, res);
@@ -176,9 +166,7 @@ server.on("request", (req, res) => {
 });
 
 server.on("upgrade", (req, socket, head) => {
-  if (bare.shouldRoute(req)) {
-    bare.routeUpgrade(req, socket, head);
-  } else if (shouldRouteRh(req)) {
+  if (shouldRouteRh(req)) {
     routeRhUpgrade(req, socket, head);
   } else if (req.url.endsWith("/")) {
     wisp.routeRequest(req, socket, head);

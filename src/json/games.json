@@ -209,11 +209,6 @@
     "image": "/games/solitaire/logo.png",
     "slug": "solitaire"
   },
-  "sort-the-court": {
-    "name": "Sort the Court",
-    "image": "/games/sort-the-court/logo.jpg",
-    "slug": "sort-the-court"
-  },
   "suika-combination": {
     "name": "Suika Combination",
     "image": "/games/suika-combination/logo.webp",

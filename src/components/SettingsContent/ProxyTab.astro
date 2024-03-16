@@ -61,18 +61,18 @@ const transportsList = [
       id="dropdown__open-with"
     />
   </div>
+  <div class="setting__wisp_url">
+    <label for="wisp-url-input" class="setting-label">{t("settings.proxy.wispURL")}</label>
+    <Input height="50px" inputName="wisp-url" defaultTextContent="wss://aluu.xyz/" />
+  </div>
   <div class="setting__transport">
-    <label class="setting-label">{t("settings.proxy.selectedTransport")}</label>
+    <label class="setting-label">{t("settings.proxy.transport")}</label>
     <Dropdown
       buttonNameDefault="Epoxy"
       dropdownList={transportsList}
       localStorageKey="alu__selectedTransport"
       id="dropdown__transport"
     />
-  </div>
-  <div class="setting__bare-url">
-    <label class="setting-label" for="bare-url-input">{t("settings.proxy.bareURL")}</label>
-    <Input inputName="bare-url" height="50px" />
   </div>
 </div>
 <div class="setting__searxng-url">
