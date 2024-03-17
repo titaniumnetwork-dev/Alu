@@ -15,6 +15,7 @@
     "@mercuryworkshop/libcurl-transport": "^1.2.4",
     "@titaniumnetwork-dev/ultraviolet": "^3.0.0",
     "@tomphttp/bare-client": "^2.2.0-alpha",
+    "@tomphttp/bare-server-node": "^2.0.3",
     "astro": "^4.4.1",
     "chalk": "^5.3.0",
     "compression": "^1.7.4",

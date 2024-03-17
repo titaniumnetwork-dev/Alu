@@ -3,7 +3,6 @@ import Layout from "../../layouts/Layout.astro";
 
 import { STATIC_PATHS, getLangFromUrl, useTranslations } from "../../i18n/utils";
 import Link from "../../components/Link.astro";
-import TransportManager from "../../components/TransportManager.astro";
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
@@ -13,11 +12,8 @@ export function getStaticPaths() {
 ---
 
 <Layout title={t("pages.home")}>
+  <script src="/libcurl/index.js" is:inline></script>
   <script src="/epoxy/index.js" is:inline></script>
-  <script src="/libcurl/index.cjs" is:inline></script>
-  <script src="/baremux/bare.cjs" is:inline></script>
-
-  <TransportManager />
   <div class="main-content">
     <h1 class="title-text">{t("menu.welcome")}</h1>
     <div class="form-wrapper">
@@ -68,8 +64,9 @@ export function getStaticPaths() {
     </div>
   </div>
 </Layout>
-
 <script>
+  import { initTransport } from "../../components/ts/TransportManager"
+  initTransport();
   type Suggestion = {
     phrase: string;
   };

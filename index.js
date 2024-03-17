@@ -1,7 +1,7 @@
 import { uvPath } from "@titaniumnetwork-dev/ultraviolet";
 import { epoxyPath } from "@mercuryworkshop/epoxy-transport";
-import { baremuxPath } from "@mercuryworkshop/bare-mux";
 import { libcurlPath } from "@mercuryworkshop/libcurl-transport";
+import { createBareServer } from "@tomphttp/bare-server-node";
 import express from "express";
 import { createServer } from "http";
 import path from "node:path";
@@ -20,6 +20,8 @@ const whiteListedDomains = ["aluu.xyz", "localhost:3000"]; // Add any public dom
 const failureFile = fs.readFileSync("Checkfailed.html", "utf8");
 
 if (!existsSync("./dist")) build();
+
+const bare = createBareServer("/bare/");
 
 const PORT = process.env.PORT || 3000;
 console.log(chalk.gray("Starting Rammerhead..."));
@@ -114,12 +116,8 @@ app.use(express.static(path.join(process.cwd(), "static")));
 app.use(express.static(path.join(process.cwd(), "build")));
 app.use("/uv/", express.static(uvPath));
 app.use("/epoxy/", express.static(epoxyPath));
-app.use("/baremux/", express.static(baremuxPath));
-// Make libcurl a middleware that will send application/javascript and serve the path
-app.use("/libcurl/", (req, res, next) => {
-  res.setHeader("Content-Type", "application/javascript");
-  next();
-}, express.static(libcurlPath));
+app.use("/libcurl/", express.static(libcurlPath))
+
 app.use(express.json());
 app.use(
   express.urlencoded({
@@ -158,7 +156,9 @@ app.get("*", function (req, res) {
 
 let server = createServer();
 server.on("request", (req, res) => {
-  if (shouldRouteRh(req)) {
+  if (bare.shouldRoute(req)) {
+    bare.routeRequest(req, res);
+  } else if (shouldRouteRh(req)) {
     routeRhRequest(req, res);
   } else {
     app(req, res);
@@ -166,7 +166,9 @@ server.on("request", (req, res) => {
 });
 
 server.on("upgrade", (req, socket, head) => {
-  if (shouldRouteRh(req)) {
+  if (bare.shouldRoute(req)) {
+    bare.routeUpgrade(req, socket, head);
+  } else if (shouldRouteRh(req)) {
     routeRhUpgrade(req, socket, head);
   } else if (req.url.endsWith("/")) {
     wisp.routeRequest(req, socket, head);
