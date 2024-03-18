@@ -312,7 +312,7 @@ const t = useTranslations(lang);
         applyInputListeners(wispURLInput, "alu__wispUrl");
 
         [selectedProxyDropdown, openWithDropdown, currentTransportDropdown].forEach((dropdown) => {
-          let dropdownButton = document.getElementById(dropdown.id.replace("-menu", ""))
+          let dropdownButton = document.getElementById(dropdown.id.replace("-menu", ""));
           applyDropdownEventListeners(
             dropdown,
             dropdownButton.id,

@@ -8,12 +8,12 @@ declare global {
       prefix: string;
     };
   }
-};
+}
 
 type transportConfig = {
   wisp: string;
   wasm?: string;
-}
+};
 
 export const wispURLDefault =
   (location.protocol === "https:" ? "wss://" : "ws://") + location.host + "/";
@@ -49,12 +49,16 @@ export default class TransportManager {
 const TransportMgr = new TransportManager();
 export function initTransport() {
   registerRemoteListener(navigator.serviceWorker.controller!);
-  navigator.serviceWorker.register("/sw.js", {
-    scope: window.__uv$config.prefix,
-  }).then((registration) => {
-    registration.update().then(() => {
-      TransportMgr.setTransport(TransportMgr.getTransport(), localStorage.getItem("alu__wispUrl") || wispURLDefault);
+  navigator.serviceWorker
+    .register("/sw.js", {
+      scope: window.__uv$config.prefix,
+    })
+    .then((registration) => {
+      registration.update().then(() => {
+        TransportMgr.setTransport(
+          TransportMgr.getTransport(),
+          localStorage.getItem("alu__wispUrl") || wispURLDefault
+        );
+      });
     });
-  });
 }
-

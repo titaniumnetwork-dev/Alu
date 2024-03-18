@@ -65,21 +65,18 @@ export function getStaticPaths() {
   </div>
 </Layout>
 <script>
-  import { initTransport } from "../../components/ts/TransportManager"
+  import { initTransport } from "../../components/ts/TransportManager";
   initTransport();
   type Suggestion = {
     phrase: string;
   };
-  const debounce = (func: Function, delay: number): ((...args: any[]) => void) => {
-    let debounceTimer: NodeJS.Timeout;
-    return function (this: Function, ...args: any[]) {
-      const context: any = this;
-      clearTimeout(debounceTimer);
-      debounceTimer = setTimeout(() => {
-        func.apply(context, args);
-      }, delay);
+  function debounce(func: Function, timeout: number) {
+    return function (this: any, ...args: any) {
+      setTimeout(() => {
+        func.apply(this, args);
+      }, timeout);
     };
-  };
+  }
 
   async function sendAPIRequest(urlInput: HTMLInputElement, searchSuggestions: HTMLDivElement) {
     if (!urlInput) throw new Error("urlInput is null");

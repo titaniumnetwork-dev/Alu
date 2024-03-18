@@ -3,10 +3,12 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
+    "build:all": "npm run format && npm run lint && npm run build",
     "start": "node .",
     "build": "astro build",
-    "lint": "prettier --write .",
-    "lint:check": "prettier --check ."
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "eslint ."
   },
   "dependencies": {
     "@astrojs/node": "^8.2.0",
@@ -29,6 +31,11 @@
     "wisp-server-node": "^1.0.2"
   },
   "devDependencies": {
+    "@babel/eslint-parser": "^7.23.10",
+    "@typescript-eslint/eslint-plugin": "^7.2.0",
+    "@typescript-eslint/parser": "^7.2.0",
+    "eslint": "^8.57.0",
+    "eslint-plugin-astro": "^0.31.4",
     "prettier": "3.2.5",
     "prettier-plugin-astro": "^0.13.0"
   }

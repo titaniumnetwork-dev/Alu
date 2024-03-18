@@ -1,4 +1,4 @@
 {
   "extends": "astro/tsconfigs/strict",
-  "exclude": ["dist/**", "node_modules/**", "public/games/**"],
+  "exclude": ["dist/**", "node_modules/**", "public/games/**", ".eslint.cjs"]
 }

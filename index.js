@@ -13,6 +13,7 @@ import { existsSync } from "fs";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import wisp from "wisp-server-node";
+import fs from "node:fs";
 dotenv.config();
 
 const LICENSE_SERVER_URL = "https://license.mercurywork.shop/validate?license=";
@@ -52,9 +53,7 @@ async function MasqFail(req, res) {
     return;
   }
   const unsafeSuffix = req.headers.host + ".html";
-  let safeSuffix = path
-    .normalize(unsafeSuffix)
-    .replace(/^(\.\.(\/|\\|$))+/, "");
+  let safeSuffix = path.normalize(unsafeSuffix).replace(/^(\.\.(\/|\\|$))+/, "");
   let safeJoin = path.join(process.cwd() + "/Masqrd", safeSuffix);
   try {
     await fs.promises.access(safeJoin); // man do I wish this was an if-then instead of a "exception on fail"
@@ -72,51 +71,53 @@ async function MasqFail(req, res) {
 // Woooooo masqr yayyyy (said no one)
 // uncomment for masqr
 app.use(async (req, res, next) => {
-    if (req.headers.host && whiteListedDomains.includes(req.headers.host)) {
-      next();
-      return;
-    }
-    const authheader = req.headers.authorization;
-    if (req.cookies["authcheck"]) {
-      next();
-      return;
-    }
+  if (req.headers.host && whiteListedDomains.includes(req.headers.host)) {
+    next();
+    return;
+  }
+  const authheader = req.headers.authorization;
+  if (req.cookies["authcheck"]) {
+    next();
+    return;
+  }
 
+  if (req.cookies["refreshcheck"] != "true") {
+    res.cookie("refreshcheck", "true", { maxAge: 10000 }); // 10s refresh check
+    MasqFail(req, res);
+    return;
+  }
 
-  if (req.cookies['refreshcheck'] != "true") {
-      res.cookie("refreshcheck",  "true",  {maxAge: 10000}) // 10s refresh check
-      MasqFail(req, res) 
-      return;
-    }
-    
-    if (!authheader) {
-      res.setHeader('WWW-Authenticate', 'Basic'); // Yeah so we need to do this to get the auth params, kinda annoying and just showing a login prompt gives it away so its behind a 10s refresh check
-      res.status(401);
-      MasqFail(req, res) 
-      return;
-    }
+  if (!authheader) {
+    res.setHeader("WWW-Authenticate", "Basic"); // Yeah so we need to do this to get the auth params, kinda annoying and just showing a login prompt gives it away so its behind a 10s refresh check
+    res.status(401);
+    MasqFail(req, res);
+    return;
+  }
 
-    const auth = Buffer.from(authheader.split(' ')[1], 'base64').toString().split(':');
-    const pass = auth[1];
+  const auth = Buffer.from(authheader.split(" ")[1], "base64").toString().split(":");
+  const pass = auth[1];
 
-    const licenseCheck = ((await (await fetch(LICENSE_SERVER_URL + pass + "&host=" + req.headers.host)).json()))["status"]
-    console.log(LICENSE_SERVER_URL + pass + "&host=" + req.headers.host +" returned " +licenseCheck)
-    if (licenseCheck == "License valid") {
-        res.cookie("authcheck", "true", {expires: new Date((Date.now()) + (365*24*60*60 * 1000))}) // authorize session, for like a year, by then the link will be expired lol
-        res.send(`<script> window.location.href = window.location.href </script>`) // fun hack to make the browser refresh and remove the auth params from the URL
-        return;
-    }
-    
-    MasqFail(req, res)
-    return; 
-})
+  const licenseCheck = (
+    await (await fetch(LICENSE_SERVER_URL + pass + "&host=" + req.headers.host)).json()
+  )["status"];
+  console.log(
+    LICENSE_SERVER_URL + pass + "&host=" + req.headers.host + " returned " + licenseCheck
+  );
+  if (licenseCheck == "License valid") {
+    res.cookie("authcheck", "true", { expires: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000) }); // authorize session, for like a year, by then the link will be expired lol
+    res.send(`<script> window.location.href = window.location.href </script>`); // fun hack to make the browser refresh and remove the auth params from the URL
+    return;
+  }
 
+  MasqFail(req, res);
+  return;
+});
 
 app.use(express.static(path.join(process.cwd(), "static")));
 app.use(express.static(path.join(process.cwd(), "build")));
 app.use("/uv/", express.static(uvPath));
 app.use("/epoxy/", express.static(epoxyPath));
-app.use("/libcurl/", express.static(libcurlPath))
+app.use("/libcurl/", express.static(libcurlPath));
 
 app.use(express.json());
 app.use(
@@ -129,7 +130,6 @@ app.use(function (req, res, next) {
     console.log("Game request");
     res.header("Cross-Origin-Opener-Policy", "same-origin");
     res.header("Cross-Origin-Embedder-Policy", "require-corp");
-
   }
   next();
 });

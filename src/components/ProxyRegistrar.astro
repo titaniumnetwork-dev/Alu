@@ -255,7 +255,10 @@
         );
         if (newurl.length > 30) newurl = newurl.slice(0, 50) + "...";
         urlText.innerText = newurl;
-      } else urlText.innerText = window.__uv$config.decodeUrl(newURL.split(__uv$config.prefix)[1]);
+      } else
+        urlText.innerText = window.__uv$config.decodeUrl(
+          newURL.split(window.__uv$config.prefix)[1]
+        );
     }
   }
 </script>

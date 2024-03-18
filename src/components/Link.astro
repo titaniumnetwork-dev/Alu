@@ -5,7 +5,7 @@ interface LinkProps {
   content: string;
 }
 
-const { href, newTab, content } = Astro.props;
+const { href, newTab, content } = Astro.props as LinkProps;
 const target = newTab ? "_blank" : "_self";
 const rel = newTab ? "noopener noreferrer" : "";
 ---
