@@ -212,9 +212,6 @@
   }
   function updateTopbarTitle(iframe) {
     let topbarTitle = document.getElementById("url-text");
-    if (iframe.contentDocument.title == "") {
-      iframe.contentDocument.title = "Loading...";
-    }
     topbarTitle.innerText = iframe.contentDocument.title;
   }
 </script>
