@@ -65,8 +65,16 @@ export function getStaticPaths() {
   </div>
 </Layout>
 <script>
-  import { initTransport } from "../../components/ts/TransportManager";
+  import { initTransport, TransportMgr } from "../../components/ts/TransportManager";
   initTransport();
+  document.addEventListener("astro:after-swap", () => {
+    let savedTransport = localStorage.getItem("alu__selectedTransport");
+    if (savedTransport) {
+      let parsedTransport = JSON.parse(savedTransport);
+      TransportMgr.setTransport(parsedTransport.value);
+    }
+    initTransport();
+  });
   type Suggestion = {
     phrase: string;
   };

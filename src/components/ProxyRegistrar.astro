@@ -14,6 +14,14 @@
     form.addEventListener("submit", formEventListener);
   }
 
+  setInterval(() => {
+    let iframe = document.getElementById("proxy-frame");
+    if (iframe && iframe.src != "") {
+      updateProxiedFavicon(iframe);
+      updateTopbarTitle(iframe);
+    }
+  }, 500);
+
   async function getProxyURL() {
     let preference = getProxyPreference();
     let url = input.value.trim();
@@ -97,7 +105,6 @@
     iframe.style.pointerEvents = "auto";
     iframe.classList.add("proxy-frame");
     document.body.appendChild(iframe);
-    iframeURLChange(iframe, (newURL) => updateTopbarURL(preference, newURL));
     const boundIFrameLoad = iframeLoad.bind(null, iframe, loadingContent, topbar, closeButton);
     iframe.addEventListener("load", boundIFrameLoad);
 
@@ -106,8 +113,6 @@
       iframe.style.opacity = 1;
       topbar.style.opacity = 1;
       topbar.style.pointerEvents = "auto";
-
-      updateProxiedFavicon();
       closeButton.onclick = () => {
         iframe.style.opacity = 0;
         topbar.style.opacity = 0;
@@ -204,61 +209,12 @@
         return;
       }
     }
-    setTimeout(() => updateProxiedFavicon(iframe), 400);
   }
-
-  function iframeURLChange(iframe, callback) {
-    var lastDispatched = null;
-
-    var dispatchChange = function () {
-      var newHref = iframe.contentWindow.location.href;
-
-      if (newHref !== lastDispatched) {
-        callback(newHref);
-
-        lastDispatched = newHref;
-      }
-    };
-
-    var unloadHandler = function () {
-      // Timeout needed because the URL changes immediately after
-      // the `unload` event is dispatched.
-      setTimeout(dispatchChange, 0);
-    };
-
-    function attachUnload() {
-      // Remove the unloadHandler in case it was already attached.
-      // Otherwise, there will be two handlers, which is unnecessary.
-      iframe.contentWindow.removeEventListener("unload", unloadHandler);
-      iframe.contentWindow.addEventListener("unload", unloadHandler);
+  function updateTopbarTitle(iframe) {
+    let topbarTitle = document.getElementById("url-text");
+    if (iframe.contentDocument.title == "") {
+      iframe.contentDocument.title = "Loading...";
     }
-
-    iframe.addEventListener("load", function () {
-      attachUnload();
-      updateProxiedFavicon(iframe);
-
-      // Just in case the change wasn't dispatched during the unload event...
-      dispatchChange();
-    });
-
-    attachUnload();
-  }
-  function updateTopbarURL(preference, newURL) {
-    if (newURL === "about:blank") return;
-    let urlText = document.getElementById("url-text");
-    if (urlText) {
-      if (preference === "rammerhead") {
-        let newurl = newURL.slice(
-          newURL.indexOf("/" + getCookie("rammerhead-session")) +
-            getCookie("rammerhead-session").length +
-            2
-        );
-        if (newurl.length > 30) newurl = newurl.slice(0, 50) + "...";
-        urlText.innerText = newurl;
-      } else
-        urlText.innerText = window.__uv$config.decodeUrl(
-          newURL.split(window.__uv$config.prefix)[1]
-        );
-    }
+    topbarTitle.innerText = iframe.contentDocument.title;
   }
 </script>

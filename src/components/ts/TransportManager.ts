@@ -39,14 +39,11 @@ export default class TransportManager {
   setTransport(transport: string, wispURL = wispURLDefault) {
     this.transport = transport;
     let transportConfig: transportConfig = { wisp: wispURL };
-    if (this.transport == "CurlMod.LibcurlClient") {
-      transportConfig.wasm = "https://cdn.jsdelivr.net/npm/libcurl.js@latest/libcurl.wasm";
-    }
     SetTransport(this.transport, transportConfig);
   }
 }
 
-const TransportMgr = new TransportManager();
+export const TransportMgr = new TransportManager();
 export function initTransport() {
   registerRemoteListener(navigator.serviceWorker.controller!);
   navigator.serviceWorker
