@@ -13,7 +13,7 @@ declare global {
 type transportConfig = {
   wisp: string;
   wasm?: string;
-};
+} | string;
 
 export const wispURLDefault =
   (location.protocol === "https:" ? "wss://" : "ws://") + location.host + "/";
@@ -39,13 +39,18 @@ export default class TransportManager {
   setTransport(transport: string, wispURL = wispURLDefault) {
     this.transport = transport;
     let transportConfig: transportConfig = { wisp: wispURL };
+
+    if (this.transport == "BareMod.BareClient") {
+      transportConfig = window.location.origin + "/bare/";
+    }
+
     SetTransport(this.transport, transportConfig);
   }
 }
 
 export const TransportMgr = new TransportManager();
-export function initTransport() {
-  registerRemoteListener(navigator.serviceWorker.controller!);
+export async function initTransport() {
+  await registerRemoteListener(navigator.serviceWorker.controller!);
   navigator.serviceWorker
     .register("/sw.js", {
       scope: window.__uv$config.prefix,

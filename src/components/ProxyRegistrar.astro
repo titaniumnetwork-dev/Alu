@@ -201,10 +201,13 @@
         let favicon =
           iframe.contentDocument.querySelector("link[rel='icon']") ||
           iframe.contentDocument.querySelector("link[rel*='icon']");
+          if (proxiedFavicon.src == favicon.href) return;
         if (favicon) {
           proxiedFavicon.src = favicon.href;
         } else {
-          proxiedFavicon.src = "/favicon.ico";
+          if (proxiedFavicon.src != "/favicon.ico") {
+            proxiedFavicon.src = "/favicon.ico";
+          }
         }
         return;
       }

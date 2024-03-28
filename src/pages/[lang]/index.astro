@@ -14,6 +14,7 @@ export function getStaticPaths() {
 <Layout title={t("pages.home")}>
   <script src="/libcurl/index.js" is:inline></script>
   <script src="/epoxy/index.js" is:inline></script>
+  <script src="/bare_transport.js" is:inline></script>
   <div class="main-content">
     <h1 class="title-text">{t("menu.welcome")}</h1>
     <div class="form-wrapper">
@@ -66,7 +67,7 @@ export function getStaticPaths() {
 </Layout>
 <script>
   import { initTransport, TransportMgr } from "../../components/ts/TransportManager";
-  initTransport();
+  await initTransport();
   document.addEventListener("astro:after-swap", () => {
     let savedTransport = localStorage.getItem("alu__selectedTransport");
     if (savedTransport) {
