@@ -216,7 +216,7 @@
   function updateTopbarTitle(iframe) {
     let topbarTitle = document.getElementById("url-text");
     if (iframe.contentDocument.title == "") {
-      topbarTitle.innerText = iframe.src;
+      topbarTitle.innerText = "Loading...";
     } else {
       if (iframe.contentDocument.title.length > 65) {
         topbarTitle.innerText = iframe.contentDocument.title.slice(0, 65) + "...";
