@@ -201,7 +201,7 @@
         let favicon =
           iframe.contentDocument.querySelector("link[rel='icon']") ||
           iframe.contentDocument.querySelector("link[rel*='icon']");
-          if (proxiedFavicon.src == favicon.href) return;
+          if(favicon) if (proxiedFavicon.src == favicon.href) return;
         if (favicon) {
           proxiedFavicon.src = favicon.href;
         } else {
@@ -215,6 +215,15 @@
   }
   function updateTopbarTitle(iframe) {
     let topbarTitle = document.getElementById("url-text");
-    topbarTitle.innerText = iframe.contentDocument.title;
+    if (iframe.contentDocument.title == "") {
+      topbarTitle.innerText = iframe.src;
+    } else {
+      if (iframe.contentDocument.title.length > 65) {
+        topbarTitle.innerText = iframe.contentDocument.title.slice(0, 65) + "...";
+        return;
+      }
+      topbarTitle.innerText = iframe.contentDocument.title;
+    }
+    
   }
 </script>

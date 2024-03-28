@@ -34,6 +34,7 @@
 
   "settings.title": "設定",
   "settings.proxy": "プロキシ",
+  "settings.proxy.auto": "自動",
   "settings.proxy.selectedProxy": "選択されたプロキシ",
   "settings.proxy.searchEngine": "検索エンジン",
   "settings.proxy.openPageWith": "開く",
@@ -42,6 +43,7 @@
   "settings.proxy.searxngURL": "SearxのURL",
   "settings.proxy.transport": "トランスポート",
   "settings.proxy.wispURL": "ウィスプのURL",
+  "settings.proxy.bareURL": "BareのURL",
 
   "settings.customization": "カスタマイズ",
   "settings.customization.theme": "テーマ",

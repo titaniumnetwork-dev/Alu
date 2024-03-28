@@ -41,7 +41,7 @@ export default class TransportManager {
     let transportConfig: transportConfig = { wisp: wispURL };
 
     if (this.transport == "BareMod.BareClient") {
-      transportConfig = window.location.origin + "/bare/";
+      transportConfig = localStorage.getItem("alu__bareURL") || window.location.origin + "/bare/";
     }
 
     SetTransport(this.transport, transportConfig);

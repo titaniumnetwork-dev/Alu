@@ -10,7 +10,8 @@ export function getLangFromUrl(url: URL) {
 }
 
 export function useTranslations(lang: keyof typeof ui) {
-  return function t(key: keyof (typeof ui)[typeof defaultLang]) {
-    return ui[lang][key] || ui[defaultLang][key];
+  return function t(translationKey: keyof (typeof ui)[typeof defaultLang]) {
+    if (ui[lang][translationKey]) return ui[lang][translationKey];
+    else return ui[defaultLang][translationKey];
   };
 }

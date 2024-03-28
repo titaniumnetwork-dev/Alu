@@ -301,15 +301,27 @@ const t = useTranslations(lang);
         let currentTransportDropdown = document.getElementById("dropdown__transport-menu");
         let searxngUrlInput = document.getElementById("searxng-url-input");
         let wispURLInput = document.getElementById("wisp-url-input");
+        let bareURLInput = document.getElementById("bare-url-input");
         let savedSearxngUrl = localStorage.getItem("alu__searxngUrl");
         if (savedSearxngUrl != undefined) {
           if (savedSearxngUrl == "")
             localStorage.setItem("alu__searxngUrl", "https://searxng.site/");
           searxngUrlInput.value = localStorage.getItem("alu__searxngUrl");
         }
+        let savedWispUrl = localStorage.getItem("alu__wispUrl");
+        if (savedWispUrl != undefined) {
+          if (savedWispUrl == "") localStorage.setItem("alu__wispUrl", "wss://aluu.xyz/");
+          wispURLInput.value = localStorage.getItem("alu__wispUrl");
+        }
+        let savedBareUrl = localStorage.getItem("alu__bareUrl");
+        if (savedBareUrl != undefined) {
+          if (savedBareUrl == "") localStorage.setItem("alu__bareUrl", "https://aluu.xyz/bare/");
+          bareURLInput.value = localStorage.getItem("alu__bareUrl");
+        }
         // Proxy settings
         applyInputListeners(searxngUrlInput, "alu__searxngUrl");
         applyInputListeners(wispURLInput, "alu__wispUrl");
+        applyInputListeners(bareURLInput, "alu__bareUrl");
 
         [selectedProxyDropdown, openWithDropdown, currentTransportDropdown].forEach((dropdown) => {
           let dropdownButton = document.getElementById(dropdown.id.replace("-menu", ""));

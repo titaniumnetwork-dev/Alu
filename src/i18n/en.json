@@ -43,6 +43,7 @@
   "settings.proxy.searxngURL": "Searx URL",
   "settings.proxy.transport": "Transport",
   "settings.proxy.wispURL": "Wisp URL",
+  "settings.proxy.bareURL": "Bare URL",
 
   "settings.customization": "Customization",
   "settings.customization.theme": "Theme",
