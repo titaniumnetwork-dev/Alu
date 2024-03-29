@@ -126,11 +126,8 @@ app.use(
   })
 );
 app.use(function (req, res, next) {
-  if (req.originalUrl.includes("/games/")) {
-    console.log("Game request");
-    res.header("Cross-Origin-Opener-Policy", "same-origin");
-    res.header("Cross-Origin-Embedder-Policy", "require-corp");
-  }
+  res.header("Cross-Origin-Opener-Policy", "same-origin");
+  res.header("Cross-Origin-Embedder-Policy", "require-corp");
   next();
 });
 app.use("/", express.static("dist/client/"));
