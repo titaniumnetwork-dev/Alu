@@ -334,7 +334,7 @@ const t = useTranslations(lang);
         applyDropdownEventListeners(
           searchEngineDropdown,
           "dropdown__search-engine",
-          "alu__searchEngine",
+          "alu__search_engine",
           checkSearxng
         );
         checkSearxng();
@@ -347,8 +347,9 @@ const t = useTranslations(lang);
 
     function checkSearxng() {
       // This function checks if the "searxng" option was clicked, display an additional option if so.
-      if (localStorage.getItem("alu__searchEngine")) {
-        if (JSON.parse(localStorage.getItem("alu__searchEngine")).value.toLowerCase() == "searx") {
+      let search_engine = JSON.parse(localStorage.getItem("alu__search_engine"));
+      if (search_engine) {
+        if (search_engine.value.toLowerCase() == "searx") {
           document.getElementsByClassName("setting__searxng-url")[0].style.opacity = "1";
         } else {
           document.getElementsByClassName("setting__searxng-url")[0].style.opacity = "0";
@@ -394,6 +395,7 @@ const t = useTranslations(lang);
     position: relative;
     z-index: 2;
     flex-wrap: wrap;
+    row-gap: 5px;
   }
   .content-setting-header {
     color: var(--text-color);
@@ -416,6 +418,7 @@ const t = useTranslations(lang);
     user-select: none;
     width: 100%;
     cursor: auto;
+    margin-bottom: 5px;
   }
 
   .setting__searxng-url {

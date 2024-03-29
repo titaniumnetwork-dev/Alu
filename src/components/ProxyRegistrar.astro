@@ -113,11 +113,13 @@
       iframe.style.opacity = 1;
       topbar.style.opacity = 1;
       topbar.style.pointerEvents = "auto";
+      document.body.style.overflow = "hidden";
       closeButton.onclick = () => {
         iframe.style.opacity = 0;
         topbar.style.opacity = 0;
         iframe.style.pointerEvents = "none";
         topbar.style.pointerEvents = "none";
+        document.body.style.overflow = "auto";
         iframe.removeEventListener("load", boundIFrameLoad);
 
         setTimeout(() => {
@@ -205,7 +207,7 @@
         if (favicon) {
           proxiedFavicon.src = favicon.href;
         } else {
-          if (proxiedFavicon.src != "/favicon.ico") {
+          if (proxiedFavicon.src != window.location.origin + "/favicon.ico") {
             proxiedFavicon.src = "/favicon.ico";
           }
         }
