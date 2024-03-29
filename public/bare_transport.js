@@ -609,4 +609,3 @@
 
   exports.BareClient = ClientV3;
 });
-//# sourceMappingURL=bare.cjs.map
