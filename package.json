@@ -35,8 +35,11 @@
     "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^7.2.0",
     "eslint": "^8.57.0",
-    "eslint-plugin-astro": "^0.31.4",
+    "eslint-plugin-astro": "^0.31.4w",
     "prettier": "3.2.5",
     "prettier-plugin-astro": "^0.13.0"
+  },
+  "optionalDependencies": {
+    "bufferutil": "^4.0.8"
   }
 }
