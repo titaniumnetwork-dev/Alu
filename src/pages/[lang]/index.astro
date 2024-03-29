@@ -12,9 +12,6 @@ export function getStaticPaths() {
 ---
 
 <Layout title={t("pages.home")}>
-  <script src="/libcurl/index.js" is:inline></script>
-  <script src="/epoxy/index.js" is:inline></script>
-  <script src="/bare_transport.js" is:inline></script>
   <div class="main-content">
     <h1 class="title-text">{t("menu.welcome")}</h1>
     <div class="form-wrapper">
@@ -74,8 +71,29 @@ export function getStaticPaths() {
       TransportMgr.setTransport(parsedTransport.value);
     }
     initTransport();
+    // Inject Epoxy, Libcurl, and Bare scripts into the DOM
+    let epoxyScript = document.createElement("script");
+    epoxyScript.src = "/epoxy/index.js";
+    document.body.appendChild(epoxyScript);
+    let libcurlScript = document.createElement("script");
+    libcurlScript.src = "/libcurl/index.js";
+    document.body.appendChild(libcurlScript);
+    let bareTransportScript = document.createElement("script");
+    bareTransportScript.src = "/bare_transport.js";
+    document.body.appendChild(bareTransportScript);
+
   });
   initTransport();
+      // Inject Epoxy, Libcurl, and Bare scripts into the DOM
+  let epoxyScript = document.createElement("script");
+  epoxyScript.src = "/epoxy/index.js";
+  document.body.appendChild(epoxyScript);
+  let libcurlScript = document.createElement("script");
+  libcurlScript.src = "/libcurl/index.js";
+  document.body.appendChild(libcurlScript);
+  let bareTransportScript = document.createElement("script");
+  bareTransportScript.src = "/bare_transport.js";
+  document.body.appendChild(bareTransportScript);
   type Suggestion = {
     phrase: string;
   };
