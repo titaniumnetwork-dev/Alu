@@ -1,7 +1,6 @@
 <script src="/uv/uv.bundle.js" transition:persist is:inline></script>
 <script src="/uv.config.js" transition:persist is:inline></script>
-<script is:inline>
-  //@ts-nocheck
+<script>
   let form = document.querySelector("form");
   let input = document.querySelector("input");
   document.addEventListener("astro:after-swap", initForm);
@@ -15,7 +14,7 @@
   }
 
   setInterval(() => {
-    let iframe = document.getElementById("proxy-frame");
+    let iframe = document.getElementById("proxy-frame") as HTMLIFrameElement;
     if (iframe && iframe.src != "") {
       updateProxiedFavicon(iframe);
       updateTopbarTitle(iframe);
@@ -24,7 +23,7 @@
 
   async function getProxyURL() {
     let preference = getProxyPreference();
-    let url = input.value.trim();
+    let url = input!.value.trim();
     if (!isUrl(url)) url = getSearchEngine() + url;
     else if (!(url.startsWith("https://") || url.startsWith("http://"))) url = "http://" + url;
     if (preference === "ultraviolet") {
@@ -51,7 +50,7 @@
 
   async function loadContent() {
     let openWith = localStorage.getItem("alu__selectedOpenWith");
-    let url = input.value.trim();
+    let url = input!.value.trim();
     if (!isUrl(url)) url = getSearchEngine() + url;
     else if (!(url.startsWith("https://") || url.startsWith("http://"))) url = "http://" + url;
     if (openWith) {
@@ -63,7 +62,7 @@
       if (openWithParsed.value === "about:blank") {
         // Open about:blank window and inject iframe into it
         let newWindow = window.open("about:blank", "_blank");
-        let newWindowDocument = newWindow.document;
+        let newWindowDocument = newWindow!.document;
         let iframe = newWindowDocument.createElement("iframe");
         iframe.src = await getProxyURL();
         // Inject css into the iframe
@@ -75,12 +74,12 @@
         return;
       }
     }
-    let loadingContent = document.getElementById("loading-content");
-    loadingContent.style.opacity = 1;
+    let loadingContent = document.getElementById("loading-content") as HTMLElement;
+    if (loadingContent) loadingContent.style.opacity = "1";
 
-    let iframe = document.getElementById("proxy-frame");
-    let topbar = document.getElementById("top-bar");
-    let closeButton = document.getElementById("close-button");
+    let iframe = document.getElementById("proxy-frame") as HTMLIFrameElement;
+    let topbar = document.getElementById("top-bar") as HTMLDivElement;
+    let closeButton = document.getElementById("close-button") as HTMLButtonElement;
     let preference = getProxyPreference();
     if (preference === "ultraviolet") {
       iframe.src = window.__uv$config.prefix + window.__uv$config.encodeUrl(url);
@@ -97,7 +96,7 @@
         // Now add an origin_proxy cookie for our domain
         document.cookie = `origin_proxy=${window.location.origin}; max-age=${60 * 60 * 72}; path=/`;
       }
-      iframe.src = `/${getCookie("rammerhead-session")}/${url}`;
+      if (iframe) iframe.src = `/${getCookie("rammerhead-session")}/${url}`;
     } else {
       // Default to UV
       iframe.src = window.__uv$config.prefix + window.__uv$config.encodeUrl(url);
@@ -108,15 +107,15 @@
     const boundIFrameLoad = iframeLoad.bind(null, iframe, loadingContent, topbar, closeButton);
     iframe.addEventListener("load", boundIFrameLoad);
 
-    function iframeLoad(iframe, loadingContent, topbar, closeButton) {
-      loadingContent.style.opacity = 0;
-      iframe.style.opacity = 1;
-      topbar.style.opacity = 1;
+    function iframeLoad(iframe: HTMLIFrameElement, loadingContent: HTMLElement, topbar: HTMLDivElement, closeButton: HTMLButtonElement) {
+      loadingContent.style.opacity = "0";
+      iframe.style.opacity = "1";
+      topbar.style.opacity = "1";
       topbar.style.pointerEvents = "auto";
       document.body.style.overflow = "hidden";
       closeButton.onclick = () => {
-        iframe.style.opacity = 0;
-        topbar.style.opacity = 0;
+        iframe.style.opacity = "0";
+        topbar.style.opacity = "0";
         iframe.style.pointerEvents = "none";
         topbar.style.pointerEvents = "none";
         document.body.style.overflow = "auto";
@@ -129,21 +128,28 @@
     }
   }
 
-  function formEventListener(event) {
+  async function formEventListener(event: Event) {
     event.preventDefault();
     loadContent();
   }
-  window.loadFormContent = loadContent;
+  (window as any).loadFormContent = loadContent;
 
   function isUrl(val = "") {
     if (/^http(s?):\/\//.test(val) || (val.includes(".") && val.substr(0, 1) !== " ")) return true;
     return false;
   }
 
-  function getCookie(name) {
+  function getCookie(name: string) {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(";").shift();
+    if (parts.length === 2 && parts) {
+      const lastPart = parts.pop();
+      if (lastPart) {
+        return lastPart.split(";").shift();
+      } else {
+        return null;
+      }
+    }
   }
 
   function getSearchEngine() {
@@ -151,7 +157,7 @@
     if (!localStorageSearchEngine) {
       return "https://google.com/search?q=";
     }
-    switch (JSON.parse(localStorage.getItem("alu__search_engine")).value.toLowerCase()) {
+    switch (JSON.parse(localStorage.getItem("alu__search_engine") as string).value.toLowerCase()) {
       case "google": {
         return "https://google.com/search?q=";
       }
@@ -196,14 +202,15 @@
     }
   }
 
-  function updateProxiedFavicon(iframe) {
-    let proxiedFavicon = document.getElementById("proxied-favicon");
+  function updateProxiedFavicon(iframe: HTMLIFrameElement) {
+    if (!iframe) return;
+    let proxiedFavicon = document.getElementById("proxied-favicon") as HTMLImageElement;
     if (iframe) {
       if (iframe.contentDocument) {
         let favicon =
-          iframe.contentDocument.querySelector("link[rel='icon']") ||
-          iframe.contentDocument.querySelector("link[rel*='icon']");
-          if(favicon) if (proxiedFavicon.src == favicon.href) return;
+          iframe.contentDocument.querySelector("link[rel='icon']") as HTMLLinkElement ||
+          iframe.contentDocument.querySelector("link[rel*='icon']") as HTMLLinkElement;
+          if(favicon && favicon.href) if (proxiedFavicon.src == favicon.href) return;
         if (favicon) {
           proxiedFavicon.src = favicon.href;
         } else {
@@ -215,8 +222,9 @@
       }
     }
   }
-  function updateTopbarTitle(iframe) {
-    let topbarTitle = document.getElementById("url-text");
+  function updateTopbarTitle(iframe: HTMLIFrameElement) {
+    if (!iframe.contentDocument) return;
+    let topbarTitle = document.getElementById("url-text") as HTMLElement;
     if (iframe.contentDocument.title == "") {
       topbarTitle.innerText = "Loading...";
     } else {

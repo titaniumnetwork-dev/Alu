@@ -6,6 +6,7 @@ declare global {
   interface Window {
     __uv$config: {
       prefix: string;
+      encodeUrl: (url: string) => string;
     };
   }
 }
@@ -49,8 +50,8 @@ export default class TransportManager {
 }
 
 export const TransportMgr = new TransportManager();
-export async function initTransport() {
-  await registerRemoteListener(navigator.serviceWorker.controller!);
+export function initTransport() {
+  registerRemoteListener(navigator.serviceWorker.controller!);
   navigator.serviceWorker
     .register("/sw.js", {
       scope: window.__uv$config.prefix,

@@ -34,7 +34,7 @@ export function getStaticPaths() {
           <button id="close-button">Close</button>
         </div>
         <div class="top-bar-right">
-          <img id="proxied-favicon" />
+          <img id="proxied-favicon" alt="favicon" />
           <span id="url-text"></span>
         </div>
       </div>
@@ -67,8 +67,7 @@ export function getStaticPaths() {
 </Layout>
 <script>
   import { initTransport, TransportMgr } from "../../components/ts/TransportManager";
-  await initTransport();
-  document.addEventListener("astro:after-swap", () => {
+  document.addEventListener("astro:after-swap", async () => {
     let savedTransport = localStorage.getItem("alu__selectedTransport");
     if (savedTransport) {
       let parsedTransport = JSON.parse(savedTransport);
@@ -76,16 +75,10 @@ export function getStaticPaths() {
     }
     initTransport();
   });
+  initTransport();
   type Suggestion = {
     phrase: string;
   };
-  function debounce(func: Function, timeout: number) {
-    return function (this: any, ...args: any) {
-      setTimeout(() => {
-        func.apply(this, args);
-      }, timeout);
-    };
-  }
 
   async function sendAPIRequest(urlInput: HTMLInputElement, searchSuggestions: HTMLDivElement) {
     if (!urlInput) throw new Error("urlInput is null");
@@ -94,14 +87,13 @@ export function getStaticPaths() {
     let request = await fetch("/search?query=" + url);
     let data = await request.json();
     searchSuggestions.innerHTML = "";
-    data.map((suggestion: Suggestion) => {
+      data.map((suggestion: Suggestion) => {
       let suggestionElement = document.createElement("div");
       // For some reason css classes weren't working T^T.
       suggestionElement.style.cursor = "pointer";
       suggestionElement.style.marginTop = "5px";
       suggestionElement.innerText = suggestion.phrase;
-      suggestionElement.addEventListener("click", () => {
-        console.log("here");
+      suggestionElement.addEventListener("click", async () => {
         urlInput.value = suggestion.phrase;
         // I can't be bothered to extend the window object, so I'm just going to use any
         (window as any).loadFormContent();
@@ -116,6 +108,7 @@ export function getStaticPaths() {
       searchSuggestions.style.opacity = "1";
     }
   }
+
   function addEventListeners() {
     let urlInput = document.getElementById("url-input") as HTMLInputElement;
     let searchSuggestions = document.getElementById("search-suggestions") as HTMLDivElement;
@@ -139,8 +132,20 @@ export function getStaticPaths() {
       urlInput.classList.remove("search-results");
     });
 
-    urlInput.addEventListener("keyup", () => {
-      debounce(sendAPIRequest, 300).apply(null, [urlInput, searchSuggestions]);
+    function debounce(cb: Function, delay = 1000) {
+      let timeout: string | number | NodeJS.Timeout | undefined;
+      return (...args: any) => {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+          cb(...args);
+        }, delay);
+      }
+    }
+
+    urlInput.addEventListener("keyup", async () => {
+      const search = debounce(async () => {
+        return await sendAPIRequest(urlInput, searchSuggestions);
+      }, 500)();
     });
   }
   document.addEventListener("astro:after-swap", addEventListeners);
