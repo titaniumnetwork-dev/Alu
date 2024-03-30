@@ -72,10 +72,15 @@ export function getStaticPaths() {
     }
     await initTransport();
   });
-    // Inject Epoxy, Libcurl, and Bare scripts into the DOM
-  let epoxyScript = document.createElement("script");
-  epoxyScript.src = "/epoxy/index.js";
-  document.body.appendChild(epoxyScript);
+  // Inject Epoxy, Libcurl, and Bare scripts into the DOM
+  // Firefox doesn't support the Epoxy transport, so we don't want to inject it.
+  if (!(navigator.userAgent.indexOf("Firefox") > 0)) {
+    let epoxyScript = document.createElement("script");
+    epoxyScript.src = "/epoxy/index.js";
+    document.body.appendChild(epoxyScript);
+  } else {
+    console.log("Firefox detected, not injecting Epoxy transport!");
+  }
   let libcurlScript = document.createElement("script");
   libcurlScript.src = "/libcurl/index.js";
   document.body.appendChild(libcurlScript);

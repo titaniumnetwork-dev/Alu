@@ -25,6 +25,9 @@ export default class TransportManager {
     if (transport) {
       this.transport = transport;
     }
+    if (navigator.userAgent.includes("Firefox")) {
+      this.transport = "BareMod.BareClient";
+    }
     if (localStorage.getItem("alu__selectedTransport") != null && !transport) {
       this.transport = JSON.parse(localStorage.getItem("alu__selectedTransport")!).value;
     }
