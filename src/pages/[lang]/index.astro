@@ -12,6 +12,8 @@ export function getStaticPaths() {
 ---
 
 <Layout title={t("pages.home")}>
+  <script src="/libcurl/index.js" is:inline></script>
+  <script src="/bare_transport.js" is:inline></script>
   <div class="main-content">
     <h1 class="title-text">{t("menu.welcome")}</h1>
     <div class="form-wrapper">
@@ -81,12 +83,6 @@ export function getStaticPaths() {
   } else {
     console.log("Firefox detected, not injecting Epoxy transport!");
   }
-  let libcurlScript = document.createElement("script");
-  libcurlScript.src = "/libcurl/index.js";
-  document.body.appendChild(libcurlScript);
-  let bareTransportScript = document.createElement("script");
-  bareTransportScript.src = "/bare_transport.js";
-  document.body.appendChild(bareTransportScript);
   await initTransport();
   type Suggestion = {
     phrase: string;
