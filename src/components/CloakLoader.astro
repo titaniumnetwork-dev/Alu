@@ -11,7 +11,7 @@
             link = document.createElement("link");
             link.rel = "icon";
           }
-          link.href = parsedCloak.icon;
+          link.href = `/custom-favicon?url=${parsedCloak.icon}`;
           document.getElementsByTagName("head")[0].appendChild(link);
         }
       }

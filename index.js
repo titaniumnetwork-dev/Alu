@@ -14,6 +14,7 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import wisp from "wisp-server-node";
 import fs from "node:fs";
+import fetch from 'node-fetch';
 dotenv.config();
 
 const LICENSE_SERVER_URL = "https://license.mercurywork.shop/validate?license=";
@@ -130,6 +131,18 @@ app.use(function (req, res, next) {
   res.header("Cross-Origin-Embedder-Policy", "require-corp");
   next();
 });
+app.use("/custom-favicon", async (req, res) => {
+  try {
+    const { url } = req.query;
+    console.log(url)
+    const response = await fetch(url).then((apiRes) => apiRes.buffer());
+    res.setHeader("Content-Type", "image/png");
+    res.send(response);
+  } catch (err) {
+    console.log(err)
+    res.send("Error")
+  }
+});
 app.use("/", express.static("dist/client/"));
 app.get("/favicon.ico", (req, res) => {
   res.sendFile(path.join(process.cwd(), "dist/client/favicon.svg"));
@@ -167,7 +180,7 @@ server.on("upgrade", (req, socket, head) => {
     bare.routeUpgrade(req, socket, head);
   } else if (shouldRouteRh(req)) {
     routeRhUpgrade(req, socket, head);
-  } else if (req.url.endsWith("/")) {
+  } else if (req.url.endsWith("/wisp/")) {
     wisp.routeRequest(req, socket, head);
   } else {
     socket.end();

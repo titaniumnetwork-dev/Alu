@@ -17,7 +17,7 @@ type transportConfig = {
 } | string;
 
 export const wispURLDefault =
-  (location.protocol === "https:" ? "wss://" : "ws://") + location.host + "/";
+  (location.protocol === "https:" ? "wss://" : "ws://") + location.host + "/wisp/";
 export default class TransportManager {
   private transport = "EpxMod.EpoxyClient";
 
@@ -50,9 +50,9 @@ export default class TransportManager {
 }
 
 export const TransportMgr = new TransportManager();
-export function initTransport() {
-  registerRemoteListener(navigator.serviceWorker.controller!);
-  navigator.serviceWorker
+export async function initTransport() {
+  await registerRemoteListener(navigator.serviceWorker.controller!);
+  await navigator.serviceWorker
     .register("/sw.js", {
       scope: window.__uv$config.prefix,
     })

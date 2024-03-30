@@ -70,21 +70,9 @@ export function getStaticPaths() {
       let parsedTransport = JSON.parse(savedTransport);
       TransportMgr.setTransport(parsedTransport.value);
     }
-    initTransport();
-    // Inject Epoxy, Libcurl, and Bare scripts into the DOM
-    let epoxyScript = document.createElement("script");
-    epoxyScript.src = "/epoxy/index.js";
-    document.body.appendChild(epoxyScript);
-    let libcurlScript = document.createElement("script");
-    libcurlScript.src = "/libcurl/index.js";
-    document.body.appendChild(libcurlScript);
-    let bareTransportScript = document.createElement("script");
-    bareTransportScript.src = "/bare_transport.js";
-    document.body.appendChild(bareTransportScript);
-
+    await initTransport();
   });
-  initTransport();
-      // Inject Epoxy, Libcurl, and Bare scripts into the DOM
+    // Inject Epoxy, Libcurl, and Bare scripts into the DOM
   let epoxyScript = document.createElement("script");
   epoxyScript.src = "/epoxy/index.js";
   document.body.appendChild(epoxyScript);
@@ -94,6 +82,7 @@ export function getStaticPaths() {
   let bareTransportScript = document.createElement("script");
   bareTransportScript.src = "/bare_transport.js";
   document.body.appendChild(bareTransportScript);
+  await initTransport();
   type Suggestion = {
     phrase: string;
   };
