@@ -1,6 +1,11 @@
 <script src="/uv/uv.bundle.js" transition:persist is:inline></script>
 <script src="/uv.config.js" transition:persist is:inline></script>
+<script src="/epoxy/index.js" transition:persist is:inline></script>
+<script src="/libcurl/index.js" transition:persist is:inline></script>
+<script src="/bare_transport.js" transition:persist is:inline></script>
 <script>
+import { initTransport } from "./ts/TransportManager";
+
   let form = document.querySelector("form");
   let input = document.querySelector("input");
   document.addEventListener("astro:after-swap", initForm);
@@ -48,6 +53,7 @@
   }
 
   async function loadContent() {
+    await initTransport();
     let openWith = localStorage.getItem("alu__selectedOpenWith");
     let currentProxy = localStorage.getItem("alu__selectedProxy");
     let url = input!.value.trim();
@@ -55,7 +61,7 @@
     else if (!(url.startsWith("https://") || url.startsWith("http://"))) url = "http://" + url;
     if (openWith) {
       let openWithParsed = JSON.parse(openWith);
-      if (openWithParsed.value === "newTab" || JSON.parse(currentProxy!).value === "rammerhead") {
+      if (openWithParsed.value === "newTab" || (currentProxy && JSON.parse(currentProxy).value === "rammerhead")) {
         window.open(await getProxyURL(), "_blank");
         return;
       }
@@ -130,9 +136,11 @@
 
   async function formEventListener(event: Event) {
     event.preventDefault();
-    loadContent();
+    setTimeout(() => {
+      loadContent();
+    }, 200);
   }
-  (window as any).loadFormContent = loadContent;
+  window.loadFormContent = loadContent;
 
   function isUrl(val = "") {
     if (/^http(s?):\/\//.test(val) || (val.includes(".") && val.substr(0, 1) !== " ")) return true;
@@ -202,7 +210,7 @@
     }
   }
 
-  function updateProxiedFavicon(iframe: HTMLIFrameElement) {
+  function updateProxiedFavicon(iframe: HTMLIFrameElement, hasErrored = false) {
     if (!iframe) return;
     let proxiedFavicon = document.getElementById("proxied-favicon") as HTMLImageElement;
     if (iframe) {
@@ -211,10 +219,13 @@
           iframe.contentDocument.querySelector("link[rel='icon']") as HTMLLinkElement ||
           iframe.contentDocument.querySelector("link[rel*='icon']") as HTMLLinkElement;
           if(favicon && favicon.href) {
-            if (proxiedFavicon.src == `${window.location.origin}/custom-favicon?url=${encodeURIComponent(favicon.href)}`) return;
+            if (proxiedFavicon.src == `${window.location.origin}/custom-favicon?url=${encodeURIComponent(favicon.href)}` || hasErrored) return;
           }
         if (favicon) {
           proxiedFavicon.src = `/custom-favicon?url=${encodeURIComponent(favicon.href)}`;
+          proxiedFavicon.addEventListener("error", () => {
+            proxiedFavicon.src = "/favicon.ico";
+          });
         } else {
           if (proxiedFavicon.src != window.location.origin + "/favicon.ico") {
             proxiedFavicon.src = "/favicon.ico";

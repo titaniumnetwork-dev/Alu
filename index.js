@@ -133,9 +133,8 @@ app.use(function (req, res, next) {
 });
 app.use("/custom-favicon", async (req, res) => {
   try {
-    const { url } = req.query;
+    const { url, type } = req.query;
     const response = await fetch(url).then((apiRes) => apiRes.buffer());
-    res.setHeader("Content-Type", "image/png");
     res.send(response);
   } catch (err) {
     console.log(err)

@@ -1,7 +1,5 @@
 importScripts("/libcurl/index.js");
-if (!navigator.userAgent.includes("Firefox")) {
-    importScripts("/epoxy/index.js");
-}
+importScripts("/epoxy/index.js");
 importScripts("/bare_transport.js")
 importScripts("/uv/uv.bundle.js");
 importScripts("/uv.config.js");

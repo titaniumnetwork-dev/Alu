@@ -85,20 +85,6 @@ const { title, optionalPreloads } = Astro.props;
         box-sizing: border-box;
       }
 
-      body {
-        opacity: 0;
-        animation: fadeIn ease 0.4s forwards;
-      }
-
-      @keyframes fadeIn {
-        0% {
-          opacity: 0;
-        }
-        100% {
-          opacity: 1;
-        }
-      }
-
       [data-theme="mocha"] {
         /* Catppucin Mocha theme */
         --background-color: #1e1e2e;
@@ -202,7 +188,8 @@ const { title, optionalPreloads } = Astro.props;
         height: 100%;
       }
       #proxied-favicon {
-        height: 80%;
+        height: 32px;
+        width: 32px;
       }
       #close-button {
         padding: 5px;

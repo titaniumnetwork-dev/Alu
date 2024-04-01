@@ -12,8 +12,6 @@ export function getStaticPaths() {
 ---
 
 <Layout title={t("pages.home")}>
-  <script src="/libcurl/index.js" is:inline></script>
-  <script src="/bare_transport.js" is:inline></script>
   <div class="main-content">
     <h1 class="title-text">{t("menu.welcome")}</h1>
     <div class="form-wrapper">
@@ -65,25 +63,11 @@ export function getStaticPaths() {
   </div>
 </Layout>
 <script>
-  import { initTransport, TransportMgr } from "../../components/ts/TransportManager";
-  document.addEventListener("astro:after-swap", async () => {
-    let savedTransport = localStorage.getItem("alu__selectedTransport");
-    if (savedTransport) {
-      let parsedTransport = JSON.parse(savedTransport);
-      TransportMgr.setTransport(parsedTransport.value);
-    }
-    await initTransport();
-  });
-  // Inject Epoxy, Libcurl, and Bare scripts into the DOM
-  // Firefox doesn't support the Epoxy transport, so we don't want to inject it.
-  if (!(navigator.userAgent.indexOf("Firefox") > 0)) {
-    let epoxyScript = document.createElement("script");
-    epoxyScript.src = "/epoxy/index.js";
-    document.body.appendChild(epoxyScript);
-  } else {
-    console.log("Firefox detected, not injecting Epoxy transport!");
-  }
-  await initTransport();
+  import { TransportMgr } from "../../components/ts/TransportManager";
+  document.addEventListener("astro:after-swap", () => {
+    console.log("Updating transport...")
+    TransportMgr.updateTransport();
+  })
   type Suggestion = {
     phrase: string;
   };

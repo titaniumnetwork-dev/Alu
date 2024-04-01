@@ -8,6 +8,7 @@ declare global {
       prefix: string;
       encodeUrl: (url: string) => string;
     };
+    loadFormContent: Function | null;
   }
 }
 
@@ -36,6 +37,17 @@ export default class TransportManager {
       localStorage.setItem("alu__selectedTransport", JSON.stringify({ value: this.transport }));
     }
   }
+  updateTransport() {
+    try {
+      this.setTransport(JSON.parse(localStorage.getItem("alu__selectedTransport")!).value);
+      console.log(this.transport)
+    } catch {
+      console.log("Failed to update transport! Falling back to old transport.")
+      this.setTransport(this.transport);
+    }
+
+  }
+
   getTransport() {
     return this.transport;
   }
@@ -54,17 +66,21 @@ export default class TransportManager {
 
 export const TransportMgr = new TransportManager();
 export async function initTransport() {
-  await registerRemoteListener(navigator.serviceWorker.controller!);
-  await navigator.serviceWorker
-    .register("/sw.js", {
-      scope: window.__uv$config.prefix,
-    })
-    .then((registration) => {
-      registration.update().then(() => {
-        TransportMgr.setTransport(
-          TransportMgr.getTransport(),
-          localStorage.getItem("alu__wispUrl") || wispURLDefault
-        );
+  return new Promise(async (resolve) => {
+    await registerRemoteListener(navigator.serviceWorker.controller!);
+    await navigator.serviceWorker
+      .register("/sw.js", {
+        scope: window.__uv$config.prefix,
+      })
+      .then((registration) => {
+        registration.update().then(() => {
+          TransportMgr.setTransport(
+            TransportMgr.getTransport(),
+            localStorage.getItem("alu__wispUrl") || wispURLDefault
+          );
+        });
+        resolve(null);
       });
-    });
+  });
+
 }
