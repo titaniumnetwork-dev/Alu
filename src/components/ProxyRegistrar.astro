@@ -1,10 +1,10 @@
-<script src="/uv/uv.bundle.js" transition:persist is:inline></script>
-<script src="/uv.config.js" transition:persist is:inline></script>
-<script src="/epoxy/index.js" transition:persist is:inline></script>
-<script src="/libcurl/index.js" transition:persist is:inline></script>
-<script src="/bare_transport.js" transition:persist is:inline></script>
+<script src="/uv/uv.bundle.js" transition:persist is:inline defer></script>
+<script src="/uv.config.js" transition:persist is:inline defer></script>
+<script src="/epoxy/index.js" transition:persist is:inline defer></script>
+<script src="/libcurl/index.js" transition:persist is:inline defer></script>
+<script src="/bare_transport.js" transition:persist is:inline defer></script>
 <script>
-import { initTransport } from "./ts/TransportManager";
+  import { initTransport } from "./ts/TransportManager";
 
   let form = document.querySelector("form");
   let input = document.querySelector("input");
@@ -39,7 +39,7 @@ import { initTransport } from "./ts/TransportManager";
       if (!rammerheadSession) {
         let session = await fetch("/newsession");
         let sessionID = await session.text();
-         await fetch("/editsession?id=" + sessionID + "&enableShuffling=0");
+        await fetch("/editsession?id=" + sessionID + "&enableShuffling=0");
         // Now save it in a cookie that expires in 72 hours.
         document.cookie = `rammerhead-session=${sessionID}; max-age=${60 * 60 * 72}; path=/`;
         // Now add an origin_proxy cookie for our domain
@@ -61,7 +61,10 @@ import { initTransport } from "./ts/TransportManager";
     else if (!(url.startsWith("https://") || url.startsWith("http://"))) url = "http://" + url;
     if (openWith) {
       let openWithParsed = JSON.parse(openWith);
-      if (openWithParsed.value === "newTab" || (currentProxy && JSON.parse(currentProxy).value === "rammerhead")) {
+      if (
+        openWithParsed.value === "newTab" ||
+        (currentProxy && JSON.parse(currentProxy).value === "rammerhead")
+      ) {
         window.open(await getProxyURL(), "_blank");
         return;
       }
@@ -113,7 +116,12 @@ import { initTransport } from "./ts/TransportManager";
     const boundIFrameLoad = iframeLoad.bind(null, iframe, loadingContent, topbar, closeButton);
     iframe.addEventListener("load", boundIFrameLoad);
 
-    function iframeLoad(iframe: HTMLIFrameElement, loadingContent: HTMLElement, topbar: HTMLDivElement, closeButton: HTMLButtonElement) {
+    function iframeLoad(
+      iframe: HTMLIFrameElement,
+      loadingContent: HTMLElement,
+      topbar: HTMLDivElement,
+      closeButton: HTMLButtonElement
+    ) {
       loadingContent.style.opacity = "0";
       iframe.style.opacity = "1";
       topbar.style.opacity = "1";
@@ -216,11 +224,16 @@ import { initTransport } from "./ts/TransportManager";
     if (iframe) {
       if (iframe.contentDocument) {
         let favicon =
-          iframe.contentDocument.querySelector("link[rel='icon']") as HTMLLinkElement ||
-          iframe.contentDocument.querySelector("link[rel*='icon']") as HTMLLinkElement;
-          if(favicon && favicon.href) {
-            if (proxiedFavicon.src == `${window.location.origin}/custom-favicon?url=${encodeURIComponent(favicon.href)}` || hasErrored) return;
-          }
+          (iframe.contentDocument.querySelector("link[rel='icon']") as HTMLLinkElement) ||
+          (iframe.contentDocument.querySelector("link[rel*='icon']") as HTMLLinkElement);
+        if (favicon && favicon.href) {
+          if (
+            proxiedFavicon.src ==
+              `${window.location.origin}/custom-favicon?url=${encodeURIComponent(favicon.href)}` ||
+            hasErrored
+          )
+            return;
+        }
         if (favicon) {
           proxiedFavicon.src = `/custom-favicon?url=${encodeURIComponent(favicon.href)}`;
           proxiedFavicon.addEventListener("error", () => {
@@ -247,6 +260,5 @@ import { initTransport } from "./ts/TransportManager";
       }
       topbarTitle.innerText = iframe.contentDocument.title;
     }
-    
   }
 </script>

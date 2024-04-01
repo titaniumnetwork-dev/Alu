@@ -1,5 +1,7 @@
 ---
-import Input from "../Input.astro";
+import Input from "@components/UI/Input.astro";
+import { i18n } from "@i18n/utils";
+const t = i18n.inferLangUseTranslations(Astro.url);
 
 const presetCloaks = [
   {
@@ -8,8 +10,7 @@ const presetCloaks = [
   },
   {
     cloakTitle: "Google",
-    favicon:
-      "/icons/google.png",
+    favicon: "/icons/google.png",
   },
   {
     cloakTitle: "Canvas",
@@ -21,8 +22,7 @@ const presetCloaks = [
   },
   {
     cloakTitle: "Classlink",
-    favicon:
-      "/icons/classlink.png",
+    favicon: "/icons/classlink.png",
   },
   {
     cloakTitle: "Google Drive",
@@ -58,7 +58,7 @@ const presetCloaks = [
     <div class="cloak-custom-override">
       <Input inputName="cloak-custom-name" placeholder="Custom Name" height="30px" />
       <Input inputName="cloak-custom-favicon" placeholder="Custom Favicon" height="30px" />
-      <button id="cloak-custom-button">Update Cloak</button>
+      <button id="cloak-custom-button">{t("settings.cloaking.updateCloak")}</button>
     </div>
   </div>
 </div>

@@ -54,6 +54,7 @@
 
   "settings.cloaking": "Cloaking",
   "settings.cloaking.subtext": "Change how your tab looks...",
+  "settings.cloaking.updateCloak": "Update Cloak",
 
   "settings.credits": "Credits",
   "settings.credits.mochaandmacchiatothemes": "Mocha & Macchiato Themes",

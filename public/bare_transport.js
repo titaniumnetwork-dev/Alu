@@ -4,8 +4,7 @@
     ? factory(exports)
     : typeof define === "function" && define.amd
       ? define(["exports"], factory)
-      : ((global =
-          typeof globalThis !== "undefined" ? globalThis : global || self),
+      : ((global = typeof globalThis !== "undefined" ? globalThis : global || self),
         factory((global.BareMod = {})));
 })(this, function (exports) {
   "use strict";
@@ -17,12 +16,12 @@
   const WebSocket = globalThis.WebSocket;
   const WebSocketFields = {
     prototype: {
-      send: WebSocket.prototype.send
+      send: WebSocket.prototype.send,
     },
     CLOSED: WebSocket.CLOSED,
     CLOSING: WebSocket.CLOSING,
     CONNECTING: WebSocket.CONNECTING,
-    OPEN: WebSocket.OPEN
+    OPEN: WebSocket.OPEN,
   };
 
   class BareError extends Error {
@@ -441,7 +440,7 @@
           throw new BareError(400, {
             code: "INVALID_BARE_HEADER",
             id: `request.headers.${header}`,
-            message: `Value didn't begin with semi-colon.`
+            message: `Value didn't begin with semi-colon.`,
           });
         }
         const id = parseInt(header.slice(prefix.length + 1));
@@ -473,16 +472,7 @@
     async init() {
       this.ready = true;
     }
-    connect(
-      url,
-      origin,
-      protocols,
-      requestHeaders,
-      onopen,
-      onmessage,
-      onclose,
-      onerror
-    ) {
+    connect(url, origin, protocols, requestHeaders, onopen, onmessage, onclose, onerror) {
       const ws = new WebSocket(this.ws);
       const cleanup = () => {
         ws.removeEventListener("close", closeListener);
@@ -495,13 +485,10 @@
         cleanup();
         // ws.binaryType is irrelevant when sending text
         if (typeof event.data !== "string")
-          throw new TypeError(
-            "the first websocket message was not a text frame"
-          );
+          throw new TypeError("the first websocket message was not a text frame");
         const message = JSON.parse(event.data);
         // finally
-        if (message.type !== "open")
-          throw new TypeError("message was not of open type");
+        if (message.type !== "open") throw new TypeError("message was not of open type");
         // onMeta({
         // 	protocol: message.protocol,
         // 	setCookies: message.setCookies,
@@ -526,7 +513,7 @@
               remote: url.toString(),
               protocols,
               headers: requestHeaders,
-              forwardHeaders: []
+              forwardHeaders: [],
             })
           );
           // );
@@ -540,16 +527,13 @@
       const options = {
         credentials: "omit",
         method: method,
-        signal
+        signal,
       };
       if (body !== undefined) {
         options.body = body;
       }
       options.headers = this.createBareHeaders(remote, headers);
-      const response = await fetch(
-        this.http + "?cache=" + md5(remote.toString()),
-        options
-      );
+      const response = await fetch(this.http + "?cache=" + md5(remote.toString()), options);
       const readResponse = await this.readBareResponse(response);
       // const result: Response & Partial<BareResponse> = new Response(
       // 	statusEmpty.includes(readResponse.status!) ? undefined : response.body,
@@ -566,7 +550,7 @@
         body: response.body,
         headers: readResponse.headers,
         status: readResponse.status,
-        statusText: readResponse.statusText
+        statusText: readResponse.statusText,
       };
     }
     async readBareResponse(response) {
@@ -583,13 +567,7 @@
       if (xBareHeaders !== null) result.headers = JSON.parse(xBareHeaders);
       return result;
     }
-    createBareHeaders(
-      remote,
-      bareHeaders,
-      forwardHeaders = [],
-      passHeaders = [],
-      passStatus = []
-    ) {
+    createBareHeaders(remote, bareHeaders, forwardHeaders = [], passHeaders = [], passStatus = []) {
       const headers = new Headers();
       headers.set("x-bare-url", remote.toString());
       headers.set("x-bare-headers", JSON.stringify(bareHeaders));

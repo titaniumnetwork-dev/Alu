@@ -1,4 +1,11 @@
 {
   "extends": "astro/tsconfigs/strict",
-  "exclude": ["dist/**", "node_modules/**", "public/games/**", ".eslint.cjs"]
+  "exclude": ["dist/**", "node_modules/**", "public/games/**", ".eslint.cjs"],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": ["src/components/*"],
+      "@i18n/*": ["src/i18n/*"]
+    }
+  }
 }

@@ -1,10 +1,9 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 
-import { STATIC_PATHS, getLangFromUrl, useTranslations } from "../../i18n/utils";
-import Link from "../../components/Link.astro";
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
+import { STATIC_PATHS, i18n } from "@i18n/utils";
+import Link from "@components/UI/Link.astro";
+const t = i18n.inferLangUseTranslations(Astro.url);
 
 export function getStaticPaths() {
   return STATIC_PATHS;
@@ -63,11 +62,11 @@ export function getStaticPaths() {
   </div>
 </Layout>
 <script>
-  import { TransportMgr } from "../../components/ts/TransportManager";
+  import { TransportMgr } from "@components/ts/TransportManager";
   document.addEventListener("astro:after-swap", () => {
-    console.log("Updating transport...")
+    console.log("Updating transport...");
     TransportMgr.updateTransport();
-  })
+  });
   type Suggestion = {
     phrase: string;
   };
@@ -79,7 +78,7 @@ export function getStaticPaths() {
     let request = await fetch("/search?query=" + url);
     let data = await request.json();
     searchSuggestions.innerHTML = "";
-      data.map((suggestion: Suggestion) => {
+    data.map((suggestion: Suggestion) => {
       let suggestionElement = document.createElement("div");
       // For some reason css classes weren't working T^T.
       suggestionElement.style.cursor = "pointer";
@@ -131,7 +130,7 @@ export function getStaticPaths() {
         timeout = setTimeout(() => {
           cb(...args);
         }, delay);
-      }
+      };
     }
 
     urlInput.addEventListener("keyup", async () => {

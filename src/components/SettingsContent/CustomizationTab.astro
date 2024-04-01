@@ -1,9 +1,8 @@
 ---
-import Dropdown from "../Dropdown.astro";
+import Dropdown from "@components/UI/Dropdown.astro";
 
-import { getLangFromUrl, useTranslations } from "../../i18n/utils";
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
+import { i18n } from "@i18n/utils";
+const t = i18n.inferLangUseTranslations(Astro.url);
 
 const themeList = [
   { name: t("settings.customization.theme.Alu"), value: "alu" },

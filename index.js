@@ -14,7 +14,7 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import wisp from "wisp-server-node";
 import fs from "node:fs";
-import fetch from 'node-fetch';
+import fetch from "node-fetch";
 dotenv.config();
 
 const LICENSE_SERVER_URL = "https://license.mercurywork.shop/validate?license=";
@@ -137,8 +137,8 @@ app.use("/custom-favicon", async (req, res) => {
     const response = await fetch(url).then((apiRes) => apiRes.buffer());
     res.send(response);
   } catch (err) {
-    console.log(err)
-    res.send("Error")
+    console.log(err);
+    res.send("Error");
   }
 });
 app.use("/", express.static("dist/client/"));

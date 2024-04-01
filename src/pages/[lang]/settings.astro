@@ -1,10 +1,9 @@
 ---
-import SettingsTablist from "../../components/SettingsTablist.astro";
+import SettingsTablist from "@components/SettingsTablist.astro";
 import Layout from "../../layouts/Layout.astro";
 
-import { STATIC_PATHS, getLangFromUrl, useTranslations } from "../../i18n/utils";
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
+import { STATIC_PATHS, i18n } from "@i18n/utils";
+const t = i18n.inferLangUseTranslations(Astro.url);
 
 export function getStaticPaths() {
   return STATIC_PATHS;

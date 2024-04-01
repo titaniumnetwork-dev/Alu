@@ -54,6 +54,7 @@
 
   "settings.cloaking": "クローキング",
   "settings.cloaking.subtext": "タブの外観を変更します...",
+  "settings.cloaking.updateCloak": "クロークを更新",
 
   "settings.credits": "クレジット",
   "settings.credits.mochaandmacchiatothemes": "モカとマキアートテーマ",

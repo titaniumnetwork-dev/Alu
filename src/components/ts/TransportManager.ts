@@ -12,10 +12,12 @@ declare global {
   }
 }
 
-type transportConfig = {
-  wisp: string;
-  wasm?: string;
-} | string;
+type transportConfig =
+  | {
+      wisp: string;
+      wasm?: string;
+    }
+  | string;
 
 export const wispURLDefault =
   (location.protocol === "https:" ? "wss://" : "ws://") + location.host + "/wisp/";
@@ -40,12 +42,11 @@ export default class TransportManager {
   updateTransport() {
     try {
       this.setTransport(JSON.parse(localStorage.getItem("alu__selectedTransport")!).value);
-      console.log(this.transport)
+      console.log(this.transport);
     } catch {
-      console.log("Failed to update transport! Falling back to old transport.")
+      console.log("Failed to update transport! Falling back to old transport.");
       this.setTransport(this.transport);
     }
-
   }
 
   getTransport() {
@@ -82,5 +83,4 @@ export async function initTransport() {
         resolve(null);
       });
   });
-
 }
