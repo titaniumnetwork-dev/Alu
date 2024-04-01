@@ -227,15 +227,21 @@
           (iframe.contentDocument.querySelector("link[rel='icon']") as HTMLLinkElement) ||
           (iframe.contentDocument.querySelector("link[rel*='icon']") as HTMLLinkElement);
         if (favicon && favicon.href) {
-          if (
-            proxiedFavicon.src ==
-              `${window.location.origin}/custom-favicon?url=${encodeURIComponent(favicon.href)}` ||
-            hasErrored
-          )
+          let encodedHREF = encodeURIComponent(favicon.href);
+          if (favicon.href.includes("data:image")) {
+            proxiedFavicon.src = favicon.href;
+            return;
+          }
+          if (proxiedFavicon.src == `${window.location.origin}/custom-favicon?url=${encodedHREF}`)
             return;
         }
         if (favicon) {
-          proxiedFavicon.src = `/custom-favicon?url=${encodeURIComponent(favicon.href)}`;
+          let encodedHREF = encodeURIComponent(favicon.href);
+          if (favicon.href.includes("data:image")) {
+            proxiedFavicon.src = favicon.href;
+            return;
+          }
+          proxiedFavicon.src = `/custom-favicon?url=${encodedHREF}`;
           proxiedFavicon.addEventListener("error", () => {
             proxiedFavicon.src = "/favicon.ico";
           });
