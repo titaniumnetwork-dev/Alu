@@ -133,7 +133,7 @@ app.use(function (req, res, next) {
 });
 app.use("/custom-favicon", async (req, res) => {
   try {
-    const { url, type } = req.query;
+    const { url } = req.query;
     const response = await fetch(url).then((apiRes) => apiRes.buffer());
     res.send(response);
   } catch (err) {
