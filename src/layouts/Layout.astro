@@ -5,7 +5,6 @@ import Footer from "@components/UI/Footer.astro";
 import ThemeLoader from "@components/ThemeLoader.astro";
 import CloakLoader from "@components/CloakLoader.astro";
 import WelcomeLogging from "@components/WelcomeLogging.astro";
-import ProxyRegistrar from "@components/ProxyRegistrar.astro";
 
 type Preload = {
   href: string;
@@ -70,7 +69,6 @@ const { title, optionalPreloads } = Astro.props;
     <Header />
     <slot transition:animate={"fade"} />
     <WelcomeLogging />
-    <ProxyRegistrar />
     <Footer />
     <style is:global>
       :root {
