@@ -311,9 +311,10 @@ const t = i18n.useTranslations(lang);
         const useWss = location.protocol == "https:";
         const webSocketProtocol = useWss ? "wss://" : "ws://";
         let savedWispUrl = localStorage.getItem("alu__wispUrl");
-        if (savedWispUrl == null) localStorage.setItem("alu__wispUrl", webSocketProtocol + location.host + "/wisp/");
+        if (savedWispUrl == null)
+          localStorage.setItem("alu__wispUrl", webSocketProtocol + location.host + "/wisp/");
         let savedBareUrl = localStorage.getItem("alu__bareUrl");
-        if (savedBareUrl == null) localStorage.setItem("alu__bareUrl", location.origin + "/bare/")
+        if (savedBareUrl == null) localStorage.setItem("alu__bareUrl", location.origin + "/bare/");
         wispURLInput.value = localStorage.getItem("alu__wispUrl");
         bareURLInput.value = localStorage.getItem("alu__bareUrl");
         // Proxy settings
