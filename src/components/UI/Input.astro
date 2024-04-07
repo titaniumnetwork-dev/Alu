@@ -1,11 +1,13 @@
 ---
-const { inputName, defaultTextContent, height, placeholder } = Astro.props;
+const { inputName, defaultTextContent, height, placeholder, className, defaultStyles = true } = Astro.props;
 
 interface Props {
   inputName: string;
   defaultTextContent?: string;
   height: string;
   placeholder?: string;
+  className?: string;
+  defaultStyles?: boolean;
 }
 ---
 
@@ -15,23 +17,27 @@ interface Props {
   placeholder={placeholder || ""}
   value={defaultTextContent || ""}
   type="text"
+  class={className}
 />
 
-<style>
-  input {
-    font-size: 16px;
-    width: 100%;
-    border: 2px solid var(--background-highlight);
-    border-radius: 10px;
-    background-color: var(--accent-color);
-    color: var(--text-color);
-    transition: 0.1s ease-in-out;
-  }
-  input::placeholder {
-    color: var(--text-color);
-  }
-  input:focus {
-    outline: none;
-    border: 2px solid var(--text-color);
-  }
-</style>
+{defaultStyles && <style>
+    input {
+      font-size: 16px;
+      width: 100%;
+      border: 2px solid var(--background-highlight);
+      border-radius: 10px;
+      background-color: var(--accent-color);
+      color: var(--text-color);
+      transition: 0.1s ease-in-out;
+    }
+    input::placeholder {
+      color: var(--text-color);
+    }
+    input:focus {
+      outline: none;
+      border: 2px solid var(--text-color);
+    }
+  </style>
+}
+
+

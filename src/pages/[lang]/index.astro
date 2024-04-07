@@ -4,6 +4,7 @@ import Layout from "../../layouts/Layout.astro";
 import { STATIC_PATHS, i18n } from "@i18n/utils";
 import Link from "@components/UI/Link.astro";
 import ProxyRegistrar from "@components/ProxyRegistrar.astro";
+import Input from "@components/UI/Input.astro";
 const t = i18n.inferLangUseTranslations(Astro.url);
 
 export function getStaticPaths() {
@@ -16,12 +17,12 @@ export function getStaticPaths() {
     <h1 class="title-text">{t("menu.welcome")}</h1>
     <div class="form-wrapper">
       <form class="url-input-form" id="url-input-form">
-        <input
-          class="url-input"
-          id="url-input"
-          type="text"
+        <Input
+          className="url-input"
+          inputName="url-input"
+          height="50px"
           placeholder={t("menu.search")}
-          autocomplete="off"
+          defaultStyles={false}
         />
         <div id="search-suggestions"></div>
         <div id="loading-content">Loading...</div>
@@ -145,7 +146,7 @@ export function getStaticPaths() {
   addEventListeners();
 </script>
 
-<style>
+<style is:global>
   .main-content {
     width: 100%;
     margin-top: 50px;
