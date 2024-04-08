@@ -115,8 +115,9 @@
       iframe.style.pointerEvents = "auto";
       iframe.classList.add("proxy-frame");
       document.body.appendChild(iframe);
-      const boundIFrameLoad = iframeLoad.bind(null, iframe, loadingContent, topbar, closeButton);
-      iframe.addEventListener("load", boundIFrameLoad);
+      setTimeout(() => {
+        iframeLoad(iframe, loadingContent, topbar, closeButton);
+      }, 500);
 
       function iframeLoad(
         iframe: HTMLIFrameElement,
@@ -135,7 +136,6 @@
           iframe.style.pointerEvents = "none";
           topbar.style.pointerEvents = "none";
           document.body.style.overflow = "auto";
-          iframe.removeEventListener("load", boundIFrameLoad);
 
           setTimeout(() => {
             iframe.src = "about:blank";
