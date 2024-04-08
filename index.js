@@ -151,7 +151,7 @@ app.get("/robots.txt", (req, res) => {
   } else {
     res.sendFile(path.join(process.cwd(), "dist/client/robots-deny.txt"));
   }
-})
+});
 app.get("/search", async (req, res) => {
   try {
     const { query } = req.query;

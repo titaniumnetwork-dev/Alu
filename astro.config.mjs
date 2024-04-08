@@ -6,18 +6,20 @@ import sitemap from "@astrojs/sitemap";
 // https://astro.build/config
 export default defineConfig({
   site: "https://aluu.xyz",
-  integrations: [sitemap({
-    lastmod: new Date(),
-    i18n: {
-      locales: {
-        en: "en-US",
-        jp: "ja-JP",
+  integrations: [
+    sitemap({
+      lastmod: new Date(),
+      i18n: {
+        locales: {
+          en: "en-US",
+          jp: "ja-JP",
+        },
+        defaultLocale: "en",
       },
-      defaultLocale: "en"
-    }
-  })],
+    }),
+  ],
   output: "hybrid",
   adapter: node({
-    mode: "middleware"
-  })
+    mode: "middleware",
+  }),
 });

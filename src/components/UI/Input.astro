@@ -1,5 +1,18 @@
 ---
-const { inputName, defaultTextContent, height, placeholder, className, defaultStyles = true } = Astro.props;
+const {
+  inputName,
+  defaultTextContent,
+  height,
+  placeholder,
+  className,
+  defaultStyles = true,
+} = Astro.props;
+
+const styleList = className ? className.split(" ") : [];
+
+if (defaultStyles) {
+  styleList.push("astro-input");
+}
 
 interface Props {
   inputName: string;
@@ -17,27 +30,5 @@ interface Props {
   placeholder={placeholder || ""}
   value={defaultTextContent || ""}
   type="text"
-  class={className}
+  class={styleList.map((style) => style).join(" ")}
 />
-
-{defaultStyles && <style>
-    input {
-      font-size: 16px;
-      width: 100%;
-      border: 2px solid var(--background-highlight);
-      border-radius: 10px;
-      background-color: var(--accent-color);
-      color: var(--text-color);
-      transition: 0.1s ease-in-out;
-    }
-    input::placeholder {
-      color: var(--text-color);
-    }
-    input:focus {
-      outline: none;
-      border: 2px solid var(--text-color);
-    }
-  </style>
-}
-
-

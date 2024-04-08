@@ -199,6 +199,22 @@ const { title, optionalPreloads } = Astro.props;
         border-radius: 15px;
         cursor: pointer;
       }
+      .astro-input {
+        font-size: 16px;
+        width: 100%;
+        border: 2px solid var(--background-highlight);
+        border-radius: 10px;
+        background-color: var(--accent-color);
+        color: var(--text-color);
+        transition: 0.1s ease-in-out;
+      }
+      .astro-input::placeholder {
+        color: var(--text-color);
+      }
+      .astro-input:focus {
+        outline: none;
+        border: 2px solid var(--text-color);
+      }
     </style>
   </body>
 </html>
