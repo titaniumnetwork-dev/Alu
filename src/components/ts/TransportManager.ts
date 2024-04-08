@@ -28,9 +28,6 @@ export default class TransportManager {
     if (transport) {
       this.transport = transport;
     }
-    if (navigator.userAgent.includes("Firefox")) {
-      this.transport = "BareMod.BareClient";
-    }
     if (localStorage.getItem("alu__selectedTransport") != null && !transport) {
       this.transport = JSON.parse(localStorage.getItem("alu__selectedTransport")!).value;
     }
@@ -58,7 +55,7 @@ export default class TransportManager {
     let transportConfig: transportConfig = { wisp: wispURL };
 
     if (this.transport == "BareMod.BareClient") {
-      transportConfig = localStorage.getItem("alu__bareURL") || window.location.origin + "/bare/";
+      transportConfig = localStorage.getItem("alu__bareUrl") || window.location.origin + "/bare/";
     }
 
     SetTransport(this.transport, transportConfig);
