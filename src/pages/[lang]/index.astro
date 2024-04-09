@@ -63,88 +63,90 @@ export function getStaticPaths() {
     </div>
   </div>
   <ProxyRegistrar />
-</Layout>
-<script>
-  import { TransportMgr } from "@components/ts/TransportManager";
-  document.addEventListener("astro:after-swap", () => {
-    console.log("Updating transport...");
-    TransportMgr.updateTransport();
-  });
-  type Suggestion = {
-    phrase: string;
-  };
-
-  async function sendAPIRequest(urlInput: HTMLInputElement, searchSuggestions: HTMLDivElement) {
-    if (!urlInput) throw new Error("urlInput is null");
-    if (!searchSuggestions) throw new Error("searchSuggestions is null");
-    let url = urlInput.value;
-    let request = await fetch("/search?query=" + url);
-    let data = await request.json();
-    searchSuggestions.innerHTML = "";
-    data.map((suggestion: Suggestion) => {
-      let suggestionElement = document.createElement("div");
-      // For some reason css classes weren't working T^T.
-      suggestionElement.style.cursor = "pointer";
-      suggestionElement.style.marginTop = "5px";
-      suggestionElement.innerText = suggestion.phrase;
-      suggestionElement.addEventListener("click", async () => {
-        urlInput.value = suggestion.phrase;
-        // I can't be bothered to extend the window object, so I'm just going to use any
-        (window as any).loadFormContent();
+  <script>
+    import { TransportMgr, initTransport } from "@components/ts/TransportManager";
+    document.addEventListener("astro:after-swap", () => {
+      console.log("Updating transport...");
+      TransportMgr.updateTransport();
+    });
+    type Suggestion = {
+      phrase: string;
+    };
+  
+    async function sendAPIRequest(urlInput: HTMLInputElement, searchSuggestions: HTMLDivElement) {
+      if (!urlInput) throw new Error("urlInput is null");
+      if (!searchSuggestions) throw new Error("searchSuggestions is null");
+      let url = urlInput.value;
+      let request = await fetch("/search?query=" + url);
+      let data = await request.json();
+      searchSuggestions.innerHTML = "";
+      data.map((suggestion: Suggestion) => {
+        let suggestionElement = document.createElement("div");
+        // For some reason css classes weren't working T^T.
+        suggestionElement.style.cursor = "pointer";
+        suggestionElement.style.marginTop = "5px";
+        suggestionElement.innerText = suggestion.phrase;
+        suggestionElement.addEventListener("click", async () => {
+          urlInput.value = suggestion.phrase;
+          // I can't be bothered to extend the window object, so I'm just going to use any
+          (window as any).loadFormContent();
+        });
+        searchSuggestions.appendChild(suggestionElement);
       });
-      searchSuggestions.appendChild(suggestionElement);
-    });
-    if (data.length === 0) {
-      urlInput.classList.remove("search-results");
-      searchSuggestions.style.opacity = "0";
-    } else {
-      urlInput.classList.add("search-results");
-      searchSuggestions.style.opacity = "1";
-    }
-  }
-
-  function addEventListeners() {
-    let urlInput = document.getElementById("url-input") as HTMLInputElement;
-    let searchSuggestions = document.getElementById("search-suggestions") as HTMLDivElement;
-    // Silently return if the required elements aren't found, this prevents the console from getting cluttered with errors.
-    if (!urlInput || !searchSuggestions) return;
-    urlInput.addEventListener("focus", () => {
-      if (!searchSuggestions) {
-        throw new Error("searchSuggestions is null");
-      }
-      if (searchSuggestions.children.length > 0) {
-        searchSuggestions.style.opacity = "1";
-        searchSuggestions.style.pointerEvents = "all";
+      if (data.length === 0) {
+        urlInput.classList.remove("search-results");
+        searchSuggestions.style.opacity = "0";
+      } else {
         urlInput.classList.add("search-results");
+        searchSuggestions.style.opacity = "1";
       }
-    });
-    urlInput.addEventListener("blur", () => {
-      searchSuggestions.style.opacity = "0";
-      setTimeout(() => {
-        searchSuggestions.style.pointerEvents = "none";
-      }, 200);
-      urlInput.classList.remove("search-results");
-    });
-
-    function debounce(cb: Function, delay = 1000) {
-      let timeout: string | number | NodeJS.Timeout | undefined;
-      return (...args: any) => {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => {
-          cb(...args);
-        }, delay);
-      };
     }
+  
+    function addEventListeners() {
+      let urlInput = document.getElementById("url-input") as HTMLInputElement;
+      let searchSuggestions = document.getElementById("search-suggestions") as HTMLDivElement;
+      // Silently return if the required elements aren't found, this prevents the console from getting cluttered with errors.
+      if (!urlInput || !searchSuggestions) return;
+      urlInput.addEventListener("focus", () => {
+        if (!searchSuggestions) {
+          throw new Error("searchSuggestions is null");
+        }
+        if (searchSuggestions.children.length > 0) {
+          searchSuggestions.style.opacity = "1";
+          searchSuggestions.style.pointerEvents = "all";
+          urlInput.classList.add("search-results");
+        }
+      });
+      urlInput.addEventListener("blur", () => {
+        searchSuggestions.style.opacity = "0";
+        setTimeout(() => {
+          searchSuggestions.style.pointerEvents = "none";
+        }, 200);
+        urlInput.classList.remove("search-results");
+      });
+  
+      function debounce(cb: Function, delay = 1000) {
+        let timeout: string | number | NodeJS.Timeout | undefined;
+        return (...args: any) => {
+          clearTimeout(timeout);
+          timeout = setTimeout(() => {
+            cb(...args);
+          }, delay);
+        };
+      }
+  
+      urlInput.addEventListener("keyup", async () => {
+        const search = debounce(async () => {
+          return await sendAPIRequest(urlInput, searchSuggestions);
+        }, 500)();
+      });
+    }
+    document.addEventListener("astro:after-swap", addEventListeners);
+    document.addEventListener("DOMContentLoaded", initTransport);
+    addEventListeners();
+  </script>
+</Layout>
 
-    urlInput.addEventListener("keyup", async () => {
-      const search = debounce(async () => {
-        return await sendAPIRequest(urlInput, searchSuggestions);
-      }, 500)();
-    });
-  }
-  document.addEventListener("astro:after-swap", addEventListeners);
-  addEventListeners();
-</script>
 
 <style is:global>
   .main-content {
