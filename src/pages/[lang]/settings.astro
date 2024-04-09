@@ -1,9 +1,13 @@
 ---
-import SettingsTablist from "@components/SettingsTablist.astro";
-import Layout from "../../layouts/Layout.astro";
+import ProxyTab from "@components/SettingsContent/ProxyTab.astro";
+import CustomizationTab from "@components/SettingsContent/CustomizationTab.astro";
+import CloakingTab from "@components/SettingsContent/CloakingTab.astro";
+import CreditsTab from "@components/SettingsContent/CreditsTab.astro";
+import Layout from "src/layouts/Layout.astro";
 
 import { STATIC_PATHS, i18n } from "@i18n/utils";
-const t = i18n.inferLangUseTranslations(Astro.url);
+const lang = i18n.getLangFromUrl(Astro.url);
+const t = i18n.useTranslations(lang);
 
 export function getStaticPaths() {
   return STATIC_PATHS;
@@ -11,12 +15,540 @@ export function getStaticPaths() {
 ---
 
 <Layout title={t("pages.settings")}>
-  <h1 class="title-text">Settings</h1>
-  <SettingsTablist />
+  <h1 class="title-text">{t("settings.title")}</h1>
+  <div class="content-hidden">
+    <div id="content-setting-tab-proxy">
+      <h1 class="content-setting-header">{t("settings.proxy")}</h1>
+      <ProxyTab />
+    </div>
+    <div id="content-setting-tab-customization">
+      <h1 class="content-setting-header">{t("settings.customization")}</h1>
+      <CustomizationTab />
+    </div>
+    <div id="content-setting-tab-cloaking">
+      <h1 class="content-setting-header">{t("settings.cloaking")}</h1>
+      <p class="content-setting-subtext">{t("settings.cloaking.subtext")}</p>
+      <CloakingTab />
+    </div>
+    <div id="content-setting-tab-credits">
+      <h1 class="content-setting-header">{t("settings.credits")}</h1>
+      <CreditsTab />
+    </div>
+  </div>
+  
+  <div class="popup">
+    <div class="tabs">
+      <input type="radio" id="setting-tab-proxy" class="setting-tab" name="tab" checked="true" />
+      <label for="setting-tab-proxy">Proxy</label>
+      <input type="radio" id="setting-tab-customization" class="setting-tab" name="tab" />
+      <label for="setting-tab-customization">Customization</label>
+      <input type="radio" id="setting-tab-cloaking" class="setting-tab" name="tab" />
+      <label for="setting-tab-cloaking">Cloaking</label>
+      <input type="radio" id="setting-tab-credits" class="setting-tab" name="tab" />
+      <label for="setting-tab-credits">Credits</label>
+      <div class="marker">
+        <div id="top"></div>
+        <div id="bottom"></div>
+      </div>
+    </div>
+    <div id="current-content"></div>
+  </div>
+  <script is:inline>
+    window.loadedContentStorage = {};
+    window.currentlySelectedTab;
+    function settingsLoad() {
+      document.addEventListener("astro:before-swap", () => {
+        // Cleanup event, this should remove all added event listeners to prepare for if the page is visited again.
+        window.currentlySelectedTab = "";
+        document.removeEventListener("setting-tabChange", determineListener);
+      });
+      Array.from(document.getElementsByClassName("setting-tab")).forEach((tab) => {
+        let contentToLoad = document.getElementById("content-" + tab.id);
+        if (contentToLoad) {
+          window.loadedContentStorage[tab.id] = contentToLoad.innerHTML;
+          contentToLoad.remove();
+        }
+  
+        tab.addEventListener("click", (event) => {
+          loadContent(event.target.id);
+        });
+      });
+  
+      function loadContent(tabID) {
+        if (window.currentlySelectedTab == tabID) return;
+        else window.currentlySelectedTab = tabID;
+        let currentContent = document.getElementById("current-content");
+        if (currentContent) {
+          currentContent.style.opacity = "0";
+          setTimeout(() => {
+            currentContent.innerHTML = window.loadedContentStorage[tabID];
+            currentContent.style.opacity = "1";
+            document.dispatchEvent(new CustomEvent("setting-tabChange", { detail: tabID }));
+            document.dispatchEvent(new CustomEvent("setting-tabLoad", { detail: tabID }));
+          }, 250);
+        }
+      }
+  
+      function addDropdownListener() {
+        let dropdown_toggles = document.getElementsByClassName("dropdown-toggle");
+        Array.from(dropdown_toggles).forEach((toggle) => {
+          toggle.onclick = function () {
+            closeOtherDropdowns(toggle.id);
+            toggleDropdown(toggle);
+          };
+        });
+      }
+  
+      function toggleDropdown(toggle) {
+        let dropdown = document.getElementById(toggle.id + "-menu");
+        if (dropdown.style.maxHeight == "0px" || dropdown.style.maxHeight == "") {
+          dropdown.style.maxHeight = dropdown.scrollHeight + "px";
+          toggle.style.borderRadius = "10px 10px 0 0";
+        } else {
+          dropdown.style.maxHeight = "0px";
+          setTimeout(() => {
+            toggle.style.borderRadius = "10px";
+          }, 300);
+        }
+      }
+  
+      function determineListener(event) {
+        if (event.detail == "setting-tab-proxy") {
+          addDropdownListener();
+        } else if (event.detail == "setting-tab-customization") {
+          addDropdownListener();
+        }
+      }
+  
+      function closeOtherDropdowns(dropdownIDToExclude) {
+        let dropdowns = document.getElementsByClassName("dropdown-menu");
+        Array.from(dropdowns).forEach((dropdown) => {
+          dropdown.style.maxHeight = "0px";
+          setTimeout(() => {
+            if (dropdown.id != dropdownIDToExclude + "-menu") {
+              let dropdown_toggle = document.getElementById(dropdown.id.replace("-menu", ""));
+              dropdown_toggle.style.borderRadius = "10px";
+            }
+          }, 300);
+        });
+      }
+  
+      function closeDropdown(dropdownID) {
+        let dropdown = document.getElementById(dropdownID);
+        if (dropdown) {
+          dropdown.style.maxHeight = "0px";
+          setTimeout(() => {
+            let dropdown_toggle = document.getElementById(dropdownID.replace("-menu", ""));
+            dropdown_toggle.style.borderRadius = "10px";
+          }, 300);
+        }
+      }
+  
+      function getLocalStorageValue(localStorageItem, dropdownID) {
+        // I was kinda dumb for not doing this earlier.
+        let dropdown = document.getElementById(dropdownID);
+        let dropdownMenu = document.getElementById(dropdownID + "-menu");
+  
+        if (dropdown && dropdownMenu) {
+          // Now we find the child that matches localStorageItem.value.
+          let dropdownItem = Array.from(dropdownMenu.children).find((item) => {
+            return JSON.parse(localStorage.getItem(localStorageItem)).value == item.dataset.setting;
+          });
+          // Now set the inner text to the name in the dropdownItem.
+          return dropdownItem.innerText;
+        }
+      }
+  
+      function applySavedLocalStorage(localStorageItem, dropdownID) {
+        if (localStorage.getItem(localStorageItem)) {
+          let dropdown_toggle = document.getElementById(dropdownID);
+          if (dropdown_toggle) {
+            dropdown_toggle.innerText = getLocalStorageValue(localStorageItem, dropdownID);
+          }
+        }
+      }
+  
+      function applyDropdownEventListeners(item, dropdownID, localStorageItem, optionalCallback) {
+        Array.from(item.children).forEach((item) => {
+          item.onclick = () => {
+            let localStorageItemContent = {
+              name: item.innerText,
+              value: item.dataset.setting,
+            };
+            localStorage.setItem(localStorageItem, JSON.stringify(localStorageItemContent));
+            applySavedLocalStorage(localStorageItem, dropdownID);
+            closeDropdown(item.parentElement.id);
+            if (typeof optionalCallback == "function") {
+              optionalCallback();
+            }
+          };
+        });
+      }
+  
+      function applyInputListeners(item, localStorageItem) {
+        item.addEventListener("input", () => {
+          localStorage.setItem(localStorageItem, item.value);
+        });
+      }
+  
+      document.addEventListener("setting-tabChange", determineListener);
+  
+      loadContent("setting-tab-proxy");
+  
+      function setupCustomizationSettings() {
+        applySavedLocalStorage("alu__selectedTheme", "dropdown__selected-theme");
+        applySavedLocalStorage("alu__selectedLanguage", "dropdown__selected-language");
+        let themeDropdown = document.getElementById("dropdown__selected-theme-menu");
+        let languageDropdown = document.getElementById("dropdown__selected-language-menu");
+        applyDropdownEventListeners(
+          themeDropdown,
+          "dropdown__selected-theme",
+          "alu__selectedTheme",
+          changeTheme
+        );
+        applyDropdownEventListeners(
+          languageDropdown,
+          "dropdown__selected-language",
+          "alu__selectedLanguage",
+          navigateToNewLangaugePage
+        );
+      }
+  
+      function setupCloakingSettings() {
+        Array.from(document.getElementById("cloak-list").children).forEach((cloak) => {
+          cloak.addEventListener("click", () => {
+            let cloakName = cloak.dataset.cloakName;
+            let cloakIcon = cloak.dataset.cloakIcon;
+  
+            let localStorageItem = {
+              name: cloakName,
+              icon: cloakIcon,
+              isCustom: false,
+            };
+            localStorage.setItem("alu__selectedCloak", JSON.stringify(localStorageItem));
+  
+            if (cloakName == "None") {
+              localStorage.removeItem("alu__selectedCloak");
+              cloakName = "Settings | Alu";
+              cloakIcon = "/favicon.svg";
+            }
+            let link = document.querySelector("link[rel~='icon']");
+            if (!link) {
+              link = document.createElement("link");
+              link.rel = "icon";
+              document.head.appendChild(link);
+            }
+            link.href = cloakIcon;
+            document.title = cloakName;
+  
+            if (!cloak.classList.contains("selected")) {
+              Array.from(document.getElementById("cloak-list").children).forEach((cloak2) => {
+                cloak2.classList.remove("selected");
+              });
+              cloak.classList.add("selected");
+            }
+          });
+        });
+  
+        let customNameInput = document.getElementById("cloak-custom-name-input");
+        let customFaviconInput = document.getElementById("cloak-custom-favicon-input");
+        if (localStorage.getItem("alu__selectedCloak")) {
+          let selectedCloak = JSON.parse(localStorage.getItem("alu__selectedCloak"));
+          if (selectedCloak.isCustom) {
+            customNameInput.value = selectedCloak.name;
+            customFaviconInput.value = selectedCloak.icon;
+          }
+        }
+  
+        document.getElementById("cloak-custom-button").addEventListener("click", () => {
+          let cloakName = document.getElementById("cloak-custom-name-input").value;
+          let cloakIcon = document.getElementById("cloak-custom-favicon-input").value;
+          let localStorageItem = {
+            name: cloakName,
+            icon: cloakIcon,
+            isCustom: true,
+          };
+          localStorage.setItem("alu__selectedCloak", JSON.stringify(localStorageItem));
+          if (cloakName == "None") {
+            localStorage.removeItem("alu__selectedCloak");
+            cloakName = "Settings | Alu";
+            cloakIcon = "/favicon.svg";
+          }
+          let link = document.querySelector("link[rel~='icon']");
+          if (!link) {
+            link = document.createElement("link");
+            link.rel = "icon";
+            document.head.appendChild(link);
+          }
+          link.href = cloakIcon;
+          document.title = cloakName;
+        });
+      }
+  
+      function changeTheme() {
+        let theme = JSON.parse(localStorage.getItem("alu__selectedTheme")).value;
+        if (theme) {
+          document.documentElement.setAttribute("data-theme", theme.toLowerCase());
+          let footer = document.getElementById("footer");
+          if (footer) {
+            footer.dataset.theme = theme.toLowerCase();
+          }
+        }
+      }
+  
+      function setupSettings(event) {
+        if (event.detail == "setting-tab-proxy") {
+          applySavedLocalStorage("alu__selectedProxy", "dropdown__selected-proxy");
+          applySavedLocalStorage("alu__search_engine", "dropdown__search-engine");
+          applySavedLocalStorage("alu__selectedOpenWith", "dropdown__open-with");
+          applySavedLocalStorage("alu__selectedTransport", "dropdown__transport");
+          let selectedProxyDropdown = document.getElementById("dropdown__selected-proxy-menu");
+          let searchEngineDropdown = document.getElementById("dropdown__search-engine-menu");
+          let openWithDropdown = document.getElementById("dropdown__open-with-menu");
+          let currentTransportDropdown = document.getElementById("dropdown__transport-menu");
+          let searxngUrlInput = document.getElementById("searxng-url-input");
+          let wispURLInput = document.getElementById("wisp-url-input");
+          let bareURLInput = document.getElementById("bare-url-input");
+          let savedSearxngUrl = localStorage.getItem("alu__searxngUrl");
+          if (savedSearxngUrl != null) {
+            if (savedSearxngUrl == "")
+              localStorage.setItem("alu__searxngUrl", "https://searxng.site/");
+            searxngUrlInput.value = localStorage.getItem("alu__searxngUrl");
+          }
+          const useWss = location.protocol == "https:";
+          const webSocketProtocol = useWss ? "wss://" : "ws://";
+          let savedWispUrl = localStorage.getItem("alu__wispUrl");
+          if (savedWispUrl == null || savedWispUrl == "")
+            localStorage.setItem("alu__wispUrl", webSocketProtocol + location.host + "/wisp/");
+          let savedBareUrl = localStorage.getItem("alu__bareUrl");
+          if (savedBareUrl == null || savedBareUrl == "") localStorage.setItem("alu__bareUrl", location.origin + "/bare/");
+          wispURLInput.value = localStorage.getItem("alu__wispUrl");
+          bareURLInput.value = localStorage.getItem("alu__bareUrl");
+          // Proxy settings
+          applyInputListeners(searxngUrlInput, "alu__searxngUrl");
+          applyInputListeners(wispURLInput, "alu__wispUrl");
+          applyInputListeners(bareURLInput, "alu__bareUrl");
+  
+          [selectedProxyDropdown, openWithDropdown, currentTransportDropdown].forEach((dropdown) => {
+            let dropdownButton = document.getElementById(dropdown.id.replace("-menu", ""));
+            applyDropdownEventListeners(
+              dropdown,
+              dropdownButton.id,
+              dropdownButton.dataset.localStorageKey
+            );
+          });
+          applyDropdownEventListeners(
+            searchEngineDropdown,
+            "dropdown__search-engine",
+            "alu__search_engine",
+            checkSearxng
+          );
+          checkSearxng();
+        } else if (event.detail == "setting-tab-customization") {
+          setupCustomizationSettings();
+        } else if (event.detail == "setting-tab-cloaking") {
+          setupCloakingSettings();
+        }
+      }
+  
+      function checkSearxng() {
+        // This function checks if the "searxng" option was clicked, display an additional option if so.
+        let search_engine = JSON.parse(localStorage.getItem("alu__search_engine"));
+        if (search_engine) {
+          if (search_engine.value.toLowerCase() == "searx") {
+            document.getElementsByClassName("setting__searxng-url")[0].style.opacity = "1";
+          } else {
+            document.getElementsByClassName("setting__searxng-url")[0].style.opacity = "0";
+          }
+        }
+      }
+  
+      document.addEventListener("setting-tabLoad", setupSettings);
+  
+      function navigateToNewLangaugePage() {
+        let value = JSON.parse(localStorage.getItem("alu__selectedLanguage")).value;
+        let currentLanguage = window.location.pathname.split("/")[1];
+        // Do nothing.. because we're already on the page.
+        if (value == currentLanguage) return;
+        switch (value) {
+          case "en":
+            window.location.href = "/en/settings/";
+            break;
+          case "jp":
+            window.location.href = "/jp/settings/";
+            break;
+        }
+      }
+    }
+    document.addEventListener("astro:after-swap", () => {
+      setTimeout(() => {
+        settingsLoad();
+      }, 300);
+    });
+    settingsLoad();
+  </script>
+  <style is:global>
+    .content-hidden {
+      display: none;
+    }
+    #current-content {
+      transition: opacity 250ms ease-in-out;
+      margin-left: 20px;
+    }
+    .settings-container {
+      display: flex;
+      gap: 20px;
+      position: relative;
+      z-index: 2;
+      flex-wrap: wrap;
+      row-gap: 5px;
+    }
+    .content-setting-header {
+      color: var(--text-color);
+      font-weight: 400;
+    }
+    .content-setting-subtext {
+      font-size: 20px;
+      color: var(--text-color-accent);
+    }
+  
+    .setting-label {
+      color: var(--text-color);
+      font-size: 18px;
+      font-weight: 400;
+      /* annoying stuff with label elements. */
+      display: block;
+      opacity: 1;
+      margin-block: 1em;
+      margin-inline: 0;
+      user-select: none;
+      width: 100%;
+      cursor: auto;
+      margin-bottom: 5px;
+    }
+  
+    .setting__searxng-url {
+      margin-top: 10px;
+      opacity: 0;
+      transition: opacity 250ms ease-in-out;
+    }
+    label {
+      font-size: 24px;
+      font-weight: 700;
+      cursor: pointer;
+      color: #d8d8d8;
+      opacity: 0.6;
+      transition: opacity 0.4s ease-in-out;
+      display: block;
+      width: calc(100% - 48px);
+      text-align: right;
+      z-index: 100;
+      user-select: none;
+      text-align: start;
+      margin-left: 20px;
+    }
+    input[type="radio"] {
+      display: none;
+      width: 0;
+    }
+    label:hover,
+    input[type="radio"]:checked + label {
+      opacity: 1;
+    }
+    .popup {
+      width: 98%;
+      height: 80%;
+      margin: 0 auto;
+      min-height: 400px;
+      max-height: 400px;
+      border-radius: 48px;
+      box-sizing: border-box;
+      background-color: var(--background-color);
+      overflow: hidden;
+      display: flex;
+      align-self: center;
+    }
+    .tabs {
+      width: 100%;
+      max-width: 240px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      position: relative;
+      gap: 25px;
+    }
+    @media (max-width: 1116px) {
+      .popup {
+        flex-direction: column;
+        min-height: 80%;
+        max-height: 80%;
+      }
+      .tabs {
+        flex-direction: row;
+        max-width: 100%;
+        max-height: 70px;
+        min-height: 70px;
+        gap: 0;
+        align-items: center;
+      }
+      label {
+        width: auto;
+        margin-left: 0;
+      }
+    }
+    @media (max-width: 500px) {
+      label {
+        font-size: 20px;
+      }
+    }
+    @media (max-width: 375px) {
+      label {
+        font-size: 18px;
+      }
+    }
+    .setting {
+      width: 140px;
+    }
+    .marker {
+      position: absolute;
+      width: 100%;
+      height: 200%;
+      display: flex;
+      flex-direction: column;
+      top: calc(-100%);
+      left: 0;
+      transition: transform 0.2s ease-in-out;
+      background-color: var(--accent-color);
+    }
+    .marker #bottom,
+    .marker #top {
+      background-color: var(--background-highlight);
+    }
+    .marker #top {
+      height: calc(50%);
+      margin-bottom: auto;
+      border-radius: 0 0 32px 0;
+    }
+    .marker #bottom {
+      height: calc(50% - 72px);
+      border-radius: 0 32px 0 0;
+    }
+    @media (min-width: 1116px) {
+      #setting-tab-proxy:checked ~ .marker {
+        transform: translateY(0%);
+      }
+      #setting-tab-customization:checked ~ .marker {
+        transform: translateY(13.5%);
+      }
+      #setting-tab-cloaking:checked ~ .marker {
+        transform: translateY(27%);
+      }
+      #setting-tab-credits:checked ~ .marker {
+        transform: translateY(41%);
+      }
+    }
+  </style>
 </Layout>
 
-<style>
-  h1 {
-    font-size: 40px;
-  }
-</style>
+

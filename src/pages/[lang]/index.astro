@@ -136,7 +136,7 @@ export function getStaticPaths() {
       }
   
       urlInput.addEventListener("keyup", async () => {
-        const search = debounce(async () => {
+        debounce(async () => {
           return await sendAPIRequest(urlInput, searchSuggestions);
         }, 500)();
       });
