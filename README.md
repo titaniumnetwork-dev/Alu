@@ -20,7 +20,7 @@ Alu is a beautiful, functional, and sleek web proxy, which focuses on customizat
 
 Deploying Alu is about as simple as it gets, from your terminal, type
 
-`git clone https://github.com/wearrrrr/Alu --recursive-submodules`
+`git clone https://github.com/wearrrrr/Alu --recurse-submodules`
 
 This command should clone Alu's frontend, as well as [alu-games](https://github.com/wearrrrr/alu-games). If you wish to skip cloning games, then leave out the last flag.
 
