@@ -81,3 +81,69 @@ export async function initTransport() {
       });
   });
 }
+
+export async function loadUltraviolet(): Promise<void> {
+  return new Promise((resolve) => {
+    let UVBundle = document.createElement("script");
+    UVBundle.src = "/uv/uv.bundle.js";
+    document.body.appendChild(UVBundle);
+    UVBundle.onload = () => {
+      resolve();
+    };
+  });
+}
+
+export async function loadUltravioletConfig(): Promise<void> {
+  return new Promise((resolve) => {
+    let UVConfig = document.createElement("script");
+    UVConfig.src = "/uv.config.js";
+    document.body.appendChild(UVConfig);
+    UVConfig.onload = () => {
+      resolve();
+    };
+  });
+}
+
+export async function loadSelectedTransportScript(): Promise<void> {
+  return new Promise((resolve) => {
+    
+    let selectedTransport = localStorage.getItem("alu__selectedTransport");
+    if (!selectedTransport) {
+      localStorage.setItem("alu__selectedTransport", JSON.stringify({ value: "uv" }));
+      return;
+    }
+    let transport = JSON.parse(selectedTransport).value;
+    console.log(`Loading script for ${transport}`);
+    let script;
+    switch (transport) {
+      case "EpxMod.EpoxyClient": {
+        script = document.createElement("script");
+        script.src = "/epoxy/index.js";
+        script.defer = true;
+        break;
+      }
+      case "CurlMod.LibcurlClient": {
+        script = document.createElement("script");
+        script.src = "/libcurl/index.js";
+        script.defer = true;
+        break;
+      }
+      case "BareMod.BareClient": {
+        script = document.createElement("script");
+        script.src = "/bare_transport.js";
+        script.defer = true;
+        break;
+      }
+      default: {
+        script = document.createElement("script");
+        script.src = "/epoxy/index.js";
+        script.defer = true;
+        break;
+      }
+    }
+    document.body.appendChild(script);
+    script.onload = () => {
+      resolve();
+    };
+  });
+}

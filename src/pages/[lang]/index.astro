@@ -64,14 +64,19 @@ export function getStaticPaths() {
   </div>
   <ProxyRegistrar />
   <script>
-    import { TransportMgr, initTransport } from "@components/ts/TransportManager";
-    document.addEventListener("astro:after-swap", () => {
+    import { TransportMgr, initTransport, loadSelectedTransportScript, loadUltraviolet, loadUltravioletConfig } from "@components/ts/TransportManager";
+    document.addEventListener("astro:after-swap", async () => {
       console.log("Updating transport...");
+      await loadUltraviolet();
+      await loadUltravioletConfig();
+      await loadSelectedTransportScript();
       TransportMgr.updateTransport();
     });
     type Suggestion = {
       phrase: string;
     };
+    await loadUltraviolet();
+    await loadUltravioletConfig();
   
     async function sendAPIRequest(urlInput: HTMLInputElement, searchSuggestions: HTMLDivElement) {
       if (!urlInput) throw new Error("urlInput is null");
@@ -125,20 +130,8 @@ export function getStaticPaths() {
         urlInput.classList.remove("search-results");
       });
   
-      function debounce(cb: Function, delay = 1000) {
-        let timeout: string | number | NodeJS.Timeout | undefined;
-        return (...args: any) => {
-          clearTimeout(timeout);
-          timeout = setTimeout(() => {
-            cb(...args);
-          }, delay);
-        };
-      }
-  
       urlInput.addEventListener("keyup", async () => {
-        debounce(async () => {
-          return await sendAPIRequest(urlInput, searchSuggestions);
-        }, 500)();
+        return await sendAPIRequest(urlInput, searchSuggestions);
       });
     }
     document.addEventListener("astro:after-swap", addEventListeners);

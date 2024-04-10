@@ -1,11 +1,6 @@
-<script src="/uv/uv.bundle.js" transition:persist is:inline defer></script>
-<script src="/uv.config.js" transition:persist is:inline defer></script>
-<script src="/epoxy/index.js" transition:persist is:inline defer></script>
-<script src="/libcurl/index.js" transition:persist is:inline defer></script>
-<script src="/bare_transport.js" transition:persist is:inline defer></script>
 <script>
-  import { initTransport } from "./ts/TransportManager";
-
+  import { initTransport, loadSelectedTransportScript } from "./ts/TransportManager";
+  loadSelectedTransportScript();
   let form = document.querySelector("form");
   let input = document.querySelector("input");
   document.addEventListener("astro:after-swap", initForm);
