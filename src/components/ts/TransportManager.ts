@@ -63,23 +63,29 @@ export default class TransportManager {
 }
 
 export const TransportMgr = new TransportManager();
-export async function initTransport() {
+
+export async function registerSW() {
   return new Promise(async (resolve) => {
-    await registerRemoteListener(navigator.serviceWorker.controller!);
     await navigator.serviceWorker
       .register("/sw.js", {
         scope: window.__uv$config.prefix,
       })
       .then((registration) => {
         registration.update().then(() => {
-          TransportMgr.setTransport(
-            TransportMgr.getTransport(),
-            localStorage.getItem("alu__wispUrl") || wispURLDefault
-          );
+          console.log("Registered SW!")
+          resolve(null);
         });
-        resolve(null);
+
       });
   });
+}
+
+export async function initTransport() {
+  await registerRemoteListener(navigator.serviceWorker.controller!);
+  TransportMgr.setTransport(
+    TransportMgr.getTransport(),
+    localStorage.getItem("alu__wispUrl") || wispURLDefault
+  );
 }
 
 export async function loadUltraviolet(): Promise<void> {
