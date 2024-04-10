@@ -30,10 +30,10 @@ import { ViewTransitions } from "astro:transitions";
       } else {
         if (navigator.language.includes("ja")) {
           localStorage.setItem("alu__selectedLanguage", JSON.stringify({ value: "jp" }));
-          Astro.redirect("/jp/");
+          window.location.href = "/jp/";
         } else {
           localStorage.setItem("alu__selectedLanguage", JSON.stringify({ value: "en" }));
-          Astro.redirect("/en/");
+          window.location.href = "/en/";
         }
       }
     </script>
