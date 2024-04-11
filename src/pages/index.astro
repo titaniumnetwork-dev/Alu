@@ -6,21 +6,44 @@ import { ViewTransitions } from "astro:transitions";
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="title" content="Alu" />
+    <meta
+      name="description"
+      content="Alu is a sleek web proxy supporting multiple standards of communication, and wide levels of customization."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://aluu.xyz" />
+    <meta property="og:title" content="Alu" />
+    <meta
+      property="og:description"
+      content="Alu is a sleek web proxy supporting multiple standards of communication, and wide levels of customization."
+    />
+    <meta property="og:image" content="/logo.png" />
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://aluu.xyz" />
+    <meta property="twitter:title" content="Alu" />
+    <meta
+      property="twitter:description"
+      content="Alu is a sleek web proxy supporting multiple standards of communication, and wide levels of customization."
+    />
+    <meta property="twitter:image" content="/logo.png" />
     <ViewTransitions />
     <script>
       let currentLang = localStorage.getItem("alu__selectedLanguage");
+      const redirect = (loc: string) => window.location.href = loc
       if (currentLang) {
         try {
           let parsed = JSON.parse(currentLang).value;
           switch (parsed) {
             case "en":
-              window.location.href = "/en/";
+              redirect("/en/");
               break;
             case "jp":
-              window.location.href = "/jp/";
+              redirect("/jp/");
               break;
             default:
-              window.location.href = "/en/";
+              redirect("/en/");
               break;
           }
         } catch {
@@ -30,10 +53,10 @@ import { ViewTransitions } from "astro:transitions";
       } else {
         if (navigator.language.includes("ja")) {
           localStorage.setItem("alu__selectedLanguage", JSON.stringify({ value: "jp" }));
-          window.location.href = "/jp/";
+          redirect("/jp/");
         } else {
           localStorage.setItem("alu__selectedLanguage", JSON.stringify({ value: "en" }));
-          window.location.href = "/en/";
+          redirect("/en/");
         }
       }
     </script>
