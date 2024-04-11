@@ -64,11 +64,12 @@ export function getStaticPaths() {
   </div>
   <ProxyRegistrar />
   <script>
-    import { TransportMgr, initTransport, loadSelectedTransportScript, loadUltraviolet, loadUltravioletConfig } from "@components/ts/TransportManager";
+    import { TransportMgr, initTransport, loadSelectedTransportScript, loadUltraviolet, loadUltravioletConfig, registerSW } from "@components/ts/TransportManager";
     document.addEventListener("astro:after-swap", async () => {
       console.log("Updating transport...");
       await loadUltraviolet();
       await loadUltravioletConfig();
+      await registerSW();
       await loadSelectedTransportScript();
       TransportMgr.updateTransport();
     });
@@ -77,6 +78,7 @@ export function getStaticPaths() {
     };
     await loadUltraviolet();
     await loadUltravioletConfig();
+    await registerSW();
   
     async function sendAPIRequest(urlInput: HTMLInputElement, searchSuggestions: HTMLDivElement) {
       if (!urlInput) throw new Error("urlInput is null");

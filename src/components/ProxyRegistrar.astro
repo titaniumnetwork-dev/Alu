@@ -1,7 +1,6 @@
 <script>
-  import { initTransport, registerSW, loadSelectedTransportScript } from "./ts/TransportManager";
+  import { initTransport, loadSelectedTransportScript } from "./ts/TransportManager";
   loadSelectedTransportScript();
-  registerSW();
   let form = document.querySelector("form");
   let input = document.querySelector("input");
   document.addEventListener("astro:after-swap", initForm);

@@ -72,7 +72,7 @@ export async function registerSW() {
       })
       .then((registration) => {
         registration.update().then(() => {
-          console.log("Registered SW!")
+          console.log("Registered SW!");
           resolve(null);
         });
 
