@@ -88,28 +88,6 @@ export async function initTransport() {
   );
 }
 
-export async function loadUltraviolet(): Promise<void> {
-  return new Promise((resolve) => {
-    let UVBundle = document.createElement("script");
-    UVBundle.src = "/uv/uv.bundle.js";
-    document.body.appendChild(UVBundle);
-    UVBundle.onload = () => {
-      resolve();
-    };
-  });
-}
-
-export async function loadUltravioletConfig(): Promise<void> {
-  return new Promise((resolve) => {
-    let UVConfig = document.createElement("script");
-    UVConfig.src = "/uv.config.js";
-    document.body.appendChild(UVConfig);
-    UVConfig.onload = () => {
-      resolve();
-    };
-  });
-}
-
 export async function loadSelectedTransportScript(): Promise<void> {
   return new Promise((resolve) => {
     

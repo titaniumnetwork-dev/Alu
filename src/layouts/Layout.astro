@@ -47,12 +47,9 @@ const { title, optionalPreloads } = Astro.props;
       content="Alu is a sleek web proxy supporting multiple standards of communication, and wide levels of customization."
     />
     <meta property="twitter:image" content="/logo.png" />
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap"
+      href="/varela-round.css"
       rel="stylesheet"
       as="style"
     />
@@ -68,6 +65,8 @@ const { title, optionalPreloads } = Astro.props;
   <body>
     <Header />
     <slot transition:animate={"fade"} />
+    <script src="/uv/uv.bundle.js" is:inline transition:persist></script>
+    <script src="/uv/uv.config.js" is:inline transition:persist></script>
     <WelcomeLogging />
     <Footer />
     <style is:global>

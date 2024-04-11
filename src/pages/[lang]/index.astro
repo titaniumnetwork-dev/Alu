@@ -64,20 +64,10 @@ export function getStaticPaths() {
   </div>
   <ProxyRegistrar />
   <script>
-    import { TransportMgr, initTransport, loadSelectedTransportScript, loadUltraviolet, loadUltravioletConfig, registerSW } from "@components/ts/TransportManager";
-    document.addEventListener("astro:after-swap", async () => {
-      console.log("Updating transport...");
-      await loadUltraviolet();
-      await loadUltravioletConfig();
-      await registerSW();
-      await loadSelectedTransportScript();
-      TransportMgr.updateTransport();
-    });
+    import { initTransport, registerSW } from "@components/ts/TransportManager";
     type Suggestion = {
       phrase: string;
     };
-    await loadUltraviolet();
-    await loadUltravioletConfig();
     await registerSW();
   
     async function sendAPIRequest(urlInput: HTMLInputElement, searchSuggestions: HTMLDivElement) {
@@ -133,7 +123,9 @@ export function getStaticPaths() {
       });
   
       urlInput.addEventListener("keyup", async () => {
-        return await sendAPIRequest(urlInput, searchSuggestions);
+        if (urlInput.value.length >= 3) {
+          return await sendAPIRequest(urlInput, searchSuggestions);
+        }
       });
     }
     document.addEventListener("astro:after-swap", addEventListeners);

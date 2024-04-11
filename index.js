@@ -126,9 +126,11 @@ app.use(
     extended: true,
   })
 );
-app.use(function (req, res, next) {
-  res.header("Cross-Origin-Opener-Policy", "same-origin");
-  res.header("Cross-Origin-Embedder-Policy", "require-corp");
+app.use((req, res, next) => {
+  if (req.url.includes ("/games/")) {
+    res.header("Cross-Origin-Opener-Policy", "same-origin");
+    res.header("Cross-Origin-Embedder-Policy", "require-corp");
+  }
   next();
 });
 app.use("/custom-favicon", async (req, res) => {
