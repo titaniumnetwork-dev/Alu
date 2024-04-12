@@ -65,17 +65,21 @@ export default class TransportManager {
 export const TransportMgr = new TransportManager();
 
 export async function registerSW() {
+  navigator.serviceWorker.ready.then(async (sw) => {
+    await registerRemoteListener(sw.active!);
+    TransportMgr.setTransport(
+      TransportMgr.getTransport(),
+      localStorage.getItem("alu__wispUrl") || wispURLDefault
+    );
+  })
   return new Promise(async (resolve) => {
     await navigator.serviceWorker
-      .register("/sw.js", {
-        scope: window.__uv$config.prefix,
-      })
+      .register("/sw.js")
       .then((registration) => {
         registration.update().then(() => {
           console.log("Registered SW!");
           resolve(null);
         });
-
       });
   });
 }
