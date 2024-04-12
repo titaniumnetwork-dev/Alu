@@ -1,5 +1,5 @@
 <script>
-  import TransportManager, { TransportMgr, initTransport, loadSelectedTransportScript } from "./ts/TransportManager";
+  import { TransportMgr, initTransport, loadSelectedTransportScript } from "./ts/TransportManager";
   let form = document.querySelector("form");
   let input = document.querySelector("input");
   document.addEventListener("astro:after-swap", initForm);
@@ -83,6 +83,9 @@
       let iframe = document.getElementById("proxy-frame") as HTMLIFrameElement;
       let topbar = document.getElementById("top-bar") as HTMLDivElement;
       let closeButton = document.getElementById("close-button") as HTMLButtonElement;
+      let backwardsButton = document.getElementById('nav-backwards') as HTMLImageElement;
+      let forwardsButton = document.getElementById('nav-forwards') as HTMLImageElement;
+      let shareButton = document.getElementById('nav-share') as HTMLImageElement;
       let preference = getProxyPreference();
       if (preference === "ultraviolet") {
         iframe.src = window.__uv$config.prefix + window.__uv$config.encodeUrl(url);
@@ -108,14 +111,17 @@
       iframe.classList.add("proxy-frame");
       document.body.appendChild(iframe);
       setTimeout(() => {
-        iframeLoad(iframe, loadingContent, topbar, closeButton);
+        iframeLoad(iframe, loadingContent, topbar, closeButton, shareButton, forwardsButton, backwardsButton);
       }, 500);
 
       function iframeLoad(
         iframe: HTMLIFrameElement,
         loadingContent: HTMLElement,
         topbar: HTMLDivElement,
-        closeButton: HTMLButtonElement
+        closeButton: HTMLButtonElement,
+        shareButton: HTMLImageElement,
+        forwardsButton: HTMLImageElement,
+        backwardsButton: HTMLImageElement
       ) {
         loadingContent.style.opacity = "0";
         iframe.style.opacity = "1";
@@ -133,14 +139,33 @@
             iframe.src = "about:blank";
           }, 500);
         };
+        forwardsButton.onclick = () => {
+          if (iframe.contentWindow) {
+            iframe.contentWindow.history.forward();
+          }
+        };
+        backwardsButton.onclick = () => {
+          if (iframe.contentWindow) {
+            iframe.contentWindow.history.back();
+          }
+        };
+        shareButton.onclick = () => {
+          let currentProxy = localStorage.getItem("alu__selectedProxy");
+          if (currentProxy && JSON.parse(currentProxy).value === "rammerhead") {
+            navigator.clipboard.writeText(window.location.origin + "/" + getCookie("rammerhead-session") + "/" + input!.value.trim());
+          } else {
+            navigator.clipboard.writeText(window.__uv$config.decodeUrl(iframe.src.split("/service/")[1]));
+          }
+        };
       }
     }, 100);
   }
 
   async function formEventListener(event: Event) {
+    event.preventDefault();
+    event.stopImmediatePropagation();
     await loadSelectedTransportScript();
     TransportMgr.updateTransport();
-    event.preventDefault();
     setTimeout(() => {
       loadContent();
     }, 200);

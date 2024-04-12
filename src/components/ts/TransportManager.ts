@@ -7,6 +7,7 @@ declare global {
     __uv$config: {
       prefix: string;
       encodeUrl: (url: string) => string;
+      decodeUrl: (url: string) => string;
     };
     loadFormContent: Function | null;
   }
@@ -67,10 +68,6 @@ export const TransportMgr = new TransportManager();
 export async function registerSW() {
   navigator.serviceWorker.ready.then(async (sw) => {
     await registerRemoteListener(sw.active!);
-    TransportMgr.setTransport(
-      TransportMgr.getTransport(),
-      localStorage.getItem("alu__wispUrl") || wispURLDefault
-    );
   })
   return new Promise(async (resolve) => {
     await navigator.serviceWorker
