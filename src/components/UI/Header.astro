@@ -4,7 +4,7 @@ const lang = i18n.getLangFromUrl(Astro.url);
 const t = i18n.useTranslations(lang);
 ---
 
-<div class="top-header">
+<nav class="top-header">
   <div id="title-background" class="title-background">
     <div class="left">
       <a href={`/${lang}/`} class="header-item">{t("nav.brand")}</a>
@@ -14,7 +14,7 @@ const t = i18n.useTranslations(lang);
       <a href={`/${lang}/settings/`} class="header-item">{t("nav.settings")}</a>
     </div>
   </div>
-</div>
+</nav>
 
 <style>
   .top-header {

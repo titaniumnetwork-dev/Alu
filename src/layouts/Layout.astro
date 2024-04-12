@@ -63,6 +63,7 @@ const { title, optionalPreloads } = Astro.props;
     <ViewTransitions />
   </head>
   <body>
+    <a href="#main-content" class="skip-to-main-content-link">Skip to main content</a>
     <Header />
     <slot transition:animate={"fade"} />
     <script src="/uv/uv.bundle.js" is:inline transition:persist></script>
@@ -114,6 +115,26 @@ const { title, optionalPreloads } = Astro.props;
         --text-color: #e0def4;
         --text-color-accent: #c7c5e0;
         --dropdown-background-color: #1f1d2e;
+      }
+
+      .skip-to-main-content-link {
+        position: absolute;
+        top: 10px;
+        left: 15px;
+        z-index: 999;
+        padding: 0.75em;
+        padding-inline: 20px;
+        background-color: var(--background-highlight);
+        color: var(--text-color);
+        border-radius: 15px;
+        opacity: 0;
+        transition: opacity 250ms ease-in-out;
+      }
+      .skip-to-main-content-link:focus {
+        top: 10px;
+        left: 15px;
+        opacity: 1;
+        outline: none;
       }
 
       body,

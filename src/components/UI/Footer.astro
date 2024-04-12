@@ -5,8 +5,8 @@ import WaveSVG from "../WaveSVG.astro";
 const t = i18n.inferLangUseTranslations(Astro.url);
 ---
 
-<div class="footer">
-  <div class="wave-svg-container">
+<footer class="footer">
+  <div aria-hidden="true" class="wave-svg-container">
     <WaveSVG />
   </div>
   <div class="footer-top">
@@ -63,4 +63,4 @@ const t = i18n.inferLangUseTranslations(Astro.url);
       color: var(--text-color);
     }
   </style>
-</div>
+</footer>

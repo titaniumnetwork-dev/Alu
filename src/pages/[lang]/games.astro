@@ -13,14 +13,14 @@ export function getStaticPaths() {
 
 <Layout title={t("pages.games")}>
   <h1 class="title-text">{t("games.title")}</h1>
-  <div class="grid">
+  <main id="main-content" class="grid">
     {
       Object.keys(games).map((key) => {
         const game = (games as any)[key];
         return <GameItem name={game.name} image={game.image} slugName={game.slug} />;
       })
     }
-  </div>
+  </main>
 </Layout>
 
 <style>

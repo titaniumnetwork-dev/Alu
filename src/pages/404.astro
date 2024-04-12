@@ -3,17 +3,17 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="404 | Alu">
-  <div class="main-content error-page">
+  <main id="main-content" class="main-content error-page">
     <h1>404!</h1>
     <p>The content you have requested could not be found!</p>
-  </div>
+  </main>
 </Layout>
 
 <style>
   .error-page {
     color: white;
   }
-  .main-content {
+  #main-content {
     display: flex;
     justify-content: center;
     align-items: center;

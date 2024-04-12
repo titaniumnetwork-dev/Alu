@@ -13,7 +13,7 @@ export function getStaticPaths() {
 ---
 
 <Layout title={t("pages.home")}>
-  <div class="main-content">
+  <main id="main-content">
     <h1 class="title-text">{t("menu.welcome")}</h1>
     <div class="form-wrapper">
       <form class="url-input-form" id="url-input-form">
@@ -67,7 +67,7 @@ export function getStaticPaths() {
         </p>
       </div>
     </div>
-  </div>
+  </main>
   <ProxyRegistrar />
   <script>
     import { initTransport, registerSW } from "@components/ts/TransportManager";
@@ -142,7 +142,7 @@ export function getStaticPaths() {
 
 
 <style is:global>
-  .main-content {
+  #main-content {
     width: 100%;
     margin-top: 50px;
   }

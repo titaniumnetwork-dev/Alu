@@ -15,44 +15,46 @@ export function getStaticPaths() {
 ---
 
 <Layout title={t("pages.settings")}>
-  <h1 class="title-text">{t("settings.title")}</h1>
-  <div class="content-hidden">
-    <div id="content-setting-tab-proxy">
-      <h1 class="content-setting-header">{t("settings.proxy")}</h1>
-      <ProxyTab />
-    </div>
-    <div id="content-setting-tab-customization">
-      <h1 class="content-setting-header">{t("settings.customization")}</h1>
-      <CustomizationTab />
-    </div>
-    <div id="content-setting-tab-cloaking">
-      <h1 class="content-setting-header">{t("settings.cloaking")}</h1>
-      <p class="content-setting-subtext">{t("settings.cloaking.subtext")}</p>
-      <CloakingTab />
-    </div>
-    <div id="content-setting-tab-credits">
-      <h1 class="content-setting-header">{t("settings.credits")}</h1>
-      <CreditsTab />
-    </div>
-  </div>
-  
-  <div class="popup">
-    <div class="tabs">
-      <input type="radio" id="setting-tab-proxy" class="setting-tab" name="tab" checked="true" />
-      <label for="setting-tab-proxy">Proxy</label>
-      <input type="radio" id="setting-tab-customization" class="setting-tab" name="tab" />
-      <label for="setting-tab-customization">Customization</label>
-      <input type="radio" id="setting-tab-cloaking" class="setting-tab" name="tab" />
-      <label for="setting-tab-cloaking">Cloaking</label>
-      <input type="radio" id="setting-tab-credits" class="setting-tab" name="tab" />
-      <label for="setting-tab-credits">Credits</label>
-      <div class="marker">
-        <div id="top"></div>
-        <div id="bottom"></div>
+  <main id="main-content">
+    <h1 class="title-text">{t("settings.title")}</h1>
+    <div class="content-hidden">
+      <div id="content-setting-tab-proxy">
+        <h1 class="content-setting-header">{t("settings.proxy")}</h1>
+        <ProxyTab />
+      </div>
+      <div id="content-setting-tab-customization">
+        <h1 class="content-setting-header">{t("settings.customization")}</h1>
+        <CustomizationTab />
+      </div>
+      <div id="content-setting-tab-cloaking">
+        <h1 class="content-setting-header">{t("settings.cloaking")}</h1>
+        <p class="content-setting-subtext">{t("settings.cloaking.subtext")}</p>
+        <CloakingTab />
+      </div>
+      <div id="content-setting-tab-credits">
+        <h1 class="content-setting-header">{t("settings.credits")}</h1>
+        <CreditsTab />
       </div>
     </div>
-    <div id="current-content"></div>
-  </div>
+    
+    <div class="popup">
+      <div class="tabs">
+        <input type="radio" id="setting-tab-proxy" class="setting-tab" name="tab" checked="true" />
+        <label for="setting-tab-proxy">Proxy</label>
+        <input type="radio" id="setting-tab-customization" class="setting-tab" name="tab" />
+        <label for="setting-tab-customization">Customization</label>
+        <input type="radio" id="setting-tab-cloaking" class="setting-tab" name="tab" />
+        <label for="setting-tab-cloaking">Cloaking</label>
+        <input type="radio" id="setting-tab-credits" class="setting-tab" name="tab" />
+        <label for="setting-tab-credits">Credits</label>
+        <div class="marker">
+          <div id="top"></div>
+          <div id="bottom"></div>
+        </div>
+      </div>
+      <div id="current-content"></div>
+    </div>
+  </main>
   <script is:inline>
     window.loadedContentStorage = {};
     window.currentlySelectedTab;
