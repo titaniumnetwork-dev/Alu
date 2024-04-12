@@ -129,12 +129,14 @@ const { title, optionalPreloads } = Astro.props;
         border-radius: 15px;
         opacity: 0;
         transition: opacity 250ms ease-in-out;
+        pointer-events: none;
       }
       .skip-to-main-content-link:focus {
         top: 10px;
         left: 15px;
         opacity: 1;
         outline: none;
+        pointer-events: all;
       }
 
       body,
