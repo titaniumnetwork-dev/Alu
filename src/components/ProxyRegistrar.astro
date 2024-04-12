@@ -1,5 +1,8 @@
 <script>
   import { TransportMgr, initTransport, loadSelectedTransportScript } from "./ts/TransportManager";
+  import "notyf/notyf.min.css";
+  import { Notyf } from "notyf";
+
   let form = document.querySelector("form");
   let input = document.querySelector("input");
   document.addEventListener("astro:after-swap", initForm);
@@ -114,6 +117,10 @@
         iframeLoad(iframe, loadingContent, topbar, closeButton, shareButton, forwardsButton, backwardsButton);
       }, 500);
 
+      function setActive() {
+        iframe.classList.add("active");
+      }
+
       function iframeLoad(
         iframe: HTMLIFrameElement,
         loadingContent: HTMLElement,
@@ -128,12 +135,15 @@
         topbar.style.opacity = "1";
         topbar.style.pointerEvents = "auto";
         document.body.style.overflow = "hidden";
+        iframe.addEventListener("load", setActive);
         closeButton.onclick = () => {
           iframe.style.opacity = "0";
           topbar.style.opacity = "0";
           iframe.style.pointerEvents = "none";
           topbar.style.pointerEvents = "none";
           document.body.style.overflow = "auto";
+          iframe.classList.remove("active");
+          iframe.removeEventListener("load", setActive);
 
           setTimeout(() => {
             iframe.src = "about:blank";
@@ -156,6 +166,12 @@
           } else {
             navigator.clipboard.writeText(window.__uv$config.decodeUrl(iframe.src.split("/service/")[1]));
           }
+          new Notyf({
+            duration: 2000,
+            position: { x: "right", y: "bottom" },
+            dismissible: true,
+            ripple: true,
+          }).success("Copied to clipboard!");
         };
       }
     }, 100);
@@ -226,17 +242,12 @@
     if (!localStorageItem) return "uv";
 
     switch (JSON.parse(localStorageItem).value.toLowerCase()) {
-      case "ultraviolet": {
+      case "ultraviolet": 
         return "ultraviolet";
-      }
       case "rammerhead":
         return "rammerhead";
-      case "dynamic":
-        // temporary because dynamic is not implemented yet :)
-        return "ultraviolet";
-      default: {
+      default: 
         return "uv";
-      }
     }
   }
 
@@ -254,7 +265,7 @@
             proxiedFavicon.src = favicon.href;
             return;
           }
-          if (proxiedFavicon.src == `${window.location.origin}/custom-favicon?url=${encodedHREF}`)
+          if (proxiedFavicon.src == `${window.location.origin}/custom-favicon?url=${encodedHREF}&contentType=${favicon.type ? encodeURIComponent(favicon.type) : ""}`)
             return;
         }
         if (favicon) {
@@ -263,7 +274,7 @@
             proxiedFavicon.src = favicon.href;
             return;
           }
-          proxiedFavicon.src = `/custom-favicon?url=${encodedHREF}`;
+          proxiedFavicon.src = `/custom-favicon?url=${encodedHREF}&contentType=${favicon.type ? encodeURIComponent(favicon.type) : ""}`;
           proxiedFavicon.addEventListener("error", () => {
             proxiedFavicon.src = "/favicon.ico";
           });

@@ -135,12 +135,42 @@ app.use((req, res, next) => {
 });
 app.use("/custom-favicon", async (req, res) => {
   try {
-    const { url } = req.query;
-    const response = await fetch(url).then((apiRes) => apiRes.buffer());
-    res.send(response);
+    const { url, contentType } = req.query;
+    const urlExt = url.split('.').pop();
+    const response = await fetch(url);
+    const arrayBuffer = await response.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+    console.log(contentType)
+    if (contentType || !contentType == "") {
+      res.setHeader("Content-Type", contentType);
+    } else {
+      switch (urlExt) {
+        case "png":
+          res.setHeader("Content-Type", "image/png");
+          break;
+        case "jpg":
+          res.setHeader("Content-Type", "image/jpeg");
+          break;
+        case "jpeg":
+          res.setHeader("Content-Type", "image/jpeg");
+          break;
+        case "gif":
+          res.setHeader("Content-Type", "image/gif");
+          break;
+        case "svg":
+          res.setHeader("Content-Type", "image/svg+xml");
+          break;
+        case "ico":
+          res.setHeader("Content-Type", "image/x-icon");
+          break;
+        default:
+          res.setHeader("Content-Type", "image/png");
+          break;
+      }
+    }
+    res.send(buffer);
   } catch (err) {
-    console.log(err);
-    res.send("Error");
+    res.send(`Error: ${err}`);
   }
 });
 app.use("/", express.static("dist/client/"));

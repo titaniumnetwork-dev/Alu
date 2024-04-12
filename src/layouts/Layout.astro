@@ -157,6 +157,9 @@ const { title, optionalPreloads } = Astro.props;
         transition: opacity 250ms ease-in-out;
         pointer-events: none;
       }
+      #proxy-frame.active {
+        background-color: #fff;
+      }
       #proxy-frame {
         opacity: 0;
       }
@@ -203,10 +206,19 @@ const { title, optionalPreloads } = Astro.props;
       .nav-container {
         margin-top: 5px;
       }
+      @media (max-width: 484px) {
+        .nav-container {
+          display: none;
+        }
+      }
 
       .nav-container > img {
         height: 32px;
         cursor: pointer;
+        transition: 250ms ease-in-out;
+      }
+      .nav-container > img:hover {
+        filter: brightness(0.8);
       }
       #nav-share {
         height: 30px;
