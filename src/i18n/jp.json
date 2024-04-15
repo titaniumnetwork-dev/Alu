@@ -12,11 +12,13 @@
   "menu.welcome": "アルーにようこそ",
   "menu.search": "ウェブを検索する...",
 
+  "faq.title": "よくある質問",
+
   "faq.whatIsAProxy": "プロキシとは何ですか？",
   "faq.whatIsAProxy.answer": "プロキシは、ウェブサイトにアクセスするための中継サーバーです。プロキシを使用すると、ウェブサイトにアクセスする際に自分のIPアドレスを隠すことができます。",
 
-  "faq.whyIsAluSoSlow": "なぜアルーは遅いのですか？",
-  "faq.whyIsAluSoSlow.answer": "アルーは、プロキシを使用してウェブサイトにアクセスするため、ウェブサイトの読み込みに時間がかかることがあります。また、アルーはまだ開発中のため、パフォーマンスが低いことがあります。",
+  "faq.noBareClients": "「there are no bare clients.」とはどういう意味ですか?",
+  "faq.noBareClients.answer": "このエラーはやや一般的で、通常はプロキシのロードに失敗したことを意味します。ページをリロードするか、GitHub に問題を作成してください。",
 
   "faq.contributeToAlu": "アルーの発展にどのように貢献できますか?",
   "faq.contributeToAlu.answer.segment1": "アルーの言葉を広めることは素晴らしいスタートですが、Alu が本当に好きで、プライベート リンクが必要な場合は、Patreon を通じて私をサポートすることを検討してください。",

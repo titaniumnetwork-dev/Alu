@@ -15,58 +15,62 @@ export function getStaticPaths() {
 <Layout title={t("pages.home")}>
   <main id="main-content">
     <h1 class="title-text">{t("menu.welcome")}</h1>
-    <div class="form-wrapper">
-      <form class="url-input-form" id="url-input-form">
-        <Input
-          className="url-input"
-          inputName="url"
-          height="50px"
-          placeholder={t("menu.search")}
-          defaultStyles={false}
-          transition:persist
-        />
-        <div id="search-suggestions"></div>
-        <div id="loading-content">Loading...</div>
-      </form>
-      <div id="top-bar">
-        <div class="top-bar-left">
-          <button id="close-button">Close</button>
-          <div class="nav-container">
-            <img id="nav-backwards" src="/img/nav/backwards.svg" alt="Backwards Arrow">
-            <img id="nav-forwards" src="/img/nav/forwards.svg" alt="Forwards Arrow">
-            <img id="nav-share" src="/img/nav/share.svg" alt="Share Page">
+    <section id="proxy-input">
+      <div class="form-wrapper">
+        <form class="url-input-form" id="url-input-form">
+          <Input
+            className="url-input"
+            inputName="url"
+            height="50px"
+            placeholder={t("menu.search")}
+            defaultStyles={false}
+            transition:persist
+          />
+          <div id="search-suggestions"></div>
+          <div id="loading-content">Loading...</div>
+        </form>
+        <div id="top-bar">
+          <div class="top-bar-left">
+            <button id="close-button">Close</button>
+            <div class="nav-container">
+              <img id="nav-backwards" src="/img/nav/backwards.svg" alt="Backwards Arrow">
+              <img id="nav-forwards" src="/img/nav/forwards.svg" alt="Forwards Arrow">
+              <img id="nav-share" src="/img/nav/share.svg" alt="Share Page">
+            </div>
+          </div>
+          <div class="top-bar-right">
+            <img id="proxied-favicon" alt="favicon" />
+            <span id="url-text"></span>
           </div>
         </div>
-        <div class="top-bar-right">
-          <img id="proxied-favicon" alt="favicon" />
-          <span id="url-text"></span>
+        <iframe title="proxy-iframe" id="proxy-frame"></iframe>
+      </div>
+    </section>
+    <section id="faq">
+      <h2 class="faq-title">{t("faq.title")}</h2>
+      <div class="faq-section">
+        <div class="faq-card">
+          <h2>{t("faq.whatIsAProxy")}</h2>
+          <p>{t("faq.whatIsAProxy.answer")}</p>
+        </div>
+        <div class="faq-card">
+          <h2>{t("faq.contributeToAlu")}</h2>
+          <p>
+            {t("faq.contributeToAlu.answer.segment1")}
+            <Link
+              href="https://www.patreon.com/wearr"
+              newTab
+              content={t("faq.contributeToAlu.answer.patreonLinkText")}
+            />
+            {t("faq.contributeToAlu.answer.segment2")}
+          </p>
+        </div>
+        <div class="faq-card faq-large">
+          <h2>{t("faq.noBareClients")}</h2>
+          <p>{t("faq.noBareClients.answer")}</p>
         </div>
       </div>
-      <iframe title="proxy-iframe" id="proxy-frame"></iframe>
-    </div>
-
-    <div class="faq-section">
-      <div class="faq-card">
-        <h2>{t("faq.whatIsAProxy")}</h2>
-        <p>{t("faq.whatIsAProxy.answer")}</p>
-      </div>
-      <div class="faq-card">
-        <h2>{t("faq.whyIsAluSoSlow")}</h2>
-        <p>{t("faq.whyIsAluSoSlow.answer")}</p>
-      </div>
-      <div class="faq-card faq-large">
-        <h2>{t("faq.contributeToAlu")}</h2>
-        <p>
-          {t("faq.contributeToAlu.answer.segment1")}
-          <Link
-            href="https://www.patreon.com/wearr"
-            newTab
-            content={t("faq.contributeToAlu.answer.patreonLinkText")}
-          />
-          {t("faq.contributeToAlu.answer.segment2")}
-        </p>
-      </div>
-    </div>
+    </section>
   </main>
   <ProxyRegistrar />
   <script>
@@ -220,13 +224,20 @@ export function getStaticPaths() {
     transition: 250ms ease-in-out;
     text-align: center;
   }
+
+  .faq-title {
+    color: var(--text-color);
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 30px;
+  }
+
   .faq-section {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
-    margin: 0 auto;
+    margin: 20px auto 0;
     width: 90%;
-    margin-top: 40px;
   }
 
   .faq-card {

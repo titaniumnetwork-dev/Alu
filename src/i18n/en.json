@@ -12,11 +12,13 @@
   "menu.welcome": "Welcome to Alu",
   "menu.search": "Search the web...",
 
+  "faq.title": "Frequently Asked Questions",
+
   "faq.whatIsAProxy": "What is a proxy?",
   "faq.whatIsAProxy.answer": "A proxy is a method of making your internet traffic anonymous by sending your request to a server (proxy), having that make the request, and then send it back to you! This allows for a much larger level of security, as well as bypassing website restrictions in public spaces and censorship.",
 
-  "faq.whyIsAluSoSlow": "Why is Alu so slow?",
-  "faq.whyIsAluSoSlow.answer": "This could be for a number of reasons, but it is most likely due to the proxy you are using. If you are far away from where Alu is hosted, it will take longer for the request to be sent and received. If the proxy you are using is congested with traffic, it will also be slower.",
+  "faq.noBareClients": "What does \"there are no bare clients\" mean?",
+  "faq.noBareClients.answer": "There are a couple reasons this particular error happens, but it's most commonly an issue with the proxy failing to load. Please reload the page, and if the problem persists, make a GitHub issue!",
 
   "faq.contributeToAlu": "How can I contribute to Alu?",
   "faq.contributeToAlu.answer.segment1": "Spreading the word of Alu is a great start, but if you really enjoy Alu, and want private links, consider supporting me through Patreon!",
