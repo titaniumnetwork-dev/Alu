@@ -1,0 +1,9 @@
+{
+    "adblock": {
+        "title": "Adblocker",
+        "version": "0.0.1",
+        "image": "/marketplace/adblock/adblock.png",
+        "script": "/marketplace/adblock/adblocker.js",
+        "slug": "adblock"
+    }
+}
