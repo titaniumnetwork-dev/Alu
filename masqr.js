@@ -13,23 +13,23 @@ export async function masqrCheck(config) {
       next();
       return;
     }
-  
+
     if (req.cookies["refreshcheck"] != "true") {
       res.cookie("refreshcheck", "true", { maxAge: 10000 }); // 10s refresh check
       MasqFail(req, res);
       return;
     }
-  
+
     if (!authheader) {
       res.setHeader("WWW-Authenticate", "Basic");
       res.status(401);
       MasqFail(req, res);
       return;
     }
-  
+
     const auth = Buffer.from(authheader.split(" ")[1], "base64").toString().split(":");
     const pass = auth[1];
-  
+
     const licenseCheck = (
       await (await fetch(config.licenseServer + pass + "&host=" + req.headers.host)).json()
     )["status"];
@@ -37,14 +37,16 @@ export async function masqrCheck(config) {
       config.licenseServer + pass + "&host=" + req.headers.host + " returned " + licenseCheck
     );
     if (licenseCheck == "License valid") {
-      res.cookie("authcheck", "true", { expires: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000) }); // authorize session, for like a year, by then the link will be expired lol
+      res.cookie("authcheck", "true", {
+        expires: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
+      }); // authorize session, for like a year, by then the link will be expired lol
       res.send(`<script> window.location.href = window.location.href </script>`); // fun hack to make the browser refresh and remove the auth params from the URL
       return;
     }
-  
+
     MasqFail(req, res);
     return;
-  }
+  };
 }
 
 async function MasqFail(req, res) {
