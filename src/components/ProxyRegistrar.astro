@@ -86,9 +86,9 @@
       let iframe = document.getElementById("proxy-frame") as HTMLIFrameElement;
       let topbar = document.getElementById("top-bar") as HTMLDivElement;
       let closeButton = document.getElementById("close-button") as HTMLButtonElement;
-      let backwardsButton = document.getElementById('nav-backwards') as HTMLImageElement;
-      let forwardsButton = document.getElementById('nav-forwards') as HTMLImageElement;
-      let shareButton = document.getElementById('nav-share') as HTMLImageElement;
+      let backwardsButton = document.getElementById("nav-backwards") as HTMLImageElement;
+      let forwardsButton = document.getElementById("nav-forwards") as HTMLImageElement;
+      let shareButton = document.getElementById("nav-share") as HTMLImageElement;
       let preference = getProxyPreference();
       if (preference === "ultraviolet") {
         iframe.src = window.__uv$config.prefix + window.__uv$config.encodeUrl(url);
@@ -114,7 +114,15 @@
       iframe.classList.add("proxy-frame");
       document.body.appendChild(iframe);
       setTimeout(() => {
-        iframeLoad(iframe, loadingContent, topbar, closeButton, shareButton, forwardsButton, backwardsButton);
+        iframeLoad(
+          iframe,
+          loadingContent,
+          topbar,
+          closeButton,
+          shareButton,
+          forwardsButton,
+          backwardsButton
+        );
       }, 500);
 
       function setActive() {
@@ -162,9 +170,17 @@
         shareButton.onclick = () => {
           let currentProxy = localStorage.getItem("alu__selectedProxy");
           if (currentProxy && JSON.parse(currentProxy).value === "rammerhead") {
-            navigator.clipboard.writeText(window.location.origin + "/" + getCookie("rammerhead-session") + "/" + input!.value.trim());
+            navigator.clipboard.writeText(
+              window.location.origin +
+                "/" +
+                getCookie("rammerhead-session") +
+                "/" +
+                input!.value.trim()
+            );
           } else {
-            navigator.clipboard.writeText(window.__uv$config.decodeUrl(iframe.src.split("/service/")[1]));
+            navigator.clipboard.writeText(
+              window.__uv$config.decodeUrl(iframe.src.split("/service/")[1])
+            );
           }
           new Notyf({
             duration: 2000,
@@ -242,11 +258,11 @@
     if (!localStorageItem) return "uv";
 
     switch (JSON.parse(localStorageItem).value.toLowerCase()) {
-      case "ultraviolet": 
+      case "ultraviolet":
         return "ultraviolet";
       case "rammerhead":
         return "rammerhead";
-      default: 
+      default:
         return "uv";
     }
   }
@@ -265,7 +281,10 @@
             proxiedFavicon.src = favicon.href;
             return;
           }
-          if (proxiedFavicon.src == `${window.location.origin}/custom-favicon?url=${encodedHREF}&contentType=${favicon.type ? encodeURIComponent(favicon.type) : ""}`)
+          if (
+            proxiedFavicon.src ==
+            `${window.location.origin}/custom-favicon?url=${encodedHREF}&contentType=${favicon.type ? encodeURIComponent(favicon.type) : ""}`
+          )
             return;
         }
         if (favicon) {

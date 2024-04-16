@@ -7,13 +7,13 @@ importScripts(__uv$config.sw);
 
 const uv = new UVServiceWorker();
 
-self.addEventListener('fetch', event => {
-    event.respondWith(
-        (async ()=>{
-            if(event.request.url.startsWith(location.origin + __uv$config.prefix)) {
-                return await uv.fetch(event);
-            }
-            return await fetch(event.request);
-        })()
-    );
+self.addEventListener("fetch", (event) => {
+  event.respondWith(
+    (async () => {
+      if (event.request.url.startsWith(location.origin + __uv$config.prefix)) {
+        return await uv.fetch(event);
+      }
+      return await fetch(event.request);
+    })()
+  );
 });

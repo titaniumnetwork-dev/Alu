@@ -36,7 +36,7 @@ export function getStaticPaths() {
         <CreditsTab />
       </div>
     </div>
-    
+
     <div class="popup">
       <div class="tabs">
         <input type="radio" id="setting-tab-proxy" class="setting-tab" name="tab" checked="true" />
@@ -70,12 +70,12 @@ export function getStaticPaths() {
           window.loadedContentStorage[tab.id] = contentToLoad.innerHTML;
           contentToLoad.remove();
         }
-  
+
         tab.addEventListener("click", (event) => {
           loadContent(event.target.id);
         });
       });
-  
+
       function loadContent(tabID) {
         if (window.currentlySelectedTab == tabID) return;
         else window.currentlySelectedTab = tabID;
@@ -90,7 +90,7 @@ export function getStaticPaths() {
           }, 250);
         }
       }
-  
+
       function addDropdownListener() {
         let dropdown_toggles = document.getElementsByClassName("dropdown-toggle");
         Array.from(dropdown_toggles).forEach((toggle) => {
@@ -100,7 +100,7 @@ export function getStaticPaths() {
           };
         });
       }
-  
+
       function toggleDropdown(toggle) {
         let dropdown = document.getElementById(toggle.id + "-menu");
         if (dropdown.style.maxHeight == "0px" || dropdown.style.maxHeight == "") {
@@ -113,7 +113,7 @@ export function getStaticPaths() {
           }, 300);
         }
       }
-  
+
       function determineListener(event) {
         if (event.detail == "setting-tab-proxy") {
           addDropdownListener();
@@ -121,7 +121,7 @@ export function getStaticPaths() {
           addDropdownListener();
         }
       }
-  
+
       function closeOtherDropdowns(dropdownIDToExclude) {
         let dropdowns = document.getElementsByClassName("dropdown-menu");
         Array.from(dropdowns).forEach((dropdown) => {
@@ -134,7 +134,7 @@ export function getStaticPaths() {
           }, 300);
         });
       }
-  
+
       function closeDropdown(dropdownID) {
         let dropdown = document.getElementById(dropdownID);
         if (dropdown) {
@@ -145,12 +145,12 @@ export function getStaticPaths() {
           }, 300);
         }
       }
-  
+
       function getLocalStorageValue(localStorageItem, dropdownID) {
         // I was kinda dumb for not doing this earlier.
         let dropdown = document.getElementById(dropdownID);
         let dropdownMenu = document.getElementById(dropdownID + "-menu");
-  
+
         if (dropdown && dropdownMenu) {
           // Now we find the child that matches localStorageItem.value.
           let dropdownItem = Array.from(dropdownMenu.children).find((item) => {
@@ -160,7 +160,7 @@ export function getStaticPaths() {
           return dropdownItem.innerText;
         }
       }
-  
+
       function applySavedLocalStorage(localStorageItem, dropdownID) {
         if (localStorage.getItem(localStorageItem)) {
           let dropdown_toggle = document.getElementById(dropdownID);
@@ -169,7 +169,7 @@ export function getStaticPaths() {
           }
         }
       }
-  
+
       function applyDropdownEventListeners(item, dropdownID, localStorageItem, optionalCallback) {
         Array.from(item.children).forEach((item) => {
           item.onclick = () => {
@@ -186,17 +186,17 @@ export function getStaticPaths() {
           };
         });
       }
-  
+
       function applyInputListeners(item, localStorageItem) {
         item.addEventListener("input", () => {
           localStorage.setItem(localStorageItem, item.value);
         });
       }
-  
+
       document.addEventListener("setting-tabChange", determineListener);
-  
+
       loadContent("setting-tab-proxy");
-  
+
       function setupCustomizationSettings() {
         applySavedLocalStorage("alu__selectedTheme", "dropdown__selected-theme");
         applySavedLocalStorage("alu__selectedLanguage", "dropdown__selected-language");
@@ -215,20 +215,20 @@ export function getStaticPaths() {
           navigateToNewLangaugePage
         );
       }
-  
+
       function setupCloakingSettings() {
         Array.from(document.getElementById("cloak-list").children).forEach((cloak) => {
           cloak.addEventListener("click", () => {
             let cloakName = cloak.dataset.cloakName;
             let cloakIcon = cloak.dataset.cloakIcon;
-  
+
             let localStorageItem = {
               name: cloakName,
               icon: cloakIcon,
               isCustom: false,
             };
             localStorage.setItem("alu__selectedCloak", JSON.stringify(localStorageItem));
-  
+
             if (cloakName == "None") {
               localStorage.removeItem("alu__selectedCloak");
               cloakName = "Settings | Alu";
@@ -242,7 +242,7 @@ export function getStaticPaths() {
             }
             link.href = cloakIcon;
             document.title = cloakName;
-  
+
             if (!cloak.classList.contains("selected")) {
               Array.from(document.getElementById("cloak-list").children).forEach((cloak2) => {
                 cloak2.classList.remove("selected");
@@ -251,7 +251,7 @@ export function getStaticPaths() {
             }
           });
         });
-  
+
         let customNameInput = document.getElementById("cloak-custom-name-input");
         let customFaviconInput = document.getElementById("cloak-custom-favicon-input");
         if (localStorage.getItem("alu__selectedCloak")) {
@@ -261,7 +261,7 @@ export function getStaticPaths() {
             customFaviconInput.value = selectedCloak.icon;
           }
         }
-  
+
         document.getElementById("cloak-custom-button").addEventListener("click", () => {
           let cloakName = document.getElementById("cloak-custom-name-input").value;
           let cloakIcon = document.getElementById("cloak-custom-favicon-input").value;
@@ -286,7 +286,7 @@ export function getStaticPaths() {
           document.title = cloakName;
         });
       }
-  
+
       function changeTheme() {
         let theme = JSON.parse(localStorage.getItem("alu__selectedTheme")).value;
         if (theme) {
@@ -297,7 +297,7 @@ export function getStaticPaths() {
           }
         }
       }
-  
+
       function setupSettings(event) {
         if (event.detail == "setting-tab-proxy") {
           applySavedLocalStorage("alu__selectedProxy", "dropdown__selected-proxy");
@@ -323,22 +323,25 @@ export function getStaticPaths() {
           if (savedWispUrl == null || savedWispUrl == "")
             localStorage.setItem("alu__wispUrl", webSocketProtocol + location.host + "/wisp/");
           let savedBareUrl = localStorage.getItem("alu__bareUrl");
-          if (savedBareUrl == null || savedBareUrl == "") localStorage.setItem("alu__bareUrl", location.origin + "/bare/");
+          if (savedBareUrl == null || savedBareUrl == "")
+            localStorage.setItem("alu__bareUrl", location.origin + "/bare/");
           wispURLInput.value = localStorage.getItem("alu__wispUrl");
           bareURLInput.value = localStorage.getItem("alu__bareUrl");
           // Proxy settings
           applyInputListeners(searxngUrlInput, "alu__searxngUrl");
           applyInputListeners(wispURLInput, "alu__wispUrl");
           applyInputListeners(bareURLInput, "alu__bareUrl");
-  
-          [selectedProxyDropdown, openWithDropdown, currentTransportDropdown].forEach((dropdown) => {
-            let dropdownButton = document.getElementById(dropdown.id.replace("-menu", ""));
-            applyDropdownEventListeners(
-              dropdown,
-              dropdownButton.id,
-              dropdownButton.dataset.localStorageKey
-            );
-          });
+
+          [selectedProxyDropdown, openWithDropdown, currentTransportDropdown].forEach(
+            (dropdown) => {
+              let dropdownButton = document.getElementById(dropdown.id.replace("-menu", ""));
+              applyDropdownEventListeners(
+                dropdown,
+                dropdownButton.id,
+                dropdownButton.dataset.localStorageKey
+              );
+            }
+          );
           applyDropdownEventListeners(
             searchEngineDropdown,
             "dropdown__search-engine",
@@ -352,7 +355,7 @@ export function getStaticPaths() {
           setupCloakingSettings();
         }
       }
-  
+
       function checkSearxng() {
         // This function checks if the "searxng" option was clicked, display an additional option if so.
         let search_engine = JSON.parse(localStorage.getItem("alu__search_engine"));
@@ -364,9 +367,9 @@ export function getStaticPaths() {
           }
         }
       }
-  
+
       document.addEventListener("setting-tabLoad", setupSettings);
-  
+
       function navigateToNewLangaugePage() {
         let value = JSON.parse(localStorage.getItem("alu__selectedLanguage")).value;
         let currentLanguage = window.location.pathname.split("/")[1];
@@ -414,7 +417,7 @@ export function getStaticPaths() {
       font-size: 20px;
       color: var(--text-color-accent);
     }
-  
+
     .setting-label {
       color: var(--text-color);
       font-size: 18px;
@@ -429,7 +432,7 @@ export function getStaticPaths() {
       cursor: auto;
       margin-bottom: 5px;
     }
-  
+
     .setting__searxng-url {
       margin-top: 10px;
       opacity: 0;
@@ -553,5 +556,3 @@ export function getStaticPaths() {
     }
   </style>
 </Layout>
-
-

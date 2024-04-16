@@ -33,9 +33,9 @@ export function getStaticPaths() {
           <div class="top-bar-left">
             <button id="close-button">Close</button>
             <div class="nav-container">
-              <img id="nav-backwards" src="/img/nav/backwards.svg" alt="Backwards Arrow">
-              <img id="nav-forwards" src="/img/nav/forwards.svg" alt="Forwards Arrow">
-              <img id="nav-share" src="/img/nav/share.svg" alt="Share Page">
+              <img id="nav-backwards" src="/img/nav/backwards.svg" alt="Backwards Arrow" />
+              <img id="nav-forwards" src="/img/nav/forwards.svg" alt="Forwards Arrow" />
+              <img id="nav-share" src="/img/nav/share.svg" alt="Share Page" />
             </div>
           </div>
           <div class="top-bar-right">
@@ -79,7 +79,7 @@ export function getStaticPaths() {
       phrase: string;
     };
     await registerSW();
-  
+
     async function sendAPIRequest(urlInput: HTMLInputElement, searchSuggestions: HTMLDivElement) {
       if (!urlInput) throw new Error("urlInput is null");
       if (!searchSuggestions) throw new Error("searchSuggestions is null");
@@ -108,7 +108,7 @@ export function getStaticPaths() {
         searchSuggestions.style.opacity = "1";
       }
     }
-  
+
     function addEventListeners() {
       let urlInput = document.getElementById("url-input") as HTMLInputElement;
       let searchSuggestions = document.getElementById("search-suggestions") as HTMLDivElement;
@@ -131,7 +131,7 @@ export function getStaticPaths() {
         }, 200);
         urlInput.classList.remove("search-results");
       });
-  
+
       urlInput.addEventListener("keyup", async () => {
         if (urlInput.value.length >= 3) {
           return await sendAPIRequest(urlInput, searchSuggestions);
@@ -143,7 +143,6 @@ export function getStaticPaths() {
     addEventListeners();
   </script>
 </Layout>
-
 
 <style is:global>
   #main-content {

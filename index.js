@@ -13,13 +13,14 @@ import { existsSync } from "fs";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import wisp from "wisp-server-node";
-import fs from "node:fs";
 import fetch from "node-fetch";
+import { masqrCheck } from "./masqr.js";
 dotenv.config();
 
+const whiteListedDomains = ["aluu.xyz", "localhost:3000"];
 const LICENSE_SERVER_URL = "https://license.mercurywork.shop/validate?license=";
-const whiteListedDomains = ["aluu.xyz", "localhost:3000"]; // Add any public domains you have here
-const failureFile = fs.readFileSync("Checkfailed.html", "utf8");
+const WISP_ENABLED = process.env.USE_WISP;
+const MASQR_ENABLED = process.env.MASQR_ENABLED;
 
 if (!existsSync("./dist")) build();
 
@@ -49,70 +50,11 @@ const app = express();
 app.use(compression({ threshold: 0, filter: () => true }));
 app.use(cookieParser());
 
-async function MasqFail(req, res) {
-  if (!req.headers.host) {
-    return;
-  }
-  const unsafeSuffix = req.headers.host + ".html";
-  let safeSuffix = path.normalize(unsafeSuffix).replace(/^(\.\.(\/|\\|$))+/, "");
-  let safeJoin = path.join(process.cwd() + "/Masqrd", safeSuffix);
-  try {
-    await fs.promises.access(safeJoin); // man do I wish this was an if-then instead of a "exception on fail"
-    const failureFileLocal = await fs.promises.readFile(safeJoin, "utf8");
-    res.setHeader("Content-Type", "text/html");
-    res.send(failureFileLocal);
-    return;
-  } catch (e) {
-    res.setHeader("Content-Type", "text/html");
-    res.send(failureFile);
-    return;
-  }
+// Set process.env.MASQR_ENABLED to "true" to enable masqr protection.
+if (process.env.MASQR_ENABLED == "true") {
+  console.log(chalk.gray("Starting Masqr..."));
+  app.use(await masqrCheck({ whitelist: whiteListedDomains, licenseServer: LICENSE_SERVER_URL }));
 }
-
-// Woooooo masqr yayyyy (said no one)
-// uncomment for masqr
-app.use(async (req, res, next) => {
-  if (req.headers.host && whiteListedDomains.includes(req.headers.host)) {
-    next();
-    return;
-  }
-  const authheader = req.headers.authorization;
-  if (req.cookies["authcheck"]) {
-    next();
-    return;
-  }
-
-  if (req.cookies["refreshcheck"] != "true") {
-    res.cookie("refreshcheck", "true", { maxAge: 10000 }); // 10s refresh check
-    MasqFail(req, res);
-    return;
-  }
-
-  if (!authheader) {
-    res.setHeader("WWW-Authenticate", "Basic"); // Yeah so we need to do this to get the auth params, kinda annoying and just showing a login prompt gives it away so its behind a 10s refresh check
-    res.status(401);
-    MasqFail(req, res);
-    return;
-  }
-
-  const auth = Buffer.from(authheader.split(" ")[1], "base64").toString().split(":");
-  const pass = auth[1];
-
-  const licenseCheck = (
-    await (await fetch(LICENSE_SERVER_URL + pass + "&host=" + req.headers.host)).json()
-  )["status"];
-  console.log(
-    LICENSE_SERVER_URL + pass + "&host=" + req.headers.host + " returned " + licenseCheck
-  );
-  if (licenseCheck == "License valid") {
-    res.cookie("authcheck", "true", { expires: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000) }); // authorize session, for like a year, by then the link will be expired lol
-    res.send(`<script> window.location.href = window.location.href </script>`); // fun hack to make the browser refresh and remove the auth params from the URL
-    return;
-  }
-
-  MasqFail(req, res);
-  return;
-});
 
 app.use(express.static(path.join(process.cwd(), "static")));
 app.use(express.static(path.join(process.cwd(), "build")));
@@ -127,7 +69,7 @@ app.use(
   })
 );
 app.use((req, res, next) => {
-  if (req.url.includes ("/games/")) {
+  if (req.url.includes("/games/")) {
     res.header("Cross-Origin-Opener-Policy", "same-origin");
     res.header("Cross-Origin-Embedder-Policy", "require-corp");
   }
@@ -136,11 +78,11 @@ app.use((req, res, next) => {
 app.use("/custom-favicon", async (req, res) => {
   try {
     const { url, contentType } = req.query;
-    const urlExt = url.split('.').pop();
+    const urlExt = url.split(".").pop();
     const response = await fetch(url);
     const arrayBuffer = await response.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
-    console.log(contentType)
+    console.log(contentType);
     if (contentType || !contentType == "") {
       res.setHeader("Content-Type", contentType);
     } else {
@@ -197,7 +139,7 @@ app.get("/search", async (req, res) => {
     res.redirect(302, "/404.html");
   }
 });
-app.get("*", function (req, res) {
+app.get("*", (req, res) => {
   res.sendFile(path.join(process.cwd(), "dist/client/404.html"));
 });
 
@@ -217,7 +159,8 @@ server.on("upgrade", (req, socket, head) => {
     bare.routeUpgrade(req, socket, head);
   } else if (shouldRouteRh(req)) {
     routeRhUpgrade(req, socket, head);
-  } else if (req.url.endsWith("/wisp/")) {
+    /* Kinda hacky, I need to do a proper dynamic import. */
+  } else if (req.url.endsWith("/wisp/") && WISP_ENABLED == "true") {
     wisp.routeRequest(req, socket, head);
   } else {
     socket.end();

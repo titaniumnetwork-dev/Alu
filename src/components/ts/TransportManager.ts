@@ -68,16 +68,14 @@ export const TransportMgr = new TransportManager();
 export async function registerSW() {
   navigator.serviceWorker.ready.then(async (sw) => {
     await registerRemoteListener(sw.active!);
-  })
+  });
   return new Promise(async (resolve) => {
-    await navigator.serviceWorker
-      .register("/sw.js")
-      .then((registration) => {
-        registration.update().then(() => {
-          console.log("Registered SW!");
-          resolve(null);
-        });
+    await navigator.serviceWorker.register("/sw.js").then((registration) => {
+      registration.update().then(() => {
+        console.log("Registered SW!");
+        resolve(null);
       });
+    });
   });
 }
 
@@ -91,7 +89,6 @@ export async function initTransport() {
 
 export async function loadSelectedTransportScript(): Promise<void> {
   return new Promise((resolve) => {
-    
     let selectedTransport = localStorage.getItem("alu__selectedTransport");
     if (!selectedTransport) {
       localStorage.setItem("alu__selectedTransport", JSON.stringify({ value: "uv" }));

@@ -31,7 +31,7 @@ import { ViewTransitions } from "astro:transitions";
     <ViewTransitions />
     <script>
       let currentLang = localStorage.getItem("alu__selectedLanguage");
-      const redirect = (loc: string) => window.location.href = loc
+      const redirect = (loc: string) => (window.location.href = loc);
       if (currentLang) {
         try {
           let parsed = JSON.parse(currentLang).value;
