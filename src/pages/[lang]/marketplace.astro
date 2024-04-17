@@ -58,37 +58,40 @@ type MarketplaceItem = {
         ripple: true,
       });
       let installNotif = notification.success(`Installing ${title}...`);
-      if (ele.dataset.slug) installExtension(getMarketplaceObj(ele.dataset.slug), ele.dataset.slug).then((code) => {
-        let notifMessage = "";
-        let timeout = 2000;
-        console.log(code)
-        switch (code) {
-          case 0:
-            notifMessage = `Installed ${title} Successfully!`;
-            break;
-          case 1:
-            notifMessage = `${title} is already installed!`;
-            timeout = 0;
-            break;
-          case -1:
-            // We should NEVER get here, but just in case.
-            notifMessage = `Failed to install ${title}!`;
-            break;
-        }
-        setTimeout(() => {
+      if (ele.dataset.slug) {
+        let obj = await getMarketplaceObj(ele.dataset.slug);
+        installExtension(obj, ele.dataset.slug)
+          .then((code) => {
+            let notifMessage = "";
+            let timeout = 2000;
+            console.log(code);
+            switch (code) {
+              case 0:
+                notifMessage = `Installed ${title} Successfully!`;
+                break;
+              case 1:
+                notifMessage = `${title} is already installed!`;
+                timeout = 0;
+                break;
+              case -1:
+                // We should NEVER get here, but just in case.
+                notifMessage = `Failed to install ${title}!`;
+                break;
+            }
+            setTimeout(() => {
+              notification.dismiss(installNotif);
+              notification.options.duration = 2000;
+              notification.success(notifMessage);
+              notification.options.duration = 999999;
+            }, timeout);
+          })
+          .catch(() => {
             notification.dismiss(installNotif);
             notification.options.duration = 2000;
-            notification.success(notifMessage)
+            notification.error(`Failed to install ${title}!`);
             notification.options.duration = 999999;
-        }, timeout)
-
-      }).catch(() => {
-        notification.dismiss(installNotif);
-        notification.options.duration = 2000;
-        notification.error(`Failed to install ${title}!`);
-        notification.options.duration = 999999;
-      });
-      else console.error("No slug found!");
+          });
+      }
     });
   });
 
@@ -99,8 +102,10 @@ type MarketplaceItem = {
     script: string;
   };
 
-  function getMarketplaceObj(slug: string): ExtensionMetadata {
-    return (marketplaceManifest as { [key: string]: MarketplaceItem })[slug];
+  async function getMarketplaceObj(slug: string): Promise<ExtensionMetadata> {
+    const manifest = (marketplaceManifest as { [key: string]: MarketplaceItem })[slug];
+    manifest.script = btoa(await fetch(manifest.script).then((res) => res.text()));
+    return manifest;
   }
 
   interface ExtensionMetadata {
@@ -116,48 +121,47 @@ type MarketplaceItem = {
   }
 
   async function installExtension(ext: ExtensionMetadata, slug: string) {
-    return new Promise((resolve, reject) => {
-        const request = window.indexedDB.open("AluDB", 1);
-        request.onupgradeneeded = (event) => {
-          const db = (event.target as IDBOpenDBRequest).result;
-          if (!db.objectStoreNames.contains("InstalledExtensions")) {
-            db.createObjectStore("InstalledExtensions", { keyPath: "slug" });
+    return new Promise(async (resolve, reject) => {
+      const request = window.indexedDB.open("AluDB", 1);
+      request.onupgradeneeded = (event) => {
+        const db = (event.target as IDBOpenDBRequest).result;
+        if (!db.objectStoreNames.contains("InstalledExtensions")) {
+          db.createObjectStore("InstalledExtensions", { keyPath: "slug" });
+        }
+      };
+      request.onsuccess = async (event) => {
+        const db = (event.target as IDBOpenDBRequest).result;
+        const transaction = db.transaction("InstalledExtensions", "readwrite");
+        const store = transaction.objectStore("InstalledExtensions");
+        const extensionObject = {
+          slug: slug,
+          title: ext.title,
+          version: ext.version,
+          script: ext.script,
+        };
+        // Check if the key already exists in the IDB
+        let slugCheck = store.get(slug);
+        slugCheck.onsuccess = async () => {
+          console.log(slugCheck.result);
+          if (slugCheck.result != undefined) {
+            resolve(EXT_RETURN.ALREADY_INSTALLED);
+          } else {
+            const addRequest = store.add(extensionObject);
+            addRequest.onerror = () => {
+              console.error(`Error installing ${slug}!`);
+              reject(EXT_RETURN.INSTALL_FAILED);
+            };
+            addRequest.onsuccess = () => {
+              resolve(EXT_RETURN.INSTALL_SUCCESS);
+            };
           }
         };
-        request.onsuccess = async (event) => {
-          const db = (event.target as IDBOpenDBRequest).result;
-          const transaction = db.transaction("InstalledExtensions", "readwrite");
-          const store = transaction.objectStore("InstalledExtensions");
-          const extensionObject = {
-            slug: slug,
-            title: ext.title,
-            version: ext.version,
-            script: ext.script,
-          };
-          // Check if the key already exists in the IDB
-          let slugCheck = store.get(slug);
-          slugCheck.onsuccess = () => {
-            console.log(slugCheck.result)
-            if (slugCheck.result != undefined) {
-              resolve(EXT_RETURN.ALREADY_INSTALLED);
-            } else {
-              const addRequest = store.add(extensionObject);
-              addRequest.onerror = () => {
-                console.error(`Error installing ${slug}!`)
-                reject(EXT_RETURN.INSTALL_FAILED);
-              };
-              addRequest.onsuccess = () => {
-                resolve(EXT_RETURN.INSTALL_SUCCESS);
-              };
-            }
-          };
-          slugCheck.onerror = () => {
-            console.error("Error checking install status!");
-            reject(EXT_RETURN.INSTALL_FAILED);
-          };
+        slugCheck.onerror = () => {
+          console.error("Error checking install status!");
+          reject(EXT_RETURN.INSTALL_FAILED);
         };
-    })
-
+      };
+    });
   }
 
   function InitIDB() {
