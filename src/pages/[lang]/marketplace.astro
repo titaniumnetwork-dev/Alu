@@ -18,6 +18,7 @@ type MarketplaceItem = {
 <Layout title="Marketplace | Alu">
   <div id="main-content">
     <h1 class="title-text">Marketplace</h1>
+    <p class="title-desc">Install custom userscripts and themes for Alu.</p>
     <div class="marketplace-ext-grid">
       {
         Object.keys(marketplace).map((mp_item) => {
@@ -117,44 +118,44 @@ type MarketplaceItem = {
   async function installExtension(ext: ExtensionMetadata, slug: string) {
     return new Promise((resolve, reject) => {
         const request = window.indexedDB.open("AluDB", 1);
-    request.onupgradeneeded = (event) => {
-      const db = (event.target as IDBOpenDBRequest).result;
-      if (!db.objectStoreNames.contains("InstalledExtensions")) {
-        db.createObjectStore("InstalledExtensions", { keyPath: "slug" });
-      }
-    };
-    request.onsuccess = async (event) => {
-      const db = (event.target as IDBOpenDBRequest).result;
-      const transaction = db.transaction("InstalledExtensions", "readwrite");
-      const store = transaction.objectStore("InstalledExtensions");
-      const extensionObject = {
-        slug: slug,
-        title: ext.title,
-        version: ext.version,
-        script: ext.script,
-      };
-      // Check if the key already exists in the IDB
-      let slugCheck = store.get(slug);
-      slugCheck.onsuccess = (event) => {
-        if (slugCheck.result) {
-          resolve(EXT_RETURN.ALREADY_INSTALLED);
-        } else {
-          if (store.get(slug)) resolve(EXT_RETURN.ALREADY_INSTALLED);
-          const addRequest = store.add(extensionObject);
-          addRequest.onerror = (event) => {
-            console.error(`Error installing ${slug}!`)
+        request.onupgradeneeded = (event) => {
+          const db = (event.target as IDBOpenDBRequest).result;
+          if (!db.objectStoreNames.contains("InstalledExtensions")) {
+            db.createObjectStore("InstalledExtensions", { keyPath: "slug" });
+          }
+        };
+        request.onsuccess = async (event) => {
+          const db = (event.target as IDBOpenDBRequest).result;
+          const transaction = db.transaction("InstalledExtensions", "readwrite");
+          const store = transaction.objectStore("InstalledExtensions");
+          const extensionObject = {
+            slug: slug,
+            title: ext.title,
+            version: ext.version,
+            script: ext.script,
+          };
+          // Check if the key already exists in the IDB
+          let slugCheck = store.get(slug);
+          slugCheck.onsuccess = () => {
+            console.log(slugCheck.result)
+            if (slugCheck.result != undefined) {
+              resolve(EXT_RETURN.ALREADY_INSTALLED);
+            } else {
+              const addRequest = store.add(extensionObject);
+              addRequest.onerror = () => {
+                console.error(`Error installing ${slug}!`)
+                reject(EXT_RETURN.INSTALL_FAILED);
+              };
+              addRequest.onsuccess = () => {
+                resolve(EXT_RETURN.INSTALL_SUCCESS);
+              };
+            }
+          };
+          slugCheck.onerror = () => {
+            console.error("Error checking install status!");
             reject(EXT_RETURN.INSTALL_FAILED);
           };
-          addRequest.onsuccess = (event) => {
-            resolve(EXT_RETURN.INSTALL_SUCCESS);
-          };
-        }
-      };
-      slugCheck.onerror = (event) => {
-        console.error("Error checking install status!");
-        reject(EXT_RETURN.INSTALL_FAILED);
-      };
-    };
+        };
     })
 
   }
