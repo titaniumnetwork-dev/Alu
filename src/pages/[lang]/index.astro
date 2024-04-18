@@ -82,31 +82,35 @@ export function getStaticPaths() {
     await registerSW();
 
     async function sendAPIRequest(urlInput: HTMLInputElement, searchSuggestions: HTMLDivElement) {
-      if (!urlInput) throw new Error("urlInput is null");
-      if (!searchSuggestions) throw new Error("searchSuggestions is null");
-      let url = urlInput.value;
-      let request = await fetch("/search?query=" + url);
-      let data = await request.json();
-      searchSuggestions.innerHTML = "";
-      data.map((suggestion: Suggestion) => {
-        let suggestionElement = document.createElement("div");
-        // For some reason css classes weren't working T^T.
-        suggestionElement.style.cursor = "pointer";
-        suggestionElement.style.marginTop = "5px";
-        suggestionElement.innerText = suggestion.phrase;
-        suggestionElement.addEventListener("click", async () => {
-          urlInput.value = suggestion.phrase;
-          // I can't be bothered to extend the window object, so I'm just going to use any
-          (window as any).loadFormContent();
+      try {
+        if (!urlInput) throw new Error("urlInput is null");
+        if (!searchSuggestions) throw new Error("searchSuggestions is null");
+        let url = urlInput.value;
+        let request = await fetch("/search?query=" + url);
+        let data = await request.json();
+        searchSuggestions.innerHTML = "";
+        data.map((suggestion: Suggestion) => {
+          let suggestionElement = document.createElement("div");
+          // For some reason css classes weren't working T^T.
+          suggestionElement.style.cursor = "pointer";
+          suggestionElement.style.marginTop = "5px";
+          suggestionElement.innerText = suggestion.phrase;
+          suggestionElement.addEventListener("click", async () => {
+            urlInput.value = suggestion.phrase;
+            if (window.loadSelectedTransport) await window.loadSelectedTransport()
+            if (window.loadFormContent) window.loadFormContent(suggestion.phrase);
+          });
+          searchSuggestions.appendChild(suggestionElement);
         });
-        searchSuggestions.appendChild(suggestionElement);
-      });
-      if (data.length === 0) {
-        urlInput.classList.remove("search-results");
-        searchSuggestions.style.opacity = "0";
-      } else {
-        urlInput.classList.add("search-results");
-        searchSuggestions.style.opacity = "1";
+        if (data.length === 0) {
+          urlInput.classList.remove("search-results");
+          searchSuggestions.style.opacity = "0";
+        } else {
+          urlInput.classList.add("search-results");
+          searchSuggestions.style.opacity = "1";
+        }
+      } catch {
+        
       }
     }
 

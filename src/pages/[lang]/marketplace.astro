@@ -24,7 +24,6 @@ type MarketplaceItem = {
         Object.keys(marketplace).map((mp_item) => {
           const item = (marketplace as { [key: string]: MarketplaceItem })[mp_item];
           const slug = mp_item;
-          console.log(slug);
           return (
             <div class="marketplace-item" data-slug={slug}>
               <img class="marketplace-item-image" src={item.image} alt={`${item.title} Logo`} />
@@ -64,7 +63,6 @@ type MarketplaceItem = {
           .then((code) => {
             let notifMessage = "";
             let timeout = 2000;
-            console.log(code);
             switch (code) {
               case 0:
                 notifMessage = `Installed ${title} Successfully!`;
@@ -100,11 +98,12 @@ type MarketplaceItem = {
     version: string | number;
     image: string;
     script: string;
+    scriptBtoa: string | null;
   };
 
   async function getMarketplaceObj(slug: string): Promise<ExtensionMetadata> {
-    const manifest = (marketplaceManifest as { [key: string]: MarketplaceItem })[slug];
-    manifest.script = btoa(await fetch(manifest.script).then((res) => res.text()));
+    const manifest = (marketplaceManifest as unknown as { [key: string]: MarketplaceItem })[slug];
+    manifest.scriptBtoa = btoa(await fetch(manifest.script).then((res) => res.text()));
     return manifest;
   }
 
@@ -112,6 +111,7 @@ type MarketplaceItem = {
     title: string;
     version: string | number;
     script: string;
+    scriptBtoa: string | null;
   }
 
   enum EXT_RETURN {
@@ -137,12 +137,11 @@ type MarketplaceItem = {
           slug: slug,
           title: ext.title,
           version: ext.version,
-          script: ext.script,
+          script: ext.scriptBtoa,
         };
         // Check if the key already exists in the IDB
         let slugCheck = store.get(slug);
         slugCheck.onsuccess = async () => {
-          console.log(slugCheck.result);
           if (slugCheck.result != undefined) {
             resolve(EXT_RETURN.ALREADY_INSTALLED);
           } else {
@@ -173,7 +172,7 @@ type MarketplaceItem = {
     request.onerror = (event: Event) => {
       console.error("Database error: " + (event.target as any).errorCode);
     };
-    request.onsuccess = (event) => {
+    request.onsuccess = () => {
       console.log("Database opened successfully");
     };
     request.onupgradeneeded = (event) => {

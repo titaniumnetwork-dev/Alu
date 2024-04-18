@@ -51,7 +51,7 @@ app.use(compression({ threshold: 0, filter: () => true }));
 app.use(cookieParser());
 
 // Set process.env.MASQR_ENABLED to "true" to enable masqr protection.
-if (process.env.MASQR_ENABLED == "true") {
+if (MASQR_ENABLED == "true") {
   console.log(chalk.gray("Starting Masqr..."));
   app.use(await masqrCheck({ whitelist: whiteListedDomains, licenseServer: LICENSE_SERVER_URL }));
 }

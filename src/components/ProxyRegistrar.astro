@@ -129,6 +129,30 @@
         iframe.classList.add("active");
       }
 
+      function loadExtensionScripts() {
+        try {
+          let db = indexedDB.open("AluDB", 1);
+          db.onsuccess = () => {
+            let transaction = db.result.transaction("InstalledExtensions", "readonly");
+            let store = transaction.objectStore("InstalledExtensions");
+            let request = store.getAll();
+            request.onsuccess = () => {
+              let extensions = request.result;
+              console.log(extensions);
+              extensions.forEach((extension: any) => {
+                // Eval the extension script inside of the iframe
+                if (iframe.contentWindow) {
+                  console.log(`Evaluating extension "${extension.title}" inside of the iframe.`);
+                  (iframe.contentWindow as any).eval(atob(extension.script));
+                }
+              });
+            };
+          };
+        } catch (err) {
+          console.error(`Failed load extension scripts: ${err}`);
+        }
+      }
+
       function iframeLoad(
         iframe: HTMLIFrameElement,
         loadingContent: HTMLElement,
@@ -144,6 +168,7 @@
         topbar.style.pointerEvents = "auto";
         document.body.style.overflow = "hidden";
         iframe.addEventListener("load", setActive);
+        iframe.addEventListener("load", loadExtensionScripts);
         closeButton.onclick = () => {
           iframe.style.opacity = "0";
           topbar.style.opacity = "0";
@@ -152,7 +177,7 @@
           document.body.style.overflow = "auto";
           iframe.classList.remove("active");
           iframe.removeEventListener("load", setActive);
-
+          iframe.removeEventListener("load", loadExtensionScripts);
           setTimeout(() => {
             iframe.src = "about:blank";
           }, 500);
@@ -203,6 +228,7 @@
     }, 200);
   }
   window.loadFormContent = loadContent;
+  window.loadSelectedTransport = loadSelectedTransportScript;
 
   function isUrl(val = "") {
     if (/^http(s?):\/\//.test(val) || (val.includes(".") && val.substr(0, 1) !== " ")) return true;
