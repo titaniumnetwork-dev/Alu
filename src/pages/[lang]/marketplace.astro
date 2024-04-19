@@ -99,6 +99,7 @@ type MarketplaceItem = {
     image: string;
     script: string;
     scriptBtoa: string | null;
+    serviceWorkerExtension?: boolean;
   };
 
   async function getMarketplaceObj(slug: string): Promise<ExtensionMetadata> {
@@ -112,6 +113,7 @@ type MarketplaceItem = {
     version: string | number;
     script: string;
     scriptBtoa: string | null;
+    serviceWorkerExtension?: boolean;
   }
 
   enum EXT_RETURN {
@@ -138,6 +140,7 @@ type MarketplaceItem = {
           title: ext.title,
           version: ext.version,
           script: ext.scriptBtoa,
+          serviceWorkerExtension: ext.serviceWorkerExtension,
         };
         // Check if the key already exists in the IDB
         let slugCheck = store.get(slug);

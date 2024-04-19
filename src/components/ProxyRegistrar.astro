@@ -138,9 +138,9 @@
             let request = store.getAll();
             request.onsuccess = () => {
               let extensions = request.result;
-              console.log(extensions);
               extensions.forEach((extension: any) => {
                 // Eval the extension script inside of the iframe
+                if (extension.serviceWorkerExtension) return;
                 if (iframe.contentWindow) {
                   console.log(`Evaluating extension "${extension.title}" inside of the iframe.`);
                   (iframe.contentWindow as any).eval(atob(extension.script));
