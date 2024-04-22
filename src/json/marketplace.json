@@ -3,7 +3,12 @@
     "title": "Adblocker",
     "version": "0.0.1",
     "image": "/marketplace/adblock/adblock.png",
-    "script": "/marketplace/adblock/adblocker.sw.js",
-    "serviceWorkerExtension": true
+    "script": "/marketplace/adblock/adblocker.js"
+  },
+  "dev.wearr.adblock2": {
+    "title": "Adblocker2",
+    "version": "0.0.2",
+    "image": "/marketplace/adblock/adblock.png",
+    "script": "/marketplace/adblock/adblocker.js"
   }
 }
