@@ -10,6 +10,7 @@ declare global {
       decodeUrl: (url: string) => string;
     };
     loadFormContent: Function | null;
+    loadSelectedTransport: Function | null;
   }
 }
 

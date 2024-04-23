@@ -1,0 +1,223 @@
+---
+import { STATIC_PATHS } from "@i18n/utils";
+import Layout from "src/layouts/Layout.astro";
+import marketplace from "../../json/marketplace.json";
+
+export const getStaticPaths = () => {
+  return STATIC_PATHS;
+};
+
+type MarketplaceItem = {
+  title: string;
+  version: string | number;
+  image: string;
+  script: string;
+};
+---
+
+<Layout title="Marketplace | Alu">
+  <div id="main-content">
+    <h1 class="title-text">Marketplace</h1>
+    <p class="title-desc">Install custom userscripts and themes for Alu.</p>
+    <div class="marketplace-ext-grid">
+      {
+        Object.keys(marketplace).map((mp_item) => {
+          const item = (marketplace as { [key: string]: MarketplaceItem })[mp_item];
+          const slug = mp_item;
+          return (
+            <div class="marketplace-item" data-slug={slug}>
+              <img class="marketplace-item-image" src={item.image} alt={`${item.title} Logo`} />
+              <div class="marketplace-item-title">{item.title}</div>
+              <button class="marketplace-install-btn" data-slug={slug} data-title={item.title}>
+                Install
+              </button>
+            </div>
+          );
+        })
+      }
+    </div>
+  </div>
+</Layout>
+
+<script>
+  import "notyf/notyf.min.css";
+  import { Notyf } from "notyf";
+  import marketplaceManifest from "../../json/marketplace.json";
+  const installButtons = document.getElementsByClassName(
+    "marketplace-install-btn"
+  ) as HTMLCollectionOf<HTMLButtonElement>;
+  Array.from(installButtons).forEach((btn) => {
+    btn.addEventListener("click", async (event) => {
+      const ele = event.target as HTMLButtonElement;
+      const title = ele.dataset.title;
+      let notification = new Notyf({
+        duration: 999999,
+        position: { x: "right", y: "bottom" },
+        dismissible: true,
+        ripple: true,
+      });
+      let installNotif = notification.success(`Installing ${title}...`);
+      if (ele.dataset.slug) {
+        let obj = await getMarketplaceObj(ele.dataset.slug);
+        installExtension(obj, ele.dataset.slug)
+          .then((code) => {
+            let notifMessage = "";
+            let timeout = 2000;
+            switch (code) {
+              case 0:
+                notifMessage = `Installed ${title} Successfully!`;
+                break;
+              case 1:
+                notifMessage = `${title} is already installed!`;
+                timeout = 0;
+                break;
+              case -1:
+                // We should NEVER get here, but just in case.
+                notifMessage = `Failed to install ${title}!`;
+                break;
+            }
+            setTimeout(() => {
+              notification.dismiss(installNotif);
+              notification.options.duration = 2000;
+              notification.success(notifMessage);
+              notification.options.duration = 999999;
+            }, timeout);
+          })
+          .catch(() => {
+            notification.dismiss(installNotif);
+            notification.options.duration = 2000;
+            notification.error(`Failed to install ${title}!`);
+            notification.options.duration = 999999;
+          });
+      }
+    });
+  });
+
+  type MarketplaceItem = {
+    title: string;
+    version: string | number;
+    image: string;
+    script: string;
+    scriptBtoa: string | null;
+  };
+
+  async function getMarketplaceObj(slug: string): Promise<ExtensionMetadata> {
+    const manifest = (marketplaceManifest as unknown as { [key: string]: MarketplaceItem })[slug];
+    manifest.scriptBtoa = btoa(await fetch(manifest.script).then((res) => res.text()));
+    return manifest;
+  }
+
+  interface ExtensionMetadata {
+    title: string;
+    version: string | number;
+    script: string;
+    scriptBtoa: string | null;
+  }
+
+  enum EXT_RETURN {
+    INSTALL_SUCCESS = 0,
+    INSTALL_FAILED = -1,
+    ALREADY_INSTALLED = 1,
+  }
+
+  async function installExtension(ext: ExtensionMetadata, slug: string) {
+    return new Promise(async (resolve, reject) => {
+      const request = window.indexedDB.open("AluDB", 1);
+      request.onupgradeneeded = (event) => {
+        const db = (event.target as IDBOpenDBRequest).result;
+        if (!db.objectStoreNames.contains("InstalledExtensions")) {
+          db.createObjectStore("InstalledExtensions", { keyPath: "slug" });
+        }
+      };
+      request.onsuccess = async (event) => {
+        const db = (event.target as IDBOpenDBRequest).result;
+        const transaction = db.transaction("InstalledExtensions", "readwrite");
+        const store = transaction.objectStore("InstalledExtensions");
+        const extensionObject = {
+          slug: slug,
+          title: ext.title,
+          version: ext.version,
+          script: ext.scriptBtoa,
+        };
+        // Check if the key already exists in the IDB
+        let slugCheck = store.get(slug);
+        slugCheck.onsuccess = async () => {
+          if (slugCheck.result != undefined) {
+            resolve(EXT_RETURN.ALREADY_INSTALLED);
+          } else {
+            const addRequest = store.add(extensionObject);
+            addRequest.onerror = () => {
+              console.error(`Error installing ${slug}!`);
+              reject(EXT_RETURN.INSTALL_FAILED);
+            };
+            addRequest.onsuccess = () => {
+              resolve(EXT_RETURN.INSTALL_SUCCESS);
+            };
+          }
+        };
+        slugCheck.onerror = () => {
+          console.error("Error checking install status!");
+          reject(EXT_RETURN.INSTALL_FAILED);
+        };
+      };
+    });
+  }
+
+  function InitIDB() {
+    if (!window.indexedDB) {
+      console.error("This browser doesn't support IndexedDB");
+      return;
+    }
+    const request = window.indexedDB.open("AluDB", 1);
+    request.onerror = (event: Event) => {
+      console.error("Database error: " + (event.target as any).errorCode);
+    };
+    request.onsuccess = () => {
+      console.log("Database opened successfully");
+    };
+    request.onupgradeneeded = (event) => {
+      const db = (event.target as IDBOpenDBRequest).result;
+      if (!db.objectStoreNames.contains("InstalledExtensions")) {
+        db.createObjectStore("InstalledExtensions", { keyPath: "slug" });
+        console.log("Database setup complete");
+      }
+    };
+  }
+  InitIDB();
+</script>
+
+<style>
+  .marketplace-ext-grid {
+    display: grid;
+    width: 90%;
+    margin: 0 auto;
+    color: var(--text-color);
+    display: grid;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    text-align: center;
+    justify-content: center;
+    gap: 20px;
+  }
+  .marketplace-item {
+    border: 3px solid var(--accent-color);
+    padding: 20px;
+    border-radius: 15px;
+    width: 180px;
+  }
+  .marketplace-item-image {
+    width: 64px;
+    height: 64px;
+  }
+  .marketplace-install-btn {
+    width: 100%;
+    background-color: var(--accent-color);
+    color: var(--text-color);
+    border: none;
+    margin-top: 3px;
+    padding: 3px;
+    cursor: pointer;
+    font-family: "Varela Round", sans-serif;
+  }
+</style>
