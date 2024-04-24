@@ -22,12 +22,16 @@ const LICENSE_SERVER_URL = "https://license.mercurywork.shop/validate?license=";
 const WISP_ENABLED = process.env.USE_WISP;
 const MASQR_ENABLED = process.env.MASQR_ENABLED;
 
-if (!existsSync("./dist")) build();
+if (!existsSync("./dist")) build({});
+
+function log(message) {
+  console.log(chalk.gray("[Alu] " + message));
+}
 
 const bare = createBareServer("/bare/");
 
 const PORT = process.env.PORT || 3000;
-console.log(chalk.gray("Starting Rammerhead..."));
+log("Starting Rammerhead...")
 const rh = createRammerhead();
 const rammerheadScopes = [
   "/rammerhead.js",
@@ -51,8 +55,8 @@ app.use(compression({ threshold: 0, filter: () => true }));
 app.use(cookieParser());
 
 // Set process.env.MASQR_ENABLED to "true" to enable masqr protection.
-if (process.env.MASQR_ENABLED == "true") {
-  console.log(chalk.gray("Starting Masqr..."));
+if (MASQR_ENABLED == "true") {
+  log("Starting Masqr...");
   app.use(await masqrCheck({ whitelist: whiteListedDomains, licenseServer: LICENSE_SERVER_URL }));
 }
 
@@ -180,10 +184,10 @@ function routeRhUpgrade(req, socket, head) {
   rh.emit("upgrade", req, socket, head);
 }
 
-console.log(chalk.gray("Starting Alu..."));
-console.log(chalk.green("Alu started successfully!"));
+log("Starting Alu...");
+console.log(chalk.green("[Alu] Alu started successfully!"));
 server.on("listening", () => {
-  console.log(chalk.green(`Server running at http://localhost:${PORT}/.`));
+  console.log(chalk.green(`[Alu] Server running at http://localhost:${PORT}/.`));
 });
 
 server.listen({
