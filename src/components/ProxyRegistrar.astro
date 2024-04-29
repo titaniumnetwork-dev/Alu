@@ -193,6 +193,7 @@
         };
         shareButton.onclick = () => {
           let currentProxy = localStorage.getItem("alu__selectedProxy");
+          let proxyFrame = document.getElementById('proxy-frame') as HTMLIFrameElement;
           if (currentProxy && JSON.parse(currentProxy).value === "rammerhead") {
             navigator.clipboard.writeText(
               window.location.origin +
@@ -203,7 +204,7 @@
             );
           } else {
             navigator.clipboard.writeText(
-              window.__uv$config.decodeUrl(iframe.src.split("/service/")[1])
+              window.__uv$config.decodeUrl(proxyFrame.contentWindow!.location.href.split('/service/')[1])
             );
           }
           new Notyf({
