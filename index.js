@@ -31,7 +31,7 @@ function log(message) {
 const bare = createBareServer("/bare/");
 
 const PORT = process.env.PORT || 3000;
-log("Starting Rammerhead...")
+log("Starting Rammerhead...");
 const rh = createRammerhead();
 const rammerheadScopes = [
   "/rammerhead.js",

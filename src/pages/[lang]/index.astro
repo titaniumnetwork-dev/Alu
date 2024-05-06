@@ -95,10 +95,10 @@ export function getStaticPaths() {
         suggestionElement.style.marginTop = "5px";
         suggestionElement.innerText = suggestion.phrase;
         suggestionElement.addEventListener("click", async () => {
-            urlInput.value = suggestion.phrase;
-            if (window.loadSelectedTransport) await window.loadSelectedTransport()
-            if (window.loadFormContent) window.loadFormContent(suggestion.phrase);
-          });
+          urlInput.value = suggestion.phrase;
+          if (window.loadSelectedTransport) await window.loadSelectedTransport();
+          if (window.loadFormContent) window.loadFormContent(suggestion.phrase);
+        });
         searchSuggestions.appendChild(suggestionElement);
       });
       if (data.length === 0) {

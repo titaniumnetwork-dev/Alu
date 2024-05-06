@@ -19,11 +19,21 @@ const t = i18n.inferLangUseTranslations(Astro.url);
     </div>
   </div>
   <div class="footer-bottom">
-    <div class="footer-links">
-      <Link href="https://titaniumnetwork.org" newTab content={t("footer.poweredBy")} />
+    <div class="footer-left">
+      <div class="footer-links">
+        <Link href="https://discord.gg/unblock" newTab content="Join the discord!" />
+        <Link href="https://titaniumnetwork.org" newTab content={t("footer.poweredBy")} />
 
-      <div class="footer-copyright">
-        <p>&copy; {t("footer.aluProject")} 2024</p>
+        <div class="footer-copyright">
+          <p>&copy; {t("footer.aluProject")} 2024</p>
+        </div>
+      </div>
+    </div>
+    <div class="footer-right">
+      <div class="footer-links">
+        <Link href="/privacy" content="Privacy" />
+        <Link href="/terms" content="Terms" />
+        <Link href="https://wearr.dev/contact" content="Contact" />
       </div>
     </div>
   </div>
@@ -47,7 +57,7 @@ const t = i18n.inferLangUseTranslations(Astro.url);
       color: var(--text-color);
       position: relative;
       padding-top: 275px;
-      gap: 50px;
+      gap: 20px;
     }
     .footer-top,
     .footer-bottom {
@@ -57,6 +67,17 @@ const t = i18n.inferLangUseTranslations(Astro.url);
 
     .footer-title {
       font-size: 20px;
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 10px;
+      flex-direction: column;
     }
 
     a {
