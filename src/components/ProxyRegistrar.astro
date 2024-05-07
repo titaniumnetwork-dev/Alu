@@ -47,6 +47,12 @@
     }
   }
 
+  function getUVProxyURL(frame: HTMLIFrameElement) {
+    return window.__uv$config.decodeUrl(
+      frame.contentWindow!.location.href.split("/service/")[1]
+    )
+  }
+
   async function loadContent() {
     await initTransport();
     // The setTimeout is because service workers are a little silly and can take a while longer to register despite .then being called, which causes a bug on the first load.
@@ -129,29 +135,29 @@
         iframe.classList.add("active");
       }
 
-      function loadExtensionScripts() {
-        try {
-          let db = indexedDB.open("AluDB", 1);
-          db.onsuccess = () => {
-            let transaction = db.result.transaction("InstalledExtensions", "readonly");
-            let store = transaction.objectStore("InstalledExtensions");
-            let request = store.getAll();
-            request.onsuccess = () => {
-              let extensions = request.result;
-              extensions.forEach((extension: any) => {
-                // Eval the extension script inside of the iframe
-                if (extension.serviceWorkerExtension) return;
-                if (iframe.contentWindow) {
-                  console.log(`Evaluating extension "${extension.title}" inside of the iframe.`);
-                  (iframe.contentWindow as any).eval(atob(extension.script));
-                }
-              });
-            };
-          };
-        } catch (err) {
-          console.error(`Failed load extension scripts: ${err}`);
-        }
-      }
+      // function loadExtensionScripts() {
+      //   try {
+      //     let db = indexedDB.open("AluDB", 1);
+      //     db.onsuccess = () => {
+      //       let transaction = db.result.transaction("InstalledExtensions", "readonly");
+      //       let store = transaction.objectStore("InstalledExtensions");
+      //       let request = store.getAll();
+      //       request.onsuccess = () => {
+      //         let extensions = request.result;
+      //         extensions.forEach((extension: any) => {
+      //           // Eval the extension script inside of the iframe
+      //           if (extension.serviceWorkerExtension) return;
+      //           if (iframe.contentWindow) {
+      //             console.log(`Evaluating extension "${extension.title}" inside of the iframe.`);
+      //             (iframe.contentWindow as any).eval(atob(extension.script));
+      //           }
+      //         });
+      //       };
+      //     };
+      //   } catch (err) {
+      //     console.error(`Failed load extension scripts: ${err}`);
+      //   }
+      // }
 
       function iframeLoad(
         iframe: HTMLIFrameElement,
@@ -204,9 +210,7 @@
             );
           } else {
             navigator.clipboard.writeText(
-              window.__uv$config.decodeUrl(
-                proxyFrame.contentWindow!.location.href.split("/service/")[1]
-              )
+              getUVProxyURL(proxyFrame) 
             );
           }
           new Notyf({
@@ -303,34 +307,13 @@
         let favicon =
           (iframe.contentDocument.querySelector("link[rel='icon']") as HTMLLinkElement) ||
           (iframe.contentDocument.querySelector("link[rel*='icon']") as HTMLLinkElement);
-        if (favicon && favicon.href) {
-          let encodedHREF = encodeURIComponent(favicon.href);
-          if (favicon.href.includes("data:image")) {
-            proxiedFavicon.src = favicon.href;
-            return;
-          }
-          if (
-            proxiedFavicon.src ==
-            `${window.location.origin}/custom-favicon?url=${encodedHREF}&contentType=${favicon.type ? encodeURIComponent(favicon.type) : ""}`
-          )
-            return;
+        if (favicon && favicon.href.includes("data:image")) {
+          proxiedFavicon.src = favicon.href;
+          return;
         }
-        if (favicon) {
-          let encodedHREF = encodeURIComponent(favicon.href);
-          if (favicon.href.includes("data:image")) {
-            proxiedFavicon.src = favicon.href;
-            return;
-          }
-          proxiedFavicon.src = `/custom-favicon?url=${encodedHREF}&contentType=${favicon.type ? encodeURIComponent(favicon.type) : ""}`;
-          proxiedFavicon.addEventListener("error", () => {
-            proxiedFavicon.src = "/favicon.ico";
-          });
-        } else {
-          if (proxiedFavicon.src != window.location.origin + "/favicon.ico") {
-            proxiedFavicon.src = "/favicon.ico";
-          }
-        }
-        return;
+        let UVURL = getUVProxyURL(iframe);
+        if (proxiedFavicon.src == `${window.location.origin}/custom-favicon?url=${UVURL}`) return;
+        proxiedFavicon.src = `/custom-favicon?url=${UVURL}`;
       }
     }
   }

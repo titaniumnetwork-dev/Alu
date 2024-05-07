@@ -81,42 +81,13 @@ app.use((req, res, next) => {
 });
 app.use("/custom-favicon", async (req, res) => {
   try {
-    const { url, contentType } = req.query;
-    const urlExt = url.split(".").pop();
-    const response = await fetch(url);
-    const arrayBuffer = await response.arrayBuffer();
-    const buffer = Buffer.from(arrayBuffer);
-    console.log(contentType);
-    if (contentType || !contentType == "") {
-      res.setHeader("Content-Type", contentType);
-    } else {
-      switch (urlExt) {
-        case "png":
-          res.setHeader("Content-Type", "image/png");
-          break;
-        case "jpg":
-          res.setHeader("Content-Type", "image/jpeg");
-          break;
-        case "jpeg":
-          res.setHeader("Content-Type", "image/jpeg");
-          break;
-        case "gif":
-          res.setHeader("Content-Type", "image/gif");
-          break;
-        case "svg":
-          res.setHeader("Content-Type", "image/svg+xml");
-          break;
-        case "ico":
-          res.setHeader("Content-Type", "image/x-icon");
-          break;
-        default:
-          res.setHeader("Content-Type", "image/png");
-          break;
-      }
-    }
+    const { url } = req.query;
+    const response = await fetch(`https://www.google.com/s2/favicons?domain=${url}&sz=128`);
+    const buffer = new Buffer.from(await response.arrayBuffer());
+    res.set("Content-Type", "image/png");
     res.send(buffer);
-  } catch (err) {
-    res.send(`Error: ${err}`);
+  } catch {
+    
   }
 });
 app.use("/", express.static("dist/client/"));
