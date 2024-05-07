@@ -54,6 +54,14 @@ const { title, optionalPreloads } = Astro.props;
         return <link rel="preload" href={item.href} as={item.as} />;
       })
     }
+    <script src="https://www.googletagmanager.com/gtag/js?id=G-P1JX4G9KSF" is:inline></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'G-P1JX4G9KSF');
+    </script>
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <ViewTransitions />
