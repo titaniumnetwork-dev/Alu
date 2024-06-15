@@ -32,6 +32,10 @@ Finally, run `pnpm start` to actually serve Alu! It defaults to port 3000 for ev
 
 Congrats, you've now deployed your very own web proxy!
 
+## What about Docker?
+
+Alu can be easily dockerized with the `Dockerfile` provided in the repository. Simply run `docker build -t alu .` to build the image, and then `docker run -p 3000:3000 alu` to run the container, and you're good to go!
+
 # Technologies
 
 - Ultraviolet by Titanium Network
