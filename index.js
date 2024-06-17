@@ -87,7 +87,7 @@ app.use("/custom-favicon", async (req, res) => {
     res.set("Content-Type", "image/png");
     res.send(buffer);
   } catch {
-    
+    res.sendStatus(500);
   }
 });
 app.use("/", express.static("dist/client/"));
