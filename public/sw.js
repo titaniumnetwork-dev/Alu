@@ -5,19 +5,16 @@ importScripts("/uv/uv.bundle.js");
 importScripts("/uv.config.js");
 importScripts(__uv$config.sw);
 importScripts("./workerware/workerware.js");
+importScripts("./marketplace/adblock/index.js")
 
 const ww = new WorkerWare({
   debug: true,
 });
 
-function logContext(event) {
-  console.log("Event:", event);
-  return undefined;
-}
-
 ww.use({
-  function: logContext,
+  function: self.adblockExt.filterRequest,
   events: ["fetch"],
+  name: "Adblock"
 });
 
 const uv = new UVServiceWorker();
@@ -25,7 +22,6 @@ const uv = new UVServiceWorker();
 self.addEventListener("fetch", async (event) => {
   let mwResponse = await ww.run(event)();
   if (mwResponse.includes(null)) {
-    console.log("Aborting Request!");
     return;
   }
   event.respondWith(
