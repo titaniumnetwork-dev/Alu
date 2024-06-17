@@ -10,20 +10,22 @@ const ww = new WorkerWare({
   debug: true,
 });
 
-function logContext(ctx, event) {
-  console.log("Context:", ctx);
+function logContext(event) {
   console.log("Event:", event);
-  return void 0;
+  return undefined;
 }
 
-ww.use(logContext)
+ww.use({
+  function: logContext,
+  events: ["fetch"],
+});
 
 const uv = new UVServiceWorker();
 
 self.addEventListener("fetch", async (event) => {
-  let middleware = await ww.run(self, event)();
-  if (middleware.includes(null)) {
-    console.log("Aborting Request!")
+  let mwResponse = await ww.run(event)();
+  if (mwResponse.includes(null)) {
+    console.log("Aborting Request!");
     return;
   }
   event.respondWith(

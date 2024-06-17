@@ -1,5 +1,5 @@
 import path from "path";
-import fs from "fs"
+import fs from "fs";
 
 const failureFile = fs.readFileSync("Checkfailed.html", "utf8");
 

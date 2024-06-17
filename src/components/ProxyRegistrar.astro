@@ -48,9 +48,7 @@
   }
 
   function getUVProxyURL(frame: HTMLIFrameElement) {
-    return window.__uv$config.decodeUrl(
-      frame.contentWindow!.location.href.split("/service/")[1]
-    )
+    return window.__uv$config.decodeUrl(frame.contentWindow!.location.href.split("/service/")[1]);
   }
 
   async function loadContent() {
@@ -209,9 +207,7 @@
                 input!.value.trim()
             );
           } else {
-            navigator.clipboard.writeText(
-              getUVProxyURL(proxyFrame) 
-            );
+            navigator.clipboard.writeText(getUVProxyURL(proxyFrame));
           }
           new Notyf({
             duration: 2000,
