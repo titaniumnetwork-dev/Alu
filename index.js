@@ -90,6 +90,18 @@ app.use("/custom-favicon", async (req, res) => {
     res.sendStatus(500);
   }
 });
+
+app.use("/blocklist", async (req, res) => {
+  try {
+    const { url } = req.query;
+    const response = await fetch(url).then((r) => r.text());
+    res.set("Content-Type", "text/plain");
+    res.send(response);
+  } catch {
+    res.sendStatus(500);
+  }
+});
+
 app.use("/", express.static("dist/client/"));
 app.get("/favicon.ico", (req, res) => {
   res.sendFile(path.join(process.cwd(), "dist/client/favicon.svg"));

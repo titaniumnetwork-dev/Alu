@@ -20,12 +20,12 @@ ww.use({
 const uv = new UVServiceWorker();
 
 self.addEventListener("fetch", async (event) => {
-  let mwResponse = await ww.run(event)();
-  if (mwResponse.includes(null)) {
-    return;
-  }
   event.respondWith(
     (async () => {
+      let mwResponse = await ww.run(event)();
+      if (mwResponse.includes(null)) {
+        return;
+      }
       if (event.request.url.startsWith(location.origin + __uv$config.prefix)) {
         return await uv.fetch(event);
       }

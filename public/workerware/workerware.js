@@ -53,7 +53,6 @@ class WorkerWare {
     const returnList = [];
     let fn = async () => {
       for (let i = 0; i < middlewares.length; i++) {
-        dbg(middlewares[i], event.type);
         if (middlewares[i].events.includes(event.type)) {
           returnList.push(await middlewares[i].function(event));
         }

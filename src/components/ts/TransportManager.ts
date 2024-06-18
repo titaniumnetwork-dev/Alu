@@ -72,8 +72,12 @@ export async function registerSW() {
   });
   return new Promise(async (resolve) => {
     await navigator.serviceWorker.register("/sw.js").then((registration) => {
-      console.log("Registered SW!");
-      resolve(null);
+      // Update SW
+      registration.update().then(() => {
+        console.log("SW updated");
+        resolve(null);
+      });
+
     });
   });
 }
