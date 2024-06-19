@@ -16,13 +16,6 @@ const defaultOpt = {
   timing: false
 };
 
-// type middlewareManifest = {
-//     function: Function,
-//     name?: string,
-//     events: string[], // Should be a union of validEvents.
-//     configuration?: Object // Optional configuration for the middleware.
-// }
-
 const validEvents = [
   "abortpayment",
   "activate",
@@ -106,6 +99,12 @@ class WorkerWare {
       return middlewares[id](event);
     }
   }
+// type middlewareManifest = {
+//     function: Function,
+//     name?: string,
+//     events: string[], // Should be a union of validEvents.
+//     configuration?: Object // Optional configuration for the middleware.
+// }
   validateMiddleware(middleware) {
     if (!middleware.function)
       return {
