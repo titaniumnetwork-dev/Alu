@@ -90,10 +90,6 @@ class WorkerWare {
     if (this._opt.debug) dbg("Deleting middleware by event:", middlewareEvent);
     this._middlewares = this._middlewares.filter((mw) => !mw.events.includes(middlewareEvent));
   }
-  deleteByName(middlewareName) {
-    if (this._opt.debug) dbg("Deleting middleware by name:", middlewareName);
-    this._middlewares = this._middlewares.filter((mw) => mw.name !== middlewareName);
-  }
   get() {
     return this._middlewares;
   }
