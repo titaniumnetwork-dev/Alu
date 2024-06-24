@@ -41,7 +41,7 @@ const validEvents = [
 
 class WorkerWare {
   constructor(opt) {
-    this._opt = opt;
+    this._opt = Object.assign({}, defaultOpt, opt);
     this._middlewares = [];
   }
   info() {
