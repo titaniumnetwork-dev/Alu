@@ -44,6 +44,13 @@ class WorkerWare {
     this._opt = opt;
     this._middlewares = [];
   }
+  info() {
+    return {
+      version: "0.1.0",
+      middlewares: this._middlewares,
+      options: this._opt,
+    }
+  }
   use(middleware) {
     let validateMW = this.validateMiddleware(middleware);
     if (validateMW.error) throw new WWError(validateMW.error);
@@ -63,7 +70,9 @@ class WorkerWare {
         if (middlewares[i].events.includes(event.type)) {
           if (this._opt.timing) console.time(middlewares[i].name)
           // Add the configuration to the event object.
-          event.middlewareConfig = middlewares[i].configuration || {};
+          event.workerware = {
+            config: middlewares[i].configuration || {},
+          };
           let res = await middlewares[i].function(event);
           if (this._opt.timing) console.timeEnd(middlewares[i].name)
           returnList.push(res);
