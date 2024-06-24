@@ -82,7 +82,7 @@ class WorkerWare {
     };
     return fn;
   }
-  deleteByID(middlewareID) {
+  deleteByName(middlewareID) {
     if (this._opt.debug) dbg("Deleting middleware:", middlewareID);
     this._middlewares = this._middlewares.filter((mw) => mw.name !== middlewareID);
   }
