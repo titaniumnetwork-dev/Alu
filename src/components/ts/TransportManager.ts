@@ -100,29 +100,23 @@ export async function loadSelectedTransportScript(): Promise<void> {
     let transport = JSON.parse(selectedTransport).value;
     console.log(`Loading script for ${transport}`);
     let script;
+    script = document.createElement("script");
+    script.defer = true;
     switch (transport) {
       case "EpxMod.EpoxyClient": {
-        script = document.createElement("script");
         script.src = "/epoxy/index.js";
-        script.defer = true;
         break;
       }
       case "CurlMod.LibcurlClient": {
-        script = document.createElement("script");
         script.src = "/libcurl/index.js";
-        script.defer = true;
         break;
       }
       case "BareMod.BareClient": {
-        script = document.createElement("script");
         script.src = "/bare_transport.js";
-        script.defer = true;
         break;
       }
       default: {
-        script = document.createElement("script");
         script.src = "/epoxy/index.js";
-        script.defer = true;
         break;
       }
     }
