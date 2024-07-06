@@ -12,6 +12,8 @@ type MarketplaceItem = {
   version: string | number;
   image: string;
   script: string;
+  entryNamespace: string
+  entryFunc: string;
 };
 ---
 
@@ -45,7 +47,7 @@ type MarketplaceItem = {
   import marketplaceManifest from "../../json/marketplace.json";
   const installButtons = document.getElementsByClassName(
     "marketplace-install-btn"
-  ) as HTMLCollectionOf<HTMLButtonElement>;
+  );
   Array.from(installButtons).forEach((btn) => {
     btn.addEventListener("click", async (event) => {
       const ele = event.target as HTMLButtonElement;
@@ -93,35 +95,34 @@ type MarketplaceItem = {
     });
   });
 
-  type MarketplaceItem = {
-    title: string;
-    version: string | number;
-    image: string;
-    script: string;
-    scriptBtoa: string | null;
-  };
-
-  async function getMarketplaceObj(slug: string): Promise<ExtensionMetadata> {
-    const manifest = (marketplaceManifest as unknown as { [key: string]: MarketplaceItem })[slug];
-    manifest.scriptBtoa = btoa(await fetch(manifest.script).then((res) => res.text()));
-    return manifest;
-  }
-
   interface ExtensionMetadata {
     title: string;
     version: string | number;
     script: string;
+    entryNamespace: string;
+    entryFunc: string;
     scriptBtoa: string | null;
   }
 
+  async function getMarketplaceObj(slug: string): Promise<ExtensionMetadata> {
+    const manifest = (marketplaceManifest as unknown as { [key: string]: ExtensionMetadata })[slug];
+    manifest.scriptBtoa = btoa(await fetch(manifest.script).then((res) => res.text()));
+    return manifest;
+  }
+  
+  // Stupid eslint bug.
+  // eslint-disable-next-line no-unused-vars
   enum EXT_RETURN {
+    // eslint-disable-next-line no-unused-vars
     INSTALL_SUCCESS = 0,
+    // eslint-disable-next-line no-unused-vars
     INSTALL_FAILED = -1,
+    // eslint-disable-next-line no-unused-vars
     ALREADY_INSTALLED = 1,
   }
 
   async function installExtension(ext: ExtensionMetadata, slug: string) {
-    return new Promise(async (resolve, reject) => {
+    return new Promise<EXT_RETURN>((resolve, reject) => {
       const request = window.indexedDB.open("AluDB", 1);
       request.onupgradeneeded = (event) => {
         const db = (event.target as IDBOpenDBRequest).result;
@@ -138,6 +139,8 @@ type MarketplaceItem = {
           title: ext.title,
           version: ext.version,
           script: ext.scriptBtoa,
+          entryNamespace: ext.entryNamespace,
+          entryFunc: ext.entryFunc,
         };
         // Check if the key already exists in the IDB
         let slugCheck = store.get(slug);

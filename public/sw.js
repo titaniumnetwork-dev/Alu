@@ -5,17 +5,35 @@ importScripts("/uv/uv.bundle.js");
 importScripts("/uv.config.js");
 importScripts(__uv$config.sw);
 importScripts("./workerware/workerware.js");
-importScripts("./marketplace/adblock/index.js")
 
 const ww = new WorkerWare({
   debug: true,
 });
 
-ww.use({
-  function: self.adblockExt.filterRequest,
-  events: ["fetch"],
-  name: "Adblock"
-});
+function loadExtensionScripts() {
+  try {
+    let db = indexedDB.open("AluDB", 1);
+    db.onsuccess = () => {
+      let transaction = db.result.transaction("InstalledExtensions", "readonly");
+      let store = transaction.objectStore("InstalledExtensions");
+      let request = store.getAll();
+      request.onsuccess = () => {
+        let extensions = request.result;
+        extensions.forEach((extension) => {
+          eval(atob(extension.script));
+          ww.use({
+            function: self[extension.entryNamespace][extension.entryFunc],
+            name: extension.title,
+            events: ["fetch"],
+          }); // Use extension middleware
+        });
+      };
+    };
+  } catch (err) {
+    console.error(`Failed load extension scripts: ${err}`);
+  }
+}
+loadExtensionScripts();
 
 const uv = new UVServiceWorker();
 

@@ -295,7 +295,7 @@
     }
   }
 
-  function updateProxiedFavicon(iframe: HTMLIFrameElement, hasErrored = false) {
+  function updateProxiedFavicon(iframe: HTMLIFrameElement) {
     if (!iframe) return;
     let proxiedFavicon = document.getElementById("proxied-favicon") as HTMLImageElement;
     if (iframe) {
