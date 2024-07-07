@@ -13,7 +13,6 @@ import { existsSync } from "fs";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import wisp from "wisp-server-node";
-import fetch from "node-fetch";
 import { masqrCheck } from "./masqr.js";
 dotenv.config();
 

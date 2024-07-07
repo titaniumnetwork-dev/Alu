@@ -1,7 +1,7 @@
 import { defineConfig } from "astro/config";
 import node from "@astrojs/node";
-
 import sitemap from "@astrojs/sitemap";
+import partytown from '@astrojs/partytown';
 
 export default defineConfig({
   site: "https://aluu.xyz",
@@ -15,6 +15,9 @@ export default defineConfig({
         },
         defaultLocale: "en",
       },
+    }),
+    partytown({
+      forward: ['dataLayer.push'],
     }),
   ],
   output: "hybrid",
