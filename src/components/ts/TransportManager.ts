@@ -11,6 +11,8 @@ declare global {
     };
     loadFormContent: Function | null;
     loadSelectedTransport: Function | null;
+    loadedThemeAtob: string;
+    idb: IDBDatabase;
   }
 }
 

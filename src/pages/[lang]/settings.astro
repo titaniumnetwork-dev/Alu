@@ -55,8 +55,15 @@ export function getStaticPaths() {
       <div id="current-content"></div>
     </div>
   </main>
+  <script>
+    import IDBManager, { type ExtensionMetadata } from "@components/ts/IDBManager";
+    let load = IDBManager.loadIDB("AluDB", 1);
+    load.onsuccess = () => {
+      window.idb = IDBManager.GetIDB();
+    };
+  </script>
   <script is:inline>
-    window.loadedContentStorage = {};
+    loadedContentStorage = {};
     window.currentlySelectedTab;
     function settingsLoad() {
       document.addEventListener("astro:before-swap", () => {
@@ -67,7 +74,7 @@ export function getStaticPaths() {
       Array.from(document.getElementsByClassName("setting-tab")).forEach((tab) => {
         let contentToLoad = document.getElementById("content-" + tab.id);
         if (contentToLoad) {
-          window.loadedContentStorage[tab.id] = contentToLoad.innerHTML;
+          loadedContentStorage[tab.id] = contentToLoad.innerHTML;
           contentToLoad.remove();
         }
 
@@ -83,7 +90,7 @@ export function getStaticPaths() {
         if (currentContent) {
           currentContent.style.opacity = "0";
           setTimeout(() => {
-            currentContent.innerHTML = window.loadedContentStorage[tabID];
+            currentContent.innerHTML = loadedContentStorage[tabID];
             currentContent.style.opacity = "1";
             document.dispatchEvent(new CustomEvent("setting-tabChange", { detail: tabID }));
             document.dispatchEvent(new CustomEvent("setting-tabLoad", { detail: tabID }));
@@ -193,17 +200,44 @@ export function getStaticPaths() {
         });
       }
 
+      function addThemeToDropdown(extension) {
+        let dropdown = document.getElementById("dropdown__selected-theme-menu");
+        if (dropdown) {
+          let themeItem = document.createElement("li");
+          themeItem.classList.add("dropdown-item");
+          themeItem.dataset.setting = extension.themeName;
+          themeItem.textContent = extension.title;
+          dropdown.appendChild(themeItem);
+        } else {
+          setTimeout(() => {
+            addThemeToDropdown(extension);
+          }, 1000);
+        }
+      }
+
       document.addEventListener("setting-tabChange", determineListener);
 
       loadContent("setting-tab-proxy");
 
       function setupCustomizationSettings() {
-        applySavedLocalStorage("alu__selectedTheme", "dropdown__selected-theme");
-        applySavedLocalStorage("alu__selectedLanguage", "dropdown__selected-language");
-        let themeDropdown = document.getElementById("dropdown__selected-theme-menu");
-        let languageDropdown = document.getElementById("dropdown__selected-language-menu");
-        applyDropdownEventListeners(themeDropdown, "dropdown__selected-theme", "alu__selectedTheme", changeTheme);
-        applyDropdownEventListeners(languageDropdown, "dropdown__selected-language", "alu__selectedLanguage", navigateToNewLangaugePage);
+        let store = window.idb.transaction("InstalledExtensions", "readonly").objectStore("InstalledExtensions");
+          store.getAll().onsuccess = (event) => {
+            const result = event.target.result;
+            if (result) {
+              result.forEach((extension) => {
+                if (extension.type === "theme" && extension.themeName) {
+                  // Create a dropdown item for the theme
+                  addThemeToDropdown(extension);
+                }
+              });
+            }
+            applySavedLocalStorage("alu__selectedTheme", "dropdown__selected-theme");
+            applySavedLocalStorage("alu__selectedLanguage", "dropdown__selected-language");
+            let themeDropdown = document.getElementById("dropdown__selected-theme-menu");
+            let languageDropdown = document.getElementById("dropdown__selected-language-menu");
+            applyDropdownEventListeners(themeDropdown, "dropdown__selected-theme", "alu__selectedTheme", changeTheme);
+            applyDropdownEventListeners(languageDropdown, "dropdown__selected-language", "alu__selectedLanguage", navigateToNewLangaugePage);
+          };
       }
 
       function setupCloakingSettings() {

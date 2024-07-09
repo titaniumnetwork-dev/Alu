@@ -2,30 +2,17 @@ import "notyf/notyf.min.css";
 import { Notyf } from "notyf";
 import marketplaceManifest from "../../json/marketplace.json";
 const installButtons = document.getElementsByClassName("btn-install");
-import IDBManager from "./IDBManager";
+import IDBManager, { type ExtensionMetadata } from "./IDBManager";
 
-type VALID_EXT_TYPES = "serviceWorker" | "theme" | "page";
+
 
 // This just makes it shorter to type
 interface HTMLButton extends HTMLButtonElement {}
 
-interface ExtensionMetadata {
-  title: string;
-  // TODO: Add description to the manifest
-  // description: string;
 
-  // Versions should follow semantic versioning
-  version: string;
-  script: string;
-  entryNamespace?: string;
-  entryFunc?: string;
-  scriptCopy: string | null;
-  type: VALID_EXT_TYPES;
-  themeName?: string;
-}
 
 enum EXT_RETURN {
-  INSTALL_SUCCESS = 0,
+  ACTION_SUCCESS = 0,
   INSTALL_FAILED = -1,
   ALREADY_INSTALLED = 1,
 }
@@ -54,7 +41,7 @@ Array.from(installButtons).forEach((btn) => {
           let notifMessage: string;
           let timeout = 2000;
           switch (ret.code) {
-            case EXT_RETURN.INSTALL_SUCCESS:
+            case EXT_RETURN.ACTION_SUCCESS:
               notifMessage = `Installed ${title} Successfully!`;
               // Unregister the service worker if it's a service worker
               if (obj.type === "serviceWorker") {
@@ -82,8 +69,8 @@ Array.from(installButtons).forEach((btn) => {
             notification.options.duration = 2000;
             notification.success(notifMessage);
             setTimeout(() => {
-              notification.success(`Please refresh the page to see the changes!`);
-            }, 200)
+              window.location.reload();
+            }, 1000)
             notification.options.duration = 999999;
             let btn = document.querySelector(`button[data-slug="${ret.slug}"]`) as HTMLButton;
             setInstallBtnText(btn);
@@ -125,7 +112,7 @@ async function installExtension(ext: ExtensionMetadata, slug: string): Promise<I
           reject({ code: EXT_RETURN.INSTALL_FAILED, slug: slug });
         };
         addRequest.onsuccess = () => {
-          resolve({ code: EXT_RETURN.INSTALL_SUCCESS, slug: slug });
+          resolve({ code: EXT_RETURN.ACTION_SUCCESS, slug: slug });
         };
       }
     };
@@ -145,7 +132,7 @@ document.querySelectorAll("button[data-uninstall-slug]").forEach((btn) => {
       ripple: true,
     });
     switch (uninst.code) {
-      case EXT_RETURN.INSTALL_SUCCESS:
+      case EXT_RETURN.ACTION_SUCCESS:
         notification.success(`Uninstalled ${uninst.title}!`);
         let btn = document.querySelector(`button[data-slug="${uninst.slug}"]`) as HTMLButton;
         btn.disabled = false;
@@ -171,20 +158,36 @@ async function uninstallExtension(slug: string): Promise<InstallReturn> {
     const request = IDBManager.GetIDB();
     const transaction = request.transaction("InstalledExtensions", "readwrite");
     const store = transaction.objectStore("InstalledExtensions");
-    const deleteRequest = store.delete(slug);
-    deleteRequest.onerror = () => {
-      console.error(`Error uninstalling ${slug}!`);
-      reject({ code: EXT_RETURN.INSTALL_FAILED, slug: slug, title: slug });
-    };
-    deleteRequest.onsuccess = () => {
-      navigator.serviceWorker.getRegistration().then((reg) => {
-        if (reg) {
-          reg.unregister().then(() => {
-            console.log("Service worker unregistered!");
-          });
+
+    let ext = store.get(slug);
+    ext.onsuccess = async () => {
+      if (ext.result == null) {
+        reject({ code: EXT_RETURN.INSTALL_FAILED, slug: slug });
+      }
+      if (ext.result.type === "theme") {
+        let currTheme = localStorage.getItem("alu__selectedTheme");
+        if (currTheme) {
+          if (JSON.parse(currTheme!).value == ext.result.themeName) {
+            console.log("Reverting theme to default!")
+            localStorage.setItem("alu__selectedTheme", JSON.stringify({ name: "Alu", value: "alu" }));
+          }
         }
-      });
-      resolve({ code: EXT_RETURN.INSTALL_SUCCESS, slug: slug, title: slug });
+      }
+      const deleteRequest = store.delete(slug);
+      deleteRequest.onerror = () => {
+        console.error(`Error uninstalling ${slug}!`);
+        reject({ code: EXT_RETURN.INSTALL_FAILED, slug: slug, title: slug });
+      };
+      deleteRequest.onsuccess = () => {
+        navigator.serviceWorker.getRegistration().then((reg) => {
+          if (reg) {
+            reg.unregister().then(() => {
+              console.log("Service worker unregistered!");
+            });
+          }
+        });
+        resolve({ code: EXT_RETURN.ACTION_SUCCESS, slug: slug, title: ext.result.title });
+      };
     };
   });
 };

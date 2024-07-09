@@ -27,3 +27,56 @@ const languageList = [
     <Dropdown buttonNameDefault="English" dropdownList={languageList} id="dropdown__selected-language" />
   </div>
 </div>
+
+<script>
+  // import IDBManager, { type ExtensionMetadata } from "@components/ts/IDBManager";
+
+  // let idb = IDBManager.GetIDB();
+
+  // if (!(idb instanceof IDBDatabase)) {
+  //   idb = await loadIndexedDB();
+  // }
+
+  // let store = IDBManager.GetStore("InstalledExtensions", "readonly");
+  // store.getAll().onsuccess = (event) => {
+  //   const result = (event.target as IDBRequest).result;
+  //   if (result) {
+  //     result.forEach((extension: ExtensionMetadata) => {
+  //       if (extension.type === "theme" && extension.themeName) {
+  //         // Create a dropdown item for the theme
+  //         addThemeToDropdown(extension);
+  //       }
+  //     });
+  //   }
+  // };
+
+  // async function loadIndexedDB(): Promise<IDBDatabase> {
+  //   return new Promise((resolve, reject) => {
+  //     const load = IDBManager.loadIDB("AluDB", 1);
+  //     load.onsuccess = () => {
+  //       const db = load.result;
+  //       IDBManager.SetIDB(db);
+  //       resolve(idb);
+  //     };
+  //   });
+  // }
+
+  // function addThemeToDropdown(extension: ExtensionMetadata) {
+  //   let dropdown = document.getElementById("dropdown__selected-theme-menu");
+  //   if (dropdown) {
+  //     let themeItem = document.createElement("li");
+  //     themeItem.classList.add("dropdown-item");
+  //     themeItem.dataset.setting = extension.themeName;
+  //     themeItem.textContent = extension.title!;
+  //     dropdown.appendChild(themeItem);
+  //     themeItem.addEventListener("click", () => {
+  //       localStorage.setItem("alu__selectedTheme", JSON.stringify({ name: extension.title, value: extension.themeName }));
+  //     });
+  //   } else {
+  //     setTimeout(() => {
+  //       addThemeToDropdown(extension);
+  //     }, 1000);
+  //   }
+  // }
+  
+</script>

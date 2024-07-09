@@ -1,3 +1,19 @@
+type VALID_EXT_TYPES = "serviceWorker" | "theme" | "page";
+export interface ExtensionMetadata {
+  title: string;
+  // TODO: Add description to the manifest
+  // description: string;
+
+  // Versions should follow semantic versioning
+  version: string;
+  script: string;
+  entryNamespace?: string;
+  entryFunc?: string;
+  scriptCopy: string | null;
+  type: VALID_EXT_TYPES;
+  themeName?: string;
+}
+
 export let CurrentIDB: IDBDatabase;
 
 export function loadIDB(name: string, version: number) {

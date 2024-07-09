@@ -13,7 +13,7 @@
     "version": "0.0.1",
     "image": "/marketplace/oled-theme/theme.png",
     "script": "/marketplace/oled-theme/theme.css",
-    "type": "style",
+    "type": "theme",
     "themeName": "oled"
   }
 }
