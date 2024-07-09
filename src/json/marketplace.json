@@ -4,7 +4,16 @@
     "version": "0.0.1",
     "image": "/marketplace/adblock/adblock.png",
     "script": "/marketplace/adblock/index.js",
+    "type": "serviceWorker",
     "entryNamespace": "adblockExt",
     "entryFunc": "filterRequest"
+  },
+  "dev.wearr.oled-theme": {
+    "title": "OLED Theme",
+    "version": "0.0.1",
+    "image": "/marketplace/oled-theme/theme.png",
+    "script": "/marketplace/oled-theme/theme.css",
+    "type": "style",
+    "themeName": "oled"
   }
 }

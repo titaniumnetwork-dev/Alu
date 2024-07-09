@@ -21,8 +21,7 @@ type transportConfig =
     }
   | string;
 
-export const wispURLDefault =
-  (location.protocol === "https:" ? "wss://" : "ws://") + location.host + "/wisp/";
+export const wispURLDefault = (location.protocol === "https:" ? "wss://" : "ws://") + location.host + "/wisp/";
 export default class TransportManager {
   private transport = "EpxMod.EpoxyClient";
 
@@ -66,28 +65,25 @@ export default class TransportManager {
 
 export const TransportMgr = new TransportManager();
 
-export async function registerSW() {
-  navigator.serviceWorker.ready.then(async (sw) => {
-    await registerRemoteListener(sw.active!);
-  });
+export async function registerAndUpdateSW() {
   return new Promise(async (resolve) => {
-    await navigator.serviceWorker.register("/sw.js").then((registration) => {
-      // Update SW
-      registration.update().then(() => {
-        console.log("SW updated");
+    navigator.serviceWorker
+      .register("/sw.js", {
+        updateViaCache: "none",
+      })
+      .then(async (reg) => {
+        console.log("Service worker registered!");
+        await registerRemoteListener(reg.active!);
+        reg.update();
+
         resolve(null);
       });
-
-    });
   });
 }
 
 export async function initTransport() {
   await registerRemoteListener(navigator.serviceWorker.controller!);
-  TransportMgr.setTransport(
-    TransportMgr.getTransport(),
-    localStorage.getItem("alu__wispUrl") || wispURLDefault
-  );
+  TransportMgr.setTransport(TransportMgr.getTransport(), localStorage.getItem("alu__wispUrl") || wispURLDefault);
 }
 
 export async function loadSelectedTransportScript(): Promise<void> {

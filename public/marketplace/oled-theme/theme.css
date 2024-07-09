@@ -1,0 +1,9 @@
+[data-theme="oled"] {
+    --background-color: #000;
+    --background-highlight: #111;
+    --accent-color: rgb(30 0 79);
+    --accent-color-brighter: rgb(60 0 155);
+    --text-color: #fff;
+    --text-color-accent: #dddddd;
+    --dropdown-background-color: #1a1a1a;
+}

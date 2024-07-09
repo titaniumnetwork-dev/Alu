@@ -116,9 +116,7 @@ app.get("/search", async (req, res) => {
   try {
     const { query } = req.query;
 
-    const response = await fetch(`http://api.duckduckgo.com/ac?q=${query}&format=json`).then(
-      (apiRes) => apiRes.json()
-    );
+    const response = await fetch(`http://api.duckduckgo.com/ac?q=${query}&format=json`).then((apiRes) => apiRes.json());
 
     res.send(response);
   } catch (err) {

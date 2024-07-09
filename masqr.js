@@ -31,9 +31,7 @@ export async function masqrCheck(config) {
     const auth = Buffer.from(authheader.split(" ")[1], "base64").toString().split(":");
     const pass = auth[1];
 
-    const licenseCheck = (
-      await (await fetch(config.licenseServer + pass + "&host=" + req.headers.host)).json()
-    )["status"];
+    const licenseCheck = (await (await fetch(config.licenseServer + pass + "&host=" + req.headers.host)).json())["status"];
     if (licenseCheck == "License valid") {
       res.cookie("authcheck", "true", {
         expires: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),

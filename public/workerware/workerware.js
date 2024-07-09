@@ -13,7 +13,7 @@ const timeEnd = console.timeEnd.bind(console, "[WorkerWare]");
 const defaultOpt = {
   debug: false,
   randomNames: false,
-  timing: false
+  timing: false,
 };
 
 const validEvents = [
@@ -49,7 +49,7 @@ class WorkerWare {
       version: "0.1.0",
       middlewares: this._middlewares,
       options: this._opt,
-    }
+    };
   }
   use(middleware) {
     let validateMW = this.validateMiddleware(middleware);
@@ -68,13 +68,13 @@ class WorkerWare {
     let fn = async () => {
       for (let i = 0; i < middlewares.length; i++) {
         if (middlewares[i].events.includes(event.type)) {
-          if (this._opt.timing) console.time(middlewares[i].name)
+          if (this._opt.timing) console.time(middlewares[i].name);
           // Add the configuration to the event object.
           event.workerware = {
             config: middlewares[i].configuration || {},
           };
           let res = await middlewares[i].function(event);
-          if (this._opt.timing) console.timeEnd(middlewares[i].name)
+          if (this._opt.timing) console.timeEnd(middlewares[i].name);
           returnList.push(res);
         }
       }
@@ -104,12 +104,12 @@ class WorkerWare {
       return middlewares[id](event);
     }
   }
-// type middlewareManifest = {
-//     function: Function,
-//     name?: string,
-//     events: string[], // Should be a union of validEvents.
-//     configuration?: Object // Optional configuration for the middleware.
-// }
+  // type middlewareManifest = {
+  //     function: Function,
+  //     name?: string,
+  //     events: string[], // Should be a union of validEvents.
+  //     configuration?: Object // Optional configuration for the middleware.
+  // }
   validateMiddleware(middleware) {
     if (!middleware.function)
       return {

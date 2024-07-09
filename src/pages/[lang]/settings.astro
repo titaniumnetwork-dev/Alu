@@ -202,18 +202,8 @@ export function getStaticPaths() {
         applySavedLocalStorage("alu__selectedLanguage", "dropdown__selected-language");
         let themeDropdown = document.getElementById("dropdown__selected-theme-menu");
         let languageDropdown = document.getElementById("dropdown__selected-language-menu");
-        applyDropdownEventListeners(
-          themeDropdown,
-          "dropdown__selected-theme",
-          "alu__selectedTheme",
-          changeTheme
-        );
-        applyDropdownEventListeners(
-          languageDropdown,
-          "dropdown__selected-language",
-          "alu__selectedLanguage",
-          navigateToNewLangaugePage
-        );
+        applyDropdownEventListeners(themeDropdown, "dropdown__selected-theme", "alu__selectedTheme", changeTheme);
+        applyDropdownEventListeners(languageDropdown, "dropdown__selected-language", "alu__selectedLanguage", navigateToNewLangaugePage);
       }
 
       function setupCloakingSettings() {
@@ -313,18 +303,15 @@ export function getStaticPaths() {
           let bareURLInput = document.getElementById("bare-url-input");
           let savedSearxngUrl = localStorage.getItem("alu__searxngUrl");
           if (savedSearxngUrl != null) {
-            if (savedSearxngUrl == "")
-              localStorage.setItem("alu__searxngUrl", "https://searxng.site/");
+            if (savedSearxngUrl == "") localStorage.setItem("alu__searxngUrl", "https://searxng.site/");
             searxngUrlInput.value = localStorage.getItem("alu__searxngUrl");
           }
           const useWss = location.protocol == "https:";
           const webSocketProtocol = useWss ? "wss://" : "ws://";
           let savedWispUrl = localStorage.getItem("alu__wispUrl");
-          if (savedWispUrl == null || savedWispUrl == "")
-            localStorage.setItem("alu__wispUrl", webSocketProtocol + location.host + "/wisp/");
+          if (savedWispUrl == null || savedWispUrl == "") localStorage.setItem("alu__wispUrl", webSocketProtocol + location.host + "/wisp/");
           let savedBareUrl = localStorage.getItem("alu__bareUrl");
-          if (savedBareUrl == null || savedBareUrl == "")
-            localStorage.setItem("alu__bareUrl", location.origin + "/bare/");
+          if (savedBareUrl == null || savedBareUrl == "") localStorage.setItem("alu__bareUrl", location.origin + "/bare/");
           wispURLInput.value = localStorage.getItem("alu__wispUrl");
           bareURLInput.value = localStorage.getItem("alu__bareUrl");
           // Proxy settings
@@ -332,22 +319,11 @@ export function getStaticPaths() {
           applyInputListeners(wispURLInput, "alu__wispUrl");
           applyInputListeners(bareURLInput, "alu__bareUrl");
 
-          [selectedProxyDropdown, openWithDropdown, currentTransportDropdown].forEach(
-            (dropdown) => {
-              let dropdownButton = document.getElementById(dropdown.id.replace("-menu", ""));
-              applyDropdownEventListeners(
-                dropdown,
-                dropdownButton.id,
-                dropdownButton.dataset.localStorageKey
-              );
-            }
-          );
-          applyDropdownEventListeners(
-            searchEngineDropdown,
-            "dropdown__search-engine",
-            "alu__search_engine",
-            checkSearxng
-          );
+          [selectedProxyDropdown, openWithDropdown, currentTransportDropdown].forEach((dropdown) => {
+            let dropdownButton = document.getElementById(dropdown.id.replace("-menu", ""));
+            applyDropdownEventListeners(dropdown, dropdownButton.id, dropdownButton.dataset.localStorageKey);
+          });
+          applyDropdownEventListeners(searchEngineDropdown, "dropdown__search-engine", "alu__search_engine", checkSearxng);
           checkSearxng();
         } else if (event.detail == "setting-tab-customization") {
           setupCustomizationSettings();

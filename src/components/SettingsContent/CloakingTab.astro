@@ -45,10 +45,7 @@ const presetCloaks = [
       {
         presetCloaks.map((cloak: any) => {
           return (
-            <div
-              class="cloak-item"
-              data-cloak-name={cloak.cloakTitle}
-              data-cloak-icon={cloak.favicon}>
+            <div class="cloak-item" data-cloak-name={cloak.cloakTitle} data-cloak-icon={cloak.favicon}>
               <img class="cloak-image" src={cloak.favicon} alt={cloak.cloakTitle} />
             </div>
           );

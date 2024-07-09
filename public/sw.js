@@ -20,12 +20,13 @@ function loadExtensionScripts() {
       request.onsuccess = () => {
         let extensions = request.result;
         extensions.forEach((extension) => {
-          eval(atob(extension.script));
+          if (extension.type != "serviceWorker") return;
+          eval(atob(extension.scriptCopy));
           ww.use({
             function: self[extension.entryNamespace][extension.entryFunc],
             name: extension.title,
             events: ["fetch"],
-          }); // Use extension middleware
+          });
         });
       };
     };
