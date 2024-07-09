@@ -9,6 +9,7 @@ export const getStaticPaths = () => {
 
 type MarketplaceItem = {
   title: string;
+  description: string;
   version: string;
   image: string;
   script: string;
@@ -33,6 +34,7 @@ type MarketplaceItem = {
             <div class="marketplace-item" data-slug={slug}>
               <img class="marketplace-item-image" src={item.image} alt={`${item.title} Logo`} />
               <div class="marketplace-item-title">{item.title}</div>
+              <div class="marketplace-item-desc">{item.description}</div>
               <button class="marketplace-btn btn-install" data-slug={slug} data-title={item.title}>
                 Install
               </button>
@@ -58,9 +60,8 @@ type MarketplaceItem = {
     margin: 0 auto;
     color: var(--text-color);
     display: grid;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    grid-template-columns: repeat(auto-fill, minmax(45%, 1fr));
+    align-items: center;
     text-align: center;
     justify-content: center;
     gap: 20px;
@@ -69,11 +70,15 @@ type MarketplaceItem = {
     border: 3px solid var(--accent-color);
     padding: 20px;
     border-radius: 15px;
-    width: 180px;
+    width: 100%;
   }
   .marketplace-item-image {
     width: 64px;
     height: 64px;
+  }
+  .marketplace-item-desc {
+    width: 80%;
+    margin: 0 auto;
   }
   .marketplace-btn {
     width: 100%;

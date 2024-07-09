@@ -1,8 +1,7 @@
 type VALID_EXT_TYPES = "serviceWorker" | "theme" | "page";
 export interface ExtensionMetadata {
   title: string;
-  // TODO: Add description to the manifest
-  // description: string;
+  description?: string;
 
   // Versions should follow semantic versioning
   version: string;
