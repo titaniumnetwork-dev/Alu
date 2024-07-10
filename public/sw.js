@@ -1,10 +1,4 @@
-importScripts("/libcurl/index.js");
-importScripts("/epoxy/index.js");
-importScripts("/bare_transport.js");
-importScripts("/uv/uv.bundle.js");
-importScripts("/uv.config.js");
-importScripts(__uv$config.sw);
-importScripts("./workerware/workerware.js");
+importScripts("/libcurl/index.js", "/expoxy/index.js", "/bare_transport.js", "/uv/uv.bundle.js", "/uv.config.js", __uv$config.sw, "/workerware/workerware.js");
 
 const ww = new WorkerWare({
   debug: true,
