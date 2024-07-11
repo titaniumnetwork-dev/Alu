@@ -1,5 +1,5 @@
 <script>
-  import { TransportMgr, initTransport, loadSelectedTransportScript } from "./ts/TransportManager";
+  import { TransportMgr, initTransport } from "./ts/TransportManager";
   import "notyf/notyf.min.css";
   import { Notyf } from "notyf";
 
@@ -48,9 +48,7 @@
   }
 
   function getUVProxyURL(frame: HTMLIFrameElement) {
-    return window.__uv$config.decodeUrl(
-      frame.contentWindow!.location.href.split("/service/")[1]
-    )
+    return window.__uv$config.decodeUrl(frame.contentWindow!.location.href.split("/service/")[1]);
   }
 
   async function loadContent() {
@@ -209,9 +207,7 @@
                 input!.value.trim()
             );
           } else {
-            navigator.clipboard.writeText(
-              getUVProxyURL(proxyFrame) 
-            );
+            navigator.clipboard.writeText(getUVProxyURL(proxyFrame));
           }
           new Notyf({
             duration: 2000,
@@ -227,14 +223,12 @@
   async function formEventListener(event: Event) {
     event.preventDefault();
     event.stopImmediatePropagation();
-    await loadSelectedTransportScript();
-    TransportMgr.updateTransport();
+    await TransportMgr.updateTransport();
     setTimeout(() => {
       loadContent();
     }, 200);
   }
   window.loadFormContent = loadContent;
-  window.loadSelectedTransport = loadSelectedTransportScript;
 
   function isUrl(val = "") {
     if (/^http(s?):\/\//.test(val) || (val.includes(".") && val.substr(0, 1) !== " ")) return true;

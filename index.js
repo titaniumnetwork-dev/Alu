@@ -1,6 +1,8 @@
 import { uvPath } from "@titaniumnetwork-dev/ultraviolet";
 import { epoxyPath } from "@mercuryworkshop/epoxy-transport";
 import { libcurlPath } from "@mercuryworkshop/libcurl-transport";
+import { baremuxPath } from "@mercuryworkshop/bare-mux/node";
+import { bareModulePath } from "@mercuryworkshop/bare-as-module3";
 import { createBareServer } from "@tomphttp/bare-server-node";
 import express from "express";
 import { createServer } from "http";
@@ -65,6 +67,8 @@ app.use(express.static(path.join(process.cwd(), "build")));
 app.use("/uv/", express.static(uvPath));
 app.use("/epoxy/", express.static(epoxyPath));
 app.use("/libcurl/", express.static(libcurlPath));
+app.use("/baremux/", express.static(baremuxPath));
+app.use("/baremod/", express.static(bareModulePath));
 
 app.use(express.json());
 app.use(
@@ -86,9 +90,7 @@ app.use("/custom-favicon", async (req, res) => {
     const buffer = new Buffer.from(await response.arrayBuffer());
     res.set("Content-Type", "image/png");
     res.send(buffer);
-  } catch {
-    
-  }
+  } catch {}
 });
 app.use("/", express.static("dist/client/"));
 app.get("/favicon.ico", (req, res) => {

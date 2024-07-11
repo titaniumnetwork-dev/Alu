@@ -1,6 +1,6 @@
 // @ts-ignore
 // For some reason, VSCode can't find the bare-mux package. It exists and compiling works, but vscode throws a fit.
-import { SetTransport, registerRemoteListener } from "@mercuryworkshop/bare-mux";
+import { BareMuxConnection } from "@mercuryworkshop/bare-mux";
 // @ts-check
 declare global {
   interface Window {
@@ -24,9 +24,11 @@ type transportConfig =
 export const wispURLDefault =
   (location.protocol === "https:" ? "wss://" : "ws://") + location.host + "/wisp/";
 export default class TransportManager {
+  connection: BareMuxConnection;
   private transport = "EpxMod.EpoxyClient";
 
   constructor(transport?: string) {
+    this.connection = new BareMuxConnection("/baremux/worker.js");
     if (transport) {
       this.transport = transport;
     }
@@ -38,10 +40,10 @@ export default class TransportManager {
       localStorage.setItem("alu__selectedTransport", JSON.stringify({ value: this.transport }));
     }
   }
-  updateTransport() {
+  async updateTransport() {
     try {
-      this.setTransport(JSON.parse(localStorage.getItem("alu__selectedTransport")!).value);
       console.log(this.transport);
+      await this.setTransport(JSON.parse(localStorage.getItem("alu__selectedTransport")!).value);
     } catch {
       console.log("Failed to update transport! Falling back to old transport.");
       this.setTransport(this.transport);
@@ -52,24 +54,21 @@ export default class TransportManager {
     return this.transport;
   }
 
-  setTransport(transport: string, wispURL = wispURLDefault) {
+  async setTransport(transport: string, wispURL = wispURLDefault) {
     this.transport = transport;
     let transportConfig: transportConfig = { wisp: wispURL };
 
-    if (this.transport == "BareMod.BareClient") {
+    if (this.transport == "/baremod/index.mjs") {
       transportConfig = localStorage.getItem("alu__bareUrl") || window.location.origin + "/bare/";
     }
 
-    SetTransport(this.transport, transportConfig);
+    await this.connection.setTransport(transport, [transportConfig]);
   }
 }
 
 export const TransportMgr = new TransportManager();
 
 export async function registerSW() {
-  navigator.serviceWorker.ready.then(async (sw) => {
-    await registerRemoteListener(sw.active!);
-  });
   return new Promise(async (resolve) => {
     await navigator.serviceWorker.register("/sw.js").then((registration) => {
       registration.update().then(() => {
@@ -81,52 +80,8 @@ export async function registerSW() {
 }
 
 export async function initTransport() {
-  await registerRemoteListener(navigator.serviceWorker.controller!);
   TransportMgr.setTransport(
     TransportMgr.getTransport(),
     localStorage.getItem("alu__wispUrl") || wispURLDefault
   );
-}
-
-export async function loadSelectedTransportScript(): Promise<void> {
-  return new Promise((resolve) => {
-    let selectedTransport = localStorage.getItem("alu__selectedTransport");
-    if (!selectedTransport) {
-      localStorage.setItem("alu__selectedTransport", JSON.stringify({ value: "uv" }));
-      return;
-    }
-    let transport = JSON.parse(selectedTransport).value;
-    console.log(`Loading script for ${transport}`);
-    let script;
-    switch (transport) {
-      case "EpxMod.EpoxyClient": {
-        script = document.createElement("script");
-        script.src = "/epoxy/index.js";
-        script.defer = true;
-        break;
-      }
-      case "CurlMod.LibcurlClient": {
-        script = document.createElement("script");
-        script.src = "/libcurl/index.js";
-        script.defer = true;
-        break;
-      }
-      case "BareMod.BareClient": {
-        script = document.createElement("script");
-        script.src = "/bare_transport.js";
-        script.defer = true;
-        break;
-      }
-      default: {
-        script = document.createElement("script");
-        script.src = "/epoxy/index.js";
-        script.defer = true;
-        break;
-      }
-    }
-    document.body.appendChild(script);
-    script.onload = () => {
-      resolve();
-    };
-  });
 }
