@@ -1,7 +1,4 @@
-// @ts-ignore
-// For some reason, VSCode can't find the bare-mux package. It exists and compiling works, but vscode throws a fit.
 import { BareMuxConnection } from "@mercuryworkshop/bare-mux";
-// @ts-check
 declare global {
   interface Window {
     __uv$config: {
