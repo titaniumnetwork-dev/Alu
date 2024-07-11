@@ -11,6 +11,8 @@ declare global {
     };
     loadFormContent: Function | null;
     loadSelectedTransport: Function | null;
+    loadedThemeAtob: string;
+    idb: IDBDatabase;
   }
 }
 
@@ -21,8 +23,7 @@ type transportConfig =
     }
   | string;
 
-export const wispURLDefault =
-  (location.protocol === "https:" ? "wss://" : "ws://") + location.host + "/wisp/";
+export const wispURLDefault = (location.protocol === "https:" ? "wss://" : "ws://") + location.host + "/wisp/";
 export default class TransportManager {
   connection: BareMuxConnection;
   private transport = "/epoxy/index.mjs";
@@ -68,19 +69,23 @@ export default class TransportManager {
 
 export const TransportMgr = new TransportManager();
 
-export async function registerSW() {
+export async function registerAndUpdateSW() {
   return new Promise(async (resolve) => {
-    await navigator.serviceWorker.register("/sw.js").then((registration) => {
-      registration.update().then(() => {
-        console.log("Registered SW!");
+    navigator.serviceWorker
+      .register("/sw.js", {
+        updateViaCache: "none",
+      })
+      .then(async (reg) => {
+        console.log("Service worker registered!");
+        reg.update();
+
         resolve(null);
       });
-    });
   });
 }
 
 export async function initTransport() {
-  TransportMgr.setTransport(
+  await TransportMgr.setTransport(
     TransportMgr.getTransport(),
     localStorage.getItem("alu__wispUrl") || wispURLDefault
   );

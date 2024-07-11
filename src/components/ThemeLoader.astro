@@ -1,19 +1,51 @@
 <script>
+
   function switchTheme() {
     let currentTheme = localStorage.getItem("alu__selectedTheme");
 
     if (currentTheme) {
-      document.documentElement.setAttribute(
-        "data-theme",
-        JSON.parse(currentTheme).value.toLowerCase()
-      );
+      document.documentElement.setAttribute("data-theme", JSON.parse(currentTheme).value.toLowerCase());
       let footer = document.getElementById("footer");
       if (footer) {
         footer.dataset.theme = JSON.parse(currentTheme).value.toLowerCase();
       }
+    } else {
+      localStorage.setItem("alu__selectedTheme", JSON.stringify({ name: "Alu", value: "alu" }));
+      switchTheme();
     }
   }
   switchTheme();
 
   document.addEventListener("astro:after-swap", switchTheme);
+
+  import IDBManager, { type ExtensionMetadata } from "@components/ts/IDBManager";
+  const idb = IDBManager.loadIDB("AluDB", 1);
+
+  idb.onsuccess = () => {
+    const db = idb.result;
+    IDBManager.SetIDB(db);
+
+    let store = IDBManager.GetStore("InstalledExtensions", "readonly");
+    store.getAll().onsuccess = (event) => {
+      const result = (event.target as IDBRequest).result;
+      if (result) {
+        result.forEach((extension: ExtensionMetadata) => {
+          if (extension.type === "theme" && extension.themeName) {
+            // Load theme CSS
+            window.loadedThemeAtob = atob(extension.scriptCopy!);
+            loadStyleFromAtob();
+
+            document.addEventListener("astro:after-swap", () => {
+              loadStyleFromAtob();
+            });
+          }
+        });
+      }
+    };
+  }
+  function loadStyleFromAtob() {
+    const style = document.createElement("style");
+    style.textContent = window.loadedThemeAtob;
+    document.head.appendChild(style);
+  }
 </script>

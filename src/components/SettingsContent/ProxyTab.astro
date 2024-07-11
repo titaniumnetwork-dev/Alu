@@ -33,63 +33,31 @@ const transportsList = [
 
 <div class="settings-container">
   <div class="setting__selected-proxy">
-    <label aria-label="Selected Proxy" class="setting-label"
-      >{t("settings.proxy.selectedProxy")}</label
-    >
-    <Dropdown
-      buttonNameDefault="Ultraviolet"
-      dropdownList={proxyList}
-      localStorageKey="alu__selectedProxy"
-      id="dropdown__selected-proxy"
-    />
+    <label aria-label="Selected Proxy" class="setting-label">{t("settings.proxy.selectedProxy")}</label>
+    <Dropdown buttonNameDefault="Ultraviolet" dropdownList={proxyList} localStorageKey="alu__selectedProxy" id="dropdown__selected-proxy" />
   </div>
   <div class="setting__search-engine">
-    <label aria-label="Search Engine" class="setting-label"
-      >{t("settings.proxy.searchEngine")}</label
-    >
-    <Dropdown
-      buttonNameDefault="Google"
-      dropdownList={searchEngineList}
-      localStorageKey="alu__searchEngine"
-      id="dropdown__search-engine"
-    />
+    <label aria-label="Search Engine" class="setting-label">{t("settings.proxy.searchEngine")}</label>
+    <Dropdown buttonNameDefault="Google" dropdownList={searchEngineList} localStorageKey="alu__searchEngine" id="dropdown__search-engine" />
   </div>
   <div class="setting__open_with">
-    <label aria-label="Open Page With" class="setting-label"
-      >{t("settings.proxy.openPageWith")}</label
-    >
-    <Dropdown
-      buttonNameDefault={t("settings.proxy.openPageWith.embed")}
-      dropdownList={openPageWith}
-      localStorageKey="alu__selectedOpenWith"
-      id="dropdown__open-with"
-    />
+    <label aria-label="Open Page With" class="setting-label">{t("settings.proxy.openPageWith")}</label>
+    <Dropdown buttonNameDefault={t("settings.proxy.openPageWith.embed")} dropdownList={openPageWith} localStorageKey="alu__selectedOpenWith" id="dropdown__open-with" />
   </div>
   <div class="setting__wisp_url">
-    <label aria-label="Wisp URL" for="wisp-url-input" class="setting-label"
-      >{t("settings.proxy.wispURL")}</label
-    >
+    <label aria-label="Wisp URL" for="wisp-url-input" class="setting-label">{t("settings.proxy.wispURL")}</label>
     <Input height="50px" inputName="wisp-url" />
   </div>
   <div class="setting__bare_url">
-    <label aria-label="Bare Server URL" for="bare-url-input" class="setting-label"
-      >{t("settings.proxy.bareURL")}</label
-    >
+    <label aria-label="Bare Server URL" for="bare-url-input" class="setting-label">{t("settings.proxy.bareURL")}</label>
     <Input height="50px" inputName="bare-url" />
   </div>
   <div class="setting__transport">
     <label aria-label="Wisp Transport" class="setting-label">{t("settings.proxy.transport")}</label>
-    <Dropdown
-      buttonNameDefault="Epoxy"
-      dropdownList={transportsList}
-      localStorageKey="alu__selectedTransport"
-      id="dropdown__transport"
-    />
+    <Dropdown buttonNameDefault="Epoxy" dropdownList={transportsList} localStorageKey="alu__selectedTransport" id="dropdown__transport" />
   </div>
 </div>
 <div class="setting__searxng-url">
-  <label aria-label="SearXNG URL" for="searxng-url-input" class="setting-label"
-    >{t("settings.proxy.searxngURL")}</label
-  >
+  <label aria-label="SearXNG URL" for="searxng-url-input" class="setting-label">{t("settings.proxy.searxngURL")}</label>
   <Input height="50px" inputName="searxng-url" defaultTextContent="https://searxng.site/" />
 </div>

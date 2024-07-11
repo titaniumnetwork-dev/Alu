@@ -15,7 +15,6 @@ import { existsSync } from "fs";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import wisp from "wisp-server-node";
-import fetch from "node-fetch";
 import { masqrCheck } from "./masqr.js";
 dotenv.config();
 
@@ -90,8 +89,22 @@ app.use("/custom-favicon", async (req, res) => {
     const buffer = new Buffer.from(await response.arrayBuffer());
     res.set("Content-Type", "image/png");
     res.send(buffer);
-  } catch {}
+  } catch {
+    res.sendStatus(500);
+  }
 });
+
+app.use("/blocklist", async (req, res) => {
+  try {
+    const { url } = req.query;
+    const response = await fetch(url).then((r) => r.text());
+    res.set("Content-Type", "text/plain");
+    res.send(response);
+  } catch {
+    res.sendStatus(500);
+  }
+});
+
 app.use("/", express.static("dist/client/"));
 app.get("/favicon.ico", (req, res) => {
   res.sendFile(path.join(process.cwd(), "dist/client/favicon.svg"));
@@ -107,9 +120,7 @@ app.get("/search", async (req, res) => {
   try {
     const { query } = req.query;
 
-    const response = await fetch(`http://api.duckduckgo.com/ac?q=${query}&format=json`).then(
-      (apiRes) => apiRes.json()
-    );
+    const response = await fetch(`http://api.duckduckgo.com/ac?q=${query}&format=json`).then((apiRes) => apiRes.json());
 
     res.send(response);
   } catch (err) {

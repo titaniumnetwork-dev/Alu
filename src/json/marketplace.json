@@ -1,14 +1,66 @@
 {
   "dev.wearr.adblock": {
-    "title": "Adblocker",
+    "title": "Alu Adblocker",
+    "description": "Alu Adblocker is the best adblocker for web proxy services. It blocks up to 97% of all trackers and ads.",
     "version": "0.0.1",
     "image": "/marketplace/adblock/adblock.png",
-    "script": "/marketplace/adblock/adblocker.js"
+    "script": "/marketplace/adblock/index.js",
+    "type": "serviceWorker",
+    "entryNamespace": "adblockExt",
+    "entryFunc": "filterRequest"
   },
-  "dev.wearr.adblock2": {
-    "title": "Adblocker2",
-    "version": "0.0.2",
-    "image": "/marketplace/adblock/adblock.png",
-    "script": "/marketplace/adblock/adblocker.js"
+  "dev.wearr.oled-theme": {
+    "title": "OLED Theme",
+    "description": "A beautiful OLED theme for Alu.",
+    "version": "0.0.1",
+    "image": "/marketplace/oled-theme/theme.png",
+    "script": "/marketplace/oled-theme/theme.css",
+    "type": "theme",
+    "themeName": "oled"
+  },
+  "dev.wearr.oled-theme2": {
+    "title": "OLED Theme",
+    "description": "A beautiful OLED theme for Alu.",
+    "version": "0.0.1",
+    "image": "/marketplace/oled-theme/theme.png",
+    "script": "/marketplace/oled-theme/theme.css",
+    "type": "theme",
+    "themeName": "oled"
+  },
+  "dev.wearr.oled-theme3": {
+    "title": "OLED Theme",
+    "description": "A beautiful OLED theme for Alu.",
+    "version": "0.0.1",
+    "image": "/marketplace/oled-theme/theme.png",
+    "script": "/marketplace/oled-theme/theme.css",
+    "type": "theme",
+    "themeName": "oled"
+  },
+  "dev.wearr.oled-theme4": {
+    "title": "OLED Theme",
+    "description": "A beautiful OLED theme for Alu.",
+    "version": "0.0.1",
+    "image": "/marketplace/oled-theme/theme.png",
+    "script": "/marketplace/oled-theme/theme.css",
+    "type": "theme",
+    "themeName": "oled"
+  },
+  "dev.wearr.oled-theme5": {
+    "title": "OLED Theme",
+    "description": "A beautiful OLED theme for Alu.",
+    "version": "0.0.1",
+    "image": "/marketplace/oled-theme/theme.png",
+    "script": "/marketplace/oled-theme/theme.css",
+    "type": "theme",
+    "themeName": "oled"
+  },
+  "dev.wearr.oled-theme6": {
+    "title": "OLED Theme",
+    "description": "A beautiful OLED theme for Alu.",
+    "version": "0.0.1",
+    "image": "/marketplace/oled-theme/theme.png",
+    "script": "/marketplace/oled-theme/theme.css",
+    "type": "theme",
+    "themeName": "oled"
   }
 }
