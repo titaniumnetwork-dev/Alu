@@ -25,7 +25,7 @@ export const wispURLDefault =
   (location.protocol === "https:" ? "wss://" : "ws://") + location.host + "/wisp/";
 export default class TransportManager {
   connection: BareMuxConnection;
-  private transport = "EpxMod.EpoxyClient";
+  private transport = "/epoxy/index.mjs";
 
   constructor(transport?: string) {
     this.connection = new BareMuxConnection("/baremux/worker.js");
