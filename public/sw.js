@@ -1,4 +1,6 @@
-importScripts("/uv/uv.bundle.js", "/uv.config.js", __uv$config.sw, "/workerware/workerware.js");
+importScripts("/uv/uv.bundle.js")
+importScripts("/uv.config.js")
+importScripts( __uv$config.sw, "/workerware/workerware.js");
 
 const ww = new WorkerWare({
   debug: true,
