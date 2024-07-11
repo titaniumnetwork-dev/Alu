@@ -1,5 +1,6 @@
 <p align="center">
-  <img src="https://github.com/wearrrrr/Alu/assets/99224452/dd1bef45-e96f-49bd-ac09-caa4ddc214d6" alt="AluLogo" width="250"/>
+
+  <img src="https://github.com/titaniumnetwork-dev/Alu/assets/99224452/d740378b-3fba-4470-8f06-3eefdae8a313" alt="AluLogo" width="250"/>
 </p>
 
 # Alu
