@@ -29,33 +29,33 @@ export function getStaticPaths() {
 </Layout>
 
 <script>
-  let search = document.getElementById('games-search-input') as HTMLInputElement;
-  let mainContent = document.getElementById('main-content') as HTMLDivElement;
-  search.addEventListener('input', () => {
+  let search = document.getElementById("games-search-input") as HTMLInputElement;
+  let mainContent = document.getElementById("main-content") as HTMLDivElement;
+  search.addEventListener("input", () => {
     let filter = search.value.toUpperCase();
     let games = mainContent.children;
     let results = 0;
     for (let i = 0; i < games.length; i++) {
       let game = games[i] as HTMLDivElement;
-      let name = game.getAttribute('data-name')!;
+      let name = game.getAttribute("data-name")!;
       if (name.toUpperCase().indexOf(filter) > -1) {
-        game.style.display = '';
+        game.style.display = "";
         results++;
       } else {
-        game.style.display = 'none';
+        game.style.display = "none";
       }
     }
-    console.log(results)
+    console.log(results);
     if (results === 0) {
-      let noResults = document.querySelector('.no-results') as HTMLDivElement;
+      let noResults = document.querySelector(".no-results") as HTMLDivElement;
       if (noResults) {
-        noResults.style.display = 'block';
-        noResults.innerHTML = 'No results found';
+        noResults.style.display = "block";
+        noResults.innerHTML = "No results found";
       }
     } else {
-      let noResults = document.querySelector('.no-results') as HTMLDivElement;
+      let noResults = document.querySelector(".no-results") as HTMLDivElement;
       if (noResults) {
-        noResults.style.display = 'none';
+        noResults.style.display = "none";
       }
     }
   });

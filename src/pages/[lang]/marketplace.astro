@@ -71,6 +71,11 @@ type MarketplaceItem = {
     padding: 20px;
     border-radius: 15px;
     width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
   .marketplace-item-image {
     width: 64px;
@@ -79,6 +84,10 @@ type MarketplaceItem = {
   .marketplace-item-desc {
     width: 80%;
     margin: 0 auto;
+    overflow: hidden;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    height: 40px;
   }
   .marketplace-btn {
     width: 100%;

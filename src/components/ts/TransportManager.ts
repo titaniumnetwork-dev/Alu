@@ -82,8 +82,5 @@ export async function registerAndUpdateSW() {
 }
 
 export async function initTransport() {
-  await TransportMgr.setTransport(
-    TransportMgr.getTransport(),
-    localStorage.getItem("alu__wispUrl") || wispURLDefault
-  );
+  await TransportMgr.setTransport(TransportMgr.getTransport(), localStorage.getItem("alu__wispUrl") || wispURLDefault);
 }

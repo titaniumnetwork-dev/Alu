@@ -1,5 +1,4 @@
 <script>
-
   function switchTheme() {
     let currentTheme = localStorage.getItem("alu__selectedTheme");
 
@@ -42,7 +41,7 @@
         });
       }
     };
-  }
+  };
   function loadStyleFromAtob() {
     const style = document.createElement("style");
     style.textContent = window.loadedThemeAtob;

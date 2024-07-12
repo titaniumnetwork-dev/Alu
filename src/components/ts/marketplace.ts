@@ -4,12 +4,8 @@ import marketplaceManifest from "../../json/marketplace.json";
 const installButtons = document.getElementsByClassName("btn-install");
 import IDBManager, { type ExtensionMetadata } from "./IDBManager";
 
-
-
 // This just makes it shorter to type
 interface HTMLButton extends HTMLButtonElement {}
-
-
 
 enum EXT_RETURN {
   ACTION_SUCCESS = 0,
@@ -52,8 +48,7 @@ Array.from(installButtons).forEach((btn) => {
                     });
                   }
                 });
-                
-              };
+              }
               break;
             case EXT_RETURN.ALREADY_INSTALLED:
               notifMessage = `${title} is already installed!`;
@@ -70,7 +65,7 @@ Array.from(installButtons).forEach((btn) => {
             notification.success(notifMessage);
             setTimeout(() => {
               window.location.reload();
-            }, 1000)
+            }, 1000);
             notification.options.duration = 999999;
             let btn = document.querySelector(`button[data-slug="${ret.slug}"]`) as HTMLButton;
             setInstallBtnText(btn);
@@ -119,36 +114,45 @@ async function installExtension(ext: ExtensionMetadata, slug: string): Promise<I
   });
 }
 
-document.querySelectorAll("button[data-uninstall-slug]").forEach((btn) => {
-  btn.addEventListener("click", async (event) => {
-    if (!confirm("Are you sure you want to uninstall this extension?")) {
-      return;
-    }
-    let uninst = await uninstallExtension((event.target as HTMLButton).dataset.uninstallSlug!)
-    let notification = new Notyf({
-      duration: 999999,
-      position: { x: "right", y: "bottom" },
-      dismissible: true,
-      ripple: true,
+function addUninstallEventListeners() {
+  document.querySelectorAll("button[data-uninstall-slug]").forEach((btn) => {
+    btn.addEventListener("click", async (event) => {
+      if (!confirm("Are you sure you want to uninstall this extension?")) {
+        return;
+      }
+      let uninst = await uninstallExtension((event.target as HTMLButton).dataset.uninstallSlug!);
+      let notification = new Notyf({
+        duration: 999999,
+        position: { x: "right", y: "bottom" },
+        dismissible: true,
+        ripple: true,
+      });
+      switch (uninst.code) {
+        case EXT_RETURN.ACTION_SUCCESS:
+          notification.success(`Uninstalled ${uninst.title}!`);
+          let btn = document.querySelector(`button[data-slug="${uninst.slug}"]`) as HTMLButton;
+          btn.disabled = false;
+          btn.textContent = "Install";
+          btn.classList.remove("installed");
+          (event.target as HTMLButton).classList.add("btn-hidden");
+          break;
+        case EXT_RETURN.INSTALL_FAILED:
+          notification.error(`Failed to uninstall ${uninst.title}!`);
+          break;
+      }
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
     });
-    switch (uninst.code) {
-      case EXT_RETURN.ACTION_SUCCESS:
-        notification.success(`Uninstalled ${uninst.title}!`);
-        let btn = document.querySelector(`button[data-slug="${uninst.slug}"]`) as HTMLButton;
-        btn.disabled = false;
-        btn.textContent = "Install";
-        btn.classList.remove("installed");
-        (event.target as HTMLButton).classList.add("btn-hidden");
-        break;
-      case EXT_RETURN.INSTALL_FAILED:
-        notification.error(`Failed to uninstall ${uninst.title}!`);
-        break;
-    }
-    setTimeout(() => {
-      window.location.reload();
-    }, 2000);
-  })
-})
+  });
+}
+
+addUninstallEventListeners();
+document.addEventListener("astro:after-swap", () => {
+  addUninstallEventListeners();
+});
+
+
 
 async function uninstallExtension(slug: string): Promise<InstallReturn> {
   return new Promise<InstallReturn>((resolve, reject) => {
@@ -168,7 +172,7 @@ async function uninstallExtension(slug: string): Promise<InstallReturn> {
         let currTheme = localStorage.getItem("alu__selectedTheme");
         if (currTheme) {
           if (JSON.parse(currTheme!).value == ext.result.themeName) {
-            console.log("Reverting theme to default!")
+            console.log("Reverting theme to default!");
             localStorage.setItem("alu__selectedTheme", JSON.stringify({ name: "Alu", value: "alu" }));
           }
         }
@@ -190,7 +194,7 @@ async function uninstallExtension(slug: string): Promise<InstallReturn> {
       };
     };
   });
-};
+}
 
 function setInstallBtnText(btn: HTMLButton) {
   btn.disabled = true;

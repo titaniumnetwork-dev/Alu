@@ -221,23 +221,23 @@ export function getStaticPaths() {
 
       function setupCustomizationSettings() {
         let store = window.idb.transaction("InstalledExtensions", "readonly").objectStore("InstalledExtensions");
-          store.getAll().onsuccess = (event) => {
-            const result = event.target.result;
-            if (result) {
-              result.forEach((extension) => {
-                if (extension.type === "theme" && extension.themeName) {
-                  // Create a dropdown item for the theme
-                  addThemeToDropdown(extension);
-                }
-              });
-            }
-            applySavedLocalStorage("alu__selectedTheme", "dropdown__selected-theme");
-            applySavedLocalStorage("alu__selectedLanguage", "dropdown__selected-language");
-            let themeDropdown = document.getElementById("dropdown__selected-theme-menu");
-            let languageDropdown = document.getElementById("dropdown__selected-language-menu");
-            applyDropdownEventListeners(themeDropdown, "dropdown__selected-theme", "alu__selectedTheme", changeTheme);
-            applyDropdownEventListeners(languageDropdown, "dropdown__selected-language", "alu__selectedLanguage", navigateToNewLangaugePage);
-          };
+        store.getAll().onsuccess = (event) => {
+          const result = event.target.result;
+          if (result) {
+            result.forEach((extension) => {
+              if (extension.type === "theme" && extension.themeName) {
+                // Create a dropdown item for the theme
+                addThemeToDropdown(extension);
+              }
+            });
+          }
+          applySavedLocalStorage("alu__selectedTheme", "dropdown__selected-theme");
+          applySavedLocalStorage("alu__selectedLanguage", "dropdown__selected-language");
+          let themeDropdown = document.getElementById("dropdown__selected-theme-menu");
+          let languageDropdown = document.getElementById("dropdown__selected-language-menu");
+          applyDropdownEventListeners(themeDropdown, "dropdown__selected-theme", "alu__selectedTheme", changeTheme);
+          applyDropdownEventListeners(languageDropdown, "dropdown__selected-language", "alu__selectedLanguage", navigateToNewLangaugePage);
+        };
       }
 
       function setupCloakingSettings() {

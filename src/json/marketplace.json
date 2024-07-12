@@ -1,7 +1,7 @@
 {
   "dev.wearr.adblock": {
     "title": "Alu Adblocker",
-    "description": "Alu Adblocker is the best adblocker for web proxy services. It blocks up to 97% of all trackers and ads.",
+    "description": "Alu Adblocker is the best adblocker for web proxy services. Blocking up to 97% of all trackers and ads.",
     "version": "0.0.1",
     "image": "/marketplace/adblock/adblock.png",
     "script": "/marketplace/adblock/index.js",
