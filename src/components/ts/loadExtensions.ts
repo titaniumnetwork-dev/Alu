@@ -27,14 +27,3 @@ export async function retrieveExtensions() {
   });
   return extensionsArr;
 }
-
-export async function loadExtension(ext: Extension) {
-  console.log("Loading extension: ", ext.name);
-  if (ext.serviceWorkerExtension) {
-    // This needs to be post message'd into the service worker
-    navigator.serviceWorker.controller?.postMessage({
-      listenerType: "fetch",
-      payload: ext.script,
-    });
-  }
-}

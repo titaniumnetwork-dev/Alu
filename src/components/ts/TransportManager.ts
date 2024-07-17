@@ -40,7 +40,6 @@ export default class TransportManager {
   }
   async updateTransport() {
     try {
-      console.log(this.transport);
       await this.setTransport(JSON.parse(localStorage.getItem("alu__selectedTransport")!).value);
     } catch {
       console.log("Failed to update transport! Falling back to old transport.");
