@@ -3,9 +3,10 @@ import Layout from "../../layouts/Layout.astro";
 import games from "../../json/games.json";
 import GameItem from "@components/GameItem.astro";
 
-import { STATIC_PATHS, i18n } from "@i18n/utils";
+import { STATIC_PATHS, i18n, getLangFromUrl } from "@i18n/utils";
 import Input from "@components/UI/Input.astro";
 const t = i18n.inferLangUseTranslations(Astro.url);
+const lang = getLangFromUrl(Astro.url);
 
 export function getStaticPaths() {
   return STATIC_PATHS;
@@ -22,7 +23,7 @@ export function getStaticPaths() {
     {
       Object.keys(games).map((key) => {
         const game = (games as any)[key];
-        return <GameItem name={game.name} image={game.image} slugName={game.slug} />;
+        return <GameItem lang={lang} name={game.name} image={game.image} slugName={game.slug} />;
       })
     }
   </main>

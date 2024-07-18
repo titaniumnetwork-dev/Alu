@@ -2,7 +2,9 @@ import "notyf/notyf.min.css";
 import { Notyf } from "notyf";
 import marketplaceManifest from "../../json/marketplace.json";
 const installButtons = document.getElementsByClassName("btn-install");
-import IDBManager, { type ExtensionMetadata } from "./IDBManager";
+import IDBManager from "./IDBManager";
+
+const extManifest = marketplaceManifest as ExtensionMetadataJSON;
 
 // This just makes it shorter to type
 interface HTMLButton extends HTMLButtonElement {}
@@ -12,12 +14,6 @@ enum EXT_RETURN {
   INSTALL_FAILED = -1,
   ALREADY_INSTALLED = 1,
 }
-
-type InstallReturn = {
-  code: EXT_RETURN;
-  slug: string;
-  title?: string;
-};
 
 Array.from(installButtons).forEach((btn) => {
   btn.addEventListener("click", async (event) => {
@@ -81,13 +77,13 @@ Array.from(installButtons).forEach((btn) => {
   });
 });
 
-async function getMarketplaceObj(slug: string): Promise<ExtensionMetadata> {
-  const manifest = (marketplaceManifest as unknown as { [key: string]: ExtensionMetadata })[slug];
+async function getMarketplaceObj(slug: string): Promise<IExtensionMetadata> {
+  const manifest = extManifest[slug];
   manifest.scriptCopy = btoa(await fetch(manifest.script).then((res) => res.text()));
   return manifest;
 }
 
-async function installExtension(ext: ExtensionMetadata, slug: string): Promise<InstallReturn> {
+async function installExtension(ext: IExtensionMetadata, slug: string): Promise<InstallReturn> {
   return new Promise<InstallReturn>((resolve, reject) => {
     const request = IDBManager.GetIDB();
     const transaction = request.transaction("InstalledExtensions", "readwrite");
@@ -151,8 +147,6 @@ addUninstallEventListeners();
 document.addEventListener("astro:after-swap", () => {
   addUninstallEventListeners();
 });
-
-
 
 async function uninstallExtension(slug: string): Promise<InstallReturn> {
   return new Promise<InstallReturn>((resolve, reject) => {

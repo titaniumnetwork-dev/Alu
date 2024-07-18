@@ -20,4 +20,11 @@ export default defineConfig({
   adapter: node({
     mode: "middleware",
   }),
+  vite: {
+    server: {
+      watch: {
+        usePolling: true
+      }
+    }
+  }
 });

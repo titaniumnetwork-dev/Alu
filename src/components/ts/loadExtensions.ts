@@ -1,10 +1,4 @@
-type Extension = {
-  name: string;
-  script: string;
-  serviceWorkerExtension: boolean;
-};
-
-export async function retrieveExtensions() {
+export async function retrieveExtensions(type: ExtType) {
   const extensionsArr: Array<Extension> = [];
   const db = await new Promise<IDBDatabase>((resolve, reject) => {
     const request = indexedDB.open("AluDB", 1);
@@ -12,7 +6,7 @@ export async function retrieveExtensions() {
     request.onerror = reject;
   });
 
-  const transaction = (await db).transaction("InstalledExtensions", "readwrite");
+  const transaction = db.transaction("InstalledExtensions", "readwrite");
   const objectStore = transaction.objectStore("InstalledExtensions");
   const extensions: Array<Extension> = await new Promise((resolve, reject) => {
     const request = objectStore.getAll();
@@ -20,10 +14,6 @@ export async function retrieveExtensions() {
     request.onerror = reject;
   });
 
-  extensions.forEach(async (extension: Extension) => {
-    if (extension.serviceWorkerExtension) {
-      extensionsArr.push(extension);
-    }
-  });
+  extensions.forEach(async (extension: Extension) => {});
   return extensionsArr;
 }

@@ -1,6 +1,5 @@
-importScripts("/uv/uv.bundle.js")
-importScripts("/uv.config.js")
-importScripts( __uv$config.sw, "/workerware/workerware.js");
+importScripts("/uv/uv.bundle.js", "/uv.config.js", "/workerware/workerware.js");
+importScripts( __uv$config.sw);
 
 const ww = new WorkerWare({
   debug: true,
@@ -17,6 +16,8 @@ function loadExtensionScripts() {
         let extensions = request.result;
         extensions.forEach((extension) => {
           if (extension.type != "serviceWorker") return;
+          // Loads the function to be added as a middleware into global scope.
+          // The function defined should NOT immediately execute any function.
           eval(atob(extension.scriptCopy));
           ww.use({
             function: self[extension.entryNamespace][extension.entryFunc],

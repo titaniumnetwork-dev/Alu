@@ -17,7 +17,7 @@
 
   document.addEventListener("astro:after-swap", switchTheme);
 
-  import IDBManager, { type ExtensionMetadata } from "@components/ts/IDBManager";
+  import IDBManager from "@components/ts/IDBManager";
   const idb = IDBManager.loadIDB("AluDB", 1);
 
   idb.onsuccess = () => {
@@ -28,7 +28,7 @@
     store.getAll().onsuccess = (event) => {
       const result = (event.target as IDBRequest).result;
       if (result) {
-        result.forEach((extension: ExtensionMetadata) => {
+        result.forEach((extension: IExtensionMetadata) => {
           if (extension.type === "theme" && extension.themeName) {
             // Load theme CSS
             window.loadedThemeAtob = atob(extension.scriptCopy!);

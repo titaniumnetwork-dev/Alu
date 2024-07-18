@@ -1,6 +1,7 @@
 {
   "2048": {
     "name": "2048",
+    "description": "Join the numbers and get to the 2048 tile!",
     "image": "/games/2048/logo.png",
     "slug": "2048"
   },
@@ -124,11 +125,6 @@
     "image": "/games/game-inside/logo.png",
     "slug": "game-inside"
   },
-  "google-snake": {
-    "name": "Google Snake",
-    "image": "/games/google-snake/logo.png",
-    "slug": "google-snake"
-  },
   "grindcraft": {
     "name": "Grindcraft",
     "image": "/games/grindcraft/logo.png",
@@ -183,11 +179,6 @@
     "name": "Moto X3M Winter",
     "image": "/games/moto-x3m-winter/logo.png",
     "slug": "moto-x3m-winter"
-  },
-  "osu": {
-    "name": "osu!",
-    "image": "/games/osu/logo.png",
-    "slug": "osu"
   },
   "retro-bowl": {
     "name": "Retro Bowl",

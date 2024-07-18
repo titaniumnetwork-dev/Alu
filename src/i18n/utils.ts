@@ -2,7 +2,7 @@ import { ui, defaultLang } from "./ui";
 
 export const STATIC_PATHS = [{ params: { lang: "en" } }, { params: { lang: "jp" } }];
 
-function getLangFromUrl(url: URL) {
+export function getLangFromUrl(url: URL) {
   // comma lol
   const [, lang] = url.pathname.split("/");
   if (lang in ui) return lang as keyof typeof ui;

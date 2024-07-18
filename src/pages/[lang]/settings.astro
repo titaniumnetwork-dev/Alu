@@ -56,7 +56,7 @@ export function getStaticPaths() {
     </div>
   </main>
   <script>
-    import IDBManager, { type ExtensionMetadata } from "@components/ts/IDBManager";
+    import IDBManager from "@components/ts/IDBManager";
     let load = IDBManager.loadIDB("AluDB", 1);
     load.onsuccess = () => {
       window.idb = IDBManager.GetIDB();

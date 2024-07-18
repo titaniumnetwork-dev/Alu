@@ -1,0 +1,69 @@
+---
+export const prerender = false;
+import Layout from "src/layouts/Layout.astro";
+import games from "../../../json/games.json";
+
+let gamesList = games as GameList;
+
+// get the current game based on the information in the url
+let game = Astro.params.game;
+if (!game) {
+  Astro.redirect("/en/games/");
+  return;
+}
+
+function isValidGameKey(key: string) {
+    return key in gamesList;
+}
+
+let gameData = isValidGameKey(game) ? gamesList[game] : null;
+
+if (!gameData) {
+  return Astro.redirect("/en/games/");
+}
+
+---
+
+<Layout title="Game">
+  <div id="main-content">
+    <h1 class="title-text">{gameData.name}</h1>
+    <p class="title-desc">{gameData?.description || "Play the game!"}</p>
+    <div class="game-container">
+      <iframe scrolling="no" src=`/games/${gameData.slug}` title={gameData.name} id="game-frame"/>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .game-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    overflow: hidden;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+  }
+  #game-frame {
+    width: 80%;
+    height: 80vh;
+    border: 0;
+  }
+</style>
+
+<script>
+  let iframe = document.getElementById("game-frame") as HTMLIFrameElement;
+  iframe.contentWindow?.focus();
+
+  iframe?.addEventListener("load", () => {
+    iframe.contentWindow?.focus();
+  });
+
+  iframe.addEventListener("click", () => {
+    iframe.contentWindow?.focus();
+  })
+
+  document.addEventListener("astro:after-swap", () => {
+    let iframe = document.getElementById("game-frame") as HTMLIFrameElement;
+    iframe?.contentWindow?.focus();
+  })
+</script>

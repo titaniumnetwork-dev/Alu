@@ -6,18 +6,6 @@ import marketplace from "../../json/marketplace.json";
 export const getStaticPaths = () => {
   return STATIC_PATHS;
 };
-
-type MarketplaceItem = {
-  title: string;
-  description: string;
-  version: string;
-  image: string;
-  script: string;
-  type: string;
-  entryNamespace?: string;
-  entryFunc?: string;
-  themeName?: string;
-};
 ---
 
 <Layout title="Marketplace | Alu">
@@ -28,7 +16,7 @@ type MarketplaceItem = {
     <div class="marketplace-ext-grid">
       {
         Object.keys(marketplace).map((mp_item) => {
-          const item = (marketplace as { [key: string]: MarketplaceItem })[mp_item];
+          const item = (marketplace as { [key: string]: IExtensionMetadata })[mp_item];
           const slug = mp_item;
           return (
             <div class="marketplace-item" data-slug={slug}>

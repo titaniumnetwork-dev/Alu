@@ -16,6 +16,8 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import wisp from "wisp-server-node";
 import { masqrCheck } from "./masqr.js";
+import { handler as ssrHandler } from './dist/server/entry.mjs';
+
 dotenv.config();
 
 const whiteListedDomains = ["aluu.xyz", "localhost:3000"];
@@ -52,6 +54,7 @@ const rammerheadScopes = [
 ];
 const rammerheadSession = /^\/[a-z0-9]{32}/;
 const app = express();
+app.use(ssrHandler);
 app.use(compression({ threshold: 0, filter: () => true }));
 app.use(cookieParser());
 
