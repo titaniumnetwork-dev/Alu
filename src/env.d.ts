@@ -55,14 +55,9 @@ declare module "astro-i18n" {
   /** Typed astro-i18n config definition. */
   export function defineAstroI18nConfig(config: Partial<AstroI18nConfig>): Partial<AstroI18nConfig>;
   /** The `astro-i18n` middleware. */
-  export function useAstroI18n(
-    config?: Partial<AstroI18nConfig> | string,
-    formatters?: TranslationFormatters
-  ): (...args: any[]) => any;
+  export function useAstroI18n(config?: Partial<AstroI18nConfig> | string, formatters?: TranslationFormatters): (...args: any[]) => any;
   /** Workaround function to make astroI18n work inside getStaticPaths. This is because Astro's getStaticPaths runs before everything which doesn't allows astroI18n to update its state automatically. */
-  function createGetStaticPaths(
-    callback: (props: GetStaticPathsProps) => GetStaticPathsItem[] | Promise<GetStaticPathsItem[]>
-  ): (
+  function createGetStaticPaths(callback: (props: GetStaticPathsProps) => GetStaticPathsItem[] | Promise<GetStaticPathsItem[]>): (
     props: GetStaticPathsProps & {
       astroI18n?: {
         locale: string;
@@ -78,9 +73,7 @@ declare module "astro-i18n" {
     key: T | (string & {}),
     ...args: undefined extends TranslationVariables[T]
       ? [
-          properties?: keyof TranslationVariables extends T
-            ? Record<string, unknown>
-            : TranslationVariables[T],
+          properties?: keyof TranslationVariables extends T ? Record<string, unknown> : TranslationVariables[T],
           options?: {
             route?: Route | (string & {});
             locale?: Locale | (string & {});
@@ -163,9 +156,7 @@ declare module "astro-i18n" {
       key: T | (string & {}),
       ...args: undefined extends TranslationVariables[T]
         ? [
-            properties?: keyof TranslationVariables extends T
-              ? Record<string, unknown>
-              : TranslationVariables[T],
+            properties?: keyof TranslationVariables extends T ? Record<string, unknown> : TranslationVariables[T],
             options?: {
               route?: Route | (string & {});
               locale?: Locale | (string & {});
@@ -229,10 +220,7 @@ declare module "astro-i18n" {
     /** Tries to parse one of the configured locales out of the given route. If no configured locale is found it will return `null`. */
     extractRouteLocale(route: string): string | null;
     /** Initializes astro-i18n on the server-side. */
-    initialize(
-      config?: Partial<AstroI18nConfig> | string,
-      formatters?: TranslationFormatters = {}
-    ): Promise<void>;
+    initialize(config?: Partial<AstroI18nConfig> | string, formatters?: TranslationFormatters = {}): Promise<void>;
     /** Redirects the user to the given destination. */
     redirect(destination: string | URL, status = 301);
   }

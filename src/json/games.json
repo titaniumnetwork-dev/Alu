@@ -1,8 +1,16 @@
 {
   "2048": {
     "name": "2048",
+    "description": "Join the numbers and get to the 2048 tile!",
     "image": "/games/2048/logo.png",
     "slug": "2048"
+  },
+  "adofai": {
+    "name": "A Dance of Fire and Ice",
+    "description": "A Dance of Fire and Ice is a strict rhythm game. Keep your focus as you guide two orbiting planets along a winding path without breaking their perfect equilibrium. Press on every beat of the music to move in a line. Every pattern has its own rhythm to it. It can get difficult. This game is purely based on rhythm, so use your ears more than your sight.",
+    "image": "/games/adofai/logo.webp",
+    "slug": "adofai",
+    "unity": true
   },
   "backrooms": {
     "name": "The Backrooms",
@@ -13,6 +21,11 @@
     "name": "Baldi's Basics",
     "image": "/games/baldi/logo.png",
     "slug": "baldi"
+  },
+  "basketball-stars": {
+    "name": "Basketball Stars",
+    "image": "/games/basketball-stars/logo.png",
+    "slug": "basketball-stars"
   },
   "cannon-basketball-4": {
     "name": "Cannon Basketball 4",
@@ -79,6 +92,27 @@
     "image": "/games/draw-the-hill/logo.png",
     "slug": "draw-the-hill"
   },
+  "ducklife": {
+    "name": "Duck Life",
+    "description": "Duck Life is the first game in the Duck Life series. A tornado has struck your farm and destroyed everything. All that remains is a single duck egg. Train this duckling to peak athletic form so you can earn money to rebuild the farm.",
+    "image": "/games/ducklife/logo.png",
+    "slug": "ducklife",
+    "unity": true
+  },
+  "ducklife3": {
+    "name": "Duck Life 3",
+    "description": "Duck Life is the first game in the Duck Life series. A tornado has struck your farm and destroyed everything. All that remains is a single duck egg. Train this duckling to peak athletic form so you can earn money to rebuild the farm.",
+    "image": "/games/ducklife3/logo.webp",
+    "slug": "ducklife3",
+    "unity": true
+  },
+  "ducklife4": {
+    "name": "Duck Life 4",
+    "description": "Duck Life is the first game in the Duck Life series. A tornado has struck your farm and destroyed everything. All that remains is a single duck egg. Train this duckling to peak athletic form so you can earn money to rebuild the farm.",
+    "image": "/games/ducklife/logo.png",
+    "slug": "ducklife4",
+    "unity": true
+  },
   "evil-glitch": {
     "name": "Evil Glitch",
     "image": "/games/evil-glitch/logo.png",
@@ -123,11 +157,6 @@
     "name": "Game Inside",
     "image": "/games/game-inside/logo.png",
     "slug": "game-inside"
-  },
-  "google-snake": {
-    "name": "Google Snake",
-    "image": "/games/google-snake/logo.png",
-    "slug": "google-snake"
   },
   "grindcraft": {
     "name": "Grindcraft",
@@ -184,15 +213,21 @@
     "image": "/games/moto-x3m-winter/logo.png",
     "slug": "moto-x3m-winter"
   },
-  "osu": {
-    "name": "osu!",
-    "image": "/games/osu/logo.png",
-    "slug": "osu"
-  },
   "retro-bowl": {
     "name": "Retro Bowl",
     "image": "/games/retro-bowl/logo.png",
     "slug": "retro-bowl"
+  },
+  "rooftop-sniper": {
+    "name": "Rooftop Snipers",
+    "image": "/games/rooftop-sniper/logo.png",
+    "slug": "rooftop-sniper",
+    "unity": true
+  },
+  "sans-fight": {
+    "name": "Sans Fight",
+    "image": "/games/sans-fight/icon-256.png",
+    "slug": "sans-fight"
   },
   "slope": {
     "name": "Slope",
@@ -203,11 +238,6 @@
     "name": "Super Mario 64",
     "image": "/games/sm64/logo.png",
     "slug": "sm64"
-  },
-  "solitaire": {
-    "name": "Solitaire",
-    "image": "/games/solitaire/logo.png",
-    "slug": "solitaire"
   },
   "suika-combination": {
     "name": "Suika Combination",
@@ -223,6 +253,12 @@
     "name": "There is No Game",
     "image": "/games/there-is-no-game/logo.png",
     "slug": "there-is-no-game"
+  },
+  "tunnelrush": {
+    "name": "Tunnel Rush",
+    "image": "/games/tunnelrush/logo.jpg",
+    "slug": "tunnelrush",
+    "unity": true
   },
   "ul6": {
     "name": "Ultima 6",

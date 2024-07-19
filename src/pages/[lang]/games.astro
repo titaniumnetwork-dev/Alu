@@ -4,6 +4,7 @@ import games from "../../json/games.json";
 import GameItem from "@components/GameItem.astro";
 
 import { STATIC_PATHS, i18n } from "@i18n/utils";
+import Input from "@components/UI/Input.astro";
 const t = i18n.inferLangUseTranslations(Astro.url);
 
 export function getStaticPaths() {
@@ -13,41 +14,83 @@ export function getStaticPaths() {
 
 <Layout title={t("pages.games")}>
   <h1 class="title-text">{t("games.title")}</h1>
+  <div class="search">
+    <Input inputName="games-search" placeholder={t("games.search")} height="30px" />
+  </div>
+  <div class="no-results"></div>
   <main id="main-content" class="grid">
     {
       Object.keys(games).map((key) => {
         const game = (games as any)[key];
-        return <GameItem name={game.name} image={game.image} slugName={game.slug} />;
+        return <GameItem game={game} />;
       })
     }
   </main>
 </Layout>
 
+<script>
+  let search = document.getElementById("games-search-input") as HTMLInputElement;
+  let mainContent = document.getElementById("main-content") as HTMLDivElement;
+  search.addEventListener("input", () => {
+    let filter = search.value.toUpperCase();
+    let games = mainContent.children;
+    let results = 0;
+    for (let i = 0; i < games.length; i++) {
+      let game = games[i] as HTMLDivElement;
+      let name = game.getAttribute("data-name")!;
+      if (name.toUpperCase().indexOf(filter) > -1) {
+        game.style.display = "";
+        results++;
+      } else {
+        game.style.display = "none";
+      }
+    }
+    console.log(results);
+    if (results === 0) {
+      let noResults = document.querySelector(".no-results") as HTMLDivElement;
+      if (noResults) {
+        noResults.style.display = "block";
+        noResults.innerHTML = "No results found";
+      }
+    } else {
+      let noResults = document.querySelector(".no-results") as HTMLDivElement;
+      if (noResults) {
+        noResults.style.display = "none";
+      }
+    }
+  });
+</script>
+
 <style>
+  .title-text {
+    margin-bottom: 5px;
+  }
+  .search {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    width: 50%;
+    margin: 0 auto;
+  }
   .grid {
     color: var(--text-color);
-    margin-top: -10px;
     height: max-content;
-    width: calc(100% - 60px);
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
     text-align: center;
     justify-content: center;
     gap: 1rem;
-    margin-left: 20px;
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 20px;
   }
 
-  @media only screen and (max-width: 973px) {
-    .grid {
-      grid-template-columns: repeat(3, 1fr);
-      padding: 0;
-    }
-  }
-
-  @media only screen and (max-width: 467px) {
-    .grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
+  .no-results {
+    text-align: center;
+    height: 15rem;
+    width: 100%;
+    font-size: 2rem;
+    margin-top: 10px;
+    display: none;
   }
 </style>

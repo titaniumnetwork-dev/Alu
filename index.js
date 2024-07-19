@@ -1,6 +1,8 @@
 import { uvPath } from "@titaniumnetwork-dev/ultraviolet";
 import { epoxyPath } from "@mercuryworkshop/epoxy-transport";
 import { libcurlPath } from "@mercuryworkshop/libcurl-transport";
+import { baremuxPath } from "@mercuryworkshop/bare-mux/node";
+import { bareModulePath } from "@mercuryworkshop/bare-as-module3";
 import { createBareServer } from "@tomphttp/bare-server-node";
 import express from "express";
 import { createServer } from "http";
@@ -13,8 +15,9 @@ import { existsSync } from "fs";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import wisp from "wisp-server-node";
-import fetch from "node-fetch";
 import { masqrCheck } from "./masqr.js";
+import { handler as ssrHandler } from './dist/server/entry.mjs';
+
 dotenv.config();
 
 const whiteListedDomains = ["aluu.xyz", "localhost:3000"];
@@ -51,6 +54,7 @@ const rammerheadScopes = [
 ];
 const rammerheadSession = /^\/[a-z0-9]{32}/;
 const app = express();
+app.use(ssrHandler);
 app.use(compression({ threshold: 0, filter: () => true }));
 app.use(cookieParser());
 
@@ -65,6 +69,8 @@ app.use(express.static(path.join(process.cwd(), "build")));
 app.use("/uv/", express.static(uvPath));
 app.use("/epoxy/", express.static(epoxyPath));
 app.use("/libcurl/", express.static(libcurlPath));
+app.use("/baremux/", express.static(baremuxPath));
+app.use("/baremod/", express.static(bareModulePath));
 
 app.use(express.json());
 app.use(
@@ -87,9 +93,21 @@ app.use("/custom-favicon", async (req, res) => {
     res.set("Content-Type", "image/png");
     res.send(buffer);
   } catch {
-    
+    res.sendStatus(500);
   }
 });
+
+app.use("/blocklist", async (req, res) => {
+  try {
+    const { url } = req.query;
+    const response = await fetch(url).then((r) => r.text());
+    res.set("Content-Type", "text/plain");
+    res.send(response);
+  } catch {
+    res.sendStatus(500);
+  }
+});
+
 app.use("/", express.static("dist/client/"));
 app.get("/favicon.ico", (req, res) => {
   res.sendFile(path.join(process.cwd(), "dist/client/favicon.svg"));
@@ -105,9 +123,7 @@ app.get("/search", async (req, res) => {
   try {
     const { query } = req.query;
 
-    const response = await fetch(`http://api.duckduckgo.com/ac?q=${query}&format=json`).then(
-      (apiRes) => apiRes.json()
-    );
+    const response = await fetch(`http://api.duckduckgo.com/ac?q=${query}&format=json`).then((apiRes) => apiRes.json());
 
     res.send(response);
   } catch (err) {

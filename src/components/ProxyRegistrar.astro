@@ -1,5 +1,5 @@
 <script>
-  import { TransportMgr, initTransport, loadSelectedTransportScript } from "./ts/TransportManager";
+  import { TransportMgr, initTransport } from "./ts/TransportManager";
   import "notyf/notyf.min.css";
   import { Notyf } from "notyf";
 
@@ -48,9 +48,7 @@
   }
 
   function getUVProxyURL(frame: HTMLIFrameElement) {
-    return window.__uv$config.decodeUrl(
-      frame.contentWindow!.location.href.split("/service/")[1]
-    )
+    return window.__uv$config.decodeUrl(frame.contentWindow!.location.href.split("/service/")[1]);
   }
 
   async function loadContent() {
@@ -64,10 +62,7 @@
       else if (!(url.startsWith("https://") || url.startsWith("http://"))) url = "http://" + url;
       if (openWith) {
         let openWithParsed = JSON.parse(openWith);
-        if (
-          openWithParsed.value === "newTab" ||
-          (currentProxy && JSON.parse(currentProxy).value === "rammerhead")
-        ) {
+        if (openWithParsed.value === "newTab" || (currentProxy && JSON.parse(currentProxy).value === "rammerhead")) {
           window.open(await getProxyURL(), "_blank");
           return;
         }
@@ -120,15 +115,7 @@
       iframe.classList.add("proxy-frame");
       document.body.appendChild(iframe);
       setTimeout(() => {
-        iframeLoad(
-          iframe,
-          loadingContent,
-          topbar,
-          closeButton,
-          shareButton,
-          forwardsButton,
-          backwardsButton
-        );
+        iframeLoad();
       }, 500);
 
       function setActive() {
@@ -159,15 +146,7 @@
       //   }
       // }
 
-      function iframeLoad(
-        iframe: HTMLIFrameElement,
-        loadingContent: HTMLElement,
-        topbar: HTMLDivElement,
-        closeButton: HTMLButtonElement,
-        shareButton: HTMLImageElement,
-        forwardsButton: HTMLImageElement,
-        backwardsButton: HTMLImageElement
-      ) {
+      function iframeLoad() {
         loadingContent.style.opacity = "0";
         iframe.style.opacity = "1";
         topbar.style.opacity = "1";
@@ -201,17 +180,9 @@
           let currentProxy = localStorage.getItem("alu__selectedProxy");
           let proxyFrame = document.getElementById("proxy-frame") as HTMLIFrameElement;
           if (currentProxy && JSON.parse(currentProxy).value === "rammerhead") {
-            navigator.clipboard.writeText(
-              window.location.origin +
-                "/" +
-                getCookie("rammerhead-session") +
-                "/" +
-                input!.value.trim()
-            );
+            navigator.clipboard.writeText(window.location.origin + "/" + getCookie("rammerhead-session") + "/" + input!.value.trim());
           } else {
-            navigator.clipboard.writeText(
-              getUVProxyURL(proxyFrame) 
-            );
+            navigator.clipboard.writeText(getUVProxyURL(proxyFrame));
           }
           new Notyf({
             duration: 2000,
@@ -227,14 +198,12 @@
   async function formEventListener(event: Event) {
     event.preventDefault();
     event.stopImmediatePropagation();
-    await loadSelectedTransportScript();
-    TransportMgr.updateTransport();
+    await TransportMgr.updateTransport();
     setTimeout(() => {
       loadContent();
     }, 200);
   }
   window.loadFormContent = loadContent;
-  window.loadSelectedTransport = loadSelectedTransportScript;
 
   function isUrl(val = "") {
     if (/^http(s?):\/\//.test(val) || (val.includes(".") && val.substr(0, 1) !== " ")) return true;
@@ -299,14 +268,12 @@
     }
   }
 
-  function updateProxiedFavicon(iframe: HTMLIFrameElement, hasErrored = false) {
+  function updateProxiedFavicon(iframe: HTMLIFrameElement) {
     if (!iframe) return;
     let proxiedFavicon = document.getElementById("proxied-favicon") as HTMLImageElement;
     if (iframe) {
       if (iframe.contentDocument) {
-        let favicon =
-          (iframe.contentDocument.querySelector("link[rel='icon']") as HTMLLinkElement) ||
-          (iframe.contentDocument.querySelector("link[rel*='icon']") as HTMLLinkElement);
+        let favicon = (iframe.contentDocument.querySelector("link[rel='icon']") as HTMLLinkElement) || (iframe.contentDocument.querySelector("link[rel*='icon']") as HTMLLinkElement);
         if (favicon && favicon.href.includes("data:image")) {
           proxiedFavicon.src = favicon.href;
           return;

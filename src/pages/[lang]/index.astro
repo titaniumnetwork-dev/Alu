@@ -18,15 +18,7 @@ export function getStaticPaths() {
     <section id="proxy-input">
       <div class="form-wrapper">
         <form class="url-input-form" id="url-input-form">
-          <Input
-            className="url-input"
-            inputName="url"
-            height="50px"
-            placeholder={t("menu.search")}
-            defaultStyles={false}
-            transition:persist
-            autocomplete="off"
-          />
+          <Input className="url-input" inputName="url" height="50px" placeholder={t("menu.search")} defaultStyles={false} transition:persist autocomplete="off" />
           <div id="search-suggestions"></div>
           <div id="loading-content">Loading...</div>
         </form>
@@ -58,11 +50,7 @@ export function getStaticPaths() {
           <h2>{t("faq.contributeToAlu")}</h2>
           <p>
             {t("faq.contributeToAlu.answer.segment1")}
-            <Link
-              href="https://www.patreon.com/wearr"
-              newTab
-              content={t("faq.contributeToAlu.answer.patreonLinkText")}
-            />
+            <Link href="https://www.patreon.com/wearr" newTab content={t("faq.contributeToAlu.answer.patreonLinkText")} />
             {t("faq.contributeToAlu.answer.segment2")}
           </p>
         </div>
@@ -75,11 +63,11 @@ export function getStaticPaths() {
   </main>
   <ProxyRegistrar />
   <script>
-    import { initTransport, registerSW } from "@components/ts/TransportManager";
+    import { initTransport, registerAndUpdateSW } from "@components/ts/TransportManager";
     type Suggestion = {
       phrase: string;
     };
-    await registerSW();
+    await registerAndUpdateSW();
 
     async function sendAPIRequest(urlInput: HTMLInputElement, searchSuggestions: HTMLDivElement) {
       if (!urlInput) throw new Error("urlInput is null");
@@ -158,10 +146,6 @@ export function getStaticPaths() {
   form {
     width: 350px;
     height: 56px;
-  }
-
-  .title-text {
-    font-size: 38px;
   }
 
   .url-input-form {

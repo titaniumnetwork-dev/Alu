@@ -1,4 +1,5 @@
 import path from "path";
+import fs from "fs";
 
 const failureFile = fs.readFileSync("Checkfailed.html", "utf8");
 
@@ -30,12 +31,7 @@ export async function masqrCheck(config) {
     const auth = Buffer.from(authheader.split(" ")[1], "base64").toString().split(":");
     const pass = auth[1];
 
-    const licenseCheck = (
-      await (await fetch(config.licenseServer + pass + "&host=" + req.headers.host)).json()
-    )["status"];
-    console.log(
-      config.licenseServer + pass + "&host=" + req.headers.host + " returned " + licenseCheck
-    );
+    const licenseCheck = (await (await fetch(config.licenseServer + pass + "&host=" + req.headers.host)).json())["status"];
     if (licenseCheck == "License valid") {
       res.cookie("authcheck", "true", {
         expires: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),

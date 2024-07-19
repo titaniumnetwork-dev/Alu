@@ -1,0 +1,118 @@
+---
+export const prerender = false;
+import Layout from "../../layouts/Layout.astro";
+import games from "../../json/games.json";
+
+let gamesList = games as GameList;
+
+// get the current game based on the information in the url
+let game = Astro.params.game;
+if (!game) {
+  Astro.redirect("/en/games/");
+  return;
+}
+
+function isValidGameKey(key: string) {
+    return key in gamesList;
+}
+
+let gameData = isValidGameKey(game) ? gamesList[game] : null;
+
+if (!gameData) {
+  return Astro.redirect("/en/games/");
+}
+
+---
+
+<Layout title="Game">
+  <div id="main-content">
+    <div class="game-container">
+      {gameData.unity ? 
+        <iframe scrolling="no" src=`/unity/${gameData.slug}` title={gameData.name} id="game-frame"/> : 
+        <iframe scrolling="no" src=`/games/${gameData.slug}` title={gameData.name} id="game-frame"/>
+      }
+      <div class="game-info">
+        <div class="game-info-top">
+          <p class="game-title">{gameData.name}</p>
+          <img src="/img/games/fullscreen.svg" alt="Fullscreen" id="game-fullscreen" class="icn">
+        </div>
+        <div class="game-info-bottom">
+          <p class="game-desc">{gameData.description}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  #main-content {
+    margin-top: 2rem;
+  }
+  .game-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    overflow: hidden;
+    margin-bottom: 4rem;
+  }
+  #game-frame {
+    aspect-ratio: 16 / 8;
+    height: 80vh;
+    width: 1350px;
+    border: 0;
+  }
+  .game-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background-color: var(--background-highlight);
+    width: 1350px;
+    padding: 1rem;
+    padding-top: 0;
+  }
+  .game-info-top {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+  }
+  .icn {
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+  }
+  .game-title {
+    font-weight: bold;
+    font-size: 20px;
+    margin-top: 0.2rem;
+  }
+  .game-desc {
+    margin: 0;
+  }
+</style>
+
+<script>
+  let iframe = document.getElementById("game-frame") as HTMLIFrameElement;
+  iframe.contentWindow?.focus();
+
+  iframe?.addEventListener("load", () => {
+    iframe.contentWindow?.focus();
+  });
+
+  iframe.addEventListener("click", () => {
+    iframe.contentWindow?.focus();
+  })
+
+  document.addEventListener("astro:after-swap", () => {
+    let iframe = document.getElementById("game-frame") as HTMLIFrameElement;
+    iframe?.contentWindow?.focus();
+  })
+
+  let fullscreen = document.getElementById("game-fullscreen") as HTMLImageElement;
+
+  fullscreen.addEventListener("click", () => {
+    if (iframe.requestFullscreen) {
+      iframe.requestFullscreen();
+      iframe.focus();
+    }
+  });
+</script>
