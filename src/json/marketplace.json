@@ -17,50 +17,5 @@
     "script": "/marketplace/oled-theme/theme.css",
     "type": "theme",
     "themeName": "oled"
-  },
-  "dev.wearr.oled-theme2": {
-    "title": "OLED Theme",
-    "description": "A beautiful OLED theme for Alu.",
-    "version": "0.0.1",
-    "image": "/marketplace/oled-theme/theme.png",
-    "script": "/marketplace/oled-theme/theme.css",
-    "type": "theme",
-    "themeName": "oled"
-  },
-  "dev.wearr.oled-theme3": {
-    "title": "OLED Theme",
-    "description": "A beautiful OLED theme for Alu.",
-    "version": "0.0.1",
-    "image": "/marketplace/oled-theme/theme.png",
-    "script": "/marketplace/oled-theme/theme.css",
-    "type": "theme",
-    "themeName": "oled"
-  },
-  "dev.wearr.oled-theme4": {
-    "title": "OLED Theme",
-    "description": "A beautiful OLED theme for Alu.",
-    "version": "0.0.1",
-    "image": "/marketplace/oled-theme/theme.png",
-    "script": "/marketplace/oled-theme/theme.css",
-    "type": "theme",
-    "themeName": "oled"
-  },
-  "dev.wearr.oled-theme5": {
-    "title": "OLED Theme",
-    "description": "A beautiful OLED theme for Alu.",
-    "version": "0.0.1",
-    "image": "/marketplace/oled-theme/theme.png",
-    "script": "/marketplace/oled-theme/theme.css",
-    "type": "theme",
-    "themeName": "oled"
-  },
-  "dev.wearr.oled-theme6": {
-    "title": "OLED Theme",
-    "description": "A beautiful OLED theme for Alu.",
-    "version": "0.0.1",
-    "image": "/marketplace/oled-theme/theme.png",
-    "script": "/marketplace/oled-theme/theme.css",
-    "type": "theme",
-    "themeName": "oled"
   }
 }

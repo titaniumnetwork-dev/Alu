@@ -32,8 +32,13 @@ if (!gameData) {
         <iframe scrolling="no" src=`/games/${gameData.slug}` title={gameData.name} id="game-frame"/>
       }
       <div class="game-info">
-        <p class="game-title">{gameData.name}</p>
-        <p class="game-desc">{gameData.description}</p>
+        <div class="game-info-top">
+          <p class="game-title">{gameData.name}</p>
+          <img src="/img/games/fullscreen.svg" alt="Fullscreen" id="game-fullscreen" class="icn">
+        </div>
+        <div class="game-info-bottom">
+          <p class="game-desc">{gameData.description}</p>
+        </div>
       </div>
     </div>
   </div>
@@ -63,6 +68,17 @@ if (!gameData) {
     background-color: var(--background-highlight);
     width: 1350px;
     padding: 1rem;
+    padding-top: 0;
+  }
+  .game-info-top {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+  }
+  .icn {
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
   }
   .game-title {
     font-weight: bold;
@@ -90,4 +106,13 @@ if (!gameData) {
     let iframe = document.getElementById("game-frame") as HTMLIFrameElement;
     iframe?.contentWindow?.focus();
   })
+
+  let fullscreen = document.getElementById("game-fullscreen") as HTMLImageElement;
+
+  fullscreen.addEventListener("click", () => {
+    if (iframe.requestFullscreen) {
+      iframe.requestFullscreen();
+      iframe.focus();
+    }
+  });
 </script>

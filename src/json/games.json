@@ -22,6 +22,11 @@
     "image": "/games/baldi/logo.png",
     "slug": "baldi"
   },
+  "basketball-stars": {
+    "name": "Basketball Stars",
+    "image": "/games/basketball-stars/logo.png",
+    "slug": "basketball-stars"
+  },
   "cannon-basketball-4": {
     "name": "Cannon Basketball 4",
     "image": "/games/cannon-basketball-4/logo.png",
@@ -213,6 +218,12 @@
     "image": "/games/retro-bowl/logo.png",
     "slug": "retro-bowl"
   },
+  "rooftop-sniper": {
+    "name": "Rooftop Snipers",
+    "image": "/games/rooftop-sniper/logo.png",
+    "slug": "rooftop-sniper",
+    "unity": true
+  },
   "sans-fight": {
     "name": "Sans Fight",
     "image": "/games/sans-fight/icon-256.png",
@@ -228,11 +239,6 @@
     "image": "/games/sm64/logo.png",
     "slug": "sm64"
   },
-  "solitaire": {
-    "name": "Solitaire",
-    "image": "/games/solitaire/logo.png",
-    "slug": "solitaire"
-  },
   "suika-combination": {
     "name": "Suika Combination",
     "image": "/games/suika-combination/logo.webp",
@@ -247,6 +253,12 @@
     "name": "There is No Game",
     "image": "/games/there-is-no-game/logo.png",
     "slug": "there-is-no-game"
+  },
+  "tunnelrush": {
+    "name": "Tunnel Rush",
+    "image": "/games/tunnelrush/logo.jpg",
+    "slug": "tunnelrush",
+    "unity": true
   },
   "ul6": {
     "name": "Ultima 6",
