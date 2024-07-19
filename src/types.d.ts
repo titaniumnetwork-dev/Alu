@@ -43,6 +43,7 @@ type GameMetadata = {
   description?: string,
   image: string,
   slug: string,
+  unity?: boolean
 }
 
 type GameList = {

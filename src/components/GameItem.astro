@@ -1,12 +1,12 @@
 ---
-const { name, image, slugName, lang } = Astro.props;
+const { game } = Astro.props;
 ---
 
-<div class="game" data-name={name}>
-  <a href=`/${lang}/game/${slugName || name}`>
-    <img class="game-img" src={image} alt="" />
+<div class="game" data-name={game.name}>
+  <a href=`/game/${game.slug}`>
+    <img class="game-img" src={game.image} alt="" />
   </a>
-  <p class="game-title">{name}</p>
+  <p class="game-title">{game.name}</p>
 </div>
 
 <style>
