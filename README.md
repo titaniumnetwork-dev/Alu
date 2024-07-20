@@ -7,6 +7,8 @@
 
 Alu is a beautiful, functional, and sleek web proxy, which focuses on customization and ease of use.
 
+<img src="https://shields.io/github/languages/code-size/titaniumnetwork-dev/Alu?style=flat-square&logo=github"/> <img src="https://shields.io/github/stars/titaniumnetwork-dev/Alu?style=flat-square&logo=github"/> <img src="https://img.shields.io/badge/made%20with-coffee-452515?style=flat-square&logo=coffeescript"/>
+
 # Features
 
 - 🌐 UV and Rammerhead support
