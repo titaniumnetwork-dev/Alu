@@ -27,7 +27,7 @@ Deploying Alu is about as simple as it gets, from your terminal, type
 
 This command should clone Alu's frontend, as well as [alu-games](https://github.com/wearrrrr/alu-games). If you wish to skip cloning games, then leave out the last flag.
 
-Install pnpm with `npm I -g pnpm`.
+Install pnpm with `npm i -g pnpm`.
 
 Then simply run `pnpm i` to install all node_modules, and then build the frontend with `pnpm run build`, this shouldn't take more than a couple seconds.
 
