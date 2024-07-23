@@ -53,37 +53,37 @@
   }
 
   async function loadPageExtensions() {
-      try {
-        let iframe = document.getElementById("proxy-frame") as HTMLIFrameElement;
-        let db = loadIDB("AluDB", 1);
-        db.onsuccess = () => {
-          let store = GetStore("InstalledExtensions", "readonly");
-          let request = store.getAll();
-          request.onsuccess = () => {
-            let extensions = request.result;
-            extensions.forEach((extension: IExtensionMetadata) => {
-              // Eval the extension script inside of the iframe
-              if (!(extension.type == "page")) return;
-              if (extension.pages && extension.pages.length > 0) {
-                // Check if the current URL matches the extension's URL
-                extension.pages.forEach((url) => {
-                  console.log(url);
-                  console.log(iframe.contentWindow!.__uv$location.host);
-                  if (iframe.contentWindow!.__uv$location.host.includes(url)) {
-                    let script = extension.script;
-                    let scriptElement = document.createElement("script");
-                    scriptElement.src = script;
-                    scriptElement.type = "module";
-                    iframe.contentDocument!.head.appendChild(scriptElement);
-                  }
-                });
-              }
-            });
-          };
+    try {
+      let iframe = document.getElementById("proxy-frame") as HTMLIFrameElement;
+      let db = loadIDB("AluDB", 1);
+      db.onsuccess = () => {
+        let store = GetStore("InstalledExtensions", "readonly");
+        let request = store.getAll();
+        request.onsuccess = () => {
+          let extensions = request.result;
+          extensions.forEach((extension: IExtensionMetadata) => {
+            // Eval the extension script inside of the iframe
+            if (!(extension.type == "page")) return;
+            if (extension.pages && extension.pages.length > 0) {
+              // Check if the current URL matches the extension's URL
+              extension.pages.forEach((url) => {
+                console.log(url);
+                console.log(iframe.contentWindow!.__uv$location.host);
+                if (iframe.contentWindow!.__uv$location.host.includes(url)) {
+                  let script = extension.script;
+                  let scriptElement = document.createElement("script");
+                  scriptElement.src = script;
+                  scriptElement.type = "module";
+                  iframe.contentDocument!.head.appendChild(scriptElement);
+                }
+              });
+            }
+          });
         };
-      } catch (err) {
-        console.error(`Failed load extension scripts: ${err}`);
-      }
+      };
+    } catch (err) {
+      console.error(`Failed load extension scripts: ${err}`);
+    }
   }
 
   async function loadContent() {

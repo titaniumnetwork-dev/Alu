@@ -1,4 +1,6 @@
 ---
+import LoadingSpinner from "@components/LoadingSpinner.astro";
+
 export const prerender = false;
 ---
 
@@ -9,49 +11,42 @@ export const prerender = false;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Radon Games</title>
     <script src="https://cdn.jsdelivr.net/npm/@ruffle-rs/ruffle@0.1.0-nightly.2024.7.23/ruffle.min.js" is:inline></script>
-    
     <script type="module" src="/flash/instantiateFlash.js" is:inline defer></script>
-    <link rel="stylesheet" href="/unity/index.css">
+    <link rel="stylesheet" href="/unity/index.css" />
   </head>
-  <body class="w-full h-full bg-slate-800 text-slate-200">
-    <div
-      id="loader"
-      class="w-full h-full flex items-center justify-center flex-col gap-5"
-    >
-      <img src="/favicon.svg" class="w-10" />
-      <svg
-        class="animate-spin h-5 w-5"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-      >
-        <circle
-          class="opacity-25"
-          cx="12"
-          cy="12"
-          r="10"
-          stroke="currentColor"
-          stroke-width="4"
-        ></circle>
-        <path
-          class="opacity-75"
-          fill="currentColor"
-          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-        ></path>
-      </svg>
+  <body>
+    <div id="loader" class="loading">
+      <LoadingSpinner/>
     </div>
-    <div class="h-full w-full hidden" id="error">
-      <div
-        class="w-full h-full flex items-center justify-center flex-col gap-5"
-      >
-        <img src="logo.png" class="w-10" />
-        <p>An error occurred.</p>
-        <p class="underline cursor-pointer" onclick="location.reload()">
-          Refresh
-        </p>
-      </div>
-    </div>
-    <div id="gameContainer" class="w-full h-full hidden bg-white"></div>
-  <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"8a78f4d95f1f61cf","version":"2024.7.0","r":1,"token":"cf313dfff389483fae99876f60faccea","serverTiming":{"name":{"cfL4":true}}}' crossorigin="anonymous"></script>
-</body>
+    <div id="gameContainer" class="game hidden"></div>
+  </body>
 </html>
+
+<style>
+  body {
+    width: 100%;
+    height: 100%;
+    background-color: #1f2937;
+    color: #f3f4f6;
+  }
+
+  .loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    width: 100%;
+    height: 100%;
+  }
+
+  .game {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+  }
+
+  .hidden {
+    display: none;
+  }
+</style>

@@ -51,6 +51,12 @@
     "slug": "bloons-tower-defense-4",
     "flash": true
   },
+  "bloons": {
+    "name": "Bloons",
+    "image": "/games/flash/img/bloons.webp",
+    "slug": "bloons",
+    "flash": true
+  },
   "cannon-basketball-4": {
     "name": "Cannon Basketball 4",
     "image": "/games/cannon-basketball-4/logo.png",

@@ -1,26 +1,32 @@
 const id = window.location.pathname.split("/").pop();
-id && RufflePlayer ? window.addEventListener("load", ()=>{
-    const e = RufflePlayer.newest().createPlayer();
-    e.config = {
-        preloader: !1,
-        splashScreen: !1,
-        unmuteOverlay: "hidden",
-        autoplay: "on",
-        contextMenu: !1,
-        showSwfDownload: !1
-    },
-    e.style.width = "100%",
-    e.style.height = "100%";
-    const a = document.querySelector("#gameContainer");
-    a == null || a.appendChild(e),
-    e.load(`/games/flash/${id}.swf`).then(()=>{
-        document.querySelector("#loader").classList.add("hidden"),
-        document.querySelector("#gameContainer").classList.remove("hidden")
-    }
-    ).catch(o=>{
-        console.log(o)
-    }
-    )
+if (id && RufflePlayer) {
+    window.addEventListener("load", loadRuffle);
+} else {
+    document.querySelector("#loader").classList.add("hidden");
+    document.querySelector("#error").classList.remove("hidden");
 }
-) : (document.querySelector("#loader").classList.add("hidden"),
-document.querySelector("#error").classList.remove("hidden"));
+
+function loadRuffle() {
+  const ruffle = RufflePlayer.newest().createPlayer();
+  ruffle.config = {
+      splashScreen: false,
+      unmuteOverlay: "hidden",
+      autoplay: "on",
+      contextMenu: "on",
+      showSwfDownload: false
+  };
+  ruffle.style.width = "100%";
+  ruffle.style.height = "100%";
+  const gameContainer = document.querySelector("#gameContainer");
+  if (gameContainer != null) {
+      gameContainer.appendChild(ruffle);
+  }
+  ruffle.load(`/games/flash/${id}.swf`).then(() => {
+      let loader = document.querySelector("#loader");
+      loader.classList.remove("loading");
+      loader.classList.add("hidden");
+      document.querySelector("#gameContainer").classList.remove("hidden");
+  });
+  // Stop the event listener, saves miniscule amount of memory
+  window.removeEventListener("load", loadRuffle);
+}

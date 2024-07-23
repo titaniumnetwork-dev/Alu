@@ -31,8 +31,9 @@ if (!gameData) {
           <iframe scrolling="no" src={`/game/unity/${gameData.slug}`} title={gameData.name} id="game-frame" />
         ) : gameData.flash ? (
           <iframe scrolling="no" src={`/game/flash/${gameData.slug}`} title={gameData.name} id="game-frame" />
-        ) : <iframe scrolling="no" src={`/games/${gameData.slug}`} title={gameData.name} id="game-frame" />
-          
+        ) : (
+          <iframe scrolling="no" src={`/games/${gameData.slug}`} title={gameData.name} id="game-frame" />
+        )
       }
       <div class="game-info">
         <div class="game-info-top">
