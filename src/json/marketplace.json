@@ -2,12 +2,21 @@
   "dev.wearr.adblock": {
     "title": "Alu Adblocker",
     "description": "Alu Adblocker is the best adblocker for web proxy services. Blocking up to 97% of all trackers and ads.",
-    "version": "0.0.1",
+    "version": "0.1.0",
     "image": "/marketplace/adblock/adblock.png",
     "script": "/marketplace/adblock/index.js",
     "type": "serviceWorker",
     "entryNamespace": "adblockExt",
     "entryFunc": "filterRequest"
+  },
+  "dev.wearr.vencord": {
+    "title": "Vencord",
+    "description": "Vencord is the cutest client mod for Discord, it's incredibly user friendly and easy to use",
+    "version": "DevBuild 80b493d",
+    "image": "/marketplace/vencord/vencord.png",
+    "script": "/marketplace/vencord/vencord.js",
+    "pages": ["discord.com"],
+    "type": "page"
   },
   "dev.wearr.oled-theme": {
     "title": "OLED Theme",

@@ -1,17 +1,4 @@
 import { BareMuxConnection } from "@mercuryworkshop/bare-mux";
-declare global {
-  interface Window {
-    __uv$config: {
-      prefix: string;
-      encodeUrl: (url: string) => string;
-      decodeUrl: (url: string) => string;
-    };
-    loadFormContent: Function | null;
-    loadSelectedTransport: Function | null;
-    loadedThemeAtob: string;
-    idb: IDBDatabase;
-  }
-}
 
 type transportConfig =
   | {

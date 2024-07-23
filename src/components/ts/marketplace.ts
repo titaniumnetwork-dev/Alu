@@ -79,7 +79,11 @@ Array.from(installButtons).forEach((btn) => {
 
 async function getMarketplaceObj(slug: string): Promise<IExtensionMetadata> {
   const manifest = extManifest[slug];
-  manifest.scriptCopy = btoa(await fetch(manifest.script).then((res) => res.text()));
+  if (manifest.type === "page") {
+    return manifest;
+  } else {
+    manifest.scriptCopy = btoa(await fetch(manifest.script).then((res) => res.text()));
+  }
   return manifest;
 }
 

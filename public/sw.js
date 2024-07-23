@@ -2,8 +2,18 @@ importScripts("/uv/uv.bundle.js", "/uv.config.js", "/workerware/workerware.js");
 importScripts( __uv$config.sw);
 
 const ww = new WorkerWare({
-  debug: true,
+  debug: false,
 });
+
+self.__uv$config.inject = [{
+  host: "discord.com",
+  html: `
+      <script src="https://raw.githubusercontent.com/Vencord/builds/main/browser.js"></script>
+      <link rel="stylesheet" href="https://raw.githubusercontent.com/Vencord/builds/main/browser.css">
+  `,
+  injectTo: "head",
+}];
+
 
 function loadExtensionScripts() {
   try {

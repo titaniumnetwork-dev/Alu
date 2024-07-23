@@ -16,7 +16,7 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import wisp from "wisp-server-node";
 import { masqrCheck } from "./masqr.js";
-import { handler as ssrHandler } from './dist/server/entry.mjs';
+import { handler as ssrHandler } from "./dist/server/entry.mjs";
 
 dotenv.config();
 

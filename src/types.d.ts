@@ -1,3 +1,19 @@
+interface Window {
+  __uv$config: {
+    prefix: string;
+    encodeUrl: (url: string) => string;
+    decodeUrl: (url: string) => string;
+  };
+  __uv$location: Location;
+  loadFormContent: Function | null;
+  loadSelectedTransport: Function | null;
+  loadedThemeAtob: string;
+  idb: IDBDatabase;
+  URLPattern: URLPattern | null;
+  // Why is this not already on Window?
+  eval(string): void;
+}
+
 type ExtType = "serviceWorker" | "theme" | "page";
 
 type Extension = {
@@ -9,7 +25,7 @@ type Extension = {
 /* 
   - title: The title of the extension
   - description: A description of the extension
-  - version: The version of the extension (semver)
+  - version: The version of the extension
   - script: The script URL to be downloaded and saved into scriptCopy
   - entryNamespace: The namespace of the entry function for serviceWorker extensions
   - entryFunc: The name of the entry function for serviceWorker extensions
@@ -23,6 +39,7 @@ interface IExtensionMetadata {
   version: string;
   image: string;
   script: string;
+  pages?: string[];
   entryNamespace?: string;
   entryFunc?: string;
   scriptCopy?: string;
@@ -39,12 +56,13 @@ type InstallReturn = {
 };
 
 type GameMetadata = {
-  name: string,
-  description?: string,
-  image: string,
-  slug: string,
-  unity?: boolean
-}
+  name: string;
+  description?: string;
+  image: string;
+  slug: string;
+  unity?: boolean;
+  flash?: boolean;
+};
 
 type GameList = {
   [key: string]: GameMetadata;

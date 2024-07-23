@@ -2,6 +2,7 @@
   import { TransportMgr, initTransport } from "./ts/TransportManager";
   import "notyf/notyf.min.css";
   import { Notyf } from "notyf";
+  import { loadIDB, GetStore } from "./ts/IDBManager";
 
   let form = document.querySelector("form");
   let input = document.querySelector("input");
@@ -51,8 +52,43 @@
     return window.__uv$config.decodeUrl(frame.contentWindow!.location.href.split("/service/")[1]);
   }
 
+  async function loadPageExtensions() {
+      try {
+        let iframe = document.getElementById("proxy-frame") as HTMLIFrameElement;
+        let db = loadIDB("AluDB", 1);
+        db.onsuccess = () => {
+          let store = GetStore("InstalledExtensions", "readonly");
+          let request = store.getAll();
+          request.onsuccess = () => {
+            let extensions = request.result;
+            extensions.forEach((extension: IExtensionMetadata) => {
+              // Eval the extension script inside of the iframe
+              if (!(extension.type == "page")) return;
+              if (extension.pages && extension.pages.length > 0) {
+                // Check if the current URL matches the extension's URL
+                extension.pages.forEach((url) => {
+                  console.log(url);
+                  console.log(iframe.contentWindow!.__uv$location.host);
+                  if (iframe.contentWindow!.__uv$location.host.includes(url)) {
+                    let script = extension.script;
+                    let scriptElement = document.createElement("script");
+                    scriptElement.src = script;
+                    scriptElement.type = "module";
+                    iframe.contentDocument!.head.appendChild(scriptElement);
+                  }
+                });
+              }
+            });
+          };
+        };
+      } catch (err) {
+        console.error(`Failed load extension scripts: ${err}`);
+      }
+  }
+
   async function loadContent() {
     await initTransport();
+    await loadPageExtensions();
     // The setTimeout is because service workers are a little silly and can take a while longer to register despite .then being called, which causes a bug on the first load.
     setTimeout(async () => {
       let openWith = localStorage.getItem("alu__selectedOpenWith");
@@ -121,30 +157,6 @@
       function setActive() {
         iframe.classList.add("active");
       }
-
-      // function loadExtensionScripts() {
-      //   try {
-      //     let db = indexedDB.open("AluDB", 1);
-      //     db.onsuccess = () => {
-      //       let transaction = db.result.transaction("InstalledExtensions", "readonly");
-      //       let store = transaction.objectStore("InstalledExtensions");
-      //       let request = store.getAll();
-      //       request.onsuccess = () => {
-      //         let extensions = request.result;
-      //         extensions.forEach((extension: any) => {
-      //           // Eval the extension script inside of the iframe
-      //           if (extension.serviceWorkerExtension) return;
-      //           if (iframe.contentWindow) {
-      //             console.log(`Evaluating extension "${extension.title}" inside of the iframe.`);
-      //             (iframe.contentWindow as any).eval(atob(extension.script));
-      //           }
-      //         });
-      //       };
-      //     };
-      //   } catch (err) {
-      //     console.error(`Failed load extension scripts: ${err}`);
-      //   }
-      // }
 
       function iframeLoad() {
         loadingContent.style.opacity = "0";
@@ -281,6 +293,7 @@
         let UVURL = getUVProxyURL(iframe);
         if (proxiedFavicon.src == `${window.location.origin}/custom-favicon?url=${UVURL}`) return;
         proxiedFavicon.src = `/custom-favicon?url=${UVURL}`;
+        loadPageExtensions();
       }
     }
   }

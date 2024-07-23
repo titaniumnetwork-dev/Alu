@@ -2,14 +2,15 @@
 export const prerender = false;
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" class="w-full h-full">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Unity Content</title>
-    <script is:inline src="/unity/UnityLoader.js"></script>
-    <script is:inline src="/unity/instantiateUnity.js"></script>
+    <title>Radon Games</title>
+    <script src="https://cdn.jsdelivr.net/npm/@ruffle-rs/ruffle@0.1.0-nightly.2024.7.23/ruffle.min.js" is:inline></script>
+    
+    <script type="module" src="/flash/instantiateFlash.js" is:inline defer></script>
     <link rel="stylesheet" href="/unity/index.css">
   </head>
   <body class="w-full h-full bg-slate-800 text-slate-200">
@@ -43,7 +44,7 @@ export const prerender = false;
       <div
         class="w-full h-full flex items-center justify-center flex-col gap-5"
       >
-        <img src="/favicon.svg" class="w-10" />
+        <img src="logo.png" class="w-10" />
         <p>An error occurred.</p>
         <p class="underline cursor-pointer" onclick="location.reload()">
           Refresh
@@ -51,5 +52,6 @@ export const prerender = false;
       </div>
     </div>
     <div id="gameContainer" class="w-full h-full hidden bg-white"></div>
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"8a78f4d95f1f61cf","version":"2024.7.0","r":1,"token":"cf313dfff389483fae99876f60faccea","serverTiming":{"name":{"cfL4":true}}}' crossorigin="anonymous"></script>
 </body>
 </html>

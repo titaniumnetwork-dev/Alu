@@ -13,7 +13,7 @@ if (!game) {
 }
 
 function isValidGameKey(key: string) {
-    return key in gamesList;
+  return key in gamesList;
 }
 
 let gameData = isValidGameKey(game) ? gamesList[game] : null;
@@ -21,20 +21,23 @@ let gameData = isValidGameKey(game) ? gamesList[game] : null;
 if (!gameData) {
   return Astro.redirect("/en/games/");
 }
-
 ---
 
 <Layout title="Game">
   <div id="main-content">
     <div class="game-container">
-      {gameData.unity ? 
-        <iframe scrolling="no" src=`/unity/${gameData.slug}` title={gameData.name} id="game-frame"/> : 
-        <iframe scrolling="no" src=`/games/${gameData.slug}` title={gameData.name} id="game-frame"/>
+      {
+        gameData.unity ? (
+          <iframe scrolling="no" src={`/game/unity/${gameData.slug}`} title={gameData.name} id="game-frame" />
+        ) : gameData.flash ? (
+          <iframe scrolling="no" src={`/game/flash/${gameData.slug}`} title={gameData.name} id="game-frame" />
+        ) : <iframe scrolling="no" src={`/games/${gameData.slug}`} title={gameData.name} id="game-frame" />
+          
       }
       <div class="game-info">
         <div class="game-info-top">
           <p class="game-title">{gameData.name}</p>
-          <img src="/img/games/fullscreen.svg" alt="Fullscreen" id="game-fullscreen" class="icn">
+          <img src="/img/games/fullscreen.svg" alt="Fullscreen" id="game-fullscreen" class="icn" />
         </div>
         <div class="game-info-bottom">
           <p class="game-desc">{gameData.description}</p>
@@ -100,12 +103,12 @@ if (!gameData) {
 
   iframe.addEventListener("click", () => {
     iframe.contentWindow?.focus();
-  })
+  });
 
   document.addEventListener("astro:after-swap", () => {
     let iframe = document.getElementById("game-frame") as HTMLIFrameElement;
     iframe?.contentWindow?.focus();
-  })
+  });
 
   let fullscreen = document.getElementById("game-fullscreen") as HTMLImageElement;
 

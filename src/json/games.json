@@ -5,6 +5,12 @@
     "image": "/games/2048/logo.png",
     "slug": "2048"
   },
+  "achievement-unlocked": {
+    "name": "Achievement Unlocked",
+    "image": "/games/flash/img/achievement-unlocked.webp",
+    "slug": "achievement-unlocked",
+    "flash": true
+  },
   "adofai": {
     "name": "A Dance of Fire and Ice",
     "description": "A Dance of Fire and Ice is a strict rhythm game. Keep your focus as you guide two orbiting planets along a winding path without breaking their perfect equilibrium. Press on every beat of the music to move in a line. Every pattern has its own rhythm to it. It can get difficult. This game is purely based on rhythm, so use your ears more than your sight.",
@@ -26,6 +32,24 @@
     "name": "Basketball Stars",
     "image": "/games/basketball-stars/logo.png",
     "slug": "basketball-stars"
+  },
+  "binding-of-isaac": {
+    "name": "The Binding of Isaac",
+    "image": "/games/flash/img/binding-of-isaac.png",
+    "slug": "binding-of-isaac",
+    "flash": true
+  },
+  "bloons-tower-defense-2": {
+    "name": "Bloons Tower Defense 2",
+    "image": "/games/flash/img/bloons-tower-defense-2.webp",
+    "slug": "bloons-tower-defense-2",
+    "flash": true
+  },
+  "bloons-tower-defense-4": {
+    "name": "Bloons Tower Defense 4",
+    "image": "/games/flash/img/bloons-tower-defense-4.jpg",
+    "slug": "bloons-tower-defense-4",
+    "flash": true
   },
   "cannon-basketball-4": {
     "name": "Cannon Basketball 4",
@@ -259,6 +283,12 @@
     "image": "/games/tunnelrush/logo.jpg",
     "slug": "tunnelrush",
     "unity": true
+  },
+  "unfairmario": {
+    "name": "Unfair Mario",
+    "image": "/games/flash/img/unfairmario.jpg",
+    "slug": "unfairmario",
+    "flash": true
   },
   "ul6": {
     "name": "Ultima 6",
