@@ -15,12 +15,12 @@ import { existsSync } from "fs";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import wisp from "wisp-server-node";
-import { masqrCheck } from "./masqr.js";
+import { masqrCheck } from "./middleware/masqr.js";
 import { handler as ssrHandler } from "./dist/server/entry.mjs";
 
 dotenv.config();
 
-const whiteListedDomains = ["aluu.xyz", "localhost:3000"];
+const whiteListedDomains = ["aluu.xyz"];
 const LICENSE_SERVER_URL = "https://license.mercurywork.shop/validate?license=";
 const WISP_ENABLED = process.env.USE_WISP;
 const MASQR_ENABLED = process.env.MASQR_ENABLED;
@@ -61,7 +61,7 @@ app.use(cookieParser());
 // Set process.env.MASQR_ENABLED to "true" to enable masqr protection.
 if (MASQR_ENABLED == "true") {
   log("Starting Masqr...");
-  app.use(await masqrCheck({ whitelist: whiteListedDomains, licenseServer: LICENSE_SERVER_URL }));
+  app.use(await masqrCheck({ whitelist: whiteListedDomains, licenseServer: LICENSE_SERVER_URL }, "Checkfailed.html"));
 }
 
 app.use(express.static(path.join(process.cwd(), "static")));
