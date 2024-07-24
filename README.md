@@ -43,6 +43,7 @@ Alu can be easily dockerized with the `Dockerfile` provided in the repository. S
 
 - Ultraviolet by Titanium Network
 - Bare Server from TompHTTP
+- Wisp Server Node by Mercury Workshop
 - Rammerhead by binary-person
 - Astro from astro.build
 - Typescript
