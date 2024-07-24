@@ -27,9 +27,7 @@ const MASQR_ENABLED = process.env.MASQR_ENABLED;
 
 if (!existsSync("./dist")) build({});
 
-function log(message) {
-  console.log(chalk.gray("[Alu] " + message));
-}
+const log = (message) => console.log(chalk.gray("[Alu] " + message));
 
 const bare = createBareServer("/bare/");
 

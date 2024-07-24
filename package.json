@@ -28,7 +28,7 @@
     "express": "^4.19.2",
     "notyf": "^3.10.0",
     "rammerhead": "https://github.com/NebulaServices/rammerhead/releases/download/rammerhead-1.2.41-nebula.8/rammerhead-1.2.41-nebula.7.tgz",
-    "wisp-server-node": "^1.1.0"
+    "wisp-server-node": "^1.1.3"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^7.8.0",
