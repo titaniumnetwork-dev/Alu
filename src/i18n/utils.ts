@@ -1,5 +1,8 @@
 import { ui, defaultLang } from "./ui";
 
+type LanguageKeys = keyof typeof ui;
+type TranslationKeys = keyof (typeof ui)[typeof defaultLang];
+
 export const STATIC_PATHS = [{ params: { lang: "en" } }, { params: { lang: "jp" } }];
 
 function getLangFromUrl(url: URL) {
@@ -14,9 +17,10 @@ function inferLangUseTranslations(url: URL) {
   return useTranslations(lang);
 }
 
-function useTranslations(lang: keyof typeof ui) {
-  return function t(translationKey: keyof (typeof ui)[typeof defaultLang]) {
-    if (ui[lang][translationKey]) return ui[lang][translationKey];
+function useTranslations(lang: LanguageKeys) {
+  return function t(translationKey: TranslationKeys) {
+    let key = ui[lang][translationKey];
+    if (key) return key;
     else return ui[defaultLang][translationKey];
   };
 }
