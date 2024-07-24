@@ -9,15 +9,6 @@
     "entryNamespace": "adblockExt",
     "entryFunc": "filterRequest"
   },
-  "dev.wearr.vencord": {
-    "title": "Vencord",
-    "description": "Vencord is the cutest client mod for Discord, it's incredibly user friendly and easy to use",
-    "version": "DevBuild 80b493d",
-    "image": "/marketplace/vencord/vencord.png",
-    "script": "/marketplace/vencord/vencord.js",
-    "pages": ["discord.com"],
-    "type": "page"
-  },
   "dev.wearr.oled-theme": {
     "title": "OLED Theme",
     "description": "A beautiful OLED theme for Alu.",

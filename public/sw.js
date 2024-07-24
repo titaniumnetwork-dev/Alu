@@ -1,18 +1,10 @@
 importScripts("/uv/uv.bundle.js", "/uv.config.js", "/workerware/workerware.js");
 importScripts( __uv$config.sw);
+importScripts("/marketplace/scriptInjector/index.js")
 
 const ww = new WorkerWare({
   debug: false,
 });
-
-self.__uv$config.inject = [{
-  host: "discord.com",
-  html: `
-      <script src="https://raw.githubusercontent.com/Vencord/builds/main/browser.js"></script>
-      <link rel="stylesheet" href="https://raw.githubusercontent.com/Vencord/builds/main/browser.css">
-  `,
-  injectTo: "head",
-}];
 
 
 function loadExtensionScripts() {
@@ -27,7 +19,6 @@ function loadExtensionScripts() {
         extensions.forEach((extension) => {
           if (extension.type != "serviceWorker") return;
           // Loads the function to be added as a middleware into global scope.
-          // The function defined should NOT immediately execute any function.
           eval(atob(extension.scriptCopy));
           ww.use({
             function: self[extension.entryNamespace][extension.entryFunc],

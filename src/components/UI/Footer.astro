@@ -15,14 +15,14 @@ const t = i18n.inferLangUseTranslations(Astro.url);
     </div>
 
     <div class="footer-madeby">
-      <Link href="https://wearr.dev" newTab content={t("footer.madeWithLove")} />
+      <Link href="https://wearr.dev" newTab>{t("footer.madeWithLove")}</Link>
     </div>
   </div>
   <div class="footer-bottom">
     <div class="footer-left">
       <div class="footer-links">
-        <Link href="https://discord.gg/unblock" newTab content="Join the discord!" />
-        <Link href="https://titaniumnetwork.org" newTab content={t("footer.poweredBy")} />
+        <Link href="https://discord.gg/unblock" newTab>Join the discord!</Link>
+        <Link href="https://titaniumnetwork.org" newTab>{t("footer.poweredBy")}</Link>
 
         <div class="footer-copyright">
           <p>&copy; {t("footer.aluProject")} 2024</p>
@@ -31,9 +31,9 @@ const t = i18n.inferLangUseTranslations(Astro.url);
     </div>
     <div class="footer-right">
       <div class="footer-links">
-        <Link href="/privacy" content="Privacy" />
-        <Link href="/terms" content="Terms" />
-        <Link href="https://wearr.dev/contact" content="Contact" />
+        <Link href="/privacy">Privacy</Link>
+        <Link href="/terms">Terms</Link>
+        <Link href="https://wearr.dev/contact" newTab>Contact</Link>
       </div>
     </div>
   </div>

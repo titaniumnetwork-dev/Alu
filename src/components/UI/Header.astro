@@ -29,16 +29,18 @@ const t = i18n.useTranslations(lang);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-inline: 40px;
-    height: 70px;
+    padding-inline: 2.5rem;
+    height: 4.25rem;
     width: 100%;
-    font-size: 1.05rem;
-    list-style-type: none;
-    border: none;
-    z-index: 10;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    box-shadow: -2px 5px 10px 0px var(--accent-color);
+    border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+    box-shadow: -2px 5px 10px 0 var(--accent-color);
+  }
+
+  @media (max-width: 425px) {
+    .title-background {
+      padding-inline: 1.5rem;
+    }
   }
 
   .left,
@@ -53,6 +55,12 @@ const t = i18n.useTranslations(lang);
     text-decoration: none;
     font-size: 22px;
     transition: 250ms ease-in-out;
+  }
+  
+  @media (max-width: 470px) {
+    .header-item {
+      font-size: 18px;
+    }
   }
 
   .header-item:hover {

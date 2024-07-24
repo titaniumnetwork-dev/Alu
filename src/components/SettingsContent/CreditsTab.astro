@@ -1,4 +1,5 @@
 ---
+import Link from "@components/UI/Link.astro";
 import { i18n } from "@i18n/utils";
 const t = i18n.inferLangUseTranslations(Astro.url);
 ---
@@ -6,27 +7,25 @@ const t = i18n.inferLangUseTranslations(Astro.url);
 <div class="settings-container">
   <div class="credits-container">
     <p class="credit-item">
-      {t("ultraviolet")} - <a target="_blank" rel="noreferrer noopener" href="https://titaniumnetwork.org/">Titanium Network</a>
+      {t("ultraviolet")} - <Link href="https://titaniumnetwork.org/" newTab>Titanium Network</Link>
     </p>
     <p class="credit-item">
-      {t("settings.credits.japaneseTranslations")} - <a target="_blank" rel="noreferrer noopener" href="https://wearr.dev">wearr</a>
+      {t("settings.credits.japaneseTranslations")} - <Link href="https://wearr.dev" newTab>wearr</Link>
     </p>
     <p class="credit-item">
-      {t("settings.credits.mochaandmacchiatothemes")} - <a target="_blank" rel="noreferrer noopener" href="https://github.com/catppuccin/catppuccin">Catppuccin</a>
+      {t("settings.credits.mochaandmacchiatothemes")} - <Link href="https://github.com/catppuccin/catppuccin" newTab>Catppuccin</Link>
     </p>
     <p class="credit-item">
-      Rosé Pine Theme - <a target="_blank" rel="noreferrer noopener" href="https://rosepinetheme.com/">Rosé Pine</a>
+      Wisp Server - <Link newTab href="https://github.com/MercuryWorkshop/wisp-server-node">Mercury Workshop</Link>
+    </p>
+    <p class="credit-item">
+      Rosé Pine Theme - <Link href="https://rosepinetheme.com/" newTab>Rosé Pine</Link>
     </p>
   </div>
 </div>
 
 <style>
   .credit-item {
-    color: var(--text-color);
     font-size: 18px;
-  }
-  .credit-item > a {
-    color: var(--text-color);
-    font-weight: bold;
   }
 </style>
