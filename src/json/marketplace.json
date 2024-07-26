@@ -17,5 +17,14 @@
     "script": "/marketplace/oled-theme/theme.css",
     "type": "theme",
     "themeName": "oled"
+  },
+  "dev.wearr.dracula-theme": {
+    "title": "Dracula Theme",
+    "description": "A port of the Dracula theme for Alu.",
+    "version": "0.0.1",
+    "image": "/marketplace/dracula-theme/dracula.svg",
+    "script": "/marketplace/dracula-theme/theme.css",
+    "type": "theme",
+    "themeName": "dracula"
   }
 }

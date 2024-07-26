@@ -2,7 +2,7 @@ import "notyf/notyf.min.css";
 import { Notyf } from "notyf";
 import marketplaceManifest from "../../json/marketplace.json";
 const installButtons = document.getElementsByClassName("btn-install");
-import IDBManager from "./IDBManager";
+import IDBManager, { loadIDBPromise } from "./IDBManager";
 
 const extManifest = marketplaceManifest as ExtensionMetadataJSON;
 
@@ -226,29 +226,14 @@ async function InitIDB() {
     document.getElementById("support-warning")!.innerText = "Your browser doesn't support IndexedDB. Please use a different browser!";
     return;
   }
+  await loadIDBPromise("AluDB", 1);
   if (IDBManager.GetIDB() != null) {
     getInstallStatus();
     return;
   }
-  const request = IDBManager.loadIDB("AluDB", 1);
-  request.onerror = (event: Event) => {
-    console.error("Database error: " + (event.target as any).errorCode);
-  };
-  request.onsuccess = () => {
-    console.log("Database opened successfully");
-    IDBManager.SetIDB(request.result);
-    getInstallStatus();
-  };
-  request.onupgradeneeded = (event) => {
-    const db = (event.target as IDBOpenDBRequest).result;
-    if (!db.objectStoreNames.contains("InstalledExtensions")) {
-      db.createObjectStore("InstalledExtensions", { keyPath: "slug" });
-      console.log("Database setup complete");
-    }
-  };
 }
 InitIDB();
 
-document.addEventListener("astro:after-swap", () => {
+document.addEventListener("astro:after-swap", async () => {
   InitIDB();
 });

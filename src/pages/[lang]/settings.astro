@@ -57,24 +57,22 @@ export function getStaticPaths() {
   </main>
   <script>
     import IDBManager from "@components/ts/IDBManager";
-    let load = IDBManager.loadIDB("AluDB", 1);
-    load.onsuccess = () => {
-      window.idb = IDBManager.GetIDB();
-    };
+    let db = await IDBManager.loadIDBPromise("AluDB", 1);
+    if (db instanceof IDBDatabase) {
+      window.idb = db;
+    }
   </script>
   <script is:inline>
-    let loadedContentStorage = {};
-    let currentlySelectedTab;
+    window.loadedContentStorage = {};
+    window.currentlySelectedTab;
     function settingsLoad() {
       document.addEventListener("astro:before-swap", () => {
-        // Cleanup event, this should remove all added event listeners to prepare for if the page is visited again.
-        currentlySelectedTab = "";
-        document.removeEventListener("setting-tabChange", determineListener);
+        window.currentlySelectedTab = "";
       });
       Array.from(document.getElementsByClassName("setting-tab")).forEach((tab) => {
         let contentToLoad = document.getElementById("content-" + tab.id);
         if (contentToLoad) {
-          loadedContentStorage[tab.id] = contentToLoad.innerHTML;
+          window.loadedContentStorage[tab.id] = contentToLoad.innerHTML;
           contentToLoad.remove();
         }
 
@@ -84,13 +82,13 @@ export function getStaticPaths() {
       });
 
       function loadContent(tabID) {
-        if (currentlySelectedTab == tabID) return;
-        else currentlySelectedTab = tabID;
+        if (window.currentlySelectedTab == tabID) return;
+        else window.currentlySelectedTab = tabID;
         let currentContent = document.getElementById("current-content");
         if (currentContent) {
           currentContent.style.opacity = "0";
           setTimeout(() => {
-            currentContent.innerHTML = loadedContentStorage[tabID];
+            currentContent.innerHTML = window.loadedContentStorage[tabID];
             currentContent.style.opacity = "1";
             document.dispatchEvent(new CustomEvent("setting-tabChange", { detail: tabID }));
             document.dispatchEvent(new CustomEvent("setting-tabLoad", { detail: tabID }));
@@ -189,7 +187,7 @@ export function getStaticPaths() {
             localStorage.setItem(localStorageItem, JSON.stringify(localStorageItemContent));
             applySavedLocalStorage(localStorageItem, dropdown.id);
             closeDropdown(dropdownSibling.id);
-            
+
             if (typeof optionalCallback == "function") {
               optionalCallback();
             }
@@ -363,7 +361,7 @@ export function getStaticPaths() {
           checkSearxng();
 
           applyInputListeners(searxngUrlInput, "alu__searxngUrl");
-          applyInputListeners(bareURLInput, "alu__bareUrl");          
+          applyInputListeners(bareURLInput, "alu__bareUrl");
         } else if (event.detail == "setting-tab-customization") {
           setupCustomizationSettings();
         } else if (event.detail == "setting-tab-cloaking") {
@@ -481,8 +479,7 @@ export function getStaticPaths() {
       width: 98%;
       height: 80%;
       margin: 0 auto;
-      min-height: 400px;
-      max-height: 400px;
+      max-height: 500px;
       border-radius: 15px;
       box-sizing: border-box;
       background-color: var(--background-color);
@@ -561,13 +558,13 @@ export function getStaticPaths() {
         transform: translateY(0%);
       }
       #setting-tab-customization:checked ~ .marker {
-        transform: translateY(13.5%);
+        transform: translateY(14%);
       }
       #setting-tab-cloaking:checked ~ .marker {
-        transform: translateY(27%);
+        transform: translateY(28%);
       }
       #setting-tab-credits:checked ~ .marker {
-        transform: translateY(41%);
+        transform: translateY(42.5%);
       }
     }
   </style>

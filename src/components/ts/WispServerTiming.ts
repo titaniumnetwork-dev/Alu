@@ -13,7 +13,7 @@ export async function testWispServers(servers: WispServer[]): Promise<WispData[]
           console.log(`Connected to ${server.url} in ${end - start}ms`);
           let data = {
             server: server,
-            time: end - start
+            time: end - start,
           };
           wispData.push(data);
           socket.close();
@@ -32,18 +32,17 @@ export async function testWispServers(servers: WispServer[]): Promise<WispData[]
   if (wispData.length === servers.length) {
     return wispData;
   } else {
-    throw new Error('Failed to connect to all servers');
+    throw new Error("Failed to connect to all servers");
   }
 }
 
-
 window.wispData = await testWispServers([
   {
-    url: 'wss://aluu.xyz/wisp/'
+    url: "wss://aluu.xyz/wisp/",
   },
   {
-    url: 'wss://nebulaproxy.io/wisp/'
+    url: "wss://nebulaproxy.io/wisp/",
   },
-])
+]);
 
 console.log(window.wispData);

@@ -2,7 +2,7 @@
   import { TransportMgr, initTransport } from "./ts/TransportManager";
   import "notyf/notyf.min.css";
   import { Notyf } from "notyf";
-  import { loadIDB, GetStore } from "./ts/IDBManager";
+  import { loadIDB, GetStore, ValidateStoreExists, CreateStore } from "./ts/IDBManager";
 
   let form = document.querySelector("form");
   let input = document.querySelector("input");
@@ -55,6 +55,9 @@
   async function loadPageExtensions() {
     try {
       let iframe = document.getElementById("proxy-frame") as HTMLIFrameElement;
+      if (!ValidateStoreExists("InstalledExtensions")) {
+        CreateStore("InstalledExtensions", { keyPath: "slug" });
+      }
       let db = loadIDB("AluDB", 1);
       db.onsuccess = () => {
         let store = GetStore("InstalledExtensions", "readonly");

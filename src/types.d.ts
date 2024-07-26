@@ -70,10 +70,10 @@ type GameList = {
 };
 
 type WispServer = {
-  url: string,
-}
+  url: string;
+};
 
 type WispData = {
-  server: WispServer,
-  time: number,
-}
+  server: WispServer;
+  time: number;
+};

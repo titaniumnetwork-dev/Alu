@@ -1,4 +1,15 @@
 <script>
+  import IDBManager from "@components/ts/IDBManager";
+  const tempDB = await IDBManager.loadIDBPromise("AluDB", 1);
+  if (tempDB instanceof Event) {
+    // Something has gone wrong, and the IDB can't be loaded, so we'll delete it and recreate it.
+    IDBManager.DeleteIDB("AluDB");
+    throw new Error("IDB has failed to load - It has been deleted and will be recreated when you refresh the page.");
+  }
+  if (!IDBManager.ValidateStoreExists("InstalledExtensions")) {
+    IDBManager.CreateStore("InstalledExtensions", { keyPath: "slug" });
+  }
+
   function switchTheme() {
     let currentTheme = localStorage.getItem("alu__selectedTheme");
 
@@ -13,11 +24,11 @@
       switchTheme();
     }
   }
+
   switchTheme();
 
   document.addEventListener("astro:after-swap", switchTheme);
 
-  import IDBManager from "@components/ts/IDBManager";
   const idb = IDBManager.loadIDB("AluDB", 1);
 
   idb.onsuccess = () => {

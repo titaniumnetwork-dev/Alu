@@ -5,8 +5,7 @@ const { buttonNameDefault, dropdownList, id, localStorageKey } = Astro.props;
 <div class="dropdown">
   <button data-local-storage-key={localStorageKey} id={id} class="dropdown-toggle" type="button" data-toggle="dropdown">
     {buttonNameDefault}
-    <span class="caret"></span></button
-  >
+  </button>
   <ul class="dropdown-menu" id={id + "-menu"}>
     {
       dropdownList.map((item: any) => {
