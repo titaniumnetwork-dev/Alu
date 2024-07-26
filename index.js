@@ -20,7 +20,7 @@ import { handler as ssrHandler } from "./dist/server/entry.mjs";
 
 dotenv.config();
 
-const whiteListedDomains = ["aluu.xyz"];
+const whiteListedDomains = ["aluu.xyz", "localhost:3000"];
 const LICENSE_SERVER_URL = "https://license.mercurywork.shop/validate?license=";
 const WISP_ENABLED = process.env.USE_WISP;
 const MASQR_ENABLED = process.env.MASQR_ENABLED;

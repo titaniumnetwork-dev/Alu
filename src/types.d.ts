@@ -12,6 +12,7 @@ interface Window {
   URLPattern: URLPattern | null;
   // Why is this not already on Window?
   eval(string): void;
+  wispData: WispData[];
 }
 
 type ExtType = "serviceWorker" | "theme" | "page";
@@ -66,4 +67,13 @@ type GameMetadata = {
 
 type GameList = {
   [key: string]: GameMetadata;
+};
+
+type WispServer = {
+  url: string;
+};
+
+type WispData = {
+  server: WispServer;
+  time: number;
 };

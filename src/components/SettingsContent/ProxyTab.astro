@@ -29,6 +29,11 @@ const transportsList = [
   { name: "Libcurl", value: "/libcurl/index.mjs" },
   { name: "Bare", value: "/baremod/index.mjs" },
 ];
+
+const wispURLList = [
+  { name: "Alu (US)", value: "wss://aluu.xyz/wisp/" },
+  { name: "Nebula (US)", value: "wss://nebulaproxy.io/wisp/" },
+];
 ---
 
 <div class="settings-container">
@@ -45,8 +50,8 @@ const transportsList = [
     <Dropdown buttonNameDefault={t("settings.proxy.openPageWith.embed")} dropdownList={openPageWith} localStorageKey="alu__selectedOpenWith" id="dropdown__open-with" />
   </div>
   <div class="setting__wisp_url">
-    <label aria-label="Wisp URL" for="wisp-url-input" class="setting-label">{t("settings.proxy.wispURL")}</label>
-    <Input height="50px" inputName="wisp-url" />
+    <label aria-label="Wisp URL" for="dropdown__wisp-url" class="setting-label">{t("settings.proxy.wispURL")}</label>
+    <Dropdown buttonNameDefault="" dropdownList={wispURLList} localStorageKey="alu__selectedWisp" id="dropdown__wisp-url" />
   </div>
   <div class="setting__bare_url">
     <label aria-label="Bare Server URL" for="bare-url-input" class="setting-label">{t("settings.proxy.bareURL")}</label>

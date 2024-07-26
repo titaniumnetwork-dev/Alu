@@ -1,0 +1,9 @@
+[data-theme="dracula"] {
+  --background-color: #282a36;
+  --background-highlight: #44475a;
+  --accent-color: #4e5268;
+  --accent-color-brighter: #2d2f3c;
+  --text-color: #f8f8f2;
+  --text-color-accent: #dddddd;
+  --dropdown-background-color: #6272a4;
+}

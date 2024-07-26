@@ -57,24 +57,22 @@ export function getStaticPaths() {
   </main>
   <script>
     import IDBManager from "@components/ts/IDBManager";
-    let load = IDBManager.loadIDB("AluDB", 1);
-    load.onsuccess = () => {
-      window.idb = IDBManager.GetIDB();
-    };
+    let db = await IDBManager.loadIDBPromise("AluDB", 1);
+    if (db instanceof IDBDatabase) {
+      window.idb = db;
+    }
   </script>
   <script is:inline>
-    loadedContentStorage = {};
+    window.loadedContentStorage = {};
     window.currentlySelectedTab;
     function settingsLoad() {
       document.addEventListener("astro:before-swap", () => {
-        // Cleanup event, this should remove all added event listeners to prepare for if the page is visited again.
         window.currentlySelectedTab = "";
-        document.removeEventListener("setting-tabChange", determineListener);
       });
       Array.from(document.getElementsByClassName("setting-tab")).forEach((tab) => {
         let contentToLoad = document.getElementById("content-" + tab.id);
         if (contentToLoad) {
-          loadedContentStorage[tab.id] = contentToLoad.innerHTML;
+          window.loadedContentStorage[tab.id] = contentToLoad.innerHTML;
           contentToLoad.remove();
         }
 
@@ -90,7 +88,7 @@ export function getStaticPaths() {
         if (currentContent) {
           currentContent.style.opacity = "0";
           setTimeout(() => {
-            currentContent.innerHTML = loadedContentStorage[tabID];
+            currentContent.innerHTML = window.loadedContentStorage[tabID];
             currentContent.style.opacity = "1";
             document.dispatchEvent(new CustomEvent("setting-tabChange", { detail: tabID }));
             document.dispatchEvent(new CustomEvent("setting-tabLoad", { detail: tabID }));
@@ -177,16 +175,19 @@ export function getStaticPaths() {
         }
       }
 
-      function applyDropdownEventListeners(item, dropdownID, localStorageItem, optionalCallback) {
-        Array.from(item.children).forEach((item) => {
-          item.onclick = () => {
+      function applyDropdownEventListeners(dropdown, optionalCallback) {
+        let dropdownSibling = document.getElementById(dropdown.id + "-menu");
+        let localStorageItem = dropdown.dataset.localStorageKey;
+        Array.from(dropdownSibling.children).forEach((child) => {
+          child.onclick = () => {
             let localStorageItemContent = {
-              name: item.innerText,
-              value: item.dataset.setting,
+              name: child.innerText,
+              value: child.dataset.setting,
             };
             localStorage.setItem(localStorageItem, JSON.stringify(localStorageItemContent));
-            applySavedLocalStorage(localStorageItem, dropdownID);
-            closeDropdown(item.parentElement.id);
+            applySavedLocalStorage(localStorageItem, dropdown.id);
+            closeDropdown(dropdownSibling.id);
+
             if (typeof optionalCallback == "function") {
               optionalCallback();
             }
@@ -233,10 +234,11 @@ export function getStaticPaths() {
           }
           applySavedLocalStorage("alu__selectedTheme", "dropdown__selected-theme");
           applySavedLocalStorage("alu__selectedLanguage", "dropdown__selected-language");
-          let themeDropdown = document.getElementById("dropdown__selected-theme-menu");
-          let languageDropdown = document.getElementById("dropdown__selected-language-menu");
-          applyDropdownEventListeners(themeDropdown, "dropdown__selected-theme", "alu__selectedTheme", changeTheme);
-          applyDropdownEventListeners(languageDropdown, "dropdown__selected-language", "alu__selectedLanguage", navigateToNewLangaugePage);
+
+          let themeDropdown = document.getElementById("dropdown__selected-theme");
+          let languageDropdown = document.getElementById("dropdown__selected-language");
+          applyDropdownEventListeners(themeDropdown, changeTheme);
+          applyDropdownEventListeners(languageDropdown, navigateToNewLangaugePage);
         };
       }
 
@@ -328,37 +330,38 @@ export function getStaticPaths() {
           applySavedLocalStorage("alu__search_engine", "dropdown__search-engine");
           applySavedLocalStorage("alu__selectedOpenWith", "dropdown__open-with");
           applySavedLocalStorage("alu__selectedTransport", "dropdown__transport");
-          let selectedProxyDropdown = document.getElementById("dropdown__selected-proxy-menu");
-          let searchEngineDropdown = document.getElementById("dropdown__search-engine-menu");
-          let openWithDropdown = document.getElementById("dropdown__open-with-menu");
-          let currentTransportDropdown = document.getElementById("dropdown__transport-menu");
+          // Dropdowns
+          let selectedProxyDropdown = document.getElementById("dropdown__selected-proxy");
+          let searchEngineDropdown = document.getElementById("dropdown__search-engine");
+          let openWithDropdown = document.getElementById("dropdown__open-with");
+          let currentTransportDropdown = document.getElementById("dropdown__transport");
+          let wispURLDropdown = document.getElementById("dropdown__wisp-url");
+
+          // Inputs
           let searxngUrlInput = document.getElementById("searxng-url-input");
-          let wispURLInput = document.getElementById("wisp-url-input");
           let bareURLInput = document.getElementById("bare-url-input");
           let savedSearxngUrl = localStorage.getItem("alu__searxngUrl");
           if (savedSearxngUrl != null) {
             if (savedSearxngUrl == "") localStorage.setItem("alu__searxngUrl", "https://searxng.site/");
             searxngUrlInput.value = localStorage.getItem("alu__searxngUrl");
           }
-          const useWss = location.protocol == "https:";
-          const webSocketProtocol = useWss ? "wss://" : "ws://";
-          let savedWispUrl = localStorage.getItem("alu__wispUrl");
-          if (savedWispUrl == null || savedWispUrl == "") localStorage.setItem("alu__wispUrl", webSocketProtocol + location.host + "/wisp/");
+          // const useWss = location.protocol == "https:";
+          // const webSocketProtocol = useWss ? "wss://" : "ws://";
+          // let savedWispUrl = localStorage.getItem("alu__wispUrl");
+          // if (savedWispUrl == null || savedWispUrl == "") localStorage.setItem("alu__wispUrl", webSocketProtocol + location.host + "/wisp/");
           let savedBareUrl = localStorage.getItem("alu__bareUrl");
           if (savedBareUrl == null || savedBareUrl == "") localStorage.setItem("alu__bareUrl", location.origin + "/bare/");
-          wispURLInput.value = localStorage.getItem("alu__wispUrl");
+
           bareURLInput.value = localStorage.getItem("alu__bareUrl");
           // Proxy settings
-          applyInputListeners(searxngUrlInput, "alu__searxngUrl");
-          applyInputListeners(wispURLInput, "alu__wispUrl");
-          applyInputListeners(bareURLInput, "alu__bareUrl");
-
-          [selectedProxyDropdown, openWithDropdown, currentTransportDropdown].forEach((dropdown) => {
-            let dropdownButton = document.getElementById(dropdown.id.replace("-menu", ""));
-            applyDropdownEventListeners(dropdown, dropdownButton.id, dropdownButton.dataset.localStorageKey);
+          [selectedProxyDropdown, openWithDropdown, currentTransportDropdown, wispURLDropdown].forEach((dropdown) => {
+            applyDropdownEventListeners(dropdown);
           });
-          applyDropdownEventListeners(searchEngineDropdown, "dropdown__search-engine", "alu__search_engine", checkSearxng);
+          applyDropdownEventListeners(searchEngineDropdown, checkSearxng);
           checkSearxng();
+
+          applyInputListeners(searxngUrlInput, "alu__searxngUrl");
+          applyInputListeners(bareURLInput, "alu__bareUrl");
         } else if (event.detail == "setting-tab-customization") {
           setupCustomizationSettings();
         } else if (event.detail == "setting-tab-cloaking") {
@@ -476,8 +479,7 @@ export function getStaticPaths() {
       width: 98%;
       height: 80%;
       margin: 0 auto;
-      min-height: 400px;
-      max-height: 400px;
+      max-height: 500px;
       border-radius: 15px;
       box-sizing: border-box;
       background-color: var(--background-color);
@@ -556,13 +558,13 @@ export function getStaticPaths() {
         transform: translateY(0%);
       }
       #setting-tab-customization:checked ~ .marker {
-        transform: translateY(13.5%);
+        transform: translateY(14%);
       }
       #setting-tab-cloaking:checked ~ .marker {
-        transform: translateY(27%);
+        transform: translateY(28%);
       }
       #setting-tab-credits:checked ~ .marker {
-        transform: translateY(41%);
+        transform: translateY(42.5%);
       }
     }
   </style>
