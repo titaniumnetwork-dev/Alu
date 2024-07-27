@@ -1,14 +1,5 @@
 <script>
   import IDBManager from "@components/ts/IDBManager";
-  const tempDB = await IDBManager.loadIDBPromise("AluDB", 1);
-  if (tempDB instanceof Event) {
-    // Something has gone wrong, and the IDB can't be loaded, so we'll delete it and recreate it.
-    IDBManager.DeleteIDB("AluDB");
-    throw new Error("IDB has failed to load - It has been deleted and will be recreated when you refresh the page.");
-  }
-  if (!IDBManager.ValidateStoreExists("InstalledExtensions")) {
-    IDBManager.CreateStore("InstalledExtensions", { keyPath: "slug" });
-  }
 
   function switchTheme() {
     let currentTheme = localStorage.getItem("alu__selectedTheme");
@@ -32,9 +23,6 @@
   const idb = IDBManager.loadIDB("AluDB", 1);
 
   idb.onsuccess = () => {
-    const db = idb.result;
-    IDBManager.SetIDB(db);
-
     let store = IDBManager.GetStore("InstalledExtensions", "readonly");
     store.getAll().onsuccess = (event) => {
       const result = (event.target as IDBRequest).result;
@@ -42,20 +30,20 @@
         result.forEach((extension: IExtensionMetadata) => {
           if (extension.type === "theme" && extension.themeName) {
             // Load theme CSS
-            window.loadedThemeAtob = atob(extension.scriptCopy!);
-            loadStyleFromAtob();
+            console.log("Attempting to load theme", extension.themeName);
+            loadStyleFromAtob(atob(extension.scriptCopy!));
 
             document.addEventListener("astro:after-swap", () => {
-              loadStyleFromAtob();
+              loadStyleFromAtob(atob(extension.scriptCopy!));
             });
           }
         });
       }
     };
   };
-  function loadStyleFromAtob() {
-    const style = document.createElement("style");
-    style.textContent = window.loadedThemeAtob;
-    document.head.appendChild(style);
+  function loadStyleFromAtob(style: string) {
+    const styleEl = document.createElement("style");
+    styleEl.textContent = style;
+    document.head.appendChild(styleEl);
   }
 </script>

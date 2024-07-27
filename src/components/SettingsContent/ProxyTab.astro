@@ -38,19 +38,19 @@ const wispURLList = [
 
 <div class="settings-container">
   <div class="setting__selected-proxy">
-    <label aria-label="Selected Proxy" class="setting-label">{t("settings.proxy.selectedProxy")}</label>
+    <label for="dropdown__selected-proxy" aria-label="Selected Proxy" class="setting-label">{t("settings.proxy.selectedProxy")}</label>
     <Dropdown buttonNameDefault="Ultraviolet" dropdownList={proxyList} localStorageKey="alu__selectedProxy" id="dropdown__selected-proxy" />
   </div>
   <div class="setting__search-engine">
-    <label aria-label="Search Engine" class="setting-label">{t("settings.proxy.searchEngine")}</label>
+    <label for="dropdown__search-engine" aria-label="Search Engine" class="setting-label">{t("settings.proxy.searchEngine")}</label>
     <Dropdown buttonNameDefault="Google" dropdownList={searchEngineList} localStorageKey="alu__searchEngine" id="dropdown__search-engine" />
   </div>
   <div class="setting__open_with">
-    <label aria-label="Open Page With" class="setting-label">{t("settings.proxy.openPageWith")}</label>
+    <label for="dropdown__open-with" aria-label="Open Page With" class="setting-label">{t("settings.proxy.openPageWith")}</label>
     <Dropdown buttonNameDefault={t("settings.proxy.openPageWith.embed")} dropdownList={openPageWith} localStorageKey="alu__selectedOpenWith" id="dropdown__open-with" />
   </div>
   <div class="setting__wisp_url">
-    <label aria-label="Wisp URL" for="dropdown__wisp-url" class="setting-label">{t("settings.proxy.wispURL")}</label>
+    <label for="dropdown__wisp-url" aria-label="Wisp URL" for="dropdown__wisp-url" class="setting-label">{t("settings.proxy.wispURL")}</label>
     <Dropdown buttonNameDefault="" dropdownList={wispURLList} localStorageKey="alu__selectedWisp" id="dropdown__wisp-url" />
   </div>
   <div class="setting__bare_url">
@@ -58,7 +58,7 @@ const wispURLList = [
     <Input height="50px" inputName="bare-url" />
   </div>
   <div class="setting__transport">
-    <label aria-label="Wisp Transport" class="setting-label">{t("settings.proxy.transport")}</label>
+    <label for="dropdown__transport" aria-label="Wisp Transport" class="setting-label">{t("settings.proxy.transport")}</label>
     <Dropdown buttonNameDefault="Epoxy" dropdownList={transportsList} localStorageKey="alu__selectedTransport" id="dropdown__transport" />
   </div>
 </div>
