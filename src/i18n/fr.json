@@ -32,8 +32,8 @@
   "footer.socials": "Socials",
   "footer.aluProject": "Alu Project",
 
-  "games.title": "Games",
-  "games.search": "Search...",
+  "games.title": "Jeux",
+  "games.search": "Rechercher...",
 
   "settings.title": "Préferences",
   "settings.proxy": "Proxy",
@@ -42,7 +42,7 @@
   "settings.proxy.searchEngine": "Moteur de Recherche",
   "settings.proxy.openPageWith": "Ouvrir Avec",
   "settings.proxy.openPageWith.embed": "Intégration",
-  "settings.proxy.openPageWith.newTab": "New Tab",
+  "settings.proxy.openPageWith.newTab": "Nouvelle Fenêtre",
   "settings.proxy.searxngURL": "URL de Searx",
   "settings.proxy.transport": "Transport",
   "settings.proxy.wispURL": "URL de Wisp",
