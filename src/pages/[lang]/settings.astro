@@ -63,7 +63,7 @@ export function getStaticPaths() {
         window.currentlySelectedTab = "";
       });
       Array.from(document.getElementsByClassName("setting-tab")).forEach((tab) => {
-        let contentToLoad = document.getElementById("content-" + tab.id);
+        const contentToLoad = document.getElementById("content-" + tab.id);
         if (contentToLoad) {
           window.loadedContentStorage[tab.id] = contentToLoad.innerHTML;
           contentToLoad.remove();
@@ -77,7 +77,7 @@ export function getStaticPaths() {
       function loadContent(tabID) {
         if (window.currentlySelectedTab == tabID) return;
         else window.currentlySelectedTab = tabID;
-        let currentContent = document.getElementById("current-content");
+        const currentContent = document.getElementById("current-content");
         if (currentContent) {
           currentContent.style.opacity = "0";
           setTimeout(() => {
@@ -89,7 +89,7 @@ export function getStaticPaths() {
       }
 
       function addDropdownListener() {
-        let dropdown_toggles = document.getElementsByClassName("dropdown-toggle");
+        const dropdown_toggles = document.getElementsByClassName("dropdown-toggle");
         Array.from(dropdown_toggles).forEach((toggle) => {
           toggle.onclick = function () {
             closeOtherDropdowns(toggle.id);
@@ -99,7 +99,7 @@ export function getStaticPaths() {
       }
 
       function toggleDropdown(toggle) {
-        let dropdown = document.getElementById(toggle.id + "-menu");
+        const dropdown = document.getElementById(toggle.id + "-menu");
         if (dropdown.style.maxHeight == "0px" || dropdown.style.maxHeight == "") {
           dropdown.style.maxHeight = dropdown.scrollHeight + "px";
           toggle.style.borderRadius = "10px 10px 0 0";
@@ -120,12 +120,12 @@ export function getStaticPaths() {
       }
 
       function closeOtherDropdowns(dropdownIDToExclude) {
-        let dropdowns = document.getElementsByClassName("dropdown-menu");
+        const dropdowns = document.getElementsByClassName("dropdown-menu");
         Array.from(dropdowns).forEach((dropdown) => {
           dropdown.style.maxHeight = "0px";
           setTimeout(() => {
             if (dropdown.id != dropdownIDToExclude + "-menu") {
-              let dropdown_toggle = document.getElementById(dropdown.id.replace("-menu", ""));
+              const dropdown_toggle = document.getElementById(dropdown.id.replace("-menu", ""));
               dropdown_toggle.style.borderRadius = "10px";
             }
           }, 300);
@@ -133,11 +133,11 @@ export function getStaticPaths() {
       }
 
       function closeDropdown(dropdownID) {
-        let dropdown = document.getElementById(dropdownID);
+        const dropdown = document.getElementById(dropdownID);
         if (dropdown) {
           dropdown.style.maxHeight = "0px";
           setTimeout(() => {
-            let dropdown_toggle = document.getElementById(dropdownID.replace("-menu", ""));
+            const dropdown_toggle = document.getElementById(dropdownID.replace("-menu", ""));
             dropdown_toggle.style.borderRadius = "10px";
           }, 300);
         }
@@ -145,14 +145,14 @@ export function getStaticPaths() {
 
       function getLocalStorageValue(localStorageItem, dropdownID) {
         // I was kinda dumb for not doing this earlier.
-        let dropdown = document.getElementById(dropdownID);
-        let dropdownMenu = document.getElementById(dropdownID + "-menu");
+        const dropdown = document.getElementById(dropdownID);
+        const dropdownMenu = document.getElementById(dropdownID + "-menu");
 
         if (dropdown && dropdownMenu) {
           // Now we find the child that matches localStorageItem.value.
-          let dropdownItem = Array.from(dropdownMenu.children).find((item) => {
-            return JSON.parse(localStorage.getItem(localStorageItem)).value == item.dataset.setting;
-          });
+          const dropdownItem = Array.from(dropdownMenu.children).find((item) => {
+        return JSON.parse(localStorage.getItem(localStorageItem)).value == item.dataset.setting;
+      });
           // Now set the inner text to the name in the dropdownItem.
           return dropdownItem.innerText;
         }
@@ -160,7 +160,7 @@ export function getStaticPaths() {
 
       function applySavedLocalStorage(localStorageItem, dropdownID) {
         if (localStorage.getItem(localStorageItem)) {
-          let dropdown_toggle = document.getElementById(dropdownID);
+          const dropdown_toggle = document.getElementById(dropdownID);
           if (dropdown_toggle) {
             dropdown_toggle.innerText = getLocalStorageValue(localStorageItem, dropdownID);
           }
@@ -168,14 +168,14 @@ export function getStaticPaths() {
       }
 
       function applyDropdownEventListeners(dropdown, optionalCallback) {
-        let dropdownSibling = document.getElementById(dropdown.id + "-menu");
-        let localStorageItem = dropdown.dataset.localStorageKey;
+        const dropdownSibling = document.getElementById(dropdown.id + "-menu");
+        const localStorageItem = dropdown.dataset.localStorageKey;
         Array.from(dropdownSibling.children).forEach((child) => {
           child.onclick = () => {
-            let localStorageItemContent = {
-              name: child.innerText,
-              value: child.dataset.setting,
-            };
+            const localStorageItemContent = {
+          name: child.innerText,
+          value: child.dataset.setting,
+        };
             localStorage.setItem(localStorageItem, JSON.stringify(localStorageItemContent));
             applySavedLocalStorage(localStorageItem, dropdown.id);
             closeDropdown(dropdownSibling.id);
@@ -194,15 +194,15 @@ export function getStaticPaths() {
       }
 
       function addThemeToDropdown(extension) {
-        let dropdown = document.getElementById("dropdown__selected-theme-menu");
+        const dropdown = document.getElementById("dropdown__selected-theme-menu");
         if (dropdown) {
           // TODO: Figure out why addThemeToDropdown is being called 6 times
           // This when you go from another page and back to settings->customization.
-          let duplicateItem = Array.from(dropdown.children).find((item) => {
-            return item.dataset.setting == extension.themeName;
-          });
+          const duplicateItem = Array.from(dropdown.children).find((item) => {
+        return item.dataset.setting == extension.themeName;
+      });
           if (duplicateItem) return;
-          let themeItem = document.createElement("li");
+          const themeItem = document.createElement("li");
           themeItem.classList.add("dropdown-item");
           themeItem.dataset.setting = extension.themeName;
           themeItem.textContent = extension.title;
@@ -215,7 +215,7 @@ export function getStaticPaths() {
       loadContent("setting-tab-proxy");
 
       function setupCustomizationSettings() {
-        let store = window.idb.transaction("InstalledExtensions", "readonly").objectStore("InstalledExtensions");
+        const store = window.idb.transaction("InstalledExtensions", "readonly").objectStore("InstalledExtensions");
         store.getAll().onsuccess = (event) => {
           const result = event.target.result;
           if (result) {
@@ -229,8 +229,8 @@ export function getStaticPaths() {
           applySavedLocalStorage("alu__selectedTheme", "dropdown__selected-theme");
           applySavedLocalStorage("alu__selectedLanguage", "dropdown__selected-language");
 
-          let themeDropdown = document.getElementById("dropdown__selected-theme");
-          let languageDropdown = document.getElementById("dropdown__selected-language");
+          const themeDropdown = document.getElementById("dropdown__selected-theme");
+          const languageDropdown = document.getElementById("dropdown__selected-language");
           applyDropdownEventListeners(themeDropdown, changeTheme);
           applyDropdownEventListeners(languageDropdown, navigateToNewLangaugePage);
         };
@@ -242,11 +242,11 @@ export function getStaticPaths() {
             let cloakName = cloak.dataset.cloakName;
             let cloakIcon = cloak.dataset.cloakIcon;
 
-            let localStorageItem = {
-              name: cloakName,
-              icon: cloakIcon,
-              isCustom: false,
-            };
+            const localStorageItem = {
+          name: cloakName,
+          icon: cloakIcon,
+          isCustom: false,
+        };
             localStorage.setItem("alu__selectedCloak", JSON.stringify(localStorageItem));
 
             if (cloakName == "None") {
@@ -272,10 +272,10 @@ export function getStaticPaths() {
           });
         });
 
-        let customNameInput = document.getElementById("cloak-custom-name-input");
-        let customFaviconInput = document.getElementById("cloak-custom-favicon-input");
+        const customNameInput = document.getElementById("cloak-custom-name-input");
+        const customFaviconInput = document.getElementById("cloak-custom-favicon-input");
         if (localStorage.getItem("alu__selectedCloak")) {
-          let selectedCloak = JSON.parse(localStorage.getItem("alu__selectedCloak"));
+          const selectedCloak = JSON.parse(localStorage.getItem("alu__selectedCloak"));
           if (selectedCloak.isCustom) {
             customNameInput.value = selectedCloak.name;
             customFaviconInput.value = selectedCloak.icon;
@@ -285,11 +285,11 @@ export function getStaticPaths() {
         document.getElementById("cloak-custom-button").addEventListener("click", () => {
           let cloakName = document.getElementById("cloak-custom-name-input").value;
           let cloakIcon = document.getElementById("cloak-custom-favicon-input").value;
-          let localStorageItem = {
-            name: cloakName,
-            icon: cloakIcon,
-            isCustom: true,
-          };
+          const localStorageItem = {
+        name: cloakName,
+        icon: cloakIcon,
+        isCustom: true,
+      };
           localStorage.setItem("alu__selectedCloak", JSON.stringify(localStorageItem));
           if (cloakName == "None") {
             localStorage.removeItem("alu__selectedCloak");
@@ -308,10 +308,10 @@ export function getStaticPaths() {
       }
 
       function changeTheme() {
-        let theme = JSON.parse(localStorage.getItem("alu__selectedTheme")).value;
+        const theme = JSON.parse(localStorage.getItem("alu__selectedTheme")).value;
         if (theme) {
           document.documentElement.setAttribute("data-theme", theme.toLowerCase());
-          let footer = document.getElementById("footer");
+          const footer = document.getElementById("footer");
           if (footer) {
             footer.dataset.theme = theme.toLowerCase();
           }
@@ -325,16 +325,16 @@ export function getStaticPaths() {
           applySavedLocalStorage("alu__selectedOpenWith", "dropdown__open-with");
           applySavedLocalStorage("alu__selectedTransport", "dropdown__transport");
           // Dropdowns
-          let selectedProxyDropdown = document.getElementById("dropdown__selected-proxy");
-          let searchEngineDropdown = document.getElementById("dropdown__search-engine");
-          let openWithDropdown = document.getElementById("dropdown__open-with");
-          let currentTransportDropdown = document.getElementById("dropdown__transport");
-          let wispURLDropdown = document.getElementById("dropdown__wisp-url");
+          const selectedProxyDropdown = document.getElementById("dropdown__selected-proxy");
+          const searchEngineDropdown = document.getElementById("dropdown__search-engine");
+          const openWithDropdown = document.getElementById("dropdown__open-with");
+          const currentTransportDropdown = document.getElementById("dropdown__transport");
+          const wispURLDropdown = document.getElementById("dropdown__wisp-url");
 
           // Inputs
-          let searxngUrlInput = document.getElementById("searxng-url-input");
-          let bareURLInput = document.getElementById("bare-url-input");
-          let savedSearxngUrl = localStorage.getItem("alu__searxngUrl");
+          const searxngUrlInput = document.getElementById("searxng-url-input");
+          const bareURLInput = document.getElementById("bare-url-input");
+          const savedSearxngUrl = localStorage.getItem("alu__searxngUrl");
           if (savedSearxngUrl != null) {
             if (savedSearxngUrl == "") localStorage.setItem("alu__searxngUrl", "https://searxng.site/");
             searxngUrlInput.value = localStorage.getItem("alu__searxngUrl");
@@ -343,7 +343,7 @@ export function getStaticPaths() {
           // const webSocketProtocol = useWss ? "wss://" : "ws://";
           // let savedWispUrl = localStorage.getItem("alu__wispUrl");
           // if (savedWispUrl == null || savedWispUrl == "") localStorage.setItem("alu__wispUrl", webSocketProtocol + location.host + "/wisp/");
-          let savedBareUrl = localStorage.getItem("alu__bareUrl");
+          const savedBareUrl = localStorage.getItem("alu__bareUrl");
           if (savedBareUrl == null || savedBareUrl == "") localStorage.setItem("alu__bareUrl", location.origin + "/bare/");
 
           bareURLInput.value = localStorage.getItem("alu__bareUrl");
@@ -365,7 +365,7 @@ export function getStaticPaths() {
 
       function checkSearxng() {
         // This function checks if the "searxng" option was clicked, display an additional option if so.
-        let search_engine = JSON.parse(localStorage.getItem("alu__search_engine"));
+        const search_engine = JSON.parse(localStorage.getItem("alu__search_engine"));
         if (search_engine) {
           if (search_engine.value.toLowerCase() == "searx") {
             document.getElementsByClassName("setting__searxng-url")[0].style.opacity = "1";
@@ -378,12 +378,12 @@ export function getStaticPaths() {
       document.addEventListener("setting-tabLoad", setupSettings);
 
       function navigateToNewLangaugePage() {
-        let value = JSON.parse(localStorage.getItem("alu__selectedLanguage")).value;
-        let currentLanguage = window.location.pathname.split("/")[1];
+        const value = JSON.parse(localStorage.getItem("alu__selectedLanguage")).value;
+        const currentLanguage = window.location.pathname.split("/")[1];
         // Do nothing.. because we're already on the page.
         if (value == currentLanguage) return;
-          window.location.href = `/${value}/settings`;
-        }
+        window.location.href = `/${value}/settings`;
+      }
     }
     document.addEventListener("astro:after-swap", () => {
       setTimeout(() => {

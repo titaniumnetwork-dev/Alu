@@ -19,15 +19,15 @@ Array.from(installButtons).forEach((btn) => {
   btn.addEventListener("click", async (event) => {
     const ele = event.target as HTMLButton;
     const title = ele.dataset.title;
-    let notification = new Notyf({
+    const notification = new Notyf({
       duration: 999999,
       position: { x: "right", y: "bottom" },
       dismissible: true,
       ripple: true,
     });
-    let installNotif = notification.success(`Installing ${title}...`);
+    const installNotif = notification.success(`Installing ${title}...`);
     if (ele.dataset.slug) {
-      let obj = await getMarketplaceObj(ele.dataset.slug);
+      const obj = await getMarketplaceObj(ele.dataset.slug);
       installExtension(obj, ele.dataset.slug)
         .then((ret) => {
           let notifMessage: string;
@@ -63,7 +63,7 @@ Array.from(installButtons).forEach((btn) => {
               window.location.reload();
             }, 1000);
             notification.options.duration = 999999;
-            let btn = document.querySelector(`button[data-slug="${ret.slug}"]`) as HTMLButton;
+            const btn = document.querySelector(`button[data-slug="${ret.slug}"]`) as HTMLButton;
             setInstallBtnText(btn);
           }, timeout);
         })
@@ -96,7 +96,7 @@ async function installExtension(ext: IExtensionMetadata, slug: string): Promise<
       slug: slug,
       ...ext,
     };
-    let slugCheck = store.get(slug);
+    const slugCheck = store.get(slug);
     slugCheck.onsuccess = async () => {
       if (slugCheck.result != null) {
         resolve({ code: EXT_RETURN.ALREADY_INSTALLED, slug: slug });
@@ -120,8 +120,8 @@ function addUninstallEventListeners() {
       if (!confirm("Are you sure you want to uninstall this extension?")) {
         return;
       }
-      let uninst = await uninstallExtension((event.target as HTMLButton).dataset.uninstallSlug!);
-      let notification = new Notyf({
+      const uninst = await uninstallExtension((event.target as HTMLButton).dataset.uninstallSlug!);
+      const notification = new Notyf({
         duration: 999999,
         position: { x: "right", y: "bottom" },
         dismissible: true,
@@ -130,7 +130,7 @@ function addUninstallEventListeners() {
       switch (uninst.code) {
         case EXT_RETURN.ACTION_SUCCESS:
           notification.success(`Uninstalled ${uninst.title}!`);
-          let btn = document.querySelector(`button[data-slug="${uninst.slug}"]`) as HTMLButton;
+          const btn = document.querySelector(`button[data-slug="${uninst.slug}"]`) as HTMLButton;
           btn.disabled = false;
           btn.textContent = "Install";
           btn.classList.remove("installed");
@@ -161,15 +161,15 @@ async function uninstallExtension(slug: string): Promise<InstallReturn> {
     const transaction = request.transaction("InstalledExtensions", "readwrite");
     const store = transaction.objectStore("InstalledExtensions");
 
-    let ext = store.get(slug);
+    const ext = store.get(slug);
     ext.onsuccess = async () => {
       if (ext.result == null) {
         reject({ code: EXT_RETURN.INSTALL_FAILED, slug: slug });
       }
       if (ext.result.type === "theme") {
-        let currTheme = localStorage.getItem("alu__selectedTheme");
+        const currTheme = localStorage.getItem("alu__selectedTheme");
         if (currTheme) {
-          if (JSON.parse(currTheme!).value == ext.result.themeName) {
+          if (JSON.parse(currTheme).value == ext.result.themeName) {
             console.log("Reverting theme to default!");
             localStorage.setItem("alu__selectedTheme", JSON.stringify({ name: "Alu", value: "alu" }));
           }
@@ -201,17 +201,18 @@ function setInstallBtnText(btn: HTMLButton) {
 }
 
 function getInstallStatus() {
-  let installBtns = document.querySelectorAll("button[data-slug]") as NodeListOf<HTMLButton>;
-  let transaction = IDBManager.GetStore("InstalledExtensions", "readonly").transaction;
-  let store = transaction.objectStore("InstalledExtensions");
-  let cursor = store.openCursor();
+  const installBtns = document.querySelectorAll("button[data-slug]");
+  const transaction = IDBManager.GetStore("InstalledExtensions", "readonly").transaction;
+  const store = transaction.objectStore("InstalledExtensions");
+  const cursor = store.openCursor();
   cursor.onsuccess = () => {
-    let res = cursor.result;
+    const res = cursor.result;
     if (res) {
-      let slug = res.value.slug;
+      const slug = res.value.slug;
       installBtns.forEach((btn) => {
-        if (btn.dataset.slug == slug) {
-          setInstallBtnText(btn);
+        const button = btn as HTMLButton;
+        if (button.dataset.slug == slug) {
+          setInstallBtnText(button);
           document.querySelector(`button[data-uninstall-slug="${slug}"]`)!.classList.remove("btn-hidden");
         }
       });

@@ -2,11 +2,11 @@
   import IDBManager from "@components/ts/IDBManager";
 
   function switchTheme() {
-    let currentTheme = localStorage.getItem("alu__selectedTheme");
+    const currentTheme = localStorage.getItem("alu__selectedTheme");
 
     if (currentTheme) {
       document.documentElement.setAttribute("data-theme", JSON.parse(currentTheme).value.toLowerCase());
-      let footer = document.getElementById("footer");
+      const footer = document.getElementById("footer");
       if (footer) {
         footer.dataset.theme = JSON.parse(currentTheme).value.toLowerCase();
       }
@@ -23,7 +23,7 @@
   const idb = IDBManager.loadIDB("AluDB", 1);
 
   idb.onsuccess = () => {
-    let store = IDBManager.GetStore("InstalledExtensions", "readonly");
+    const store = IDBManager.GetStore("InstalledExtensions", "readonly");
     store.getAll().onsuccess = (event) => {
       const result = (event.target as IDBRequest).result;
       if (result) {

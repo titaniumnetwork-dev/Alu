@@ -1,17 +1,17 @@
 export async function testWispServers(servers: WispServer[]): Promise<WispData[]> {
-  let wispData: WispData[] = [];
+  const wispData: WispData[] = [];
 
   for (const server of servers) {
-    let start = performance.now();
+    const start = performance.now();
 
     try {
       await new Promise((resolve, reject) => {
-        let socket = new WebSocket(server.url);
+        const socket = new WebSocket(server.url);
 
         socket.onopen = () => {
-          let end = performance.now();
+          const end = performance.now();
           console.log(`Connected to ${server.url} in ${end - start}ms`);
-          let data = {
+          const data = {
             server: server,
             time: end - start,
           };

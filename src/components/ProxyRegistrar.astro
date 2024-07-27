@@ -4,11 +4,11 @@
   import { Notyf } from "notyf";
   import { loadIDB, GetStore, ValidateStoreExists, CreateStore } from "./ts/IDBManager";
 
-  let form = document.querySelector("form");
+  const form = document.querySelector("form");
   let input = document.querySelector("input");
   document.addEventListener("astro:after-swap", initForm);
   function initForm() {
-    let formEle = document.querySelector("form");
+    const formEle = document.querySelector("form");
     input = document.querySelector("input");
     if (formEle) formEle.addEventListener("submit", formEventListener);
   }
@@ -17,7 +17,7 @@
   }
 
   setInterval(() => {
-    let iframe = document.getElementById("proxy-frame") as HTMLIFrameElement;
+    const iframe = document.getElementById("proxy-frame") as HTMLIFrameElement;
     if (iframe && iframe.src != "") {
       updateProxiedFavicon(iframe);
       updateTopbarTitle(iframe);
@@ -25,7 +25,7 @@
   }, 500);
 
   async function getProxyURL() {
-    let preference = getProxyPreference();
+    const preference = getProxyPreference();
     let url = input!.value.trim();
     if (!isUrl(url)) url = getSearchEngine() + url;
     else if (!(url.startsWith("https://") || url.startsWith("http://"))) url = "http://" + url;
@@ -33,10 +33,10 @@
       return window.__uv$config.prefix + window.__uv$config.encodeUrl(url);
     } else if (preference == "rammerhead") {
       // Check if rammerhead-session exists in cookies
-      let rammerheadSession = getCookie("rammerhead-session");
+      const rammerheadSession = getCookie("rammerhead-session");
       if (!rammerheadSession) {
-        let session = await fetch("/newsession");
-        let sessionID = await session.text();
+        const session = await fetch("/newsession");
+        const sessionID = await session.text();
         await fetch("/editsession?id=" + sessionID + "&enableShuffling=0");
         // Now save it in a cookie that expires in 72 hours.
         document.cookie = `rammerhead-session=${sessionID}; max-age=${60 * 60 * 72}; path=/`;
@@ -54,16 +54,16 @@
 
   async function loadPageExtensions() {
     try {
-      let iframe = document.getElementById("proxy-frame") as HTMLIFrameElement;
+      const iframe = document.getElementById("proxy-frame") as HTMLIFrameElement;
       if (!ValidateStoreExists("InstalledExtensions")) {
         CreateStore("InstalledExtensions", { keyPath: "slug" });
       }
-      let db = loadIDB("AluDB", 1);
+      const db = loadIDB("AluDB", 1);
       db.onsuccess = () => {
-        let store = GetStore("InstalledExtensions", "readonly");
-        let request = store.getAll();
+        const store = GetStore("InstalledExtensions", "readonly");
+        const request = store.getAll();
         request.onsuccess = () => {
-          let extensions = request.result;
+          const extensions = request.result;
           extensions.forEach((extension: IExtensionMetadata) => {
             // Eval the extension script inside of the iframe
             if (!(extension.type == "page")) return;
@@ -73,8 +73,8 @@
                 console.log(url);
                 console.log(iframe.contentWindow!.__uv$location.host);
                 if (iframe.contentWindow!.__uv$location.host.includes(url)) {
-                  let script = extension.script;
-                  let scriptElement = document.createElement("script");
+                  const script = extension.script;
+                  const scriptElement = document.createElement("script");
                   scriptElement.src = script;
                   scriptElement.type = "module";
                   iframe.contentDocument!.head.appendChild(scriptElement);
@@ -89,30 +89,30 @@
     }
   }
 
-  async function loadContent() {
+  async function loadContent(): Promise<void> {
     await initTransport();
     await loadPageExtensions();
     // The setTimeout is because service workers are a little silly and can take a while longer to register despite .then being called, which causes a bug on the first load.
     setTimeout(async () => {
-      let openWith = localStorage.getItem("alu__selectedOpenWith");
-      let currentProxy = localStorage.getItem("alu__selectedProxy");
+      const openWith = localStorage.getItem("alu__selectedOpenWith");
+      const currentProxy = localStorage.getItem("alu__selectedProxy");
       let url = input!.value.trim();
       if (!isUrl(url)) url = getSearchEngine() + url;
       else if (!(url.startsWith("https://") || url.startsWith("http://"))) url = "http://" + url;
       if (openWith) {
-        let openWithParsed = JSON.parse(openWith);
+        const openWithParsed = JSON.parse(openWith);
         if (openWithParsed.value === "newTab" || (currentProxy && JSON.parse(currentProxy).value === "rammerhead")) {
           window.open(await getProxyURL(), "_blank");
           return;
         }
         if (openWithParsed.value === "about:blank") {
           // Open about:blank window and inject iframe into it
-          let newWindow = window.open("about:blank", "_blank");
-          let newWindowDocument = newWindow!.document;
-          let iframe = newWindowDocument.createElement("iframe");
+          const newWindow = window.open("about:blank", "_blank");
+          const newWindowDocument = newWindow!.document;
+          const iframe = newWindowDocument.createElement("iframe");
           iframe.src = await getProxyURL();
           // Inject css into the iframe
-          let css = newWindowDocument.createElement("link");
+          const css = newWindowDocument.createElement("link");
           css.rel = "stylesheet";
           css.href = "/iframe.css";
           newWindowDocument.head.appendChild(css);
@@ -120,24 +120,24 @@
           return;
         }
       }
-      let loadingContent = document.getElementById("loading-content") as HTMLElement;
+      const loadingContent = document.getElementById("loading-content") as HTMLElement;
       if (loadingContent) loadingContent.style.opacity = "1";
 
-      let iframe = document.getElementById("proxy-frame") as HTMLIFrameElement;
-      let topbar = document.getElementById("top-bar") as HTMLDivElement;
-      let closeButton = document.getElementById("close-button") as HTMLButtonElement;
-      let backwardsButton = document.getElementById("nav-backwards") as HTMLImageElement;
-      let forwardsButton = document.getElementById("nav-forwards") as HTMLImageElement;
-      let shareButton = document.getElementById("nav-share") as HTMLImageElement;
-      let preference = getProxyPreference();
+      const iframe = document.getElementById("proxy-frame") as HTMLIFrameElement;
+      const topbar = document.getElementById("top-bar") as HTMLDivElement;
+      const closeButton = document.getElementById("close-button") as HTMLButtonElement;
+      const backwardsButton = document.getElementById("nav-backwards") as HTMLImageElement;
+      const forwardsButton = document.getElementById("nav-forwards") as HTMLImageElement;
+      const shareButton = document.getElementById("nav-share") as HTMLImageElement;
+      const preference = getProxyPreference();
       if (preference === "ultraviolet") {
         iframe.src = window.__uv$config.prefix + window.__uv$config.encodeUrl(url);
       } else if (preference == "rammerhead") {
         // Check if rammerhead-session exists in cookies
-        let rammerheadSession = getCookie("rammerhead-session");
+        const rammerheadSession = getCookie("rammerhead-session");
         if (!rammerheadSession) {
-          let session = await fetch("/newsession");
-          let sessionID = await session.text();
+          const session = await fetch("/newsession");
+          const sessionID = await session.text();
           // Disable URL shuffling on rewrite, eventually I'll try and figure out how it works, but for now, it's disabled.
           await fetch("/editsession?id=" + sessionID + "&enableShuffling=0");
           // Now save it in a cookie that expires in 72 hours.
@@ -192,8 +192,8 @@
           }
         };
         shareButton.onclick = () => {
-          let currentProxy = localStorage.getItem("alu__selectedProxy");
-          let proxyFrame = document.getElementById("proxy-frame") as HTMLIFrameElement;
+          const currentProxy = localStorage.getItem("alu__selectedProxy");
+          const proxyFrame = document.getElementById("proxy-frame") as HTMLIFrameElement;
           if (currentProxy && JSON.parse(currentProxy).value === "rammerhead") {
             navigator.clipboard.writeText(window.location.origin + "/" + getCookie("rammerhead-session") + "/" + input!.value.trim());
           } else {
@@ -239,7 +239,7 @@
   }
 
   function getSearchEngine() {
-    let localStorageSearchEngine = localStorage.getItem("alu__search_engine");
+    const localStorageSearchEngine = localStorage.getItem("alu__search_engine");
     if (!localStorageSearchEngine) {
       return "https://google.com/search?q=";
     }
@@ -269,7 +269,7 @@
   }
 
   function getProxyPreference() {
-    let localStorageItem = localStorage.getItem("alu__selectedProxy");
+    const localStorageItem = localStorage.getItem("alu__selectedProxy");
 
     if (!localStorageItem) return "uv";
 
@@ -285,15 +285,15 @@
 
   function updateProxiedFavicon(iframe: HTMLIFrameElement) {
     if (!iframe) return;
-    let proxiedFavicon = document.getElementById("proxied-favicon") as HTMLImageElement;
+    const proxiedFavicon = document.getElementById("proxied-favicon") as HTMLImageElement;
     if (iframe) {
       if (iframe.contentDocument) {
-        let favicon = (iframe.contentDocument.querySelector("link[rel='icon']") as HTMLLinkElement) || (iframe.contentDocument.querySelector("link[rel*='icon']") as HTMLLinkElement);
+        const favicon = (iframe.contentDocument.querySelector("link[rel='icon']") as HTMLLinkElement) || (iframe.contentDocument.querySelector("link[rel*='icon']") as HTMLLinkElement);
         if (favicon && favicon.href.includes("data:image")) {
           proxiedFavicon.src = favicon.href;
           return;
         }
-        let UVURL = getUVProxyURL(iframe);
+        const UVURL = getUVProxyURL(iframe);
         if (proxiedFavicon.src == `${window.location.origin}/custom-favicon?url=${UVURL}`) return;
         proxiedFavicon.src = `/custom-favicon?url=${UVURL}`;
         loadPageExtensions();
@@ -302,7 +302,7 @@
   }
   function updateTopbarTitle(iframe: HTMLIFrameElement) {
     if (!iframe.contentDocument) return;
-    let topbarTitle = document.getElementById("url-text") as HTMLElement;
+    const topbarTitle = document.getElementById("url-text") as HTMLElement;
     if (iframe.contentDocument.title == "") {
       topbarTitle.innerText = "Loading...";
     } else {

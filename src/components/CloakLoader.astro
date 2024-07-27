@@ -1,8 +1,8 @@
 <script>
   function loadCloak() {
-    let localStorageCloak = localStorage.getItem("alu__selectedCloak");
+    const localStorageCloak = localStorage.getItem("alu__selectedCloak");
     if (localStorageCloak) {
-      let parsedCloak = JSON.parse(localStorageCloak);
+      const parsedCloak = JSON.parse(localStorageCloak);
       if (parsedCloak) {
         if (parsedCloak.name != "None") {
           document.title = parsedCloak.name;

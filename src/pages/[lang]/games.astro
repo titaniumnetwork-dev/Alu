@@ -29,15 +29,15 @@ export function getStaticPaths() {
 </Layout>
 
 <script>
-  let search = document.getElementById("games-search-input") as HTMLInputElement;
-  let mainContent = document.getElementById("main-content") as HTMLDivElement;
+  const search = document.getElementById("games-search-input") as HTMLInputElement;
+  const mainContent = document.getElementById("main-content") as HTMLDivElement;
   search.addEventListener("input", () => {
-    let filter = search.value.toUpperCase();
-    let games = mainContent.children;
+    const filter = search.value.toUpperCase();
+    const games = mainContent.children;
     let results = 0;
     for (let i = 0; i < games.length; i++) {
-      let game = games[i] as HTMLDivElement;
-      let name = game.getAttribute("data-name")!;
+      const game = games[i] as HTMLDivElement;
+      const name = game.getAttribute("data-name")!;
       if (name.toUpperCase().indexOf(filter) > -1) {
         game.style.display = "";
         results++;
@@ -47,13 +47,13 @@ export function getStaticPaths() {
     }
     console.log(results);
     if (results === 0) {
-      let noResults = document.querySelector(".no-results") as HTMLDivElement;
+      const noResults = document.querySelector(".no-results") as HTMLDivElement;
       if (noResults) {
         noResults.style.display = "block";
         noResults.innerHTML = "No results found";
       }
     } else {
-      let noResults = document.querySelector(".no-results") as HTMLDivElement;
+      const noResults = document.querySelector(".no-results") as HTMLDivElement;
       if (noResults) {
         noResults.style.display = "none";
       }
