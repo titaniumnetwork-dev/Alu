@@ -15,7 +15,7 @@
   "faq.title": "Questions fréquemment posées",
 
   "faq.whatIsAProxy": "C'est quoi un proxy?",
-  "faq.whatIsAProxy.answer": "A proxy is a method of making your internet traffic anonymous by sending your request to a server (proxy), having that make the request, and then send it back to you! This allows for a much larger level of security, as well as bypassing website restrictions in public spaces and censorship.",
+  "faq.whatIsAProxy.answer": "Un proxy est une méthode qui te permette de rendre ton trafic d'internet anonyme en envoyant votre trafic a un serveur (le proxy) et fait la demande pour toi et te renvoye led resultats. Cela permet un niveau de sécurité beaucoup plus élevé, et vous permet d'éviter les restrictions des sites web dans les espaces publics.",
 
   "faq.noBareClients": "Que veut dire \"there are no bare clients\"?",
   "faq.noBareClients.answer": "Il y a des different causes pour cette erreur, mais c'est supvent à cause d'un erreur avec le proxy. Veuillez recharger la page, et si tu rencontre cette erreur encore, créez un problème sur GitHub!",
@@ -55,9 +55,9 @@
   "settings.customization.theme.Mocha": "Moka",
   "settings.customization.language": "Langue",
 
-  "settings.cloaking": "Cloaking",
-  "settings.cloaking.subtext": "Change how your tab looks...",
-  "settings.cloaking.updateCloak": "Update Cloak",
+  "settings.cloaking": "Déguiser",
+  "settings.cloaking.subtext": "Changez l'apparence de votre fenêtre...",
+  "settings.cloaking.updateCloak": "Mettre à jour le déguise",
 
   "settings.credits": "Crédits",
   "settings.credits.mochaandmacchiatothemes": "Thème Moka & Macchiato",
