@@ -132,7 +132,7 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(process.cwd(), "dist/client/404.html"));
 });
 
-let server = createServer();
+const server = createServer();
 server.on("request", (req, res) => {
   if (bare.shouldRoute(req)) {
     bare.routeRequest(req, res);

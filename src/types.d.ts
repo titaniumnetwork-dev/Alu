@@ -5,11 +5,8 @@ interface Window {
     decodeUrl: (url: string) => string;
   };
   __uv$location: Location;
-  loadFormContent: Function | null;
-  loadSelectedTransport: Function | null;
-  loadedThemeAtob: string;
+  loadFormContent: () => Promise<void> | null;
   idb: IDBDatabase;
-  URLPattern: URLPattern | null;
   // Why is this not already on Window?
   eval(string): void;
   wispData: WispData[];

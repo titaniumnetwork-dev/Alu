@@ -3,10 +3,10 @@ export const prerender = false;
 import Layout from "../../layouts/Layout.astro";
 import games from "../../json/games.json";
 
-let gamesList = games as GameList;
+const gamesList = games as GameList;
 
 // get the current game based on the information in the url
-let game = Astro.params.game;
+const game = Astro.params.game;
 if (!game) {
   Astro.redirect("/en/games/");
   return;
@@ -16,7 +16,7 @@ function isValidGameKey(key: string) {
   return key in gamesList;
 }
 
-let gameData = isValidGameKey(game) ? gamesList[game] : null;
+const gameData = isValidGameKey(game) ? gamesList[game] : null;
 
 if (!gameData) {
   return Astro.redirect("/en/games/");
@@ -95,7 +95,7 @@ if (!gameData) {
 </style>
 
 <script>
-  let iframe = document.getElementById("game-frame") as HTMLIFrameElement;
+  const iframe = document.getElementById("game-frame") as HTMLIFrameElement;
   iframe.contentWindow?.focus();
 
   iframe?.addEventListener("load", () => {
@@ -107,11 +107,11 @@ if (!gameData) {
   });
 
   document.addEventListener("astro:after-swap", () => {
-    let iframe = document.getElementById("game-frame") as HTMLIFrameElement;
+    const iframe = document.getElementById("game-frame") as HTMLIFrameElement;
     iframe?.contentWindow?.focus();
   });
 
-  let fullscreen = document.getElementById("game-fullscreen") as HTMLImageElement;
+  const fullscreen = document.getElementById("game-fullscreen") as HTMLImageElement;
 
   fullscreen.addEventListener("click", () => {
     if (iframe.requestFullscreen) {

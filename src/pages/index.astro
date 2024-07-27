@@ -21,11 +21,11 @@ import { ViewTransitions } from "astro:transitions";
     <meta property="twitter:image" content="/logo.png" />
     <ViewTransitions />
     <script>
-      let currentLang = localStorage.getItem("alu__selectedLanguage");
+      const currentLang = localStorage.getItem("alu__selectedLanguage");
       const redirect = (loc: string) => (window.location.href = loc);
       if (currentLang) {
         try {
-          let parsed = JSON.parse(currentLang).value;
+          const parsed = JSON.parse(currentLang).value;
           redirect(`/${parsed}/`);
         } catch {
           localStorage.clear();

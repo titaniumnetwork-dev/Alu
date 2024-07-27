@@ -19,7 +19,7 @@ function inferLangUseTranslations(url: URL) {
 
 function useTranslations(lang: LanguageKeys) {
   return function t(translationKey: TranslationKeys) {
-    let key = ui[lang][translationKey];
+    const key = ui[lang][translationKey];
     if (key) return key;
     else return ui[defaultLang][translationKey];
   };

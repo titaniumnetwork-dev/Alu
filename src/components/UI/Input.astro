@@ -10,16 +10,21 @@ if (defaultStyles) {
 interface Props {
   inputName: string;
   defaultTextContent?: string;
-  height: string;
+  height?: string;
   placeholder?: string;
   className?: string;
   defaultStyles?: boolean;
   autocomplete?: string;
 }
+
+let inputHeight = height;
+if (!height) {
+  inputHeight = "3rem";
+}
 ---
 
 <input
-  style={`height: ${height}`}
+  style={`height: ${inputHeight}`}
   id={inputName + "-input"}
   placeholder={placeholder || ""}
   value={defaultTextContent || ""}

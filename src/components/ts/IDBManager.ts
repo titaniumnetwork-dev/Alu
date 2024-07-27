@@ -12,13 +12,13 @@ export function loadIDBPromise(name: string, version: number): Promise<IDBDataba
       reject(event);
     };
 
-    request.onsuccess = (event) => {
+    request.onsuccess = () => {
       const idb = request.result;
       CurrentIDB = idb;
       resolve(idb);
     };
 
-    request.onupgradeneeded = (event) => {
+    request.onupgradeneeded = () => {
       const idb = request.result;
       CurrentIDB = idb;
       resolve(idb);
@@ -34,7 +34,7 @@ export function loadIDBPromise(name: string, version: number): Promise<IDBDataba
 export function loadIDB(name: string, version: number): IDBOpenDBRequest {
   const request = window.indexedDB.open(name, version);
 
-  request.onblocked = (event) => {
+  request.onblocked = () => {
     console.error("Database upgrade is blocked by another connection");
   };
 
@@ -74,7 +74,7 @@ export function DeleteIDB(name: string): Promise<IDBOpenDBRequest | Event> {
       reject(event);
     };
 
-    request.onsuccess = (event) => {
+    request.onsuccess = () => {
       resolve(request);
     };
   });

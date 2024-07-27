@@ -1,7 +1,7 @@
 import path from "path";
 import fs from "fs";
 export async function masqrCheck(config, htmlFile) {
-  let loadedHTMLFile = fs.readFileSync(htmlFile, "utf8");
+  const loadedHTMLFile = fs.readFileSync(htmlFile, "utf8");
   return async (req, res, next) => {
     if (req.headers.host && config.whitelist.includes(req.headers.host)) {
       next();
@@ -37,8 +37,8 @@ async function MasqFail(req, res, failureFile) {
     return;
   }
   const unsafeSuffix = req.headers.host + ".html";
-  let safeSuffix = path.normalize(unsafeSuffix).replace(/^(\.\.(\/|\\|$))+/, "");
-  let safeJoin = path.join(process.cwd() + "/Masqrd", safeSuffix);
+  const safeSuffix = path.normalize(unsafeSuffix).replace(/^(\.\.(\/|\\|$))+/, "");
+  const safeJoin = path.join(process.cwd() + "/Masqrd", safeSuffix);
   try {
     await fs.promises.access(safeJoin); // man do I wish this was an if-then instead of a "exception on fail"
     const failureFileLocal = await fs.promises.readFile(safeJoin, "utf8");

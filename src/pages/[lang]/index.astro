@@ -18,7 +18,7 @@ export function getStaticPaths() {
     <section id="proxy-input">
       <div class="form-wrapper">
         <form class="url-input-form" id="url-input-form">
-          <Input className="url-input" inputName="url" height="50px" placeholder={t("menu.search")} defaultStyles={false} transition:persist autocomplete="off" />
+          <Input className="url-input" inputName="url" placeholder={t("menu.search")} defaultStyles={false} transition:persist autocomplete="off" />
           <div id="search-suggestions"></div>
           <div id="loading-content">Loading...</div>
         </form>
@@ -26,9 +26,9 @@ export function getStaticPaths() {
           <div class="top-bar-left">
             <button id="close-button">Close</button>
             <div class="nav-container">
-              <img id="nav-backwards" src="/img/nav/backwards.svg" alt="Backwards Arrow" />
-              <img id="nav-forwards" src="/img/nav/forwards.svg" alt="Forwards Arrow" />
-              <img id="nav-share" src="/img/nav/share.svg" alt="Share Page" />
+              <img width="32px" height="32px" id="nav-backwards" src="/img/nav/backwards.svg" alt="Backwards Arrow" />
+              <img width="32px" height="32px" id="nav-forwards" src="/img/nav/forwards.svg" alt="Forwards Arrow" />
+              <img width="32px" height="32px" id="nav-share" src="/img/nav/share.svg" alt="Share Page" />
             </div>
           </div>
           <div class="top-bar-right">
@@ -73,20 +73,19 @@ export function getStaticPaths() {
     async function sendAPIRequest(urlInput: HTMLInputElement, searchSuggestions: HTMLDivElement) {
       if (!urlInput) throw new Error("urlInput is null");
       if (!searchSuggestions) throw new Error("searchSuggestions is null");
-      let url = urlInput.value;
-      let request = await fetch("/search?query=" + url);
-      let data = await request.json();
+      const url = urlInput.value;
+      const request = await fetch("/search?query=" + url);
+      const data = await request.json();
       searchSuggestions.innerHTML = "";
       data.map((suggestion: Suggestion) => {
-        let suggestionElement = document.createElement("div");
+        const suggestionElement = document.createElement("div");
         // For some reason css classes weren't working T^T.
         suggestionElement.style.cursor = "pointer";
         suggestionElement.style.marginTop = "5px";
         suggestionElement.innerText = suggestion.phrase;
         suggestionElement.addEventListener("click", async () => {
           urlInput.value = suggestion.phrase;
-          if (window.loadSelectedTransport) await window.loadSelectedTransport();
-          if (window.loadFormContent) window.loadFormContent(suggestion.phrase);
+          if (window.loadFormContent) window.loadFormContent();
         });
         searchSuggestions.appendChild(suggestionElement);
       });
@@ -100,8 +99,8 @@ export function getStaticPaths() {
     }
 
     function addEventListeners() {
-      let urlInput = document.getElementById("url-input") as HTMLInputElement;
-      let searchSuggestions = document.getElementById("search-suggestions") as HTMLDivElement;
+      const urlInput = document.getElementById("url-input") as HTMLInputElement;
+      const searchSuggestions = document.getElementById("search-suggestions") as HTMLDivElement;
       // Silently return if the required elements aren't found, this prevents the console from getting cluttered with errors.
       if (!urlInput || !searchSuggestions) return;
       urlInput.addEventListener("focus", () => {
@@ -145,39 +144,8 @@ export function getStaticPaths() {
     justify-content: center;
   }
   form {
-    width: 350px;
-    height: 56px;
-  }
-
-  .url-input-form {
-    border: none;
-    padding: 0;
-  }
-
-  .url-input {
-    display: block;
-    background: transparent url("/img/search.svg") no-repeat 13px center;
-    background-color: var(--dropdown-background-color);
-    color: var(--text-color);
-    border: 3px solid var(--text-color);
-    border-radius: 30px;
-    padding: 15px;
-    width: 100%;
-    text-align: center;
-    transition: 250ms ease-in-out;
-    outline: none;
-    font-family: "Varela Round", sans-serif;
-    font-size: 16px;
-  }
-
-  .url-input.search-results {
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-    border-bottom: 0;
-  }
-
-  .url-input::placeholder {
-    color: var(--text-color);
+    width: 30%;
+    height: 4rem;
   }
 
   #search-suggestions {

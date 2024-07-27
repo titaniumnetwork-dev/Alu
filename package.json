@@ -8,7 +8,8 @@
     "build": "astro build",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
   },
   "dependencies": {
     "@astrojs/node": "^8.3.2",
