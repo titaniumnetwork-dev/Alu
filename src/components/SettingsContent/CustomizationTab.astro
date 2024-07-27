@@ -14,16 +14,17 @@ const themeList = [
 const languageList = [
   { name: "English", value: "en" },
   { name: "日本語", value: "jp" },
+  { name: "Français", value: "fr"}
 ];
 ---
 
 <div class="settings-container">
   <div class="setting__theme">
-    <label aria-label="Theme" class="setting-label">{t("settings.customization.theme")}</label>
+    <label for="dropdown__selected-theme" aria-label="Theme" class="setting-label">{t("settings.customization.theme")}</label>
     <Dropdown buttonNameDefault="Alu" localStorageKey="alu__selectedTheme" dropdownList={themeList} id="dropdown__selected-theme" />
   </div>
   <div class="setting__language">
-    <label aria-label="Language" class="setting-label">{t("settings.customization.language")}</label>
+    <label for="dropdown__selected-language" aria-label="Language" class="setting-label">{t("settings.customization.language")}</label>
     <Dropdown buttonNameDefault="English" localStorageKey="alu__selectedLanguage" dropdownList={languageList} id="dropdown__selected-language" />
   </div>
 </div>

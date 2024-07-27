@@ -55,6 +55,16 @@ const { title, optionalPreloads } = Astro.props;
 
       gtag("config", "G-P1JX4G9KSF");
     </script>
+    <script>
+      import IDBManager from "@components/ts/IDBManager";
+      if (!window.idb) {
+        let db = await IDBManager.loadIDBPromise("AluDB", 1);
+        if (db instanceof IDBDatabase) {
+          window.idb = db;
+        }
+      }
+
+    </script>
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <ViewTransitions />

@@ -55,13 +55,6 @@ export function getStaticPaths() {
       <div id="current-content"></div>
     </div>
   </main>
-  <script>
-    import IDBManager from "@components/ts/IDBManager";
-    let db = await IDBManager.loadIDBPromise("AluDB", 1);
-    if (db instanceof IDBDatabase) {
-      window.idb = db;
-    }
-  </script>
   <script is:inline>
     window.loadedContentStorage = {};
     window.currentlySelectedTab;
@@ -90,7 +83,6 @@ export function getStaticPaths() {
           setTimeout(() => {
             currentContent.innerHTML = window.loadedContentStorage[tabID];
             currentContent.style.opacity = "1";
-            document.dispatchEvent(new CustomEvent("setting-tabChange", { detail: tabID }));
             document.dispatchEvent(new CustomEvent("setting-tabLoad", { detail: tabID }));
           }, 250);
         }
@@ -204,19 +196,21 @@ export function getStaticPaths() {
       function addThemeToDropdown(extension) {
         let dropdown = document.getElementById("dropdown__selected-theme-menu");
         if (dropdown) {
+          // TODO: Figure out why addThemeToDropdown is being called 6 times
+          // This when you go from another page and back to settings->customization.
+          let duplicateItem = Array.from(dropdown.children).find((item) => {
+            return item.dataset.setting == extension.themeName;
+          });
+          if (duplicateItem) return;
           let themeItem = document.createElement("li");
           themeItem.classList.add("dropdown-item");
           themeItem.dataset.setting = extension.themeName;
           themeItem.textContent = extension.title;
           dropdown.appendChild(themeItem);
-        } else {
-          setTimeout(() => {
-            addThemeToDropdown(extension);
-          }, 1000);
         }
       }
 
-      document.addEventListener("setting-tabChange", determineListener);
+      document.addEventListener("setting-tabLoad", determineListener);
 
       loadContent("setting-tab-proxy");
 
@@ -388,15 +382,8 @@ export function getStaticPaths() {
         let currentLanguage = window.location.pathname.split("/")[1];
         // Do nothing.. because we're already on the page.
         if (value == currentLanguage) return;
-        switch (value) {
-          case "en":
-            window.location.href = "/en/settings/";
-            break;
-          case "jp":
-            window.location.href = "/jp/settings/";
-            break;
+          window.location.href = `/${value}/settings`;
         }
-      }
     }
     document.addEventListener("astro:after-swap", () => {
       setTimeout(() => {

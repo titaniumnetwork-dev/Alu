@@ -26,17 +26,7 @@ import { ViewTransitions } from "astro:transitions";
       if (currentLang) {
         try {
           let parsed = JSON.parse(currentLang).value;
-          switch (parsed) {
-            case "en":
-              redirect("/en/");
-              break;
-            case "jp":
-              redirect("/jp/");
-              break;
-            default:
-              redirect("/en/");
-              break;
-          }
+          redirect(`/${parsed}/`);
         } catch {
           localStorage.clear();
           window.location.reload();
@@ -45,6 +35,9 @@ import { ViewTransitions } from "astro:transitions";
         if (navigator.language.includes("ja")) {
           localStorage.setItem("alu__selectedLanguage", JSON.stringify({ value: "jp" }));
           redirect("/jp/");
+        } else if (navigator.language.includes("fr")) {
+          localStorage.setItem("alu__selectedLanguage", JSON.stringify({ value: "fr" }));
+          redirect("/fr/");
         } else {
           localStorage.setItem("alu__selectedLanguage", JSON.stringify({ value: "en" }));
           redirect("/en/");

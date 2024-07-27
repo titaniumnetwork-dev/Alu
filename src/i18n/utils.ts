@@ -3,7 +3,7 @@ import { ui, defaultLang } from "./ui";
 type LanguageKeys = keyof typeof ui;
 type TranslationKeys = keyof (typeof ui)[typeof defaultLang];
 
-export const STATIC_PATHS = [{ params: { lang: "en" } }, { params: { lang: "jp" } }];
+export const STATIC_PATHS = [{ params: { lang: "en" } }, { params: { lang: "jp" } }, { params: { lang: "fr" } }];
 
 function getLangFromUrl(url: URL) {
   // comma lol
