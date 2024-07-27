@@ -382,15 +382,8 @@ export function getStaticPaths() {
         let currentLanguage = window.location.pathname.split("/")[1];
         // Do nothing.. because we're already on the page.
         if (value == currentLanguage) return;
-        switch (value) {
-          case "en":
-            window.location.href = "/en/settings/";
-            break;
-          case "jp":
-            window.location.href = "/jp/settings/";
-            break;
+          window.location.href = `/${value}/settings`;
         }
-      }
     }
     document.addEventListener("astro:after-swap", () => {
       setTimeout(() => {
