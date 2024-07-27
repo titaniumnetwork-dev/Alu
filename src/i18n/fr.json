@@ -17,7 +17,7 @@
   "faq.whatIsAProxy": "C'est quoi un proxy?",
   "faq.whatIsAProxy.answer": "Un proxy est une méthode qui te permette de rendre ton trafic d'internet anonyme en envoyant votre trafic a un serveur (le proxy) et fait la demande pour toi et te renvoye led resultats. Cela permet un niveau de sécurité beaucoup plus élevé, et vous permet d'éviter les restrictions des sites web dans les espaces publics.",
 
-  "faq.noBareClients": "Que veut dire \"there are no bare clients\"?",
+  "faq.noBareClients": "Que veut dire \"there are no bare clients.\"?",
   "faq.noBareClients.answer": "Il y a des different causes pour cette erreur, mais c'est souvent à cause d'un erreur avec le proxy. Veuillez recharger la page, et si tu rencontre cette erreur encore, créez un problème sur GitHub!",
 
   "faq.contributeToAlu": "Comment est-ce-que je peux contribuer à Alu?",

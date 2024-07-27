@@ -17,7 +17,7 @@
   "faq.whatIsAProxy": "什么是代理？",
   "faq.whatIsAProxy.answer": "代理是一种匿名上网的方法，它通过将您的请求发送到服务器（代理），让服务器发出请求，然后将其发送回给您！这可以提供更高级别的安全性，并绕过公共场所的网站限制和审查。",
 
-  "faq.noBareClients": "\"没有裸客户端\"是什么意思？",
+  "faq.noBareClients": "\"there are no bare clients.\"是什么意思？",
   "faq.noBareClients.answer": "发生此特定错误的原因有多种，但最常见的原因是代理加载失败。请重新加载页面，如果问题仍然存在，请提交 GitHub 问题！",
 
   "faq.contributeToAlu": "我能为 Alu 做出什么贡献？",
