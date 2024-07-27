@@ -21,8 +21,8 @@
   "faq.noBareClients.answer": "Il y a des different causes pour cette erreur, mais c'est supvent à cause d'un erreur avec le proxy. Veuillez recharger la page, et si tu rencontre cette erreur encore, créez un problème sur GitHub!",
 
   "faq.contributeToAlu": "Comment est-ce-que je peux contribuer à Alu?",
-  "faq.contributeToAlu.answer.segment1": "Parler à propos Alu est un bon début, mais si vous appréciez vraiment Alu et veux l'accès aux liens privés pensez à me soutenir avec Patreon",
-  "faq.contributeToAlu.answer.patreonLinkText": "Vous pouvez me soutenir ici",
+  "faq.contributeToAlu.answer.segment1": "Parler à propos Alu est un bon début, mais si vous appréciez vraiment Alu et veux l'accès aux liens privés pensez à me soutenir avec Patreon.",
+  "faq.contributeToAlu.answer.patreonLinkText": "Vous pouvez me soutenir ici!",
   "faq.contributeToAlu.answer.segment2": "Merci d'aider à faire Alu génial!",
 
   "footer.brand": "Alu",
