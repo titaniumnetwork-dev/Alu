@@ -11,5 +11,5 @@ export const ui = {
   fr,
   zh,
   jp,
-  ru
+  ru,
 };
