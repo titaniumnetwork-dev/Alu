@@ -1,0 +1,65 @@
+{
+  "ultraviolet": "Ultraviolet",
+
+  "pages.home": "Page d'accueil | Alu",
+  "pages.games": "Jeux | Alu",
+  "pages.settings": "Préferences | Alu",
+
+  "nav.brand": "Alu",
+  "nav.games": "Jeux",
+  "nav.settings": "Préferences",
+
+  "menu.welcome": "Bienvenue à Alu",
+  "menu.search": "Réchercher sur le web...",
+
+  "faq.title": "Questions fréquemment posées",
+
+  "faq.whatIsAProxy": "C'est quoi un proxy?",
+  "faq.whatIsAProxy.answer": "Un proxy est une méthode qui te permette de rendre ton trafic d'internet anonyme en envoyant votre trafic a un serveur (le proxy) et fait la demande pour toi et te renvoye led resultats. Cela permet un niveau de sécurité beaucoup plus élevé, et vous permet d'éviter les restrictions des sites web dans les espaces publics.",
+
+  "faq.noBareClients": "Que veut dire \"there are no bare clients\"?",
+  "faq.noBareClients.answer": "Il y a des different causes pour cette erreur, mais c'est supvent à cause d'un erreur avec le proxy. Veuillez recharger la page, et si tu rencontre cette erreur encore, créez un problème sur GitHub!",
+
+  "faq.contributeToAlu": "Comment est-ce-que je peux contribuer à Alu?",
+  "faq.contributeToAlu.answer.segment1": "Parler à propos Alu est un bon début, mais si vous appréciez vraiment Alu et veux l'accès aux liens privés pensez à me soutenir avec Patreon",
+  "faq.contributeToAlu.answer.patreonLinkText": "Vous pouvez me soutenir ici",
+  "faq.contributeToAlu.answer.segment2": "Merci d'aider à faire Alu génial!",
+
+  "footer.brand": "Alu",
+  "footer.madeWithLove": "Crée avec ❤️ par wearr",
+  "footer.poweredBy": "Titanium Network",
+  "footer.services": "Services",
+  "footer.socials": "Réseaux Sociaux",
+  "footer.aluProject": "le Projet Alu",
+
+  "games.title": "Jeux",
+  "games.search": "Rechercher...",
+
+  "settings.title": "Préferences",
+  "settings.proxy": "Proxy",
+  "settings.proxy.auto": "Automatique",
+  "settings.proxy.selectedProxy": "Proxy Choisi",
+  "settings.proxy.searchEngine": "Moteur de Recherche",
+  "settings.proxy.openPageWith": "Ouvrir Avec",
+  "settings.proxy.openPageWith.embed": "Intégration",
+  "settings.proxy.openPageWith.newTab": "Nouvelle Fenêtre",
+  "settings.proxy.searxngURL": "URL de Searx",
+  "settings.proxy.transport": "Transport",
+  "settings.proxy.wispURL": "URL de Wisp",
+  "settings.proxy.bareURL": "URL de serveur Bare",
+
+  "settings.customization": "Personnalisation",
+  "settings.customization.theme": "Thème",
+  "settings.customization.theme.Alu": "Alu",
+  "settings.customization.theme.Macchiato": "Macchiato",
+  "settings.customization.theme.Mocha": "Moka",
+  "settings.customization.language": "Langue",
+
+  "settings.cloaking": "Déguiser",
+  "settings.cloaking.subtext": "Changez l'apparence de votre fenêtre...",
+  "settings.cloaking.updateCloak": "Mettre à jour le déguise",
+
+  "settings.credits": "Crédits",
+  "settings.credits.mochaandmacchiatothemes": "Thème Moka & Macchiato",
+  "settings.credits.japaneseTranslations": "Traduction Japonais"
+}
