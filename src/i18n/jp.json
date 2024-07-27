@@ -61,5 +61,7 @@
 
   "settings.credits": "クレジット",
   "settings.credits.mochaandmacchiatothemes": "モカとマキアートテーマ",
-  "settings.credits.japaneseTranslations": "日本語翻訳"
+  "settings.credits.jpTranslations": "日本語翻訳",
+  "settings.credits.ruTranslations": "ロシア語翻訳",
+  "settings.credits.zhTranslations": "中国語翻訳"
 }
