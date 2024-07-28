@@ -8,7 +8,10 @@
   console.log("%cBrowser: " + navigator.userAgent, `color: ${primaryColor}; font-size: 0.75rem; font-weight: bold;`);
   console.log("%cCPU Cores: " + navigator.hardwareConcurrency, `color: ${primaryColor}; font-size: 0.75rem; font-weight: bold;`);
   // Cmon firefox, do we really not support this?? Basic stuff here from the "indie browser".
-  console.log("%cMemory: " + (navigator as any).deviceMemory + "GB", `color: ${primaryColor}; font-size: 0.75rem; font-weight: bold;`);
-
+  if (!navigator.userAgent.includes("Firefox")) {
+    console.log("%cMemory: " + (navigator as any).deviceMemory + "GB", `color: ${primaryColor}; font-size: 0.75rem; font-weight: bold;`);
+  } else {
+    console.log("%cMemory: Not supported in Firefox", `color: ${primaryColor}; font-size: 0.75rem; font-weight: bold;`);
+  }
   console.log("%cPlease include this information in a bug report!", `color: ${primaryColor}; font-size: 0.75rem; font-weight: bold;`);
 </script>

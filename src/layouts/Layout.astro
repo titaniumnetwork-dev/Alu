@@ -58,10 +58,16 @@ const { title, optionalPreloads } = Astro.props;
     <script>
       import IDBManager from "@components/ts/IDBManager";
       if (!window.idb) {
-        const db = await IDBManager.loadIDBPromise("AluDB", 1);
-        if (db instanceof IDBDatabase) {
-          window.idb = db;
-        }
+        const db = IDBManager.loadIDB("AluDB", 1);
+        db.onupgradeneeded = () => {
+          window.idb = db.result;
+          IDBManager.SetIDB(window.idb);
+          IDBManager.CreateStore("InstalledExtensions", { keyPath: "slug" });
+        };
+        db.onsuccess = () => {
+          window.idb = db.result;
+          IDBManager.SetIDB(window.idb);
+        };
       }
     </script>
     <meta name="generator" content={Astro.generator} />

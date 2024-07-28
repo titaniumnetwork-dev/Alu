@@ -21,6 +21,7 @@ export function loadIDBPromise(name: string, version: number): Promise<IDBDataba
     request.onupgradeneeded = () => {
       const idb = request.result;
       CurrentIDB = idb;
+      CurrentIDB.createObjectStore(name, { keyPath: "slug" });
       resolve(idb);
     };
 

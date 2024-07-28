@@ -30,7 +30,6 @@
         result.forEach((extension: IExtensionMetadata) => {
           if (extension.type === "theme" && extension.themeName) {
             // Load theme CSS
-            console.log("Attempting to load theme", extension.themeName);
             loadStyleFromAtob(atob(extension.scriptCopy!));
 
             document.addEventListener("astro:after-swap", () => {
