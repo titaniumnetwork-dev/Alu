@@ -20,6 +20,16 @@ import { ViewTransitions } from "astro:transitions";
     <meta property="twitter:description" content="Alu is a sleek web proxy supporting multiple standards of communication, and wide levels of customization." />
     <meta property="twitter:image" content="/logo.png" />
     <ViewTransitions />
+    <script src="https://www.googletagmanager.com/gtag/js?id=G-P1JX4G9KSF" is:inline></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        window.dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-P1JX4G9KSF");
+    </script>
     <script>
       const currentLang = localStorage.getItem("alu__selectedLanguage");
       const redirect = (loc: string) => (window.location.href = loc);
