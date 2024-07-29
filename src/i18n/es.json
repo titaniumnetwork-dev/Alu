@@ -43,7 +43,7 @@
   "settings.proxy.openPageWith": "Abrir con",
   "settings.proxy.openPageWith.embed": "Incrustar",
   "settings.proxy.openPageWith.newTab": "Nueva pestaña",
-  "settings.proxy.searxngURL": "URL de SearX",
+  "settings.proxy.searxngURL": "URL de Searx",
   "settings.proxy.transport": "Transporte",
   "settings.proxy.wispURL": "URL de Wisp",
   "settings.proxy.bareURL": "URL de Bare Server",
