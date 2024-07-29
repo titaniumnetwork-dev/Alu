@@ -1,4 +1,5 @@
 interface Window {
+  AluStore: AluStore;
   __uv$config: {
     prefix: string;
     encodeUrl: (url: string) => string;
@@ -10,6 +11,15 @@ interface Window {
   // Why is this not already on Window?
   eval(string): void;
   wispData: WispData[];
+}
+
+declare global {
+  interface Global {
+    AluStore: AluStore;
+  }
+
+  // Add the property to globalThis
+  let AluStore: AluStore;
 }
 
 type ExtType = "serviceWorker" | "theme" | "page";
@@ -74,4 +84,10 @@ type WispServer = {
 type WispData = {
   server: WispServer;
   time: number;
+};
+
+type AluKey = Record<string, string>;
+
+type AluDefaultKeys = {
+  [key: string]: AluKey;
 };

@@ -51,7 +51,7 @@ const wispURLList = [
   </div>
   <div class="setting__wisp_url">
     <label for="dropdown__wisp-url" aria-label="Wisp URL" for="dropdown__wisp-url" class="setting-label">{t("settings.proxy.wispURL")}</label>
-    <Dropdown buttonNameDefault="" dropdownList={wispURLList} localStorageKey="alu__selectedWisp" id="dropdown__wisp-url" />
+    <Dropdown buttonNameDefault={wispURLList[0].name} dropdownList={wispURLList} localStorageKey="alu__selectedWispURL" id="dropdown__wisp-url" />
   </div>
   <div class="setting__bare_url">
     <label aria-label="Bare Server URL" for="bare-url-input" class="setting-label">{t("settings.proxy.bareURL")}</label>
