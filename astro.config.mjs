@@ -6,11 +6,15 @@ export default defineConfig({
   site: "https://aluu.xyz",
   integrations: [
     sitemap({
+      priority: 0.5,
       lastmod: new Date(),
       i18n: {
         locales: {
           en: "en-US",
           jp: "ja-JP",
+          fr: "fr-FR",
+          ru: "ru-RU",
+          zh: "zh-CN",
         },
         defaultLocale: "en",
       },

@@ -13,15 +13,6 @@ interface Window {
   wispData: WispData[];
 }
 
-declare global {
-  interface Global {
-    AluStore: AluStore;
-  }
-
-  // Add the property to globalThis
-  let AluStore: AluStore;
-}
-
 type ExtType = "serviceWorker" | "theme" | "page";
 
 type Extension = {

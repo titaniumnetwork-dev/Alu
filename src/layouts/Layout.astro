@@ -40,6 +40,7 @@ const { title, optionalPreloads } = Astro.props;
     <meta property="twitter:description" content="Alu is a sleek web proxy supporting multiple standards of communication, and wide levels of customization." />
     <meta property="twitter:image" content="/logo.png" />
     <link rel="sitemap" href="/sitemap-index.xml" />
+    <linK rel="canonical" href={Astro.url.href}>
     {
       optionalPreloads?.map((item) => {
         return <link rel="preload" href={item.href} as={item.as} />;
