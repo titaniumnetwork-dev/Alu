@@ -1,5 +1,6 @@
 const id = window.location.pathname.split("/").pop();
 if (id && RufflePlayer) {
+    document.title = `Flash Game - ${id}`;
     window.addEventListener("load", loadRuffle);
 } else {
     document.querySelector("#loader").classList.add("hidden");

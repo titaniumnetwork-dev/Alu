@@ -57,6 +57,13 @@
     "slug": "bloons",
     "flash": true
   },
+  "bitlife": {
+    "name": "BitLife",
+    "image": "/games/bitlife/logo.png",
+    "slug": "bitlife",
+    "unity": true,
+    "vertical": true
+  },
   "cannon-basketball-4": {
     "name": "Cannon Basketball 4",
     "image": "/games/cannon-basketball-4/logo.png",
@@ -243,6 +250,11 @@
     "image": "/games/moto-x3m-winter/logo.png",
     "slug": "moto-x3m-winter"
   },
+  "pvz": {
+    "name": "Plants vs Zombies",
+    "image": "/games/pvz/logo.png",
+    "slug": "pvz"
+  },
   "retro-bowl": {
     "name": "Retro Bowl",
     "image": "/games/retro-bowl/logo.png",
@@ -278,6 +290,11 @@
     "name": "Superhot",
     "image": "/games/superhot/logo.png",
     "slug": "superhot"
+  },
+  "temple-run-2": {
+    "name": "Temple Run 2",
+    "image": "/games/temple-run-2/logo.png",
+    "slug": "temple-run-2"
   },
   "there-is-no-game": {
     "name": "There is No Game",

@@ -60,6 +60,7 @@ type GameMetadata = {
   slug: string;
   unity?: boolean;
   flash?: boolean;
+  vertical?: boolean;
 };
 
 type GameList = {
