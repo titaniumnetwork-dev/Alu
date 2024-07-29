@@ -32,10 +32,8 @@ module.exports = {
         project: "./tsconfig.json",
       },
       plugins: ["@typescript-eslint"],
-      extends: [
-        "plugin:@typescript-eslint/recommended",
-      ],
-    }, 
+      extends: ["plugin:@typescript-eslint/recommended"],
+    },
     {
       // Define the configuration for `<script>` tag.
       // Script in `<script>` is assigned a virtual file name with the `.js` extension.

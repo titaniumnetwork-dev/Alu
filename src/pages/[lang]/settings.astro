@@ -73,224 +73,182 @@ export function getStaticPaths() {
           loadContent(event.target.id);
         });
       });
-
-      function loadContent(tabID) {
-        if (window.currentlySelectedTab == tabID) return;
-        else window.currentlySelectedTab = tabID;
-        const currentContent = document.getElementById("current-content");
-        if (currentContent) {
-          currentContent.style.opacity = "0";
-          setTimeout(() => {
-            currentContent.innerHTML = window.loadedContentStorage[tabID];
-            currentContent.style.opacity = "1";
-            document.dispatchEvent(new CustomEvent("setting-tabLoad", { detail: tabID }));
-          }, 250);
-        }
+    }
+    function loadContent(tabID) {
+      if (window.currentlySelectedTab == tabID) return;
+      else window.currentlySelectedTab = tabID;
+      const currentContent = document.getElementById("current-content");
+      if (currentContent) {
+        currentContent.style.opacity = "0";
+        setTimeout(() => {
+          currentContent.innerHTML = window.loadedContentStorage[tabID];
+          currentContent.style.opacity = "1";
+          document.dispatchEvent(new CustomEvent("setting-tabLoad", { detail: tabID }));
+        }, 250);
       }
+    }
 
-      function addDropdownListener() {
-        const dropdown_toggles = document.getElementsByClassName("dropdown-toggle");
-        Array.from(dropdown_toggles).forEach((toggle) => {
-          toggle.onclick = function () {
-            closeOtherDropdowns(toggle.id);
-            toggleDropdown(toggle);
-          };
-        });
+    function addDropdownListener() {
+      const dropdown_toggles = document.getElementsByClassName("dropdown-toggle");
+      Array.from(dropdown_toggles).forEach((toggle) => {
+        toggle.onclick = function () {
+          closeOtherDropdowns(toggle.id);
+          toggleDropdown(toggle);
+        };
+      });
+    }
+
+    function toggleDropdown(toggle) {
+      const dropdown = document.getElementById(toggle.id + "-menu");
+      if (dropdown.style.maxHeight == "0px" || dropdown.style.maxHeight == "") {
+        dropdown.style.maxHeight = dropdown.scrollHeight + "px";
+        toggle.style.borderRadius = "10px 10px 0 0";
+      } else {
+        dropdown.style.maxHeight = "0px";
+        setTimeout(() => {
+          toggle.style.borderRadius = "10px";
+        }, 300);
       }
+    }
 
-      function toggleDropdown(toggle) {
-        const dropdown = document.getElementById(toggle.id + "-menu");
-        if (dropdown.style.maxHeight == "0px" || dropdown.style.maxHeight == "") {
-          dropdown.style.maxHeight = dropdown.scrollHeight + "px";
-          toggle.style.borderRadius = "10px 10px 0 0";
-        } else {
-          dropdown.style.maxHeight = "0px";
-          setTimeout(() => {
-            toggle.style.borderRadius = "10px";
-          }, 300);
-        }
+    function determineListener(event) {
+      if (event.detail == "setting-tab-proxy") {
+        addDropdownListener();
+      } else if (event.detail == "setting-tab-customization") {
+        addDropdownListener();
       }
+    }
 
-      function determineListener(event) {
-        if (event.detail == "setting-tab-proxy") {
-          addDropdownListener();
-        } else if (event.detail == "setting-tab-customization") {
-          addDropdownListener();
-        }
-      }
-
-      function closeOtherDropdowns(dropdownIDToExclude) {
-        const dropdowns = document.getElementsByClassName("dropdown-menu");
-        Array.from(dropdowns).forEach((dropdown) => {
-          dropdown.style.maxHeight = "0px";
-          setTimeout(() => {
-            if (dropdown.id != dropdownIDToExclude + "-menu") {
-              const dropdown_toggle = document.getElementById(dropdown.id.replace("-menu", ""));
-              dropdown_toggle.style.borderRadius = "10px";
-            }
-          }, 300);
-        });
-      }
-
-      function closeDropdown(dropdownID) {
-        const dropdown = document.getElementById(dropdownID);
-        if (dropdown) {
-          dropdown.style.maxHeight = "0px";
-          setTimeout(() => {
-            const dropdown_toggle = document.getElementById(dropdownID.replace("-menu", ""));
+    function closeOtherDropdowns(dropdownIDToExclude) {
+      const dropdowns = document.getElementsByClassName("dropdown-menu");
+      Array.from(dropdowns).forEach((dropdown) => {
+        dropdown.style.maxHeight = "0px";
+        setTimeout(() => {
+          if (dropdown.id != dropdownIDToExclude + "-menu") {
+            const dropdown_toggle = document.getElementById(dropdown.id.replace("-menu", ""));
             dropdown_toggle.style.borderRadius = "10px";
-          }, 300);
-        }
-      }
-
-      function getLocalStorageValue(localStorageItem, dropdownID) {
-        // I was kinda dumb for not doing this earlier.
-        const dropdown = document.getElementById(dropdownID);
-        const dropdownMenu = document.getElementById(dropdownID + "-menu");
-
-        if (dropdown && dropdownMenu) {
-          // Now we find the child that matches localStorageItem.value.
-          const dropdownItem = Array.from(dropdownMenu.children).find((item) => {
-        return JSON.parse(localStorage.getItem(localStorageItem)).value == item.dataset.setting;
-      });
-          // Now set the inner text to the name in the dropdownItem.
-          return dropdownItem.innerText;
-        }
-      }
-
-      function applySavedLocalStorage(localStorageItem, dropdownID) {
-        if (localStorage.getItem(localStorageItem)) {
-          const dropdown_toggle = document.getElementById(dropdownID);
-          if (dropdown_toggle) {
-            dropdown_toggle.innerText = getLocalStorageValue(localStorageItem, dropdownID);
           }
+        }, 300);
+      });
+    }
+
+    function closeDropdown(dropdownID) {
+      const dropdown = document.getElementById(dropdownID);
+      if (dropdown) {
+        dropdown.style.maxHeight = "0px";
+        setTimeout(() => {
+          const dropdown_toggle = document.getElementById(dropdownID.replace("-menu", ""));
+          dropdown_toggle.style.borderRadius = "10px";
+        }, 300);
+      }
+    }
+
+    function getLocalStorageValue(localStorageItem, dropdownID) {
+      // I was kinda dumb for not doing this earlier.
+      const dropdown = document.getElementById(dropdownID);
+      const dropdownMenu = document.getElementById(dropdownID + "-menu");
+
+      if (dropdown && dropdownMenu) {
+        // Now we find the child that matches localStorageItem.value.
+        const dropdownItem = Array.from(dropdownMenu.children).find((item) => {
+          return JSON.parse(localStorage.getItem(localStorageItem)).value == item.dataset.setting;
+        });
+        // Now set the inner text to the name in the dropdownItem.
+        return dropdownItem.innerText;
+      }
+    }
+
+    function applySavedLocalStorage(localStorageItem, dropdownID) {
+      if (localStorage.getItem(localStorageItem)) {
+        const dropdown_toggle = document.getElementById(dropdownID);
+        if (dropdown_toggle) {
+          dropdown_toggle.innerText = getLocalStorageValue(localStorageItem, dropdownID);
         }
       }
+    }
 
-      function applyDropdownEventListeners(dropdown, optionalCallback) {
-        const dropdownSibling = document.getElementById(dropdown.id + "-menu");
-        const localStorageItem = dropdown.dataset.localStorageKey;
-        Array.from(dropdownSibling.children).forEach((child) => {
-          child.onclick = () => {
-            const localStorageItemContent = {
-          name: child.innerText,
-          value: child.dataset.setting,
-        };
-            localStorage.setItem(localStorageItem, JSON.stringify(localStorageItemContent));
-            applySavedLocalStorage(localStorageItem, dropdown.id);
-            closeDropdown(dropdownSibling.id);
-
-            if (typeof optionalCallback == "function") {
-              optionalCallback();
-            }
+    function applyDropdownEventListeners(dropdown, optionalCallback) {
+      const dropdownSibling = document.getElementById(dropdown.id + "-menu");
+      const localStorageItem = dropdown.dataset.localStorageKey;
+      Array.from(dropdownSibling.children).forEach((child) => {
+        child.onclick = () => {
+          const localStorageItemContent = {
+            name: child.innerText,
+            value: child.dataset.setting,
           };
-        });
-      }
+          localStorage.setItem(localStorageItem, JSON.stringify(localStorageItemContent));
+          applySavedLocalStorage(localStorageItem, dropdown.id);
+          closeDropdown(dropdownSibling.id);
 
-      function applyInputListeners(item, localStorageItem) {
-        item.addEventListener("input", () => {
-          localStorage.setItem(localStorageItem, item.value);
-        });
-      }
-
-      function addThemeToDropdown(extension) {
-        const dropdown = document.getElementById("dropdown__selected-theme-menu");
-        if (dropdown) {
-          // TODO: Figure out why addThemeToDropdown is being called 6 times
-          // This when you go from another page and back to settings->customization.
-          const duplicateItem = Array.from(dropdown.children).find((item) => {
-        return item.dataset.setting == extension.themeName;
-      });
-          if (duplicateItem) return;
-          const themeItem = document.createElement("li");
-          themeItem.classList.add("dropdown-item");
-          themeItem.dataset.setting = extension.themeName;
-          themeItem.textContent = extension.title;
-          dropdown.appendChild(themeItem);
-        }
-      }
-
-      document.addEventListener("setting-tabLoad", determineListener);
-
-      loadContent("setting-tab-proxy");
-
-      function setupCustomizationSettings() {
-        const store = window.idb.transaction("InstalledExtensions", "readonly").objectStore("InstalledExtensions");
-        store.getAll().onsuccess = (event) => {
-          const result = event.target.result;
-          if (result) {
-            result.forEach((extension) => {
-              if (extension.type === "theme" && extension.themeName) {
-                // Create a dropdown item for the theme
-                addThemeToDropdown(extension);
-              }
-            });
+          if (typeof optionalCallback == "function") {
+            optionalCallback();
           }
-          applySavedLocalStorage("alu__selectedTheme", "dropdown__selected-theme");
-          applySavedLocalStorage("alu__selectedLanguage", "dropdown__selected-language");
-
-          const themeDropdown = document.getElementById("dropdown__selected-theme");
-          const languageDropdown = document.getElementById("dropdown__selected-language");
-          applyDropdownEventListeners(themeDropdown, changeTheme);
-          applyDropdownEventListeners(languageDropdown, navigateToNewLangaugePage);
         };
+      });
+    }
+
+    function applyInputListeners(item, localStorageItem) {
+      item.addEventListener("input", () => {
+        localStorage.setItem(localStorageItem, item.value);
+      });
+    }
+
+    function addThemeToDropdown(extension) {
+      const dropdown = document.getElementById("dropdown__selected-theme-menu");
+      if (dropdown) {
+        // TODO: Figure out why addThemeToDropdown is being called 6 times
+        // This when you go from another page and back to settings->customization.
+        const duplicateItem = Array.from(dropdown.children).find((item) => {
+          return item.dataset.setting == extension.themeName;
+        });
+        if (duplicateItem) return;
+        const themeItem = document.createElement("li");
+        themeItem.classList.add("dropdown-item");
+        themeItem.dataset.setting = extension.themeName;
+        themeItem.textContent = extension.title;
+        dropdown.appendChild(themeItem);
       }
+    }
 
-      function setupCloakingSettings() {
-        Array.from(document.getElementById("cloak-list").children).forEach((cloak) => {
-          cloak.addEventListener("click", () => {
-            let cloakName = cloak.dataset.cloakName;
-            let cloakIcon = cloak.dataset.cloakIcon;
+    document.addEventListener("setting-tabLoad", determineListener);
 
-            const localStorageItem = {
-          name: cloakName,
-          icon: cloakIcon,
-          isCustom: false,
-        };
-            localStorage.setItem("alu__selectedCloak", JSON.stringify(localStorageItem));
+    loadContent("setting-tab-proxy");
 
-            if (cloakName == "None") {
-              localStorage.removeItem("alu__selectedCloak");
-              cloakName = "Settings | Alu";
-              cloakIcon = "/favicon.svg";
-            }
-            let link = document.querySelector("link[rel~='icon']");
-            if (!link) {
-              link = document.createElement("link");
-              link.rel = "icon";
-              document.head.appendChild(link);
-            }
-            link.href = cloakIcon;
-            document.title = cloakName;
-
-            if (!cloak.classList.contains("selected")) {
-              Array.from(document.getElementById("cloak-list").children).forEach((cloak2) => {
-                cloak2.classList.remove("selected");
-              });
-              cloak.classList.add("selected");
+    function setupCustomizationSettings() {
+      const store = window.idb.transaction("InstalledExtensions", "readonly").objectStore("InstalledExtensions");
+      store.getAll().onsuccess = (event) => {
+        const result = event.target.result;
+        if (result) {
+          result.forEach((extension) => {
+            if (extension.type === "theme" && extension.themeName) {
+              // Create a dropdown item for the theme
+              addThemeToDropdown(extension);
             }
           });
-        });
-
-        const customNameInput = document.getElementById("cloak-custom-name-input");
-        const customFaviconInput = document.getElementById("cloak-custom-favicon-input");
-        if (localStorage.getItem("alu__selectedCloak")) {
-          const selectedCloak = JSON.parse(localStorage.getItem("alu__selectedCloak"));
-          if (selectedCloak.isCustom) {
-            customNameInput.value = selectedCloak.name;
-            customFaviconInput.value = selectedCloak.icon;
-          }
         }
+        applySavedLocalStorage("alu__selectedTheme", "dropdown__selected-theme");
+        applySavedLocalStorage("alu__selectedLanguage", "dropdown__selected-language");
 
-        document.getElementById("cloak-custom-button").addEventListener("click", () => {
-          let cloakName = document.getElementById("cloak-custom-name-input").value;
-          let cloakIcon = document.getElementById("cloak-custom-favicon-input").value;
-          const localStorageItem = {
-        name: cloakName,
-        icon: cloakIcon,
-        isCustom: true,
+        const themeDropdown = document.getElementById("dropdown__selected-theme");
+        const languageDropdown = document.getElementById("dropdown__selected-language");
+        applyDropdownEventListeners(themeDropdown, changeTheme);
+        applyDropdownEventListeners(languageDropdown, navigateToNewLangaugePage);
       };
+    }
+
+    function setupCloakingSettings() {
+      Array.from(document.getElementById("cloak-list").children).forEach((cloak) => {
+        cloak.addEventListener("click", () => {
+          let cloakName = cloak.dataset.cloakName;
+          let cloakIcon = cloak.dataset.cloakIcon;
+
+          const localStorageItem = {
+            name: cloakName,
+            icon: cloakIcon,
+            isCustom: false,
+          };
           localStorage.setItem("alu__selectedCloak", JSON.stringify(localStorageItem));
+
           if (cloakName == "None") {
             localStorage.removeItem("alu__selectedCloak");
             cloakName = "Settings | Alu";
@@ -304,91 +262,127 @@ export function getStaticPaths() {
           }
           link.href = cloakIcon;
           document.title = cloakName;
+
+          if (!cloak.classList.contains("selected")) {
+            Array.from(document.getElementById("cloak-list").children).forEach((cloak2) => {
+              cloak2.classList.remove("selected");
+            });
+            cloak.classList.add("selected");
+          }
         });
-      }
+      });
 
-      function changeTheme() {
-        const theme = JSON.parse(localStorage.getItem("alu__selectedTheme")).value;
-        if (theme) {
-          document.documentElement.setAttribute("data-theme", theme.toLowerCase());
-          const footer = document.getElementById("footer");
-          if (footer) {
-            footer.dataset.theme = theme.toLowerCase();
-          }
+      const customNameInput = document.getElementById("cloak-custom-name-input");
+      const customFaviconInput = document.getElementById("cloak-custom-favicon-input");
+      if (localStorage.getItem("alu__selectedCloak")) {
+        const selectedCloak = JSON.parse(localStorage.getItem("alu__selectedCloak"));
+        if (selectedCloak.isCustom) {
+          customNameInput.value = selectedCloak.name;
+          customFaviconInput.value = selectedCloak.icon;
         }
       }
 
-      function setupSettings(event) {
-        if (event.detail == "setting-tab-proxy") {
-          applySavedLocalStorage("alu__selectedProxy", "dropdown__selected-proxy");
-          applySavedLocalStorage("alu__search_engine", "dropdown__search-engine");
-          applySavedLocalStorage("alu__selectedOpenWith", "dropdown__open-with");
-          applySavedLocalStorage("alu__selectedTransport", "dropdown__transport");
-          // Dropdowns
-          const selectedProxyDropdown = document.getElementById("dropdown__selected-proxy");
-          const searchEngineDropdown = document.getElementById("dropdown__search-engine");
-          const openWithDropdown = document.getElementById("dropdown__open-with");
-          const currentTransportDropdown = document.getElementById("dropdown__transport");
-          const wispURLDropdown = document.getElementById("dropdown__wisp-url");
+      document.getElementById("cloak-custom-button").addEventListener("click", () => {
+        let cloakName = document.getElementById("cloak-custom-name-input").value;
+        let cloakIcon = document.getElementById("cloak-custom-favicon-input").value;
+        const localStorageItem = {
+          name: cloakName,
+          icon: cloakIcon,
+          isCustom: true,
+        };
+        localStorage.setItem("alu__selectedCloak", JSON.stringify(localStorageItem));
+        if (cloakName == "None") {
+          localStorage.removeItem("alu__selectedCloak");
+          cloakName = "Settings | Alu";
+          cloakIcon = "/favicon.svg";
+        }
+        let link = document.querySelector("link[rel~='icon']");
+        if (!link) {
+          link = document.createElement("link");
+          link.rel = "icon";
+          document.head.appendChild(link);
+        }
+        link.href = cloakIcon;
+        document.title = cloakName;
+      });
+    }
 
-          // Inputs
-          const searxngUrlInput = document.getElementById("searxng-url-input");
-          const bareURLInput = document.getElementById("bare-url-input");
-          const savedSearxngUrl = localStorage.getItem("alu__searxngUrl");
-          if (savedSearxngUrl != null) {
-            if (savedSearxngUrl == "") localStorage.setItem("alu__searxngUrl", "https://searxng.site/");
-            searxngUrlInput.value = localStorage.getItem("alu__searxngUrl");
-          }
-          // const useWss = location.protocol == "https:";
-          // const webSocketProtocol = useWss ? "wss://" : "ws://";
-          // let savedWispUrl = localStorage.getItem("alu__wispUrl");
-          // if (savedWispUrl == null || savedWispUrl == "") localStorage.setItem("alu__wispUrl", webSocketProtocol + location.host + "/wisp/");
-          const savedBareUrl = localStorage.getItem("alu__bareUrl");
-          if (savedBareUrl == null || savedBareUrl == "") localStorage.setItem("alu__bareUrl", location.origin + "/bare/");
-
-          bareURLInput.value = localStorage.getItem("alu__bareUrl");
-          // Proxy settings
-          [selectedProxyDropdown, openWithDropdown, currentTransportDropdown, wispURLDropdown].forEach((dropdown) => {
-            applyDropdownEventListeners(dropdown);
-          });
-          applyDropdownEventListeners(searchEngineDropdown, checkSearxng);
-          checkSearxng();
-
-          applyInputListeners(searxngUrlInput, "alu__searxngUrl");
-          applyInputListeners(bareURLInput, "alu__bareUrl");
-        } else if (event.detail == "setting-tab-customization") {
-          setupCustomizationSettings();
-        } else if (event.detail == "setting-tab-cloaking") {
-          setupCloakingSettings();
+    function changeTheme() {
+      const theme = JSON.parse(localStorage.getItem("alu__selectedTheme")).value;
+      if (theme) {
+        document.documentElement.setAttribute("data-theme", theme.toLowerCase());
+        const footer = document.getElementById("footer");
+        if (footer) {
+          footer.dataset.theme = theme.toLowerCase();
         }
       }
+    }
 
-      function checkSearxng() {
-        // This function checks if the "searxng" option was clicked, display an additional option if so.
-        const search_engine = JSON.parse(localStorage.getItem("alu__search_engine"));
-        if (search_engine) {
-          if (search_engine.value.toLowerCase() == "searx") {
-            document.getElementsByClassName("setting__searxng-url")[0].style.opacity = "1";
-          } else {
-            document.getElementsByClassName("setting__searxng-url")[0].style.opacity = "0";
-          }
+    function setupSettings(event) {
+      if (event.detail == "setting-tab-proxy") {
+        applySavedLocalStorage("alu__selectedProxy", "dropdown__selected-proxy");
+        applySavedLocalStorage("alu__search_engine", "dropdown__search-engine");
+        applySavedLocalStorage("alu__selectedOpenWith", "dropdown__open-with");
+        applySavedLocalStorage("alu__selectedTransport", "dropdown__transport");
+        // Dropdowns
+        const selectedProxyDropdown = document.getElementById("dropdown__selected-proxy");
+        const searchEngineDropdown = document.getElementById("dropdown__search-engine");
+        const openWithDropdown = document.getElementById("dropdown__open-with");
+        const currentTransportDropdown = document.getElementById("dropdown__transport");
+        const wispURLDropdown = document.getElementById("dropdown__wisp-url");
+
+        // Inputs
+        const searxngUrlInput = document.getElementById("searxng-url-input");
+        const bareURLInput = document.getElementById("bare-url-input");
+        const savedSearxngUrl = localStorage.getItem("alu__searxngUrl");
+        if (savedSearxngUrl != null) {
+          if (savedSearxngUrl == "") localStorage.setItem("alu__searxngUrl", "https://searxng.site/");
+          searxngUrlInput.value = localStorage.getItem("alu__searxngUrl");
+        }
+        const savedBareUrl = localStorage.getItem("alu__bareUrl");
+        if (savedBareUrl == null || savedBareUrl == "") localStorage.setItem("alu__bareUrl", location.origin + "/bare/");
+
+        bareURLInput.value = localStorage.getItem("alu__bareUrl");
+        // Proxy settings
+        [selectedProxyDropdown, openWithDropdown, currentTransportDropdown, wispURLDropdown].forEach((dropdown) => {
+          applyDropdownEventListeners(dropdown);
+        });
+        applyDropdownEventListeners(searchEngineDropdown, checkSearxng);
+        checkSearxng();
+
+        applyInputListeners(searxngUrlInput, "alu__searxngUrl");
+        applyInputListeners(bareURLInput, "alu__bareUrl");
+      } else if (event.detail == "setting-tab-customization") {
+        setupCustomizationSettings();
+      } else if (event.detail == "setting-tab-cloaking") {
+        setupCloakingSettings();
+      }
+    }
+
+    function checkSearxng() {
+      // Callback for search engine dropdown
+      const search_engine = JSON.parse(localStorage.getItem("alu__search_engine"));
+      if (search_engine) {
+        if (search_engine.value.toLowerCase() == "searx") {
+          document.getElementsByClassName("setting__searxng-url")[0].style.opacity = "1";
+        } else {
+          document.getElementsByClassName("setting__searxng-url")[0].style.opacity = "0";
         }
       }
+    }
 
-      document.addEventListener("setting-tabLoad", setupSettings);
+    document.addEventListener("setting-tabLoad", setupSettings);
 
-      function navigateToNewLangaugePage() {
-        const value = JSON.parse(localStorage.getItem("alu__selectedLanguage")).value;
-        const currentLanguage = window.location.pathname.split("/")[1];
-        // Do nothing.. because we're already on the page.
-        if (value == currentLanguage) return;
-        window.location.href = `/${value}/settings`;
-      }
+    function navigateToNewLangaugePage() {
+      const value = JSON.parse(localStorage.getItem("alu__selectedLanguage")).value;
+      const currentLanguage = window.location.pathname.split("/")[1];
+      if (value == currentLanguage) return;
+      window.location.href = `/${value}/settings`;
     }
     document.addEventListener("astro:after-swap", () => {
       setTimeout(() => {
         settingsLoad();
-      }, 300);
+      }, 200);
     });
     settingsLoad();
   </script>
