@@ -15,10 +15,10 @@
   "faq.title": "Preguntas frecuentes",
 
   "faq.whatIsAProxy": "¿Qué es un proxy?",
-  "faq.whatIsAProxy.answer": "Un proxy es un método para hacer que su tráfico de Internet sea anónimo enviando su solicitud a un servidor (proxy), haciendo que haga la solicitud y luego se la envíe de vuelta. Esto permite un nivel de seguridad mucho mayor, así como eludir las restricciones del sitio web en espacios públicos y la censura".
+  "faq.whatIsAProxy.answer": "Un proxy es un método para hacer que su tráfico de Internet sea anónimo enviando su solicitud a un servidor (proxy), haciendo que haga la solicitud y luego se la envíe de vuelta. Esto permite un nivel de seguridad mucho mayor, así como eludir las restricciones del sitio web en espacios públicos y la censura",
 
   "faq.noBareClients": "¿Qué significa \"there are no bare clients\"?",
-  "faq.noBareClients.answer": "Hay un par de razones por las que ocurre este error en particular, pero lo más común es que sea un problema con el proxy que no se carga. Por favor, vuelva a cargar la página y, si el problema persiste, ¡haga un problema de GitHub!"
+  "faq.noBareClients.answer": "Hay un par de razones por las que ocurre este error en particular, pero lo más común es que sea un problema con el proxy que no se carga. Por favor, vuelva a cargar la página y, si el problema persiste, ¡haga un problema de GitHub!",
 
   "faq.contributeToAlu": "¿Cómo puedo contribuir a Alu?",
   "faq.contributeToAlu.answer.segment1": "Correr la voz de Alu es un gran comienzo, pero si realmente disfrutas de Alu y quieres enlaces privados, ¡considera apoyarme a través de Patreon!",
