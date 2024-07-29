@@ -76,9 +76,3 @@ type WispData = {
   server: WispServer;
   time: number;
 };
-
-type AluKey = Record<string, string>;
-
-type AluDefaultKeys = {
-  [key: string]: AluKey;
-};

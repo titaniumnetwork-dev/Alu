@@ -2,18 +2,8 @@
   import IDBManager from "@components/ts/IDBManager";
 
   function switchTheme() {
-    const currentTheme = localStorage.getItem("alu__selectedTheme");
-
-    if (currentTheme) {
-      document.documentElement.setAttribute("data-theme", JSON.parse(currentTheme).value.toLowerCase());
-      const footer = document.getElementById("footer");
-      if (footer) {
-        footer.dataset.theme = JSON.parse(currentTheme).value.toLowerCase();
-      }
-    } else {
-      localStorage.setItem("alu__selectedTheme", JSON.stringify({ name: "Alu", value: "alu" }));
-      switchTheme();
-    }
+    const currentTheme = Alu.store.get("theme");
+    document.documentElement.setAttribute("data-theme", currentTheme.value);
   }
 
   switchTheme();

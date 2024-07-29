@@ -1,38 +1,25 @@
 import { BareMuxConnection } from "@mercuryworkshop/bare-mux";
 
-type transportConfig =
-  | {
-      wisp: string;
-      wasm?: string;
-    }
-  | string;
-
-export const wispURLDefault = (location.protocol === "https:" ? "wss://" : "ws://") + location.host + "/wisp/";
+type transportConfig = {
+  wisp: string;
+};
 export default class TransportManager {
+  private transport: Alu.Key;
   connection: BareMuxConnection;
-  private transport: string = "/epoxy/index.mjs";
 
-  constructor(transport?: string) {
+  constructor(transport?: Alu.Key) {
     this.connection = new BareMuxConnection("/baremux/worker.js");
     if (transport) {
       this.transport = transport;
     }
-    if (localStorage.getItem("alu__selectedTransport") != null && !transport) {
-      const selectedTransport = JSON.parse(localStorage.getItem("alu__selectedTransport")!) as { value: string };
-      this.transport = selectedTransport.value;
-    }
-    if (localStorage.getItem("alu__selectedTransport") == null) {
-      // Set the default transport for the next reload.
-      localStorage.setItem("alu__selectedTransport", JSON.stringify({ value: this.transport }));
-    }
+    this.transport = Alu.store.get("transport");
   }
   async updateTransport() {
     try {
-      const selectedTransport = JSON.parse(localStorage.getItem("alu__selectedTransport")!) as { value: string };
-      await this.setTransport(selectedTransport.value);
+      const selectedTransport = Alu.store.get("transport");
+      await this.setTransport(selectedTransport);
     } catch {
-      console.log("Failed to update transport! Falling back to old transport.");
-      await this.setTransport(this.transport);
+      throw new Error("Failed to update transport! Try reloading.");
     }
   }
 
@@ -40,19 +27,23 @@ export default class TransportManager {
     return this.transport;
   }
 
-  async setTransport(transport: string, wispURL = wispURLDefault) {
+  async setTransport(transport: Alu.Key, wispURL: string = Alu.store.get("wisp").value) {
     this.transport = transport;
-    let transportConfig: transportConfig = { wisp: wispURL };
+    const transportConfig: transportConfig = { wisp: wispURL };
 
-    if (this.transport == "/baremod/index.mjs") {
-      transportConfig = localStorage.getItem("alu__bareUrl") || window.location.origin + "/bare/";
+    if (this.transport.value == "/baremod/index.mjs") {
+      return await this.connection.setTransport(transport.value, [Alu.store.get("bareUrl").value]);
     }
 
-    await this.connection.setTransport(transport, [transportConfig]);
+    await this.connection.setTransport(transport.value, [transportConfig]);
   }
 }
 
 export const TransportMgr = new TransportManager();
+
+export async function initTransport() {
+  await TransportMgr.setTransport(TransportMgr.getTransport(), Alu.store.get("wisp").value);
+}
 
 export async function registerAndUpdateSW(): Promise<void> {
   try {
@@ -64,8 +55,4 @@ export async function registerAndUpdateSW(): Promise<void> {
   } catch (err) {
     console.error("Service worker registration failed: ", err);
   }
-}
-
-export async function initTransport() {
-  await TransportMgr.setTransport(TransportMgr.getTransport(), localStorage.getItem("alu__wispUrl") || wispURLDefault);
 }

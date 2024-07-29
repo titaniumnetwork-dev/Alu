@@ -94,18 +94,17 @@
     await loadPageExtensions();
     // The setTimeout is because service workers are a little silly and can take a while longer to register despite .then being called, which causes a bug on the first load.
     setTimeout(async () => {
-      const openWith = localStorage.getItem("alu__selectedOpenWith");
-      const currentProxy = localStorage.getItem("alu__selectedProxy");
+      const openWith = Alu.store.get("openpage");
+      const proxy = Alu.store.get("proxy");
       let url = input!.value.trim();
       if (!isUrl(url)) url = getSearchEngine() + url;
       else if (!(url.startsWith("https://") || url.startsWith("http://"))) url = "http://" + url;
       if (openWith) {
-        const openWithParsed = JSON.parse(openWith);
-        if (openWithParsed.value === "newTab" || (currentProxy && JSON.parse(currentProxy).value === "rammerhead")) {
+        if (openWith.value === "newTab" || proxy.value === "rammerhead") {
           window.open(await getProxyURL(), "_blank");
           return;
         }
-        if (openWithParsed.value === "about:blank") {
+        if (openWith.value === "about:blank") {
           // Open about:blank window and inject iframe into it
           const newWindow = window.open("about:blank", "_blank");
           const newWindowDocument = newWindow!.document;
@@ -192,9 +191,8 @@
           }
         };
         shareButton.onclick = () => {
-          const currentProxy = localStorage.getItem("alu__selectedProxy");
           const proxyFrame = document.getElementById("proxy-frame") as HTMLIFrameElement;
-          if (currentProxy && JSON.parse(currentProxy).value === "rammerhead") {
+          if (proxy.value === "rammerhead") {
             navigator.clipboard.writeText(window.location.origin + "/" + getCookie("rammerhead-session") + "/" + input!.value.trim());
           } else {
             navigator.clipboard.writeText(getUVProxyURL(proxyFrame));
@@ -239,11 +237,8 @@
   }
 
   function getSearchEngine() {
-    const localStorageSearchEngine = localStorage.getItem("alu__search_engine");
-    if (!localStorageSearchEngine) {
-      return "https://google.com/search?q=";
-    }
-    switch (JSON.parse(localStorage.getItem("alu__search_engine") as string).value.toLowerCase()) {
+    const searchEngine = Alu.store.get("search");
+    switch (searchEngine.value.toLowerCase()) {
       case "google": {
         return "https://google.com/search?q=";
       }
@@ -254,13 +249,10 @@
         return "https://search.brave.com/search?q=";
       }
       case "searx": {
-        let localStorageURL = localStorage.getItem("alu__searxngUrl");
-        if (localStorageURL) {
-          if (localStorageURL == "") return "https://searxng.site/search?q=";
-          // Ugly hack to remove the trailing slash :)
-          if (localStorageURL.endsWith("/")) localStorageURL = localStorageURL.slice(0, -1);
-          return localStorageURL + "/search?q=";
-        } else return "https://searxng.site/search?q=";
+        const searxngURL = Alu.store.get("searxng");
+        // Ugly hack to remove the trailing slash :)
+        if (searxngURL.value.endsWith("/")) searxngURL.value = searxngURL.value.slice(0, -1);
+        return searxngURL.value + "/search?q=";
       }
       default: {
         return "https://google.com/search?q=";
@@ -269,17 +261,14 @@
   }
 
   function getProxyPreference() {
-    const localStorageItem = localStorage.getItem("alu__selectedProxy");
-
-    if (!localStorageItem) return "uv";
-
-    switch (JSON.parse(localStorageItem).value.toLowerCase()) {
+    const proxy = Alu.store.get("proxy");
+    switch (proxy.value) {
       case "ultraviolet":
         return "ultraviolet";
       case "rammerhead":
         return "rammerhead";
       default:
-        return "uv";
+        return "ultraviolet";
     }
   }
 

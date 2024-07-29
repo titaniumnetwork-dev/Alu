@@ -167,12 +167,9 @@ async function uninstallExtension(slug: string): Promise<InstallReturn> {
         reject({ code: EXT_RETURN.INSTALL_FAILED, slug: slug });
       }
       if (ext.result.type === "theme") {
-        const currTheme = localStorage.getItem("alu__selectedTheme");
-        if (currTheme) {
-          if (JSON.parse(currTheme).value == ext.result.themeName) {
-            console.log("Reverting theme to default!");
-            localStorage.setItem("alu__selectedTheme", JSON.stringify({ name: "Alu", value: "alu" }));
-          }
+        const theme = Alu.store.get("theme");
+        if (theme.value == ext.result.themeName) {
+          Alu.store.reset("theme");
         }
       }
       const deleteRequest = store.delete(slug);
