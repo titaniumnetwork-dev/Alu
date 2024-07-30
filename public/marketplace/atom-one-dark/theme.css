@@ -1,0 +1,9 @@
+[data-theme="atom-one-dark"] {
+  --background-color: #1e2127;
+  --background-highlight: #434952;
+  --accent-color: #3a3f4b;
+  --accent-color-brighter: #4b515f;
+  --text-color: #abb2bf;
+  --text-color-accent: #989eaa;
+  --dropdown-background-color: #30353f;
+}

@@ -12,7 +12,7 @@
   "dev.wearr.oled-theme": {
     "title": "OLED Theme",
     "description": "A beautiful OLED theme for Alu.",
-    "version": "0.0.1",
+    "version": "0.1.0",
     "image": "/marketplace/oled-theme/theme.png",
     "script": "/marketplace/oled-theme/theme.css",
     "type": "theme",
@@ -21,7 +21,7 @@
   "dev.wearr.dracula-theme": {
     "title": "Dracula Theme",
     "description": "A port of the Dracula theme for Alu.",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "image": "/marketplace/dracula-theme/logo.svg",
     "script": "/marketplace/dracula-theme/theme.css",
     "type": "theme",
@@ -30,10 +30,28 @@
   "dev.wearr.nord-theme": {
     "title": "Nord Theme",
     "description": "A port of the Nord theme for Alu.",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "image": "/marketplace/nord-theme/logo.png",
     "script": "/marketplace/nord-theme/theme.css",
     "type": "theme",
     "themeName": "nord"
+  },
+  "dev.wearr.synthwave84": {
+    "title": "Synthwave '84",
+    "description": "A port of the Synthwave '84 theme for Alu.",
+    "version": "1.0.0",
+    "image": "/marketplace/synthwave84/logo.png",
+    "script": "/marketplace/synthwave84/theme.css",
+    "type": "theme",
+    "themeName": "synthwave84"
+  },
+  "dev.wearr.atom-one-dark": {
+    "title": "Atom One Dark",
+    "description": "A port of the Atom One Dark theme for Alu.",
+    "version": "1.0.0",
+    "image": "/marketplace/atom-one-dark/logo.png",
+    "script": "/marketplace/atom-one-dark/theme.css",
+    "type": "theme",
+    "themeName": "atom-one-dark"
   }
 }
