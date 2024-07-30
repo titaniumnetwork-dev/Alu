@@ -11,6 +11,8 @@ interface Window {
   // Why is this not already on Window?
   eval(string): void;
   wispData: WispData[];
+  loadedContentStorage: Record<string, string>;
+  currentlySelectedTab: string;
 }
 
 type ExtType = "serviceWorker" | "theme" | "page";

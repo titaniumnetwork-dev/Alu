@@ -51,7 +51,6 @@ class AluStore {
     return this.store[key];
   }
   public set(key: Alu.ValidStoreKeys, value: Alu.Key): void {
-    console.log(value);
     this.store[key] = value;
     this.save();
   }
