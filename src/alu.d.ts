@@ -1,13 +1,6 @@
 export declare global {
   namespace Alu {
     let store: AluStore;
-    // Settings Content Store (orig. window.loadedContentStorage)
-    let settings: {
-      contentStore: {
-        [key: string]: string;
-      }
-      currentPage: string;
-    }
 
     type DefaultKeys = {
       [key: string]: AluKey;

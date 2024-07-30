@@ -56,16 +56,16 @@ export function getStaticPaths() {
     </div>
   </main>
   <script is:inline>
-    Alu.settings.contentStore = {};
-    Alu.settings.currentPage;
+    window.loadedContentStorage = {};
+    window.currentlySelectedTab;
     function settingsLoad() {
       document.addEventListener("astro:before-swap", () => {
-        Alu.settings.currentPage = "";
+        window.currentlySelectedTab = "";
       });
       Array.from(document.getElementsByClassName("setting-tab")).forEach((tab) => {
         const contentToLoad = document.getElementById("content-" + tab.id);
         if (contentToLoad) {
-          Alu.settings.contentStore[tab.id] = contentToLoad.innerHTML;
+          window.loadedContentStorage[tab.id] = contentToLoad.innerHTML;
           contentToLoad.remove();
         }
 
@@ -75,14 +75,13 @@ export function getStaticPaths() {
       });
     }
     function loadContent(tabID) {
-      let curTabID = Alu.settings.currentPage
-      if (curTabID == tabID) return;
-      else curTabID = tabID;
+      if (window.currentlySelectedTab == tabID) return;
+      else window.currentlySelectedTab = tabID;
       const currentContent = document.getElementById("current-content");
       if (currentContent) {
         currentContent.style.opacity = "0";
         setTimeout(() => {
-          currentContent.innerHTML = Alu.settings.contentStore[tabID];
+          currentContent.innerHTML = window.loadedContentStorage[tabID];
           currentContent.style.opacity = "1";
           document.dispatchEvent(new CustomEvent("setting-tabLoad", { detail: tabID }));
         }, 250);
