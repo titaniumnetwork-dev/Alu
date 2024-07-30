@@ -17,7 +17,7 @@
     store.getAll().onsuccess = (event) => {
       const result = (event.target as IDBRequest).result;
       if (result) {
-        result.forEach((extension: IExtensionMetadata) => {
+        result.forEach((extension: ExtensionMetadata) => {
           if (extension.type === "theme" && extension.themeName) {
             // Load theme CSS
             loadStyleFromAtob(atob(extension.scriptCopy!));

@@ -77,7 +77,7 @@ Array.from(installButtons).forEach((btn) => {
   });
 });
 
-async function getMarketplaceObj(slug: string): Promise<IExtensionMetadata> {
+async function getMarketplaceObj(slug: string): Promise<ExtensionMetadata> {
   const manifest = extManifest[slug];
   if (manifest.type === "page") {
     return manifest;
@@ -87,7 +87,7 @@ async function getMarketplaceObj(slug: string): Promise<IExtensionMetadata> {
   return manifest;
 }
 
-async function installExtension(ext: IExtensionMetadata, slug: string): Promise<InstallReturn> {
+async function installExtension(ext: ExtensionMetadata, slug: string): Promise<InstallReturn> {
   return new Promise<InstallReturn>((resolve, reject) => {
     const request = IDBManager.GetIDB();
     const transaction = request.transaction("InstalledExtensions", "readwrite");

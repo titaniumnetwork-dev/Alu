@@ -32,7 +32,7 @@ type Extension = {
   - type: The type of extension, see ExtType.
   - themeName: The name of the theme that goes in the data attribute
 */
-interface IExtensionMetadata {
+interface ExtensionMetadata {
   title: string;
   description: string;
   version: string;
@@ -46,7 +46,7 @@ interface IExtensionMetadata {
   themeName?: string;
 }
 
-type ExtensionMetadataJSON = Record<string, IExtensionMetadata>;
+type ExtensionMetadataJSON = Record<string, ExtensionMetadata>;
 
 type InstallReturn = {
   code: EXT_RETURN;

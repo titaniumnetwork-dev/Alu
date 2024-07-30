@@ -18,9 +18,9 @@ export function getStaticPaths() {
     <section id="proxy-input">
       <div class="form-wrapper">
         <form class="url-input-form" id="url-input-form">
+          <div id="loading-content">Loading Content...</div>
           <Input className="url-input" inputName="url" placeholder={t("menu.search")} defaultStyles={false} transition:persist autocomplete="off" />
           <div id="search-suggestions"></div>
-          <div id="loading-content">Loading...</div>
         </form>
         <div id="top-bar">
           <div class="top-bar-left">
@@ -78,9 +78,7 @@ export function getStaticPaths() {
       searchSuggestions.innerHTML = "";
       data.map((suggestion: Suggestion) => {
         const suggestionElement = document.createElement("div");
-        // For some reason css classes weren't working T^T.
-        suggestionElement.style.cursor = "pointer";
-        suggestionElement.style.marginTop = "5px";
+        suggestionElement.classList.add("search-suggestion");
         suggestionElement.innerText = suggestion.phrase;
         suggestionElement.addEventListener("click", async () => {
           urlInput.value = suggestion.phrase;
@@ -160,21 +158,28 @@ export function getStaticPaths() {
     border-bottom-right-radius: 15px;
     transition: 250ms ease-in-out;
     opacity: 0;
-    height: 240px;
     overflow: hidden;
     border: 3px solid var(--text-color);
     box-shadow: 10px 10px 20px var(--dropdown-background-color);
+  }
+
+  .search-suggestion {
+    cursor: pointer;
+    margin-top: 5px;
+  }
+
+  .search-suggestion:last-child {
+    margin-bottom: 10px;
   }
 
   #loading-content {
     color: var(--text-color);
     padding: 8px;
     position: relative;
-    /* hack */
-    top: -325px;
     opacity: 0;
-    transition: 250ms ease-in-out;
+    transition: .25s ease-in-out;
     text-align: center;
+    font-size: 20px;
   }
 
   .faq-title {

@@ -16,7 +16,7 @@ export const getStaticPaths = () => {
     <div class="marketplace-ext-grid">
       {
         Object.keys(marketplace).map((mp_item) => {
-          const item = (marketplace as { [key: string]: IExtensionMetadata })[mp_item];
+          const item = (marketplace as ExtensionMetadataJSON)[mp_item];
           const slug = mp_item;
           return (
             <div class="marketplace-item" data-slug={slug}>

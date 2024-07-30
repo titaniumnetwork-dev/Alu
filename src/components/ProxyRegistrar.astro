@@ -51,7 +51,9 @@
     return window.__uv$config.decodeUrl(frame.contentWindow!.location.href.split("/service/")[1]);
   }
 
-  async function loadContent(): Promise<void> {
+  async function loadProxyContent(): Promise<void> {
+    const loadingContent = document.getElementById("loading-content") as HTMLElement;
+    if (loadingContent) loadingContent.style.opacity = "1";
     await initTransport();
     // The setTimeout is because service workers are a little silly and can take a while longer to register despite .then being called, which causes a bug on the first load.
     setTimeout(async () => {
@@ -80,8 +82,7 @@
           return;
         }
       }
-      const loadingContent = document.getElementById("loading-content") as HTMLElement;
-      if (loadingContent) loadingContent.style.opacity = "1";
+
 
       const iframe = document.getElementById("proxy-frame") as HTMLIFrameElement;
       const topbar = document.getElementById("top-bar") as HTMLDivElement;
@@ -173,11 +174,9 @@
     event.preventDefault();
     event.stopImmediatePropagation();
     await TransportMgr.updateTransport();
-    setTimeout(() => {
-      loadContent();
-    }, 200);
+    loadProxyContent();
   }
-  window.loadFormContent = loadContent;
+  window.loadFormContent = loadProxyContent;
 
   function isUrl(val = "") {
     if (/^http(s?):\/\//.test(val) || (val.includes(".") && val.substr(0, 1) !== " ")) return true;
