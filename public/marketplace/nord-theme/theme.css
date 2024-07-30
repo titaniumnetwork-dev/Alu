@@ -1,0 +1,9 @@
+[data-theme="nord"] {
+  --background-color: #2e3440;
+  --background-highlight: #3b4252;
+  --accent-color: #434c5e;
+  --accent-color-brighter: #4c566a;
+  --text-color: #f8f8f2;
+  --text-color-accent: #dddddd;
+  --dropdown-background-color: #3b4252;
+}

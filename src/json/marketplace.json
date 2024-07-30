@@ -22,9 +22,18 @@
     "title": "Dracula Theme",
     "description": "A port of the Dracula theme for Alu.",
     "version": "0.0.1",
-    "image": "/marketplace/dracula-theme/dracula.svg",
+    "image": "/marketplace/dracula-theme/logo.svg",
     "script": "/marketplace/dracula-theme/theme.css",
     "type": "theme",
     "themeName": "dracula"
+  },
+  "dev.wearr.nord-theme": {
+    "title": "Nord Theme",
+    "description": "A port of the Nord theme for Alu.",
+    "version": "0.0.1",
+    "image": "/marketplace/nord-theme/logo.png",
+    "script": "/marketplace/nord-theme/theme.css",
+    "type": "theme",
+    "themeName": "nord"
   }
 }
