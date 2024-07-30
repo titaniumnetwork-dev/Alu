@@ -151,7 +151,7 @@ export function getStaticPaths() {
       if (dropdown && dropdownMenu) {
         // Now we find the child that matches localStorageItem.value.
         const dropdownItem = Array.from(dropdownMenu.children).find((item) => {
-          return JSON.parse(localStorage.getItem(localStorageItem)).value == item.dataset.setting;
+          return Alu.store.get(localStorageItem).value == item.dataset.setting;
         });
         // Now set the inner text to the name in the dropdownItem.
         return dropdownItem.innerText;
@@ -159,7 +159,7 @@ export function getStaticPaths() {
     }
 
     function applySavedLocalStorage(localStorageItem, dropdownID) {
-      if (localStorage.getItem(localStorageItem)) {
+      if (Alu.store.get(localStorageItem)) {
         const dropdown_toggle = document.getElementById(dropdownID);
         if (dropdown_toggle) {
           dropdown_toggle.innerText = getLocalStorageValue(localStorageItem, dropdownID);
@@ -176,7 +176,7 @@ export function getStaticPaths() {
             name: child.innerText,
             value: child.dataset.setting,
           };
-          localStorage.setItem(localStorageItem, JSON.stringify(localStorageItemContent));
+          Alu.store.set(localStorageItem, localStorageItemContent);
           applySavedLocalStorage(localStorageItem, dropdown.id);
           closeDropdown(dropdownSibling.id);
 
@@ -189,7 +189,7 @@ export function getStaticPaths() {
 
     function applyInputListeners(item, localStorageItem) {
       item.addEventListener("input", () => {
-        localStorage.setItem(localStorageItem, item.value);
+        Alu.store.set(localStorageItem, { value: item.value });
       });
     }
 
@@ -226,8 +226,8 @@ export function getStaticPaths() {
             }
           });
         }
-        applySavedLocalStorage("alu__selectedTheme", "dropdown__selected-theme");
-        applySavedLocalStorage("alu__selectedLanguage", "dropdown__selected-language");
+        applySavedLocalStorage("theme", "dropdown__selected-theme");
+        applySavedLocalStorage("lang", "dropdown__selected-language");
 
         const themeDropdown = document.getElementById("dropdown__selected-theme");
         const languageDropdown = document.getElementById("dropdown__selected-language");
@@ -242,15 +242,15 @@ export function getStaticPaths() {
           let cloakName = cloak.dataset.cloakName;
           let cloakIcon = cloak.dataset.cloakIcon;
 
-          const localStorageItem = {
+          const cloakItem = {
             name: cloakName,
             icon: cloakIcon,
             isCustom: false,
           };
-          localStorage.setItem("alu__selectedCloak", JSON.stringify(localStorageItem));
+          Alu.store.set("cloak", cloakItem);
 
           if (cloakName == "None") {
-            localStorage.removeItem("alu__selectedCloak");
+            Alu.store.remove("cloak");
             cloakName = "Settings | Alu";
             cloakIcon = "/favicon.svg";
           }
@@ -274,25 +274,25 @@ export function getStaticPaths() {
 
       const customNameInput = document.getElementById("cloak-custom-name-input");
       const customFaviconInput = document.getElementById("cloak-custom-favicon-input");
-      if (localStorage.getItem("alu__selectedCloak")) {
-        const selectedCloak = JSON.parse(localStorage.getItem("alu__selectedCloak"));
-        if (selectedCloak.isCustom) {
-          customNameInput.value = selectedCloak.name;
-          customFaviconInput.value = selectedCloak.icon;
+      const cloak = Alu.store.get("cloak");
+      if (cloak) {
+        if (cloak.isCustom) {
+          customNameInput.value = cloak.name;
+          customFaviconInput.value = cloak.icon;
         }
       }
 
       document.getElementById("cloak-custom-button").addEventListener("click", () => {
         let cloakName = document.getElementById("cloak-custom-name-input").value;
         let cloakIcon = document.getElementById("cloak-custom-favicon-input").value;
-        const localStorageItem = {
+        const cloakItem = {
           name: cloakName,
           icon: cloakIcon,
           isCustom: true,
         };
-        localStorage.setItem("alu__selectedCloak", JSON.stringify(localStorageItem));
+        Alu.store.set("cloak", cloakItem);
         if (cloakName == "None") {
-          localStorage.removeItem("alu__selectedCloak");
+          Alu.store.remove("cloak");
           cloakName = "Settings | Alu";
           cloakIcon = "/favicon.svg";
         }
@@ -308,23 +308,17 @@ export function getStaticPaths() {
     }
 
     function changeTheme() {
-      const theme = JSON.parse(localStorage.getItem("alu__selectedTheme")).value;
-      if (theme) {
-        document.documentElement.setAttribute("data-theme", theme.toLowerCase());
-        const footer = document.getElementById("footer");
-        if (footer) {
-          footer.dataset.theme = theme.toLowerCase();
-        }
-      }
+      const theme = Alu.store.get("theme").value;
+      document.documentElement.setAttribute("data-theme", theme);
     }
 
     function setupSettings(event) {
       if (event.detail == "setting-tab-proxy") {
-        applySavedLocalStorage("alu__selectedProxy", "dropdown__selected-proxy");
-        applySavedLocalStorage("alu__search_engine", "dropdown__search-engine");
-        applySavedLocalStorage("alu__selectedOpenWith", "dropdown__open-with");
-        applySavedLocalStorage("alu__selectedWispURL", "dropdown__wisp-url");
-        applySavedLocalStorage("alu__selectedTransport", "dropdown__transport");
+        applySavedLocalStorage("proxy", "dropdown__selected-proxy");
+        applySavedLocalStorage("search", "dropdown__search-engine");
+        applySavedLocalStorage("openpage", "dropdown__open-with");
+        applySavedLocalStorage("wisp", "dropdown__wisp-url");
+        applySavedLocalStorage("transport", "dropdown__transport");
         // Dropdowns
         const selectedProxyDropdown = document.getElementById("dropdown__selected-proxy");
         const searchEngineDropdown = document.getElementById("dropdown__search-engine");
@@ -335,15 +329,8 @@ export function getStaticPaths() {
         // Inputs
         const searxngUrlInput = document.getElementById("searxng-url-input");
         const bareURLInput = document.getElementById("bare-url-input");
-        const savedSearxngUrl = localStorage.getItem("alu__searxngUrl");
-        if (savedSearxngUrl != null) {
-          if (savedSearxngUrl == "") localStorage.setItem("alu__searxngUrl", "https://searxng.site/");
-          searxngUrlInput.value = localStorage.getItem("alu__searxngUrl");
-        }
-        const savedBareUrl = localStorage.getItem("alu__bareUrl");
-        if (savedBareUrl == null || savedBareUrl == "") localStorage.setItem("alu__bareUrl", location.origin + "/bare/");
 
-        bareURLInput.value = localStorage.getItem("alu__bareUrl");
+        bareURLInput.value = Alu.store.get("bareUrl").value;
         // Proxy settings
         [selectedProxyDropdown, openWithDropdown, currentTransportDropdown, wispURLDropdown].forEach((dropdown) => {
           applyDropdownEventListeners(dropdown);
@@ -351,8 +338,8 @@ export function getStaticPaths() {
         applyDropdownEventListeners(searchEngineDropdown, checkSearxng);
         checkSearxng();
 
-        applyInputListeners(searxngUrlInput, "alu__searxngUrl");
-        applyInputListeners(bareURLInput, "alu__bareUrl");
+        applyInputListeners(searxngUrlInput, "searxng");
+        applyInputListeners(bareURLInput, "bareUrl");
       } else if (event.detail == "setting-tab-customization") {
         setupCustomizationSettings();
       } else if (event.detail == "setting-tab-cloaking") {
@@ -362,20 +349,18 @@ export function getStaticPaths() {
 
     function checkSearxng() {
       // Callback for search engine dropdown
-      const search_engine = JSON.parse(localStorage.getItem("alu__search_engine"));
-      if (search_engine) {
-        if (search_engine.value.toLowerCase() == "searx") {
-          document.getElementsByClassName("setting__searxng-url")[0].style.opacity = "1";
-        } else {
-          document.getElementsByClassName("setting__searxng-url")[0].style.opacity = "0";
-        }
+      const searchEngine = Alu.store.get("search");
+      if (searchEngine.value.toLowerCase() == "searx") {
+        document.getElementsByClassName("setting__searxng-url")[0].style.opacity = "1";
+      } else {
+        document.getElementsByClassName("setting__searxng-url")[0].style.opacity = "0";
       }
     }
 
     document.addEventListener("setting-tabLoad", setupSettings);
 
     function navigateToNewLangaugePage() {
-      const value = JSON.parse(localStorage.getItem("alu__selectedLanguage")).value;
+      const value = Alu.store.get("lang").value;
       const currentLanguage = window.location.pathname.split("/")[1];
       if (value == currentLanguage) return;
       window.location.href = `/${value}/settings`;

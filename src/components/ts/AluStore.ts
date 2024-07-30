@@ -16,24 +16,18 @@ const KEYSTORE: Alu.DefaultKeys = {
     value: "wss://aluu.xyz/wisp/",
   },
   bareUrl: {
-    name: `${window.location.protocol}//${window.location.host}/bare/`,
     value: `${window.location.protocol}//${window.location.host}/bare/`,
   },
   transport: {
     name: "Epoxy",
-    value: "epoxy",
+    value: "/epoxy/index.mjs",
   },
   searxng: {
-    name: "https://searxng.site",
     value: "https://searxng.site",
   },
   theme: {
     name: "Alu",
     value: "alu",
-  },
-  lang: {
-    name: "English",
-    value: "en",
   },
 };
 
@@ -57,11 +51,16 @@ class AluStore {
     return this.store[key];
   }
   public set(key: Alu.ValidStoreKeys, value: Alu.Key): void {
+    console.log(value);
     this.store[key] = value;
     this.save();
   }
   public reset(key: Alu.ValidStoreKeys) {
     this.set(key, KEYSTORE[key]);
+  }
+  public remove(key: Alu.ValidStoreKeys) {
+    delete this.store[key];
+    this.save();
   }
   private save(): void {
     localStorage.setItem("AluStore", JSON.stringify(this.store));

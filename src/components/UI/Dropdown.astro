@@ -1,5 +1,12 @@
 ---
 const { buttonNameDefault, dropdownList, id, localStorageKey } = Astro.props;
+
+interface Props {
+  buttonNameDefault: string;
+  dropdownList: { name: string; value: string }[];
+  id: string;
+  localStorageKey: Alu.ValidStoreKeys;
+}
 ---
 
 <div class="dropdown">

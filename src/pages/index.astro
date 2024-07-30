@@ -1,8 +1,4 @@
----
-import { ViewTransitions } from "astro:transitions";
----
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -19,7 +15,7 @@ import { ViewTransitions } from "astro:transitions";
     <meta property="twitter:title" content="Alu" />
     <meta property="twitter:description" content="Alu is a sleek web proxy supporting multiple standards of communication, and wide levels of customization." />
     <meta property="twitter:image" content="/logo.png" />
-    <ViewTransitions />
+    <script src="@components/ts/AluStore.ts"></script>
     <script src="https://www.googletagmanager.com/gtag/js?id=G-P1JX4G9KSF" is:inline></script>
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
@@ -31,26 +27,26 @@ import { ViewTransitions } from "astro:transitions";
       gtag("config", "G-P1JX4G9KSF");
     </script>
     <script>
-      const currentLang = localStorage.getItem("alu__selectedLanguage");
+      const lang = Alu.store.get("lang");
       const redirect = (loc: string) => (window.location.href = loc);
-      if (currentLang) {
+      if (lang) {
         try {
-          const parsed = JSON.parse(currentLang).value;
-          redirect(`/${parsed}/`);
+          redirect(`/${lang.value}/`);
         } catch {
           localStorage.clear();
           window.location.reload();
         }
       } else {
-        if (navigator.language.includes("ja")) {
-          localStorage.setItem("alu__selectedLanguage", JSON.stringify({ value: "jp" }));
+        const lang = navigator.language;
+        if (lang.includes("ja")) {
+          Alu.store.set("lang", { value: "jp" });
           redirect("/jp/");
-        } else if (navigator.language.includes("fr")) {
-          localStorage.setItem("alu__selectedLanguage", JSON.stringify({ value: "fr" }));
+        } else if (lang.includes("es")) {
+          Alu.store.set("lang", { value: "fr" });
           redirect("/fr/");
-        } else {
-          localStorage.setItem("alu__selectedLanguage", JSON.stringify({ value: "en" }));
-          redirect("/en/");
+        } else if (lang.includes("fr")) {
+          Alu.store.set("lang", { value: "es" });
+          redirect("/es/");
         }
       }
     </script>

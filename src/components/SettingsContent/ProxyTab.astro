@@ -39,19 +39,19 @@ const wispURLList = [
 <div class="settings-container">
   <div class="setting__selected-proxy">
     <label for="dropdown__selected-proxy" aria-label="Selected Proxy" class="setting-label">{t("settings.proxy.selectedProxy")}</label>
-    <Dropdown buttonNameDefault="Ultraviolet" dropdownList={proxyList} localStorageKey="alu__selectedProxy" id="dropdown__selected-proxy" />
+    <Dropdown buttonNameDefault="Ultraviolet" dropdownList={proxyList} localStorageKey="proxy" id="dropdown__selected-proxy" />
   </div>
   <div class="setting__search-engine">
     <label for="dropdown__search-engine" aria-label="Search Engine" class="setting-label">{t("settings.proxy.searchEngine")}</label>
-    <Dropdown buttonNameDefault="Google" dropdownList={searchEngineList} localStorageKey="alu__searchEngine" id="dropdown__search-engine" />
+    <Dropdown buttonNameDefault="Google" dropdownList={searchEngineList} localStorageKey="search" id="dropdown__search-engine" />
   </div>
   <div class="setting__open_with">
     <label for="dropdown__open-with" aria-label="Open Page With" class="setting-label">{t("settings.proxy.openPageWith")}</label>
-    <Dropdown buttonNameDefault={t("settings.proxy.openPageWith.embed")} dropdownList={openPageWith} localStorageKey="alu__selectedOpenWith" id="dropdown__open-with" />
+    <Dropdown buttonNameDefault={t("settings.proxy.openPageWith.embed")} dropdownList={openPageWith} localStorageKey="openpage" id="dropdown__open-with" />
   </div>
   <div class="setting__wisp_url">
     <label for="dropdown__wisp-url" aria-label="Wisp URL" for="dropdown__wisp-url" class="setting-label">{t("settings.proxy.wispURL")}</label>
-    <Dropdown buttonNameDefault={wispURLList[0].name} dropdownList={wispURLList} localStorageKey="alu__selectedWispURL" id="dropdown__wisp-url" />
+    <Dropdown buttonNameDefault={wispURLList[0].name} dropdownList={wispURLList} localStorageKey="wisp" id="dropdown__wisp-url" />
   </div>
   <div class="setting__bare_url">
     <label aria-label="Bare Server URL" for="bare-url-input" class="setting-label">{t("settings.proxy.bareURL")}</label>
@@ -59,7 +59,7 @@ const wispURLList = [
   </div>
   <div class="setting__transport">
     <label for="dropdown__transport" aria-label="Wisp Transport" class="setting-label">{t("settings.proxy.transport")}</label>
-    <Dropdown buttonNameDefault="Epoxy" dropdownList={transportsList} localStorageKey="alu__selectedTransport" id="dropdown__transport" />
+    <Dropdown buttonNameDefault="Epoxy" dropdownList={transportsList} localStorageKey="transport" id="dropdown__transport" />
   </div>
 </div>
 <div class="setting__searxng-url">

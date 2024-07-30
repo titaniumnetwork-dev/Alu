@@ -9,8 +9,9 @@ for (const lang in ui) {
   STATIC_PATHS.push({ params: { lang } });
 }
 
+
 function getLangFromUrl(url: URL) {
-  const [lang] = url.pathname.split("/");
+  const [,lang] = url.pathname.split("/");
   if (lang in ui) return lang as keyof typeof ui;
   return defaultLang;
 }
@@ -29,5 +30,4 @@ function useTranslations(lang: LanguageKeys) {
 }
 
 export const i18n = { getLangFromUrl, useTranslations, inferLangUseTranslations };
-
 export { STATIC_PATHS };
