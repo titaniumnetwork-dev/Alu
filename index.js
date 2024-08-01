@@ -2,8 +2,6 @@ import { uvPath } from "@titaniumnetwork-dev/ultraviolet";
 import { epoxyPath } from "@mercuryworkshop/epoxy-transport";
 import { libcurlPath } from "@mercuryworkshop/libcurl-transport";
 import { baremuxPath } from "@mercuryworkshop/bare-mux/node";
-import { bareModulePath } from "@mercuryworkshop/bare-as-module3";
-import { createBareServer } from "@tomphttp/bare-server-node";
 import express from "express";
 import { createServer } from "http";
 import path from "node:path";
@@ -28,8 +26,6 @@ const MASQR_ENABLED = process.env.MASQR_ENABLED;
 if (!existsSync("./dist")) build({});
 
 const log = (message) => console.log(chalk.gray("[Alu] " + message));
-
-const bare = createBareServer("/bare/");
 
 const PORT = process.env.PORT || 3000;
 log("Starting Rammerhead...");
@@ -68,7 +64,6 @@ app.use("/uv/", express.static(uvPath));
 app.use("/epoxy/", express.static(epoxyPath));
 app.use("/libcurl/", express.static(libcurlPath));
 app.use("/baremux/", express.static(baremuxPath));
-app.use("/baremod/", express.static(bareModulePath));
 
 app.use(express.json());
 app.use(
@@ -134,9 +129,7 @@ app.get("*", (req, res) => {
 
 const server = createServer();
 server.on("request", (req, res) => {
-  if (bare.shouldRoute(req)) {
-    bare.routeRequest(req, res);
-  } else if (shouldRouteRh(req)) {
+  if (shouldRouteRh(req)) {
     routeRhRequest(req, res);
   } else {
     app(req, res);
@@ -144,9 +137,7 @@ server.on("request", (req, res) => {
 });
 
 server.on("upgrade", (req, socket, head) => {
-  if (bare.shouldRoute(req)) {
-    bare.routeUpgrade(req, socket, head);
-  } else if (shouldRouteRh(req)) {
+  if (shouldRouteRh(req)) {
     routeRhUpgrade(req, socket, head);
     /* Kinda hacky, I need to do a proper dynamic import. */
   } else if (req.url.endsWith("/wisp/") && WISP_ENABLED == "true") {

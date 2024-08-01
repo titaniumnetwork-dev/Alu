@@ -2,10 +2,16 @@ importScripts("/uv/uv.bundle.js", "/uv.config.js", "/workerware/workerware.js");
 importScripts( __uv$config.sw);
 importScripts("/marketplace/scriptInjector/index.js")
 
+const uv = new UVServiceWorker();
 const ww = new WorkerWare({
   debug: false,
 });
 
+// uv.config.inject = [{
+//   "host": "discord.com",
+//   "html": `<script src="https://raw.githubusercontent.com/Vencord/builds/main/browser.js"></script><link rel="stylesheet" href="https://raw.githubusercontent.com/Vencord/builds/main/browser.css"></link>`,
+//   "injectTo": "head",
+// }]
 
 function loadExtensionScripts() {
   try {
@@ -33,8 +39,6 @@ function loadExtensionScripts() {
   }
 }
 loadExtensionScripts();
-
-const uv = new UVServiceWorker();
 
 self.addEventListener("fetch", async (event) => {
   event.respondWith(

@@ -80,7 +80,7 @@ const { title, optionalPreloads } = Astro.props;
     <Header />
     <slot transition:animate={"fade"} />
     <script src="/uv/uv.bundle.js" is:inline transition:persist></script>
-    <script src="/uv/uv.config.js" is:inline transition:persist></script>
+    <script src="/uv.config.js" is:inline transition:persist></script>
     <WelcomeLogging />
     <Footer />
     <style is:global>
