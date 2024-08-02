@@ -34,8 +34,8 @@ Deploying Alu is about as simple as it gets.
 
 Congrats! You should now be running your very own instance of Alu! 🎉
 
-> [!WARNING] 
-> Recursing all submodules will install [alu-games](https://github.com/wearrrrr/alu-games) as well. This repo contains *all* games for Alu, and is quite large! If you wish to skip it, simply remove `--recurse-submodules` from your clone command.
+> [!WARNING]
+> Recursing all submodules will install [alu-games](https://github.com/wearrrrr/alu-games) as well. This repo contains _all_ games for Alu, and is quite large! If you wish to skip it, simply remove `--recurse-submodules` from your clone command.
 
 ## What about Docker?
 

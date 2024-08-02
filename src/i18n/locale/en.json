@@ -56,12 +56,15 @@
   "settings.customization.language": "Language",
 
   "settings.cloaking": "Cloaking",
-  "settings.cloaking.subtext": "Change how your tab looks...",
+  "settings.cloaking.subtext": "Change how your tab looks",
   "settings.cloaking.updateCloak": "Update Cloak",
 
   "settings.credits": "Credits",
   "settings.credits.mochaandmacchiatothemes": "Mocha & Macchiato Themes",
+  "settings.credits.esTranslations": "Spanish Translations",
+  "settings.credits.frTranslations": "French Translations",
   "settings.credits.jpTranslations": "Japanese Translations",
+  "settings.credits.ptTranslations": "Portuguese Translations",
   "settings.credits.ruTranslations": "Russian Translations",
   "settings.credits.zhTranslations": "Chinese Translations"
 }

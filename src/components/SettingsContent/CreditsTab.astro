@@ -1,4 +1,5 @@
 ---
+import Card from "@components/UI/Card.astro";
 import Link from "@components/UI/Link.astro";
 import { i18n } from "@i18n/utils";
 const t = i18n.inferLangUseTranslations(Astro.url);
@@ -6,36 +7,49 @@ const t = i18n.inferLangUseTranslations(Astro.url);
 
 <div class="settings-container">
   <div class="credits-container">
-    <p class="credit-item">
-      {t("ultraviolet")} - <Link href="https://titaniumnetwork.org/" newTab>Titanium Network</Link>
-    </p>
-    <p class="credit-item">
-      {t("settings.credits.jpTranslations")} - <Link href="https://wearr.dev" newTab>wearr</Link>
-    </p>
-    <p class="credit-item">
-      {t("settings.credits.ruTranslations")} - <Link href="https://3kh0.net" newTab>Echo</Link>
-    </p>
-    <p class="credit-item">
-      {t("settings.credits.zhTranslations")} - <Link href="https://3kh0.net" newTab>Echo</Link>
-    </p>
-    <p class="credit-item">
-      French Translations - <Link href="https://github.com/notboeing747" newTab>notboeing747</Link>
-    </p>
-    <!-- todo: finish localization for this page -->
-    <p class="credit-item">
-      {t("settings.credits.mochaandmacchiatothemes")} - <Link href="https://github.com/catppuccin/catppuccin" newTab>Catppuccin</Link>
-    </p>
-    <p class="credit-item">
-      Wisp Server - <Link newTab href="https://github.com/MercuryWorkshop/wisp-server-node">Mercury Workshop</Link>
-    </p>
-    <p class="credit-item">
-      Rosé Pine Theme - <Link href="https://rosepinetheme.com/" newTab>Rosé Pine</Link>
-    </p>
+    <Card title={t("ultraviolet")}>
+      <Link href="https://titaniumnetwork.org/" newTab>Titanium Network</Link>
+    </Card>
+    <Card title={t("settings.credits.esTranslations")}>
+      <Link href="https://github.com/builtbyvys/" newTab>vys</Link>
+    </Card>
+    <Card title={t("settings.credits.frTranslations")}>
+      <Link href="https://github.com/notboeing747">notboeing747</Link>
+    </Card>
+    <Card title={t("settings.credits.jpTranslations")}>
+      <Link href="https://wearr.dev" newTab>wearr</Link>
+    </Card>
+    <Card title={t("settings.credits.ptTranslations")}> kersosina_ </Card>
+    <Card title={t("settings.credits.ruTranslations")}>
+      <Link href="https://3kh0.net" newTab>Echo</Link>
+    </Card>
+    <Card title={t("settings.credits.zhTranslations")}>
+      <Link href="https://3kh0.net" newTab>Echo</Link>
+    </Card>
+    <Card title={t("settings.credits.mochaandmacchiatothemes")}>
+      <Link href="https://github.com/catppuccin/catppuccin" newTab>Catppuccin</Link>
+    </Card>
+    <Card title="Wisp Server">
+      <Link href="https://github.com/MercuryWorkshop/wisp-server-node" newTab>Wisp Server</Link>
+    </Card>
+    <Card title="Rosé Pine Theme">
+      <Link href="https://rosepinetheme.com/" newTab>Rosé Pine</Link>
+    </Card>
   </div>
 </div>
 
 <style>
+  .credits-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    width: 100%;
+    gap: 10px;
+  }
   .credit-item {
-    font-size: 18px;
+    font-size: 20px;
+    margin: 10px 0 10px;
+  }
+  .credit-name {
+    min-width: 150px;
   }
 </style>

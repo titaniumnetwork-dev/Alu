@@ -1,0 +1,70 @@
+{
+  "ultraviolet": "Ultraviolet",
+
+  "pages.home": "Página principal | Alu",
+  "pages.games": "Jogos | Alu",
+  "pages.settings": "Definições | Alu",
+
+  "nav.brand": "Alu",
+  "nav.games": "Jogos",
+  "nav.settings": "Definições",
+
+  "menu.welcome": "Bem-vindo ao Alu",
+  "menu.search": "Pesquisar na internet...",
+
+  "faq.title": "Perguntas frequentes",
+
+  "faq.whatIsAProxy": "O que é um proxy?",
+  "faq.whatIsAProxy.answer": "Um proxy é um método de anonimizar o seu tráfego, enviando o seu pedido para um servidor (o proxy), o qual faz o pedido por si e envia-to de volta! Isto permite um nível de segurança muito mais elevado, como também permite contornar restrições sobre sites em redes públicas e a censura.",
+
+  "faq.noBareClients": "O que significa \"there are no bare clients\"?",
+  "faq.noBareClients.answer": "Existem alguns motivos pelos quais este erro ocorre, mas geralmente deve-se a uma falha ao carregar o proxy. Tente recarregar a página e, caso o problema persiste, abra uma issue no GitHub!",
+
+  "faq.contributeToAlu": "Como posso contribuir para Alu?",
+  "faq.contributeToAlu.answer.segment1": "Divulgar Alu é suficiente, mas, se gostares bastante do Alu e quiseres links privados, considera apoiar-me pelo Patreon!",
+  "faq.contributeToAlu.answer.patreonLinkText": "Podes apoiar-me aqui!",
+  "faq.contributeToAlu.answer.segment2": "Obrigado por ajudar a tornar o Alu excelente!",
+
+  "footer.brand": "Alu",
+  "footer.madeWithLove": "Feito com ❤️ por wearr",
+  "footer.poweredBy": "Titanium Network",
+  "footer.services": "Serviços",
+  "footer.socials": "Redes sociais",
+  "footer.aluProject": "Projeto Alu",
+
+  "games.title": "Jogos",
+  "games.search": "Pesquisa...",
+
+  "settings.title": "Definições",
+  "settings.proxy": "Proxy",
+  "settings.proxy.auto": "Auto",
+  "settings.proxy.selectedProxy": "Proxy selecionado",
+  "settings.proxy.searchEngine": "Motor de busca",
+  "settings.proxy.openPageWith": "Abrir com",
+  "settings.proxy.openPageWith.embed": "Incorporar",
+  "settings.proxy.openPageWith.newTab": "Nova aba",
+  "settings.proxy.searxngURL": "Searx URL",
+  "settings.proxy.transport": "Transporte",
+  "settings.proxy.wispURL": "Wisp URL",
+  "settings.proxy.bareURL": "Bare URL",
+
+  "settings.customization": "Customização",
+  "settings.customization.theme": "Tema",
+  "settings.customization.theme.Alu": "Alu",
+  "settings.customization.theme.Macchiato": "Macchiato",
+  "settings.customization.theme.Mocha": "Mocha",
+  "settings.customization.language": "Idioma",
+
+  "settings.cloaking": "Camuflagem",
+  "settings.cloaking.subtext": "Alterar a aparência da sua aba",
+  "settings.cloaking.updateCloak": "Alterar camuflagem",
+
+  "settings.credits": "Créditos",
+  "settings.credits.mochaandmacchiatothemes": "Temas Mocha & Macchiato",
+  "settings.credits.esTranslations": "Traduções espanholas",
+  "settings.credits.frTranslations": "Traduções francesas",
+  "settings.credits.jpTranslations": "Traduções japonesas",
+  "settings.credits.ptTranslations": "Traduções portuguesas",
+  "settings.credits.ruTranslations": "Traduções russas",
+  "settings.credits.zhTranslations": "Traduções chinesas"
+}

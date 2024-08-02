@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -47,6 +47,18 @@
         } else if (lang.includes("fr")) {
           Alu.store.set("lang", { value: "es" });
           redirect("/es/");
+        } else if (lang.includes("pt")) {
+          Alu.store.set("lang", { value: "pt" });
+          redirect("/pt/");
+        } else if (lang.includes("ru")) {
+          Alu.store.set("lang", { value: "ru" });
+          redirect("/ru/");
+        } else if (lang.includes("zh")) {
+          Alu.store.set("lang", { value: "zh" });
+          redirect("/zh/");
+        } else {
+          Alu.store.set("lang", { value: "en" });
+          redirect("/en/");
         }
       }
     </script>

@@ -5,11 +5,15 @@ export declare global {
     type DefaultKeys = {
       [key: string]: AluKey;
     };
-    type Key = Record<string?, string | {
-      name: string;
-      icon: string;
-      isCustom: boolean;
-    }>;
+    type Key = Record<
+      string?,
+      | string
+      | {
+          name: string;
+          icon: string;
+          isCustom: boolean;
+        }
+    >;
     type ValidStoreKeys = "proxy" | "search" | "openpage" | "wisp" | "bareUrl" | "transport" | "searxng" | "theme" | "lang" | "cloak";
   }
 }

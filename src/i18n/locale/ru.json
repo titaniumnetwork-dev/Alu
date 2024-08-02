@@ -56,12 +56,15 @@
   "settings.customization.language": "Язык",
 
   "settings.cloaking": "Маскировка",
-  "settings.cloaking.subtext": "Измените внешний вид своей вкладки...",
+  "settings.cloaking.subtext": "Измените внешний вид своей вкладки",
   "settings.cloaking.updateCloak": "Обновить плащ",
 
   "settings.credits": "Кредиты",
   "settings.credits.mochaandmacchiatothemes": "Mocha и Macchiato Темы",
+  "settings.credits.esTranslations": "Испанские переводы",
+  "settings.credits.frTranslations": "Французские переводы",
   "settings.credits.jpTranslations": "Японские переводы",
+  "settings.credits.ptTranslations": "Португальские переводы",
   "settings.credits.ruTranslations": "Русские переводы",
   "settings.credits.zhTranslations": "Китайские переводы"
 }

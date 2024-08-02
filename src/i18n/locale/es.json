@@ -56,12 +56,15 @@
   "settings.customization.language": "Idioma",
 
   "settings.cloaking": "Encubrimiento",
-  "settings.cloaking.subtext": "Cambia el aspecto de tu pestaña...",
+  "settings.cloaking.subtext": "Cambia el aspecto de tu pestaña",
   "settings.cloaking.updateCloak": "Capa de actualización",
 
   "settings.credits": "Créditos",
   "settings.credits.mochaandmacchiatothemes": "Temas de Mocha y Macchiato",
+  "settings.credits.esTranslations": "Traducciones al español",
+  "settings.credits.frTranslations": "Traducciones al francés",
   "settings.credits.jpTranslations": "Traducciones al japonés",
+  "settings.credits.ptTranslations": "Traducciones al portugués",
   "settings.credits.ruTranslations": "Traducciones al ruso",
   "settings.credits.zhTranslations": "Traducciones al chino"
 }

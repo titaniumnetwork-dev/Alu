@@ -7,11 +7,16 @@ const ww = new WorkerWare({
   debug: false,
 });
 
-// uv.config.inject = [{
-//   "host": "discord.com",
-//   "html": `<script src="https://raw.githubusercontent.com/Vencord/builds/main/browser.js"></script><link rel="stylesheet" href="https://raw.githubusercontent.com/Vencord/builds/main/browser.css"></link>`,
-//   "injectTo": "head",
-// }]
+async function getVencordJS() {
+  const vencordJS = await fetch("/marketplace/vencord/browser.js");
+  self.vencordJS = await vencordJS.text();
+  uv.config.inject = [{
+    "host": "discord.com",
+    "html": `<script>${self.vencordJS}</script><link rel="stylesheet" href="https://raw.githubusercontent.com/Vencord/builds/main/browser.css"></link>`,
+    "injectTo": "head",
+  }];
+}
+getVencordJS();
 
 function loadExtensionScripts() {
   try {

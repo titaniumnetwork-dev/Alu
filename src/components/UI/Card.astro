@@ -1,0 +1,34 @@
+---
+const { title } = Astro.props;
+
+interface Props {
+  title: string;
+}
+---
+
+<div class="card" id=`card-${title.toLowerCase()}`>
+  <h2 class="card-title">{title}</h2>
+  <slot />
+</div>
+
+<style>
+  .card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    background-color: var(--background-highlight);
+    border-radius: 10px;
+    padding-bottom: 1rem;
+    transition: 250ms ease-in-out;
+    cursor: pointer;
+  }
+  .card:hover {
+    filter: brightness(0.8);
+  }
+  .card-title {
+    margin: 1rem;
+    text-align: center;
+  }
+</style>

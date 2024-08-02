@@ -20,10 +20,12 @@ export function getStaticPaths() {
     <div class="content-hidden">
       <div id="content-setting-tab-proxy">
         <h1 class="content-setting-header">{t("settings.proxy")}</h1>
+        <p class="content-setting-subtext">Change how the proxy behaves</p>
         <ProxyTab />
       </div>
       <div id="content-setting-tab-customization">
         <h1 class="content-setting-header">{t("settings.customization")}</h1>
+        <p class="content-setting-subtext">Customize your experience</p>
         <CustomizationTab />
       </div>
       <div id="content-setting-tab-cloaking">
@@ -33,6 +35,7 @@ export function getStaticPaths() {
       </div>
       <div id="content-setting-tab-credits">
         <h1 class="content-setting-header">{t("settings.credits")}</h1>
+        <p class="content-setting-subtext">Thank you to everyone who has contributed to Alu!</p>
         <CreditsTab />
       </div>
     </div>
@@ -40,17 +43,14 @@ export function getStaticPaths() {
     <div class="popup">
       <div class="tabs">
         <input type="radio" id="setting-tab-proxy" class="setting-tab" name="tab" checked="true" />
-        <label for="setting-tab-proxy">Proxy</label>
+        <label for="setting-tab-proxy"><i class="fa-solid fa-globe"></i> {t("settings.proxy")}</label>
         <input type="radio" id="setting-tab-customization" class="setting-tab" name="tab" />
-        <label for="setting-tab-customization">Customization</label>
+        <label for="setting-tab-customization"><i class="fa-solid fa-palette"></i> {t("settings.customization")}</label>
         <input type="radio" id="setting-tab-cloaking" class="setting-tab" name="tab" />
-        <label for="setting-tab-cloaking">Cloaking</label>
+        <label for="setting-tab-cloaking"><i class="fa-solid fa-hood-cloak"></i> {t("settings.cloaking")}</label>
         <input type="radio" id="setting-tab-credits" class="setting-tab" name="tab" />
-        <label for="setting-tab-credits">Credits</label>
-        <div class="marker">
-          <div id="top"></div>
-          <div id="bottom"></div>
-        </div>
+        <label for="setting-tab-credits"><i class="fa-solid fa-party-horn"></i> {t("settings.credits")}</label>
+        <div class="marker"></div>
       </div>
       <div id="current-content"></div>
     </div>
@@ -58,10 +58,10 @@ export function getStaticPaths() {
   <script>
     window.loadedContentStorage = {};
     window.currentlySelectedTab;
+    document.addEventListener("astro:before-swap", () => {
+      window.currentlySelectedTab = "";
+    });
     function settingsLoad() {
-      document.addEventListener("astro:before-swap", () => {
-        window.currentlySelectedTab = "";
-      });
       Array.from(document.getElementsByClassName("setting-tab")).forEach((tab) => {
         const contentToLoad = document.getElementById("content-" + tab.id);
         if (contentToLoad) {
@@ -109,15 +109,6 @@ export function getStaticPaths() {
         setTimeout(() => {
           toggle.style.borderRadius = "10px";
         }, 300);
-      }
-    }
-
-    // This should be taking in CustomEvent, but it's not working for some reason.
-    function determineListener(event: any) {
-      if (event.detail == "setting-tab-proxy") {
-        addDropdownListener();
-      } else if (event.detail == "setting-tab-customization") {
-        addDropdownListener();
       }
     }
 
@@ -214,7 +205,7 @@ export function getStaticPaths() {
       }
     }
 
-    document.addEventListener("setting-tabLoad", determineListener);
+    document.addEventListener("setting-tabLoad", addDropdownListener);
 
     loadContent("setting-tab-proxy");
 
@@ -253,8 +244,8 @@ export function getStaticPaths() {
               name: cloakName,
               icon: cloakIcon,
               isCustom: false,
-            }
-          // eeyikes, make this better later.
+            },
+            // eeyikes, make this better later.
           } as unknown as Alu.Key;
           Alu.store.set("cloak", cloakItem);
 
@@ -379,9 +370,8 @@ export function getStaticPaths() {
       window.location.href = `/${value}/settings`;
     }
     document.addEventListener("astro:after-swap", () => {
-      setTimeout(() => {
-        settingsLoad();
-      }, 200);
+      settingsLoad();
+      loadContent("setting-tab-proxy");
     });
     settingsLoad();
   </script>
@@ -391,8 +381,9 @@ export function getStaticPaths() {
     }
     #current-content {
       transition: opacity 250ms ease-in-out;
-      margin-left: 20px;
-      height: 700px;
+      height: 100%;
+      min-height: 600px;
+      padding: 20px;
     }
     .settings-container {
       display: flex;
@@ -406,6 +397,8 @@ export function getStaticPaths() {
     .content-setting-header {
       color: var(--text-color);
       font-weight: 400;
+      margin: 1rem 0 0;
+      text-decoration: underline;
     }
     .content-setting-subtext {
       font-size: 20px;
@@ -456,10 +449,8 @@ export function getStaticPaths() {
       opacity: 1;
     }
     .popup {
-      width: 98%;
-      height: 80%;
+      width: 95%;
       margin: 0 auto;
-      max-height: 500px;
       border-radius: 15px;
       box-sizing: border-box;
       background-color: var(--background-color);
@@ -474,35 +465,44 @@ export function getStaticPaths() {
       flex-direction: column;
       justify-content: space-around;
       position: relative;
-      gap: 40px;
+      gap: 5rem;
     }
-    @media (max-width: 1116px) {
-      .popup {
-        flex-direction: column;
-        min-height: 80%;
-        max-height: 80%;
-      }
-      .tabs {
-        flex-direction: row;
-        max-width: 100%;
-        max-height: 70px;
-        min-height: 70px;
-        gap: 0;
-        align-items: center;
-      }
-      label {
-        width: auto;
-        margin-left: 0;
-      }
+    .popup {
+      flex-direction: column;
+      min-height: 80%;
+      max-height: 80%;
     }
-    @media (max-width: 500px) {
+    .tabs {
+      flex-direction: row;
+      max-width: 100%;
+      max-height: 70px;
+      min-height: 70px;
+      gap: 0;
+      align-items: center;
+    }
+    label {
+      width: auto;
+      margin-left: 0;
+    }
+    @media (max-width: 625px) {
       label {
         font-size: 20px;
       }
     }
-    @media (max-width: 375px) {
+    @media (max-width: 500px) {
       label {
         font-size: 18px;
+      }
+    }
+    @media (max-width: 440px) {
+      label {
+        font-size: 16px;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .fa-solid {
+        display: none;
       }
     }
     .setting {
@@ -511,40 +511,11 @@ export function getStaticPaths() {
     .marker {
       position: absolute;
       width: 100%;
-      height: 200%;
+      height: 100%;
       display: flex;
       flex-direction: column;
-      top: calc(-100%);
-      left: 0;
       transition: transform 0.2s ease-in-out;
       background-color: var(--accent-color);
-    }
-    .marker #bottom,
-    .marker #top {
-      background-color: var(--background-highlight);
-    }
-    .marker #top {
-      height: calc(50%);
-      margin-bottom: auto;
-      border-radius: 0 0 32px 0;
-    }
-    .marker #bottom {
-      height: calc(50% - 72px);
-      border-radius: 0 32px 0 0;
-    }
-    @media (min-width: 1116px) {
-      #setting-tab-proxy:checked ~ .marker {
-        transform: translateY(0%);
-      }
-      #setting-tab-customization:checked ~ .marker {
-        transform: translateY(14%);
-      }
-      #setting-tab-cloaking:checked ~ .marker {
-        transform: translateY(28%);
-      }
-      #setting-tab-credits:checked ~ .marker {
-        transform: translateY(42.5%);
-      }
     }
   </style>
 </Layout>

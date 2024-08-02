@@ -41,6 +41,7 @@ const { title, optionalPreloads } = Astro.props;
     <meta property="twitter:image" content="/favicon.svg" />
     <link rel="canonical" href={Astro.url.href} />
     <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css" />
     {
       optionalPreloads?.map((item) => {
         return <link rel="preload" href={item.href} as={item.as} />;
@@ -176,7 +177,7 @@ const { title, optionalPreloads } = Astro.props;
         text-align: center;
         font-weight: 400;
         font-size: 2.5rem;
-        margin-bottom: 0;
+        margin-bottom: 5px;
       }
       .title-desc {
         color: var(--text-color);

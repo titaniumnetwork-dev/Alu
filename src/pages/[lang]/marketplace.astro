@@ -21,7 +21,9 @@ export const getStaticPaths = () => {
           return (
             <div class="marketplace-item" data-slug={slug}>
               <img class="marketplace-item-image" src={item.image} alt={`${item.title} Logo`} />
-              <div class="marketplace-item-title">{item.title} v{item.version}</div>
+              <div class="marketplace-item-title">
+                {item.title} v{item.version}
+              </div>
               <div class="marketplace-item-desc">{item.description}</div>
               <button class="marketplace-btn btn-install" data-slug={slug} data-title={item.title}>
                 Install
