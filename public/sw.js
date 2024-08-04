@@ -16,7 +16,7 @@ async function getVencordJS() {
     "injectTo": "head",
   }];
 }
-getVencordJS();
+// getVencordJS();
 
 function loadExtensionScripts() {
   try {
