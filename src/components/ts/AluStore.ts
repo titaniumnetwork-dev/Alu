@@ -1,7 +1,7 @@
 const KEYSTORE: Alu.DefaultKeys = {
   proxy: {
-    name: "Ultraviolet",
-    value: "ultraviolet",
+    name: "Auto",
+    value: "auto",
   },
   search: {
     name: "Google",
@@ -36,33 +36,33 @@ if (localStorage.getItem("AluStore") === null) {
 }
 
 class AluStore {
-  private store: Alu.DefaultKeys;
+  #store: Alu.DefaultKeys;
   constructor() {
     const localstore = localStorage.getItem("AluStore");
     if (!localstore) {
       localStorage.setItem("AluStore", JSON.stringify(KEYSTORE));
     }
-    this.store = JSON.parse(localStorage.getItem("AluStore") || "{}");
+    this.#store = JSON.parse(localStorage.getItem("AluStore") || "{}");
   }
   public getStore(): Alu.DefaultKeys {
-    return this.store;
+    return this.#store;
   }
   public get(key: Alu.ValidStoreKeys): Alu.Key {
-    return this.store[key];
+    return this.#store[key];
   }
   public set(key: Alu.ValidStoreKeys, value: Alu.Key): void {
-    this.store[key] = value;
+    this.#store[key] = value;
     this.save();
   }
   public reset(key: Alu.ValidStoreKeys) {
     this.set(key, KEYSTORE[key]);
   }
   public remove(key: Alu.ValidStoreKeys) {
-    delete this.store[key];
+    delete this.#store[key];
     this.save();
   }
   private save(): void {
-    localStorage.setItem("AluStore", JSON.stringify(this.store));
+    localStorage.setItem("AluStore", JSON.stringify(this.#store));
   }
 }
 

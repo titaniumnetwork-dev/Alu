@@ -1,15 +1,31 @@
 ---
-const { title } = Astro.props;
+import Link from './Link.astro';
+
+const { title, href } = Astro.props;
 
 interface Props {
   title: string;
+  href?: string;
 }
+
+const ID = title.toLowerCase().replaceAll(" ", "-");
 ---
 
-<div class="card" id=`card-${title.toLowerCase()}`>
-  <h2 class="card-title">{title}</h2>
-  <slot />
-</div>
+{href ? (
+  <Link href={href} newTab>
+    <div class="card card-link" id={"card-" + ID}>
+      <h2 class="card-title">{title}</h2>
+      <slot />
+    </div>
+  </Link>
+) : (
+  <div class="card" id={"card-" + ID}>
+    <h2 class="card-title">{title}</h2>
+    <slot />
+  </div>
+)}
+
+
 
 <style>
   .card {
@@ -21,10 +37,12 @@ interface Props {
     background-color: var(--background-highlight);
     border-radius: 10px;
     padding-bottom: 1rem;
-    transition: 250ms ease-in-out;
-    cursor: pointer;
   }
-  .card:hover {
+  .card-link {
+    cursor: pointer;
+    transition: 250ms ease-in-out;
+  }
+  .card-link:hover {
     filter: brightness(0.8);
   }
   .card-title {
