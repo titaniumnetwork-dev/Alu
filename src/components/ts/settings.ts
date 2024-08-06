@@ -82,6 +82,11 @@ function getLocalStorageValue(localStorageItem: Alu.ValidStoreKeys, dropdownID: 
   // I was kinda dumb for not doing this earlier.
   const dropdown = document.getElementById(dropdownID);
   const dropdownMenu = document.getElementById(dropdownID + "-menu") as HTMLElement;
+  // Janky hack :D
+  if (dropdownID == "dropdown__search-engine") {
+    console.log(localStorageItem, dropdownID)
+    return Alu.store.get(localStorageItem).name;
+  }
 
   if (dropdown && dropdownMenu) {
     // Now we find the child that matches localStorageItem.value.
@@ -90,17 +95,20 @@ function getLocalStorageValue(localStorageItem: Alu.ValidStoreKeys, dropdownID: 
       return Alu.store.get(localStorageItem).value == itemEl.dataset.setting;
     }) as HTMLElement;
     // Now set the inner text to the name in the dropdownItem.
-    return dropdownItem.innerText;
+    if (dropdownItem) {
+      return dropdownItem.innerText;
+    } else {
+      console.error("Dropdown item not found! " + dropdownID);
+    }
+
   }
 }
 
 function applySavedLocalStorage(localStorageItem: Alu.ValidStoreKeys, dropdownID: string) {
-  if (Alu.store.get(localStorageItem)) {
-    const dropdown_toggle = document.getElementById(dropdownID) as HTMLElement;
-    if (dropdown_toggle) {
+  const dropdown_toggle = document.getElementById(dropdownID) as HTMLElement;
+    if (dropdown_toggle && Alu.store.get(localStorageItem)) {
       dropdown_toggle.innerText = getLocalStorageValue(localStorageItem, dropdownID)!;
     }
-  }
 }
 
 function applyDropdownEventListeners(dropdown: HTMLElement, optionalCallback?: () => void) {
@@ -126,6 +134,12 @@ function applyDropdownEventListeners(dropdown: HTMLElement, optionalCallback?: (
 function applyInputListeners(input: HTMLInputElement, localStorageItem: Alu.ValidStoreKeys) {
   input.addEventListener("input", () => {
     Alu.store.set(localStorageItem, { value: input.value });
+  });
+}
+
+function searxngURLInputListener(input: HTMLInputElement) {
+  input.addEventListener("input", () => {
+    Alu.store.set("search", { name: "Searx", value: input.value + "?q=" });
   });
 }
 
@@ -174,7 +188,7 @@ function setupProxySettings() {
   applyDropdownEventListeners(searchEngineDropdown!, checkSearxng);
   checkSearxng();
 
-  applyInputListeners(searxngUrlInput, "search");
+  searxngURLInputListener(searxngUrlInput);
   applyInputListeners(bareURLInput, "bareUrl");
 }
 
@@ -261,7 +275,6 @@ function setupCloakingSettings() {
       icon: cloakIcon,
       isCustom: true,
     };
-    // @ts-expect-error - Need to make cloak typing more standardized.
     Alu.store.set("cloak", cloakItem);
     if (cloakName == "None") {
       Alu.store.remove("cloak");

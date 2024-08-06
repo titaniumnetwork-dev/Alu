@@ -63,6 +63,4 @@ class AluStore {
   }
 }
 
-globalThis.Alu = {
-  store: new AluStore(),
-};
+export default AluStore;

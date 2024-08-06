@@ -1,6 +1,7 @@
 export declare global {
   namespace Alu {
     let store: AluStore;
+    let loadedContentStorage: Record<string, string>;
 
     type DefaultKeys = {
       [key: string]: AluKey;

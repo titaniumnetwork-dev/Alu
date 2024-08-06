@@ -57,7 +57,11 @@ const { title, optionalPreloads } = Astro.props;
       gtag("config", "G-P1JX4G9KSF");
     </script>
     <script>
+      import instantiateAlu from "@components/ts/Alu";
       import IDBManager from "@components/ts/IDBManager";
+
+      instantiateAlu();
+      
       if (!window.idb) {
         const db = IDBManager.loadIDB("AluDB", 1);
         db.onupgradeneeded = () => {
