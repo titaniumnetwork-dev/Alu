@@ -174,7 +174,7 @@ function setupProxySettings() {
   applyDropdownEventListeners(searchEngineDropdown!, checkSearxng);
   checkSearxng();
 
-  applyInputListeners(searxngUrlInput, "searxng");
+  applyInputListeners(searxngUrlInput, "search");
   applyInputListeners(bareURLInput, "bareUrl");
 }
 
@@ -299,7 +299,7 @@ function checkSearxng() {
   // Callback for search engine dropdown
   const searchEngine = Alu.store.get("search");
   const searxInput = document.getElementsByClassName("setting__searxng-url")[0] as HTMLElement;
-  if (searchEngine.value == "searx") {
+  if (searchEngine.name == "Searx") {
     searxInput.style.opacity = "1";
   } else {
     searxInput.style.opacity = "0";

@@ -14,6 +14,6 @@ export declare global {
           isCustom: boolean;
         }
     >;
-    type ValidStoreKeys = "proxy" | "search" | "openpage" | "wisp" | "bareUrl" | "transport" | "searxng" | "theme" | "lang" | "cloak";
+    type ValidStoreKeys = "proxy" | "search" | "openpage" | "wisp" | "bareUrl" | "transport" | "theme" | "lang" | "cloak";
   }
 }

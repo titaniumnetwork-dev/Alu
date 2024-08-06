@@ -12,10 +12,10 @@ const proxyList = [
 ];
 
 const searchEngineList = [
-  { name: "Google", value: "google" },
-  { name: "Bing", value: "bing" },
-  { name: "Brave", value: "brave" },
-  { name: "Searx", value: "searx" },
+  { name: "Google", value: "https://google.com/search?q=" },
+  { name: "Bing", value: "https://bing.com/search?q=" },
+  { name: "Brave", value: "https://search.brave.com/search?q=" },
+  { name: "Searx", value: "https://searxng.site/?q=" },
 ];
 
 const openPageWith = [
@@ -64,5 +64,5 @@ const wispURLList = [
 </div>
 <div class="setting__searxng-url">
   <label aria-label="SearXNG URL" for="searxng-url-input" class="setting-label">{t("settings.proxy.searxngURL")}</label>
-  <Input height="50px" inputName="searxng-url" defaultTextContent="https://searxng.site/" />
+  <Input height="50px" inputName="searxng-url" defaultTextContent="https://searxng.site/?q=" />
 </div>

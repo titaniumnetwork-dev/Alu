@@ -5,7 +5,7 @@ const KEYSTORE: Alu.DefaultKeys = {
   },
   search: {
     name: "Google",
-    value: "google",
+    value: "https://google.com/search?q=",
   },
   openpage: {
     name: "Embed",
@@ -21,9 +21,6 @@ const KEYSTORE: Alu.DefaultKeys = {
   transport: {
     name: "Epoxy",
     value: "/epoxy/index.mjs",
-  },
-  searxng: {
-    value: "https://searxng.site",
   },
   theme: {
     name: "Alu",

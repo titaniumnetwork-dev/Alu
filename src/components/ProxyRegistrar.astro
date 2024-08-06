@@ -4,11 +4,11 @@
   import { Notyf } from "notyf";
 
   const form = document.querySelector("form");
-  let input = document.querySelector("input");
+  let input = document.querySelector("input")!;
   document.addEventListener("astro:after-swap", initForm);
   function initForm() {
-    const formEle = document.querySelector("form");
-    input = document.querySelector("input");
+    const formEle = document.querySelector("form") as HTMLFormElement;
+    input = document.querySelector("input") as HTMLInputElement;
     if (formEle) formEle.addEventListener("submit", formEventListener);
   }
   if (form) {
@@ -24,10 +24,9 @@
   }, 500);
 
   async function getProxyURL() {
-    const preference = getProxyPreference();
-    let url = input!.value.trim();
+    const preference = Alu.store.get("proxy").value;
+    let url = input.value.trim();
     if (!isUrl(url)) url = getSearchEngine() + url;
-    else if (!(url.startsWith("https://") || url.startsWith("http://"))) url = "http://" + url;
     if (preference === "ultraviolet") {
       return window.__uv$config.prefix + window.__uv$config.encodeUrl(url);
     } else if (preference == "rammerhead") {
@@ -89,7 +88,7 @@
       const backwardsButton = document.getElementById("nav-backwards") as HTMLImageElement;
       const forwardsButton = document.getElementById("nav-forwards") as HTMLImageElement;
       const shareButton = document.getElementById("nav-share") as HTMLImageElement;
-      const preference = getProxyPreference();
+      const preference = Alu.store.get("proxy").value;
       if (preference === "ultraviolet") {
         iframe.src = window.__uv$config.prefix + window.__uv$config.encodeUrl(url);
       } else if (preference == "rammerhead") {
@@ -196,43 +195,10 @@
   }
 
   function getSearchEngine() {
-    const searchEngine = Alu.store.get("search");
-    switch (searchEngine.value.toLowerCase()) {
-      case "google": {
-        return "https://google.com/search?q=";
-      }
-      case "bing": {
-        return "https://bing.com/search?q=d";
-      }
-      case "brave": {
-        return "https://search.brave.com/search?q=";
-      }
-      case "searx": {
-        const searxngURL = Alu.store.get("searxng");
-        // Ugly hack to remove the trailing slash :)
-        if (searxngURL.value.endsWith("/")) searxngURL.value = searxngURL.value.slice(0, -1);
-        return searxngURL.value + "/search?q=";
-      }
-      default: {
-        return "https://google.com/search?q=";
-      }
-    }
-  }
-
-  function getProxyPreference() {
-    const proxy = Alu.store.get("proxy");
-    switch (proxy.value) {
-      case "ultraviolet":
-        return "ultraviolet";
-      case "rammerhead":
-        return "rammerhead";
-      default:
-        return "ultraviolet";
-    }
+    return Alu.store.get("search").value;
   }
 
   function updateProxiedFavicon(iframe: HTMLIFrameElement) {
-    if (!iframe) return;
     const proxiedFavicon = document.getElementById("proxied-favicon") as HTMLImageElement;
     if (iframe) {
       if (iframe.contentDocument) {
