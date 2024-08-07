@@ -8,11 +8,7 @@ interface Window {
   __uv$location: Location;
   loadFormContent: () => Promise<void> | null;
   idb: IDBDatabase;
-  // Why is this not already on Window?
-  eval(string): void;
   wispData: WispData[];
-  loadedContentStorage: Record<string, string>;
-  currentlySelectedTab: string;
 }
 
 type ExtType = "serviceWorker" | "theme" | "page";

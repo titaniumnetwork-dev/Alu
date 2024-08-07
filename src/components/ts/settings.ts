@@ -1,13 +1,13 @@
-window.loadedContentStorage = {};
-window.currentlySelectedTab;
+// Alu.settings.loadedContentStorage = {};
 document.addEventListener("astro:before-swap", () => {
-  window.currentlySelectedTab = "";
+  Alu.settings.currentTab = "";
+  Alu.settings.loadedContentStorage = {};
 });
 function settingsLoad() {
   Array.from(document.getElementsByClassName("setting-tab")).forEach((tab) => {
     const contentToLoad = document.getElementById("content-" + tab.id);
     if (contentToLoad) {
-      window.loadedContentStorage[tab.id] = contentToLoad.innerHTML;
+      Alu.settings.loadedContentStorage[tab.id] = contentToLoad.innerHTML;
       contentToLoad.remove();
     }
 
@@ -18,13 +18,13 @@ function settingsLoad() {
   });
 }
 function loadContent(tabID: string) {
-  if (window.currentlySelectedTab == tabID) return;
-  else window.currentlySelectedTab = tabID;
+  if (Alu.settings.currentTab == tabID) return;
+  else Alu.settings.currentTab = tabID;
   const currentContent = document.getElementById("current-content");
   if (currentContent) {
     currentContent.style.opacity = "0";
     setTimeout(() => {
-      currentContent.innerHTML = window.loadedContentStorage[tabID];
+      currentContent.innerHTML = Alu.settings.loadedContentStorage[tabID];
       currentContent.style.opacity = "1";
       document.dispatchEvent(new CustomEvent("setting-tabLoad", { detail: tabID }));
     }, 250);
@@ -84,7 +84,6 @@ function getLocalStorageValue(localStorageItem: Alu.ValidStoreKeys, dropdownID: 
   const dropdownMenu = document.getElementById(dropdownID + "-menu") as HTMLElement;
   // Janky hack :D
   if (dropdownID == "dropdown__search-engine") {
-    console.log(localStorageItem, dropdownID)
     return Alu.store.get(localStorageItem).name;
   }
 

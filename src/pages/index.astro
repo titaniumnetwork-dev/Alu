@@ -27,6 +27,8 @@
       gtag("config", "G-P1JX4G9KSF");
     </script>
     <script>
+      import instantiateAlu from "@components/ts/Alu";
+      instantiateAlu();
       const lang = Alu.store.get("lang");
       const redirect = (loc: string) => (window.location.href = loc);
       if (lang) {
