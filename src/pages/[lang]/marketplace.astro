@@ -56,7 +56,7 @@ export const getStaticPaths = () => {
     margin: 0 auto;
     color: var(--text-color);
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(32.3%, 1fr));;
+    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
     align-items: center;
     text-align: center;
     justify-content: center;
@@ -74,13 +74,13 @@ export const getStaticPaths = () => {
   }
 
   .marketplace-bg-image {
-    height: 8rem;
+    height: 10.5rem;
     background-size: cover;
     background-position: center;
     border-radius: .5rem;
     margin-bottom: 1rem;
-    filter: blur(4px);
     aspect-ratio: 16 / 9;
+    background-color: var(--accent-color);
   }
 
   .marketplace-item-title {
