@@ -1,0 +1,30 @@
+---
+const { type } = Astro.props;
+
+type Props = {
+  type: ExtType;
+};
+
+let icon = "fa-solid fa-paintbrush";
+let abbrTitle = "Style";
+
+if (type === "page" || type === "serviceWorker") {
+  icon = "fa-solid fa-scroll";
+  abbrTitle = "Script";
+}
+---
+
+<div class="marketplace-icon">
+  <abbr title={abbrTitle}>
+    <i class={icon + " fa-lg marketplace-icon"}></i>
+  </abbr>
+</div>
+
+<style>
+  .marketplace-icon {
+    height: 32px;
+    width: 32px;
+    margin-bottom: 30px;
+    filter: brightness(0.8);
+  }
+</style>

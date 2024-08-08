@@ -21,9 +21,9 @@
   "faq.noBareClients.answer": "There are a couple reasons this particular error happens, but it's most commonly an issue with the proxy failing to load. Please reload the page, and if the problem persists, make a GitHub issue!",
 
   "faq.contributeToAlu": "How can I contribute to Alu?",
-  "faq.contributeToAlu.answer.segment1": "Spreading the word of Alu is a great start, but if you really enjoy Alu, and want private links, consider supporting me through Patreon!",
-  "faq.contributeToAlu.answer.patreonLinkText": "You can support me here!",
-  "faq.contributeToAlu.answer.segment2": "Thank you for helping to make Alu great!",
+  "faq.contributeToAlu.answer.segment1": "Spreading the word of Alu is a great start, but if you really enjoy Alu, and want private links, consider supporting me through Patreon! ",
+  "faq.contributeToAlu.answer.patreonLinkText": " You can support me here!",
+  "faq.contributeToAlu.answer.segment2": " Thank you for helping to make Alu great!",
 
   "footer.brand": "Alu",
   "footer.madeWithLove": "Made with ❤️ by wearr",

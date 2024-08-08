@@ -22,6 +22,7 @@ export function getStaticPaths() {
           <Input className="url-input" inputName="url" placeholder={t("menu.search")} defaultStyles={false} transition:persist autocomplete="off" />
           <div id="search-suggestions"></div>
         </form>
+
         <div id="top-bar">
           <div class="top-bar-left">
             <button id="close-button">Close</button>
@@ -49,9 +50,7 @@ export function getStaticPaths() {
         <div class="faq-card">
           <h2>{t("faq.contributeToAlu")}</h2>
           <p>
-            {t("faq.contributeToAlu.answer.segment1")}
-            <Link href="https://www.patreon.com/wearr/membership" newTab>{t("faq.contributeToAlu.answer.patreonLinkText")}</Link>
-            {t("faq.contributeToAlu.answer.segment2")}
+            {t("faq.contributeToAlu.answer.segment1")}<Link href="https://www.patreon.com/wearr/membership" newTab>{t("faq.contributeToAlu.answer.patreonLinkText")}</Link>{t("faq.contributeToAlu.answer.segment2")}
           </p>
         </div>
         <div class="faq-card faq-large">
@@ -132,7 +131,6 @@ export function getStaticPaths() {
 
 <style is:global>
   #main-content {
-    width: 100%;
     margin-top: 50px;
   }
 
@@ -182,19 +180,19 @@ export function getStaticPaths() {
     font-size: 20px;
   }
 
+  #faq {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+
   .faq-title {
-    color: var(--text-color);
-    width: 90%;
-    margin: 0 auto;
-    margin-top: 30px;
+    font-size: 1.75rem;
   }
 
   .faq-section {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
-    margin: 20px auto 0;
-    width: 90%;
   }
 
   .faq-card {

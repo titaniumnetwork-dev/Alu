@@ -108,9 +108,19 @@ const { title, optionalPreloads } = Astro.props;
         color: var(--text-color);
       }
 
+      button, input {
+        font-family: "Varela Round", sans-serif;
+      }
+
+      main {
+        width: 90%;
+        margin: 0 auto;
+      }
+
       .url-input-form {
         border: none;
         padding: 0;
+        margin-bottom: 15px;
       }
 
       .url-input.search-results {
@@ -135,9 +145,6 @@ const { title, optionalPreloads } = Astro.props;
         text-align: center;
         transition: 0.25s ease-in-out;
         outline: none;
-        font-family:
-          Varela Round,
-          sans-serif;
         font-size: 16px;
       }
 
@@ -145,7 +152,7 @@ const { title, optionalPreloads } = Astro.props;
         position: absolute;
         top: 10px;
         left: 15px;
-        z-index: 999;
+        z-index: 1000;
         padding: 0.75em;
         padding-inline: 20px;
         background-color: var(--background-highlight);
@@ -221,7 +228,7 @@ const { title, optionalPreloads } = Astro.props;
         top: 0;
         left: 0;
         width: 100vw;
-        z-index: 100;
+        z-index: 1000;
         transition: opacity 250ms ease-in-out;
         pointer-events: none;
         opacity: 0;

@@ -3,7 +3,7 @@
     "title": "Alu Adblocker",
     "description": "Alu Adblocker is the best adblocker for web proxy services. Blocking up to 97% of all trackers and ads.",
     "version": "0.1.0",
-    "image": "/marketplace/adblock/adblock.png",
+    "image": "/marketplace/adblock/icon.png",
     "script": "/marketplace/adblock/index.js",
     "type": "serviceWorker",
     "entryNamespace": "adblockExt",
