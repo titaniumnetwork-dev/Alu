@@ -21,11 +21,9 @@ export const getStaticPaths = () => {
           const slug = mp_item;
           return (
             <div class="marketplace-item" data-slug={slug}>
+              <div class="marketplace-bg-image" style={`background-image: url(${item.image})`}></div>
               <div class="marketplace-details">
-                <div class="marketplace-details-top">
-                  <MarketplaceIcon type={item.type} />
-                  <img class="marketplace-item-image" src={item.image} alt={`${item.title} Logo`} />
-                </div>
+                <MarketplaceIcon type={item.type} />
                 
 
                 <div class="marketplace-item-title">
@@ -72,6 +70,19 @@ export const getStaticPaths = () => {
     padding: 1rem;
     padding-left: 0.75rem;
     border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .marketplace-bg-image {
+    width: 100%;
+    height: 100px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    filter: blur(8px);
   }
 
   .marketplace-item-title {
@@ -82,24 +93,9 @@ export const getStaticPaths = () => {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
     width: 100%;
     height: 100%;
     margin-bottom: 1rem;
-  }
-  .marketplace-details-top {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    width: 100%;
-  }
-  .marketplace-item-image {
-    width: 64px;
-    height: 64px;
-    border-radius: 1rem;
-    margin-left: auto;
-    margin-right: auto;
   }
   .marketplace-item-desc {
     width: 80%;
