@@ -5,11 +5,9 @@ import { baremuxPath } from "@mercuryworkshop/bare-mux/node";
 import express from "express";
 import { createServer } from "http";
 import path from "node:path";
-import createRammerhead from "rammerhead/src/server/index.js";
+import { createRammerhead, shouldRouteRh, routeRhUpgrade, routeRhRequest } from "@rubynetwork/rammerhead";
 import compression from "compression";
-import { build } from "astro";
 import chalk from "chalk";
-import { existsSync } from "fs";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import wisp from "wisp-server-node";
@@ -23,30 +21,16 @@ const LICENSE_SERVER_URL = "https://license.mercurywork.shop/validate?license=";
 const WISP_ENABLED = process.env.USE_WISP;
 const MASQR_ENABLED = process.env.MASQR_ENABLED;
 
-if (!existsSync("./dist")) build({});
-
 const log = (message) => console.log(chalk.gray("[Alu] " + message));
 
 const PORT = process.env.PORT || 3000;
 log("Starting Rammerhead...");
-const rh = createRammerhead();
-const rammerheadScopes = [
-  "/rammerhead.js",
-  "/hammerhead.js",
-  "/transport-worker.js",
-  "/task.js",
-  "/iframe-task.js",
-  "/worker-hammerhead.js",
-  "/messaging",
-  "/sessionexists",
-  "/deletesession",
-  "/newsession",
-  "/editsession",
-  "/needpassword",
-  "/syncLocalStorage",
-  "/api/shuffleDict",
-];
-const rammerheadSession = /^\/[a-z0-9]{32}/;
+const rh = createRammerhead({
+  logLevel: "info",
+  reverseProxy: false,
+  disableLocalStorageSync: false,
+  disableHttp2: false
+})
 const app = express();
 app.use(ssrHandler);
 app.use(compression({ threshold: 0, filter: () => true }));
@@ -130,7 +114,7 @@ app.get("*", (req, res) => {
 const server = createServer();
 server.on("request", (req, res) => {
   if (shouldRouteRh(req)) {
-    routeRhRequest(req, res);
+    routeRhRequest(rh, req, res);
   } else {
     app(req, res);
   }
@@ -138,7 +122,7 @@ server.on("request", (req, res) => {
 
 server.on("upgrade", (req, socket, head) => {
   if (shouldRouteRh(req)) {
-    routeRhUpgrade(req, socket, head);
+    routeRhUpgrade(rh, req, socket, head);
     /* Kinda hacky, I need to do a proper dynamic import. */
   } else if (req.url.endsWith("/wisp/") && WISP_ENABLED == "true") {
     wisp.routeRequest(req, socket, head);
@@ -146,19 +130,6 @@ server.on("upgrade", (req, socket, head) => {
     socket.end();
   }
 });
-
-function shouldRouteRh(req) {
-  const url = new URL(req.url, "http://0.0.0.0");
-  return rammerheadScopes.includes(url.pathname) || rammerheadSession.test(url.pathname);
-}
-
-function routeRhRequest(req, res) {
-  rh.emit("request", req, res);
-}
-
-function routeRhUpgrade(req, socket, head) {
-  rh.emit("upgrade", req, socket, head);
-}
 
 log("Starting Alu...");
 console.log(chalk.green("[Alu] Alu started successfully!"));
