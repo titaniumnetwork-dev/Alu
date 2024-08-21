@@ -5,6 +5,14 @@ import Dropdown from "@components/UI/Dropdown.astro";
 import { i18n } from "@i18n/utils";
 const t = i18n.inferLangUseTranslations(Astro.url);
 
+const getWSProtocol = () => {
+  if (Astro.url.protocol === "https:") {
+    return "wss://";
+  } else {
+    return "ws://";
+  }
+};
+
 const proxyList = [
   { name: t("settings.proxy.auto"), value: "auto" },
   { name: t("ultraviolet"), value: "ultraviolet" },
@@ -34,7 +42,7 @@ const transportsList = [
 ];
 
 const wispURLList = [
-  { name: "Alu (US)", value: "wss://aluu.xyz/wisp/" },
+  { name: "Alu (US)", value: getWSProtocol() + "localhost:3000" + "/wisp/" },
   { name: "Nebula (US)", value: "wss://nebulaproxy.io/wisp/" },
 ];
 ---

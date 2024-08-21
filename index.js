@@ -5,42 +5,41 @@ import { baremuxPath } from "@mercuryworkshop/bare-mux/node";
 import express from "express";
 import { createServer } from "http";
 import path from "node:path";
-import { createRammerhead, shouldRouteRh, routeRhUpgrade, routeRhRequest } from "@rubynetwork/rammerhead";
-import compression from "compression";
+import rammerhead from "@rubynetwork/rammerhead";
 import chalk from "chalk";
 import dotenv from "dotenv";
-import cookieParser from "cookie-parser";
 import wisp from "wisp-server-node";
-import { masqrCheck } from "./middleware/masqr.js";
-import { handler as ssrHandler } from "./dist/server/entry.mjs";
+import router from "./middleware/ProxyExt/index.js";
+import { handler as astroSSR } from "./dist/server/entry.mjs";
 
 dotenv.config();
 
 const whiteListedDomains = ["aluu.xyz", "localhost:3000"];
 const LICENSE_SERVER_URL = "https://license.mercurywork.shop/validate?license=";
-const WISP_ENABLED = process.env.USE_WISP;
 const MASQR_ENABLED = process.env.MASQR_ENABLED;
 
 const log = (message) => console.log(chalk.gray("[Alu] " + message));
 
 const PORT = process.env.PORT || 3000;
 log("Starting Rammerhead...");
-const rh = createRammerhead({
+const rh = rammerhead.createRammerhead({
   logLevel: "info",
   reverseProxy: false,
   disableLocalStorageSync: false,
   disableHttp2: false
 })
 const app = express();
-app.use(ssrHandler);
-app.use(compression({ threshold: 0, filter: () => true }));
-app.use(cookieParser());
+app.use(astroSSR);
 
 // Set process.env.MASQR_ENABLED to "true" to enable masqr protection.
 if (MASQR_ENABLED == "true") {
   log("Starting Masqr...");
+  const masqrCheck = (await import("./middleware/Masqr/index.js")).masqrCheck;
   app.use(await masqrCheck({ whitelist: whiteListedDomains, licenseServer: LICENSE_SERVER_URL }, "Checkfailed.html"));
 }
+
+log("Starting Marketplace Provider...");
+app.use(router);
 
 app.use(express.static(path.join(process.cwd(), "static")));
 app.use(express.static(path.join(process.cwd(), "build")));
@@ -113,7 +112,7 @@ app.get("*", (req, res) => {
 
 const server = createServer();
 server.on("request", (req, res) => {
-  if (shouldRouteRh(req)) {
+  if (rammerhead.shouldRouteRh(req)) {
     routeRhRequest(rh, req, res);
   } else {
     app(req, res);
@@ -121,10 +120,10 @@ server.on("request", (req, res) => {
 });
 
 server.on("upgrade", (req, socket, head) => {
-  if (shouldRouteRh(req)) {
-    routeRhUpgrade(rh, req, socket, head);
-    /* Kinda hacky, I need to do a proper dynamic import. */
-  } else if (req.url.endsWith("/wisp/") && WISP_ENABLED == "true") {
+  if (rammerhead.shouldRouteRh(req)) {
+    rammerhead.routeRhUpgrade(rh, req, socket, head);
+
+  } else if (req.url.endsWith("/wisp/")) {
     wisp.routeRequest(req, socket, head);
   } else {
     socket.end();

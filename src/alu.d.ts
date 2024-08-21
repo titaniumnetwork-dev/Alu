@@ -7,13 +7,14 @@ export declare global {
     };
 
     type DefaultKeys = {
-      [key: string]: AluKey;
+      [key: string]: Key;
     };
     type Key = Record<
       string?,
       | string
       | {
           name: string;
+          value: string
           icon: string;
           isCustom: boolean;
         }

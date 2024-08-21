@@ -2,8 +2,13 @@ import { defineConfig } from "astro/config";
 import node from "@astrojs/node";
 import sitemap from "@astrojs/sitemap";
 
+// Check if node is running in production mode
+const prodBuild = process.env.NODE_ENV === "production";
+
+const site = prodBuild ? "https://aluu.xyz" : "http://localhost:3000";
+
 export default defineConfig({
-  site: "https://aluu.xyz",
+  site: site,
   integrations: [
     sitemap({
       priority: 0.5,

@@ -1,3 +1,11 @@
+const getWSProtocol = () => {
+  if (location.protocol === "https:") {
+    return "wss://";
+  } else {
+    return "ws://";
+  }
+};
+
 const KEYSTORE: Alu.DefaultKeys = {
   proxy: {
     name: "Auto",
@@ -13,7 +21,7 @@ const KEYSTORE: Alu.DefaultKeys = {
   },
   wisp: {
     name: "Alu (US)",
-    value: "wss://aluu.xyz/wisp/",
+    value: getWSProtocol() + "localhost:3000" + "/wisp/",
   },
   bareUrl: {
     value: `${window.location.protocol}//${window.location.host}/bare/`,

@@ -32,10 +32,10 @@ export default class TransportManager {
     const transportConfig: transportConfig = { wisp: wispURL };
 
     if (this.transport.value == "/baremod/index.mjs") {
-      return await this.connection.setTransport(transport.value, [Alu.store.get("bareUrl").value]);
+      return await this.connection.setTransport(transport.value.toString(), [Alu.store.get("bareUrl").value]);
     }
 
-    await this.connection.setTransport(transport.value, [transportConfig]);
+    await this.connection.setTransport(transport.value.toString(), [transportConfig]);
   }
 }
 

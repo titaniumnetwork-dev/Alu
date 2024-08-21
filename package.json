@@ -6,6 +6,7 @@
     "build:all": "npm run format && npm run lint && npm run build",
     "start": "node .",
     "build": "astro build",
+    "dev": "npm run build && npm run start",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "eslint .",
@@ -24,11 +25,11 @@
     "@types/node": "^20.14.12",
     "astro": "^4.12.2",
     "chalk": "^5.3.0",
-    "compression": "^1.7.4",
-    "cookie-parser": "^1.4.6",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "notyf": "^3.10.0",
+    "sequelize": "^6.37.3",
+    "sqlite3": "^5.1.7",
     "wisp-server-node": "^1.1.3"
   },
   "devDependencies": {

@@ -9,6 +9,16 @@
     "entryNamespace": "adblockExt",
     "entryFunc": "filterRequest"
   },
+  "dev.wearr.vencord": {
+    "title": "Vencord",
+    "description": "Vencord is the simple and cute client mod for Discord, adding plugins and themes.",
+    "version": "0.0.1",
+    "image": "/marketplace/vencord/banner.png",
+    "script": "/marketplace/vencord/index.js",
+    "type": "page",
+    "entryNamespace": "vencordExt",
+    "entryFunc": "loadVC"
+  },
   "dev.wearr.oled-theme": {
     "title": "OLED Theme",
     "description": "A beautiful OLED theme for Alu.",

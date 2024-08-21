@@ -97,6 +97,7 @@ function getLocalStorageValue(localStorageItem: Alu.ValidStoreKeys, dropdownID: 
     if (dropdownItem) {
       return dropdownItem.innerText;
     } else {
+      console.log(dropdownMenu.children);
       console.error("Dropdown item not found! " + dropdownID);
     }
 
