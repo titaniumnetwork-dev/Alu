@@ -25,7 +25,7 @@
     "@types/node": "^20.14.12",
     "astro": "^4.12.2",
     "chalk": "^5.3.0",
-    "dotenv": "^16.4.5",
+    "dotenv-flow": "^4.1.0",
     "express": "^4.19.2",
     "notyf": "^3.10.0",
     "sequelize": "^6.37.3",
