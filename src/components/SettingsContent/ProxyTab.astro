@@ -42,7 +42,7 @@ const transportsList = [
 ];
 
 const wispURLList = [
-  { name: "Alu (US)", value: getWSProtocol() + "localhost:3000" + "/wisp/" },
+  { name: "Alu (US)", value: getWSProtocol() + Astro.url.host + "/wisp/" },
   { name: "Nebula (US)", value: "wss://nebulaproxy.io/wisp/" },
 ];
 ---
