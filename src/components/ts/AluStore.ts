@@ -21,7 +21,7 @@ const KEYSTORE: Alu.DefaultKeys = {
   },
   wisp: {
     name: "Alu (US)",
-    value: getWSProtocol() + "localhost:3000" + "/wisp/",
+    value: getWSProtocol() + window.location.host + "/wisp/",
   },
   bareUrl: {
     value: `${window.location.protocol}//${window.location.host}/bare/`,
