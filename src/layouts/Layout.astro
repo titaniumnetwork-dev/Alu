@@ -48,8 +48,8 @@ const { title, optionalPreloads } = Astro.props;
         return <link rel="preload" href={item.href} as={item.as} />;
       })
     }
-    <script src="https://www.googletagmanager.com/gtag/js?id=G-P1JX4G9KSF" is:inline></script>
-    <script is:inline>
+    <script src="https://www.googletagmanager.com/gtag/js?id=G-P1JX4G9KSF" defer is:inline></script>
+    <script is:inline defer>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
         window.dataLayer.push(arguments);

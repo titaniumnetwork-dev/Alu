@@ -72,8 +72,28 @@ const wispURLList = [
     <label aria-label="Wisp Transport" for="dropdown__transport" class="setting-label">{t("settings.proxy.transport")}</label>
     <Dropdown buttonNameDefault="Epoxy" dropdownList={transportsList} localStorageKey="transport" id="dropdown__transport" />
   </div>
+  <div class="setting__reset">
+    <button id="reset-button">Reset Settings</button>
+  </div>
 </div>
 <div class="setting__searxng-url">
   <label aria-label="SearXNG URL" for="searxng-url-input" class="setting-label">{t("settings.proxy.searxngURL")}</label>
   <Input height="50px" inputName="searxng-url" defaultTextContent="https://searxng.site/" />
 </div>
+
+<style>
+  .setting__reset {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  #reset-button {
+    background-color: var(--background-highlight);
+    border: none;
+    color: var(--text-color);
+    border-radius: 1rem;
+    padding: 10px;
+    margin-top: 40px;
+    cursor: pointer;
+  }
+</style>

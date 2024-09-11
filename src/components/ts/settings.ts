@@ -176,6 +176,14 @@ function setupProxySettings() {
   const currentTransportDropdown = document.getElementById("dropdown__transport");
   const wispURLDropdown = document.getElementById("dropdown__wisp-url");
 
+  const resetSettings = document.getElementById("reset-button");
+  if (resetSettings) {
+    resetSettings.onclick = () => {
+      localStorage.removeItem("AluStore");
+      window.location.reload();
+    }
+  }
+
   // Inputs
   const searxngUrlInput = document.getElementById("searxng-url-input") as HTMLInputElement;
   const bareURLInput = document.getElementById("bare-url-input") as HTMLInputElement;
