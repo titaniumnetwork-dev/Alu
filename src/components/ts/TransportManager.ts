@@ -18,8 +18,8 @@ export default class TransportManager {
     try {
       const selectedTransport = Alu.store.get("transport");
       await this.setTransport(selectedTransport);
-    } catch {
-      throw new Error("Failed to update transport! Try reloading.");
+    } catch (err) {
+      throw new Error("Failed to update transport! Try reloading. \nError: " + err);
     }
   }
 
