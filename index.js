@@ -113,7 +113,7 @@ app.get("*", (req, res) => {
 const server = createServer();
 server.on("request", (req, res) => {
   if (rammerhead.shouldRouteRh(req)) {
-    routeRhRequest(rh, req, res);
+    rammerhead.routeRhRequest(rh, req, res);
   } else {
     app(req, res);
   }
