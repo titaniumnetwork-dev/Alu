@@ -5,6 +5,7 @@ import Footer from "@components/UI/Footer.astro";
 import ThemeLoader from "@components/ThemeLoader.astro";
 import CloakLoader from "@components/CloakLoader.astro";
 import WelcomeLogging from "@components/WelcomeLogging.astro";
+import SchemaData from "@components/SchemaData.astro";
 interface Props {
   title: string;
   optionalStylesheets?: string[];
@@ -38,6 +39,7 @@ const DESCRIPTION = "Alu is a sleek web proxy supporting multiple standards of c
     <meta property="twitter:image" content="/favicon.svg" />
     <link rel="canonical" href={Astro.url.href} />
     <link rel="sitemap" href="/sitemap-index.xml" />
+    <SchemaData />
     {
       optionalStylesheets?.map((item) => {
         return <link rel="stylesheet" class="style-load" href={item} />;
