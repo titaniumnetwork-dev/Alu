@@ -53,9 +53,6 @@ importers:
       express:
         specifier: ^4.19.2
         version: 4.19.2
-      nanostores:
-        specifier: ^0.11.3
-        version: 0.11.3
       notyf:
         specifier: ^3.10.0
         version: 3.10.0
@@ -2212,10 +2209,6 @@ packages:
     resolution: {integrity: sha512-eSRppjcPIatRIMC1U6UngP8XFcz8MQWGQdt1MTBQ7NaAmvXDfvNxbvWV3x2y6CdEUciCSsDHDQZbhYaB8QEo2g==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
-
-  nanostores@0.11.3:
-    resolution: {integrity: sha512-TUes3xKIX33re4QzdxwZ6tdbodjmn3tWXCEc1uokiEmo14sI1EaGYNs2k3bU2pyyGNmBqFGAVl6jAGWd06AVIg==}
-    engines: {node: ^18.0.0 || >=20.0.0}
 
   napi-build-utils@1.0.2:
     resolution: {integrity: sha512-ONmRUqK7zj7DWX0D9ADe03wbwOBZxNAfF20PlGfCWQcD3+/MakShIHrMqx9YwPTfxDdF1zLeL+RGZiR9kGMLdg==}
@@ -5646,8 +5639,6 @@ snapshots:
   mustache@2.3.2: {}
 
   nanoid@3.3.7: {}
-
-  nanostores@0.11.3: {}
 
   napi-build-utils@1.0.2: {}
 
