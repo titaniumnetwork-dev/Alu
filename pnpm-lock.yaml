@@ -56,9 +56,6 @@ importers:
       notyf:
         specifier: ^3.10.0
         version: 3.10.0
-      sass:
-        specifier: ^1.78.0
-        version: 1.78.0
       sequelize:
         specifier: ^6.37.3
         version: 6.37.3(sqlite3@5.1.7)
@@ -91,6 +88,9 @@ importers:
       prettier-plugin-astro:
         specifier: ^0.13.0
         version: 0.13.0
+      sass:
+        specifier: ^1.78.0
+        version: 1.78.0
 
 packages:
 
