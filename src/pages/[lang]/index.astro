@@ -137,8 +137,45 @@ export function getStaticPaths() {
   }
 
   .form-wrapper {
+    width: 40%;
+  }
+
+  #proxy-input {
     display: flex;
     justify-content: center;
+  }
+
+  .url-input-form {
+    border: none;
+    padding: 0;
+    margin-bottom: 15px;
+    width: 100%;
+  }
+
+  .url-input.search-results {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom: 0;
+  }
+
+  .url-input::placeholder {
+    color: var(--text-color-accent);
+  }
+
+  .url-input {
+    display: block;
+    background: transparent url(/img/search.svg) no-repeat 1rem center;
+    background-color: var(--dropdown-background-color);
+    color: var(--text-color);
+    border: 2px solid var(--text-color);
+    padding: 1rem;
+    border-radius: 10px;
+    width: 100%;
+    text-align: center;
+    transition: 0.25s ease-in-out;
+    outline: none;
+    font-size: 16px;
+    min-width: 250px;
   }
   form {
     width: 30%;
@@ -153,6 +190,7 @@ export function getStaticPaths() {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    padding-top: 10px;
     color: var(--text-color);
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
@@ -165,11 +203,14 @@ export function getStaticPaths() {
 
   .search-suggestion {
     cursor: pointer;
-    margin-top: 5px;
+    padding-top: 5px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--text-color-accent);
   }
 
   .search-suggestion:last-child {
-    margin-bottom: 10px;
+    margin-bottom: 5px;
+    border-bottom: none;
   }
 
   #loading-content {

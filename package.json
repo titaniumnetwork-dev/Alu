@@ -29,6 +29,7 @@
     "dotenv-flow": "^4.1.0",
     "express": "^4.19.2",
     "notyf": "^3.10.0",
+    "sass": "^1.78.0",
     "sequelize": "^6.37.3",
     "sqlite3": "^5.1.7",
     "wisp-server-node": "^1.1.4"

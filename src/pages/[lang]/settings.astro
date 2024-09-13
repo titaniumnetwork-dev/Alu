@@ -56,8 +56,8 @@ export function getStaticPaths() {
     </div>
   </main>
   <script src="@components/ts/settings.ts"></script>
-  <style is:global>
-    .content-hidden {
+  <style is:global lang="scss">
+    .content-hidden{
       display: none;
     }
     #current-content {
@@ -135,6 +135,7 @@ export function getStaticPaths() {
       border-radius: 15px;
       box-sizing: border-box;
       background-color: var(--background-color);
+      filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
       overflow: hidden;
       display: flex;
       align-self: center;
