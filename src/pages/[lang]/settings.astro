@@ -4,8 +4,8 @@ import CustomizationTab from "@components/SettingsContent/CustomizationTab.astro
 import CloakingTab from "@components/SettingsContent/CloakingTab.astro";
 import CreditsTab from "@components/SettingsContent/CreditsTab.astro";
 import Layout from "src/layouts/Layout.astro";
-
 import { STATIC_PATHS, i18n } from "@i18n/utils";
+
 const lang = i18n.getLangFromUrl(Astro.url);
 const t = i18n.useTranslations(lang);
 
@@ -14,7 +14,7 @@ export function getStaticPaths() {
 }
 ---
 
-<Layout title={t("pages.settings")}>
+<Layout title={t("pages.settings")} optionalStylesheets={["https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css"]}>
   <main id="main-content">
     <h1 class="title-text">{t("settings.title")}</h1>
     <div class="content-hidden">

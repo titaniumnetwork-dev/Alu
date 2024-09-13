@@ -5,18 +5,14 @@ import Footer from "@components/UI/Footer.astro";
 import ThemeLoader from "@components/ThemeLoader.astro";
 import CloakLoader from "@components/CloakLoader.astro";
 import WelcomeLogging from "@components/WelcomeLogging.astro";
-
-type Preload = {
-  href: string;
-  as: string;
-};
-
 interface Props {
   title: string;
-  optionalPreloads?: Preload[];
+  optionalStylesheets?: string[];
 }
 
-const { title, optionalPreloads } = Astro.props;
+const { title, optionalStylesheets } = Astro.props;
+
+const DESCRIPTION = "Alu is a sleek web proxy supporting multiple standards of communication, and wide levels of customization. Similar to other proxies such as Holy Unblocker, Alu allows you to access blocked content while maintaining your privacy.";
 ---
 
 <!doctype html>
@@ -29,23 +25,22 @@ const { title, optionalPreloads } = Astro.props;
     <meta name="viewport" content="width=device-width" />
     <meta name="title" content="Alu" />
     <meta name="author" content="Titanium Network">
-    <meta name="description" content="Alu is a sleek web proxy supporting multiple standards of communication, and wide levels of customization." />
+    <meta name="description" content={DESCRIPTION}/>
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://aluu.xyz" />
     <meta property="og:title" content="Alu" />
-    <meta property="og:description" content="Alu is a sleek web proxy supporting multiple standards of communication, and wide levels of customization." />
+    <meta property="og:description" content={DESCRIPTION} />
     <meta property="og:image" content="/favicon.svg" />
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="https://aluu.xyz" />
     <meta property="twitter:title" content="Alu" />
-    <meta property="twitter:description" content="Alu is a sleek web proxy supporting multiple standards of communication, and wide levels of customization." />
+    <meta property="twitter:description" content={DESCRIPTION} />
     <meta property="twitter:image" content="/favicon.svg" />
     <link rel="canonical" href={Astro.url.href} />
     <link rel="sitemap" href="/sitemap-index.xml" />
-    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css" />
     {
-      optionalPreloads?.map((item) => {
-        return <link rel="preload" href={item.href} as={item.as} />;
+      optionalStylesheets?.map((item) => {
+        return <link rel="stylesheet" class="style-load" href={item} />;
       })
     }
     <script src="https://www.googletagmanager.com/gtag/js?id=G-P1JX4G9KSF" defer is:inline></script>
