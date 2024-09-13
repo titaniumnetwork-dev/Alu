@@ -3,7 +3,8 @@ document.addEventListener("astro:before-swap", () => {
   Alu.settings.currentTab = "";
   Alu.settings.loadedContentStorage = {};
 });
-document.addEventListener("astro:after-swap", () => {
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("Settings loaded");
   settingsLoad();
   loadContent("setting-tab-proxy");
 });
