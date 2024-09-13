@@ -9,7 +9,7 @@ export async function masqrCheck(config, htmlFile) {
         return;
       }
       const authheader = req.headers.authorization;
-      if (req.cookies && req.cookies["authcheck"]) {
+      if (req.cookies.authcheck) {
         next();
         return;
       }
@@ -32,10 +32,9 @@ export async function masqrCheck(config, htmlFile) {
         return;
       }
     };
-  } catch(err) {
+  } catch (err) {
     return;
   }
-
 }
 async function MasqFail(req, res, failureFile) {
   if (!req.headers.host) {

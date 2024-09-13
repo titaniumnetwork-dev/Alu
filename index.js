@@ -1,7 +1,7 @@
 import { uvPath } from "@titaniumnetwork-dev/ultraviolet";
 import { epoxyPath } from "@mercuryworkshop/epoxy-transport";
 import { libcurlPath } from "@mercuryworkshop/libcurl-transport";
-import { bareModulePath } from "@mercuryworkshop/bare-as-module3"
+import { bareModulePath } from "@mercuryworkshop/bare-as-module3";
 import { baremuxPath } from "@mercuryworkshop/bare-mux/node";
 import express from "express";
 import { createServer } from "http";
@@ -12,10 +12,11 @@ import dotenv from "dotenv-flow";
 import wisp from "wisp-server-node";
 import router from "./middleware/ProxyExt/index.js";
 import { handler as astroSSR } from "./dist/server/entry.mjs";
+import cookies from "cookie-parser"
 
 dotenv.config();
 
-const whiteListedDomains = ["aluu.xyz", "localhost:3000"];
+const whiteListedDomains = ["aluu.xyz"];
 const LICENSE_SERVER_URL = "https://license.mercurywork.shop/validate?license=";
 const MASQR_ENABLED = process.env.MASQR_ENABLED;
 
@@ -27,10 +28,12 @@ const rh = rammerhead.createRammerhead({
   logLevel: "info",
   reverseProxy: false,
   disableLocalStorageSync: false,
-  disableHttp2: false
-})
+  disableHttp2: false,
+});
 const app = express();
 app.use(astroSSR);
+
+app.use(cookies())
 
 // Set process.env.MASQR_ENABLED to "true" to enable masqr protection.
 if (MASQR_ENABLED == "true") {
@@ -124,7 +127,6 @@ server.on("request", (req, res) => {
 server.on("upgrade", (req, socket, head) => {
   if (rammerhead.shouldRouteRh(req)) {
     rammerhead.routeRhUpgrade(rh, req, socket, head);
-
   } else if (req.url.endsWith("/wisp/")) {
     wisp.routeRequest(req, socket, head);
   } else {

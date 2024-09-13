@@ -100,15 +100,14 @@ function getLocalStorageValue(localStorageItem: Alu.ValidStoreKeys, dropdownID: 
       console.log(dropdownMenu.children);
       console.error("Dropdown item not found! " + dropdownID);
     }
-
   }
 }
 
 function applySavedLocalStorage(localStorageItem: Alu.ValidStoreKeys, dropdownID: string) {
   const dropdown_toggle = document.getElementById(dropdownID) as HTMLElement;
-    if (dropdown_toggle && Alu.store.get(localStorageItem)) {
-      dropdown_toggle.innerText = getLocalStorageValue(localStorageItem, dropdownID)!;
-    }
+  if (dropdown_toggle && Alu.store.get(localStorageItem)) {
+    dropdown_toggle.innerText = getLocalStorageValue(localStorageItem, dropdownID)!;
+  }
 }
 
 function applyDropdownEventListeners(dropdown: HTMLElement, optionalCallback?: () => void) {
@@ -181,7 +180,7 @@ function setupProxySettings() {
     resetSettings.onclick = () => {
       localStorage.removeItem("AluStore");
       window.location.reload();
-    }
+    };
   }
 
   // Inputs

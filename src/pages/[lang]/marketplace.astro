@@ -22,7 +22,7 @@ export const getStaticPaths = () => {
           return (
             <div class="marketplace-item" data-slug={slug}>
               <MarketplaceIcon type={item.type} />
-              <div class="marketplace-bg-image" style={`background-image: url(${item.image})`}></div>
+              <div class="marketplace-bg-image" style={`background-image: url(${item.image})`} />
               <div class="marketplace-details">
                 <div class="marketplace-item-title">
                   {item.title} v{item.version}
@@ -77,7 +77,7 @@ export const getStaticPaths = () => {
     height: 10.5rem;
     background-size: cover;
     background-position: center;
-    border-radius: .5rem;
+    border-radius: 0.5rem;
     margin-bottom: 1rem;
     aspect-ratio: 16 / 9;
     background-color: var(--accent-color);
@@ -117,7 +117,7 @@ export const getStaticPaths = () => {
     border: none;
     padding: 0.85rem;
     border-radius: 5px;
-    transition: .25s ease-in-out;
+    transition: 0.25s ease-in-out;
     pointer-events: all;
     cursor: pointer;
     z-index: 99;

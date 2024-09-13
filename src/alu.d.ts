@@ -14,7 +14,7 @@ export declare global {
       | string
       | {
           name: string;
-          value: string
+          value: string;
           icon: string;
           isCustom: boolean;
         }

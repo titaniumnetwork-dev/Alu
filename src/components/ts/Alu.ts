@@ -7,7 +7,7 @@ function instantiateAlu() {
     settings: {
       loadedContentStorage: {},
       currentTab: "",
-    }
+    },
   };
 }
 

@@ -25,6 +25,7 @@
     "@types/node": "^20.14.12",
     "astro": "^4.12.2",
     "chalk": "^5.3.0",
+    "cookie-parser": "^1.4.6",
     "dotenv-flow": "^4.1.0",
     "express": "^4.19.2",
     "notyf": "^3.10.0",

@@ -1,5 +1,5 @@
 ---
-import Link from './Link.astro';
+import Link from "./Link.astro";
 
 const { title, href } = Astro.props;
 
@@ -11,21 +11,21 @@ interface Props {
 const ID = title.toLowerCase().replaceAll(" ", "-");
 ---
 
-{href ? (
-  <Link href={href} newTab>
-    <div class="card card-link" id={"card-" + ID}>
+{
+  href ? (
+    <Link href={href} newTab>
+      <div class="card card-link" id={"card-" + ID}>
+        <h2 class="card-title">{title}</h2>
+        <slot />
+      </div>
+    </Link>
+  ) : (
+    <div class="card" id={"card-" + ID}>
       <h2 class="card-title">{title}</h2>
       <slot />
     </div>
-  </Link>
-) : (
-  <div class="card" id={"card-" + ID}>
-    <h2 class="card-title">{title}</h2>
-    <slot />
-  </div>
-)}
-
-
+  )
+}
 
 <style>
   .card {
