@@ -89,6 +89,58 @@ const { title, optionalPreloads } = Astro.props;
     <script src="/uv.config.js" is:inline transition:persist></script>
     <WelcomeLogging />
     <Footer />
+    <style>
+      :root {
+        --background-color: #211d29;
+        --background-highlight: #35314a;
+        --accent-color: #624978;
+        --accent-color-brighter: #543d65;
+        --text-color: #fff;
+        --text-color-accent: #c7c7c7;
+        --dropdown-background-color: #262539;
+      }
+      [data-theme="alu"] {
+        --background-color: #211d29;
+        --background-highlight: #35314a;
+        --accent-color: #624978;
+        --accent-color-brighter: #543d65;
+        --text-color: #fff;
+        --text-color-accent: #c7c7c7;
+        --dropdown-background-color: #262539;
+      }
+      [data-theme="mocha"] {
+        /* Catppucin Mocha theme */
+        --background-color: #1e1e2e;
+        --background-highlight: #45475a;
+        --accent-color: #181825;
+        --accent-color-brighter: #242539;
+        --text-color: #cdd6f4;
+        --text-color-accent: #bac2de;
+        --dropdown-background-color: #32324e;
+      }
+
+      [data-theme="macchiato"] {
+        /* Catppuccin Macchiato Theme */
+        --background-color: #24273a;
+        --background-highlight: #494d64;
+        --accent-color: #1e2030;
+        --accent-color-brighter: #2a2d42;
+        --text-color: #cad3f5;
+        --text-color-accent: #b8c0e0;
+        --dropdown-background-color: #323550;
+      }
+
+      [data-theme="rose_pine"] {
+        /* Rosé Pine Theme */
+        --background-color: #191724;
+        --background-highlight: #1f1d2e;
+        --accent-color: #26233a;
+        --accent-color-brighter: #2e2b4a;
+        --text-color: #e0def4;
+        --text-color-accent: #c7c5e0;
+        --dropdown-background-color: #1f1d2e;
+      }
+    </style>
     <style is:global>
       @keyframes fadeIn {
         0% {
@@ -112,7 +164,8 @@ const { title, optionalPreloads } = Astro.props;
         padding: 0;
         font-family: "Varela Round", sans-serif;
         color: var(--text-color);
-        animation: fadeIn 250ms ease-in-out;
+        opacity: 0;
+        animation: fadeIn 250ms ease-in-out forwards;
       }
       
       button, input {
@@ -283,53 +336,6 @@ const { title, optionalPreloads } = Astro.props;
       .astro-input:focus {
         outline: none;
         border: 2px solid var(--text-color);
-      }
-    </style>
-    <style is:global>
-      :root {
-        --background-color: black;
-        --text-color: #fff;
-      }
-      [data-theme="alu"] {
-        --background-color: #211d29;
-        --background-highlight: #35314a;
-        --accent-color: #624978;
-        --accent-color-brighter: #543d65;
-        --text-color: #fff;
-        --text-color-accent: #c7c7c7;
-        --dropdown-background-color: #262539;
-      }
-      [data-theme="mocha"] {
-        /* Catppucin Mocha theme */
-        --background-color: #1e1e2e;
-        --background-highlight: #45475a;
-        --accent-color: #181825;
-        --accent-color-brighter: #242539;
-        --text-color: #cdd6f4;
-        --text-color-accent: #bac2de;
-        --dropdown-background-color: #32324e;
-      }
-
-      [data-theme="macchiato"] {
-        /* Catppuccin Macchiato Theme */
-        --background-color: #24273a;
-        --background-highlight: #494d64;
-        --accent-color: #1e2030;
-        --accent-color-brighter: #2a2d42;
-        --text-color: #cad3f5;
-        --text-color-accent: #b8c0e0;
-        --dropdown-background-color: #323550;
-      }
-
-      [data-theme="rose_pine"] {
-        /* Rosé Pine Theme */
-        --background-color: #191724;
-        --background-highlight: #1f1d2e;
-        --accent-color: #26233a;
-        --accent-color-brighter: #2e2b4a;
-        --text-color: #e0def4;
-        --text-color-accent: #c7c5e0;
-        --dropdown-background-color: #1f1d2e;
       }
     </style>
   </body>

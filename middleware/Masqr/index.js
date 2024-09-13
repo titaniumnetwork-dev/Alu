@@ -4,11 +4,17 @@ export async function masqrCheck(config, htmlFile) {
   try {
     const loadedHTMLFile = fs.readFileSync(htmlFile, "utf8");
     return async (req, res, next) => {
-      if (req.headers.host && config.whitelist.includes(req.headers.host)) {
+      if (config.whitelist.includes(req.headers.host) || req.headers.host.includes("localhost")) {
         next();
         return;
       }
       const authheader = req.headers.authorization;
+
+      if (!req.cookies) {
+        // Send an error
+        res.send("Request failed!")
+      }
+
       if (req.cookies.authcheck) {
         next();
         return;
