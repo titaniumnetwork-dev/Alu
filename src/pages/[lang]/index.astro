@@ -5,6 +5,7 @@ import { STATIC_PATHS, i18n } from "@i18n/utils";
 import Link from "@components/UI/Link.astro";
 import ProxyRegistrar from "@components/ProxyRegistrar.astro";
 import Input from "@components/UI/Input.astro";
+import FaqCard from "@components/FaqCard.astro";
 const t = i18n.inferLangUseTranslations(Astro.url);
 
 export function getStaticPaths() {
@@ -43,22 +44,26 @@ export function getStaticPaths() {
     <section id="faq">
       <h2 class="faq-title">{t("faq.title")}</h2>
       <div class="faq-section">
-        <div class="faq-card">
+        <FaqCard>
           <h2>{t("faq.whatIsAProxy")}</h2>
           <p>{t("faq.whatIsAProxy.answer")}</p>
-        </div>
-        <div class="faq-card">
+        </FaqCard>
+        <!-- <div class="faq-card">
+          <h2>{t("faq.whatIsAProxy")}</h2>
+          <p>{t("faq.whatIsAProxy.answer")}</p>
+        </div> -->
+        <FaqCard>
           <h2>{t("faq.contributeToAlu")}</h2>
           <p>
             {t("faq.contributeToAlu.answer.segment1")}<Link href="https://www.patreon.com/wearr/membership" newTab>{t("faq.contributeToAlu.answer.patreonLinkText")}</Link>{
               t("faq.contributeToAlu.answer.segment2")
             }
           </p>
-        </div>
-        <div class="faq-card faq-large">
+        </FaqCard>
+        <FaqCard large>
           <h2>{t("faq.noBareClients")}</h2>
           <p>{t("faq.noBareClients.answer")}</p>
-        </div>
+        </FaqCard>
       </div>
     </section>
   </main>
@@ -222,7 +227,6 @@ export function getStaticPaths() {
     text-align: center;
     font-size: 20px;
   }
-
   #faq {
     margin-top: 2rem;
     margin-bottom: 2rem;
@@ -236,20 +240,5 @@ export function getStaticPaths() {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
-  }
-
-  .faq-card {
-    background-color: var(--dropdown-background-color);
-    border-radius: 10px;
-    padding: 20px;
-    color: var(--text-color);
-  }
-  @media (max-width: 768px) {
-    .faq-card {
-      grid-column: span 2;
-    }
-  }
-  .faq-large {
-    grid-column: span 2;
   }
 </style>

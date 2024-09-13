@@ -1,0 +1,31 @@
+---
+export interface Props {
+  large?: boolean;
+}
+const { large } = Astro.props;
+
+const classlist = "faq-card" + (large ? " faq-large" : "");
+---
+
+
+<div class={classlist}>
+  <slot />
+</div>
+
+<style>
+  .faq-card {
+    background-color: var(--dropdown-background-color);
+    border-radius: 10px;
+    padding: 20px;
+    color: var(--text-color);
+    box-shadow: 9px 9px 5px var(--background-color);
+  }
+  @media (max-width: 768px) {
+    .faq-card {
+      grid-column: span 2;
+    }
+  }
+  .faq-large {
+    grid-column: span 2;
+  }
+</style>
