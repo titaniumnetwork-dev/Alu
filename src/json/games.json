@@ -152,6 +152,7 @@
   },
   "eaglercraft-1-8-8": {
     "name": "Eaglercraft 1.8.8",
+    "description": "A web port of Minecraft 1.8.8 that can run entirely offline within your browser! Play with friends or alone in a blocky world.",
     "image": "/games/eaglercraft-1-8-8/eaglercraft.jpg",
     "slug": "eaglercraft-1-8-8"
   },
@@ -257,6 +258,7 @@
   },
   "pvz": {
     "name": "Plants vs Zombies",
+    "description": "A mob of brain-eating zombies is about to invade your home, and your only defense is an arsenal of 49 zombie-zapping plants. Use peashooters, wall-nuts, cherry bombs and more to mulchify 26 types of zombies before they can reach your front door.",
     "image": "/games/pvz/logo.jpg",
     "slug": "pvz"
   },
