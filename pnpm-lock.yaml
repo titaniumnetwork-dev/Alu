@@ -88,9 +88,6 @@ importers:
       prettier-plugin-astro:
         specifier: ^0.13.0
         version: 0.13.0
-      sass:
-        specifier: ^1.78.0
-        version: 1.78.0
 
 packages:
 
@@ -5001,7 +4998,8 @@ snapshots:
 
   ignore@5.3.1: {}
 
-  immutable@4.3.7: {}
+  immutable@4.3.7:
+    optional: true
 
   import-fresh@3.3.0:
     dependencies:
@@ -6129,6 +6127,7 @@ snapshots:
       chokidar: 3.6.0
       immutable: 4.3.7
       source-map-js: 1.2.0
+    optional: true
 
   sax@1.4.1: {}
 
