@@ -257,7 +257,7 @@
   },
   "pvz": {
     "name": "Plants vs Zombies",
-    "image": "/games/pvz/logo.png",
+    "image": "/games/pvz/logo.jpg",
     "slug": "pvz"
   },
   "retro-bowl": {
@@ -298,7 +298,7 @@
   },
   "temple-run-2": {
     "name": "Temple Run 2",
-    "image": "/games/temple-run-2/logo.png",
+    "image": "/games/temple-run-2/logo.webp",
     "slug": "temple-run-2"
   },
   "there-is-no-game": {
