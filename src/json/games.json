@@ -150,6 +150,11 @@
     "slug": "ducklife4",
     "unity": true
   },
+  "eaglercraft-1-8-8": {
+    "name": "Eaglercraft 1.8.8",
+    "image": "/games/eaglercraft-1-8-8/logo.png",
+    "slug": "eaglercraft-1-8-8"
+  },
   "evil-glitch": {
     "name": "Evil Glitch",
     "image": "/games/evil-glitch/logo.png",

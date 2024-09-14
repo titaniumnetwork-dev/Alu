@@ -45,7 +45,10 @@ classList = classList.trim();
       }
       <div class="game-info">
         <div class="game-info-top">
-          <p class="game-title">{gameData.name}</p>
+          <div class="game-info-left">
+            <img class="game-img" src={gameData.image} alt="">
+            <p class="game-title">{gameData.name}</p>
+          </div>
           <img src="/img/games/fullscreen.svg" alt="Fullscreen" id="game-fullscreen" class="icn" />
         </div>
         <div class="game-info-bottom">
