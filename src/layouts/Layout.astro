@@ -109,22 +109,22 @@ const DESCRIPTION = "Alu is a sleek web proxy supporting multiple standards of c
       /* Catppucin Mocha theme */
       --background-color: #1e1e2e;
       --background-highlight: #45475a;
-      --accent-color: #181825;
+      --accent-color: #32324e;
       --accent-color-brighter: #242539;
       --text-color: #cdd6f4;
       --text-color-accent: #bac2de;
-      --dropdown-background-color: #32324e;
+      --dropdown-background-color: #181825;
     }
 
     [data-theme="macchiato"] {
       /* Catppuccin Macchiato Theme */
       --background-color: #24273a;
       --background-highlight: #494d64;
-      --accent-color: #1e2030;
+      --accent-color: #323550;
       --accent-color-brighter: #2a2d42;
       --text-color: #cad3f5;
       --text-color-accent: #b8c0e0;
-      --dropdown-background-color: #323550;
+      --dropdown-background-color: #1e2030;
     }
     </style>
     <style is:global lang="scss">
@@ -135,9 +135,10 @@ const DESCRIPTION = "Alu is a sleek web proxy supporting multiple standards of c
 
       html {
         --s: 50px; /* control the size*/
-        --c1: var(--background-color);
-        --c2: var(--accent-color);
-        --c3: var(--dropdown-background-color);
+        --darken: 30%;
+        --c1: color-mix(in srgb, var(--background-color), black var(--darken));
+        --c2: color-mix(in srgb, var(--accent-color), black var(--darken));
+        --c3: color-mix(in srgb, var(--dropdown-background-color), black var(--darken));
         
         --_g: var(--c3) 0 120deg,#0000 0;
         background:

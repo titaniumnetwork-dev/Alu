@@ -31,7 +31,7 @@ if (gameData.vertical) {
 classList = classList.trim();
 ---
 
-<Layout title=`${gameData.name} | Alu`>
+<Layout title=`${gameData.name} | Alu` optionalStylesheets={["/game.css"]}>
   <div id="main-content">
     <div class="game-container">
       {
@@ -55,60 +55,6 @@ classList = classList.trim();
     </div>
   </div>
 </Layout>
-
-<style>
-  .vertical {
-    height: 70vh !important;
-    width: 30% !important;
-    aspect-ratio: auto !important;
-  }
-  #main-content {
-    margin-top: 2rem;
-  }
-  .game-container {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    overflow: hidden;
-    background: var(--dropdown-background-color);
-    width: 80%;
-    margin: 0 auto;
-    margin-bottom: 4rem;
-  }
-  #game-frame {
-    aspect-ratio: 16 / 8;
-    height: 80vh;
-    width: 1350px;
-    border: 0;
-  }
-  .game-info {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    background-color: var(--background-highlight);
-    width: 100%;
-    padding: 1rem;
-    padding-top: 0;
-  }
-  .game-info-top {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 0.5rem;
-  }
-  .icn {
-    width: 32px;
-    height: 32px;
-    cursor: pointer;
-  }
-  .game-title {
-    font-weight: bold;
-    font-size: 20px;
-    margin-top: 0.2rem;
-  }
-  .game-desc {
-    margin: 0;
-  }
-</style>
 
 <script>
   const iframe = document.getElementById("game-frame") as HTMLIFrameElement;
