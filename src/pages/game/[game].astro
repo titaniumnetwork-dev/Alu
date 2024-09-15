@@ -38,7 +38,7 @@ classList = classList.trim();
         gameData.unity ? (
           <iframe scrolling="no" id="game-frame" class={classList} src={`/game/unity/${gameData.slug}`} title={gameData.name} id="game-frame" />
         ) : gameData.flash ? (
-          <iframe scrolling="no" src={`/game/flash/${gameData.slug}`} title={gameData.name} id="game-frame" />
+          <iframe scrolling="no" src={`/game/flash/${gameData.slug}`} title={gameData.name} id="game-frame" class="flash-frame" />
         ) : (
           <iframe scrolling="no" src={`/games/${gameData.slug}`} title={gameData.name} id="game-frame" />
         )

@@ -23,6 +23,12 @@
   width: 1350px;
   border: 0;
 }
+
+.flash-frame {
+  width: 1050px !important;
+  height: 725px !important;
+}
+
 .game-info {
   display: flex;
   flex-direction: column;
