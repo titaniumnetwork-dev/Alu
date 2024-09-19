@@ -36,11 +36,11 @@ classList = classList.trim();
     <div class="game-container">
       {
         gameData.unity ? (
-          <iframe scrolling="no" id="game-frame" class={classList} src={`/game/unity/${gameData.slug}`} title={gameData.name} id="game-frame" />
+          <iframe scrolling="no" src={`/game/unity/${gameData.slug}`} title={gameData.name} id="game-frame" class={classList} />
         ) : gameData.flash ? (
-          <iframe scrolling="no" src={`/game/flash/${gameData.slug}`} title={gameData.name} id="game-frame" class="flash-frame" />
+          <iframe scrolling="no" src={`/game/flash/${gameData.slug}`} title={gameData.name} id="game-frame" class={classList + " flash-frame"} />
         ) : (
-          <iframe scrolling="no" src={`/games/${gameData.slug}`} title={gameData.name} id="game-frame" />
+          <iframe scrolling="no" src={`/games/${gameData.slug}`} title={gameData.name} id="game-frame" class={classList} />
         )
       }
       <div class="game-info">

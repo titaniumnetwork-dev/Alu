@@ -1,12 +1,14 @@
 {
   "2048": {
     "name": "2048",
-    "description": "Join the numbers and get to the 2048 tile!",
+    "description": "2048 is a simple yet addictive puzzle game where you slide numbered tiles on a grid to combine them and create a tile with the number 2048.",
     "image": "/games/2048/logo.png",
-    "slug": "2048"
+    "slug": "2048",
+    "vertical": true
   },
   "achievement-unlocked": {
     "name": "Achievement Unlocked",
+    "description": "Achievement Unlocked is a platformer game where you play as a little elephant. Your goal is to collect achievements and solve challenges in a singular level.",
     "image": "/games/flash/img/achievement-unlocked.webp",
     "slug": "achievement-unlocked",
     "flash": true
@@ -20,51 +22,60 @@
   },
   "backrooms": {
     "name": "The Backrooms",
+    "description": "The Backrooms is a horror game that takes you into an endless maze of empty rooms and yellowed walls. Can you escape the horrors that lurk within?",
     "image": "/games/backrooms/logo.png",
     "slug": "backrooms"
   },
   "baldi": {
     "name": "Baldi's Basics",
+    "description": "Baldi's Basics is a horror-themed educational game that parodies 90s educational games. You must collect notebooks while avoiding Baldi and other strange characters.",
     "image": "/games/baldi/logo.png",
     "slug": "baldi"
   },
   "basketball-stars": {
     "name": "Basketball Stars",
+    "description": "Basketball Stars is a multiplayer basketball game where you can challenge your friends or play against random opponents. Show off your skills and become the best player on the court!",
     "image": "/games/basketball-stars/logo.png",
     "slug": "basketball-stars"
   },
   "binding-of-isaac": {
     "name": "The Binding of Isaac",
+    "description": "When Isaac’s mother starts hearing the voice of God demanding a sacrifice be made to prove her faith, Isaac escapes into the basement facing droves of deranged enemies, lost brothers and sisters, his fears, and eventually his mother.",
     "image": "/games/flash/img/binding-of-isaac.png",
     "slug": "binding-of-isaac",
     "flash": true
   },
   "bloons-tower-defense-2": {
     "name": "Bloons Tower Defense 2",
+    "description": "Bloons Tower Defense 2 is a popular tower defense game originally released in Flash by Ninja Kiwi. Strategically place your defenses, upgrade your units, and stop all balloons from passing through.",
     "image": "/games/flash/img/bloons-tower-defense-2.webp",
     "slug": "bloons-tower-defense-2",
     "flash": true
   },
   "bloons-tower-defense-4": {
     "name": "Bloons Tower Defense 4",
+    "description": "Bloons Tower Defense 4 is a classic tower defense game initially released in Flash. Defend the path by tactically placing various defenses around the map. Upgrade them and unlock more as you get further through the game.",
     "image": "/games/flash/img/bloons-tower-defense-4.jpg",
     "slug": "bloons-tower-defense-4",
     "flash": true
   },
   "bloons": {
     "name": "Bloons",
+    "description": "The first ever bloons game! Pop the balloons with darts and complete the levels. A simple yet surprisingly addictive game.",
     "image": "/games/flash/img/bloons.webp",
     "slug": "bloons",
     "flash": true
   },
   "bloxors": {
     "name": "Bloxors",
+    "description": "Bloxorz is a tricky puzzle game that tests your logical skills and sheer brain power. The objective is to get the block into the square hole and avoid falling off the edge. Put your brain to the test and see how far you get!",
     "image": "/games/flash/img/bloxorz.png",
     "slug": "bloxors",
     "flash": true
   },
   "bitlife": {
     "name": "BitLife",
+    "description": "BitLife is a life simulator that lets you live your life however you want. Make choices that will affect your character's life from birth to death.",
     "image": "/games/bitlife/logo.png",
     "slug": "bitlife",
     "unity": true,
@@ -72,84 +83,94 @@
   },
   "cannon-basketball-4": {
     "name": "Cannon Basketball 4",
+    "description": "Use your mouse to aim and shoot the cannon. Move your mouse further from the cannon to make a more powerful shot. Use the guide to get a ball into the net with as few attempts as possible!",
     "image": "/games/cannon-basketball-4/logo.png",
     "slug": "cannon-basketball-4"
   },
   "canyon-defence": {
     "name": "Canyon Defence",
+    "description": "In the world of Canyon Defense, there's a peaceful town beside a winding canyon. But there's a problem! On the other side of the canyon, there are enemies who want to invade the town. Luckily, you're here to save the day! It's up to you to build towers and keep your enemies far away from the town's gates.",
     "image": "/games/flash/img/canyon-defence.jpg",
     "slug": "canyon-defence",
     "flash": true
   },
   "cell-machine": {
     "name": "Cell Machine",
+    "description": "Cell Machine is a puzzle game where you create and manipulate cells to solve challenges. Use your creativity and logic to progress through the levels.",
     "image": "/games/cell-machine/logo.png",
     "slug": "cell-machine"
   },
   "chrome-dino": {
     "name": "Chrome Dino",
+    "description": "The Chrome Dino game is a simple yet addictive endless runner game that you can play in your browser when you're offline. Jump over obstacles and try to achieve the highest score possible!",
     "image": "/games/chrome-dino/logo.png",
     "slug": "chrome-dino"
   },
   "cookie-clicker": {
     "name": "Cookie Clicker",
+    "description": "Cookie Clicker is an incremental game where you click on a giant cookie to produce more cookies. Use your cookies to buy upgrades and increase your cookie production.",
     "image": "/games/cookie-clicker/logo.png",
     "slug": "cookie-clicker"
   },
   "crazy-taxi": {
     "name": "Crazy Taxi",
+    "description": "Crazy Taxi is an online arcade game, where you will experience a wild ride full of speed and thrill. In this Crazy Taxi series, you will be a craziest cabbie racing against the clock to reach checkpoints and earn points by jumping over cars and navigating through traffic.",
     "image": "/games/flash/img/crazy-taxi.webp",
     "slug": "crazy-taxi",
     "flash": true
   },
-  "csgo-clicker": {
-    "name": "CSGO Clicker",
-    "image": "/games/csgo-clicker/logo.png",
-    "slug": "csgo-clicker"
-  },
   "ctr": {
     "name": "Cut The Rope",
+    "description": "Cut the Rope to feed large pieces of candy to a hungry creature called Om Nom. Collect all the stars for the highest rating and progress to more challenging levels with new puzzles.",
     "image": "/games/ctr/logo.png",
     "slug": "ctr"
   },
   "ctr-holiday": {
     "name": "Cut The Rope - Holiday",
+    "description": "The Holiday expansion pack to Cut The Rope brings new levels and challenges to the game. Help Om Nom collect candy in a festive setting!",
     "image": "/games/ctr-holiday/logo.png",
     "slug": "ctr-holiday"
   },
   "ctr-tr": {
     "name": "Cut The Rope - Time Travel",
+    "description": "Join Om Nom on a journey through time in Cut The Rope: Time Travel. Solve puzzles across different historical eras to feed candy to Om Nom!",
     "image": "/games/ctr-tr/logo.png",
     "slug": "ctr-tr"
   },
   "death-run-3d": {
     "name": "Death Run 3D",
+    "description": "Death Run 3D brings you an opportunity to join an ultimate race at high speed. The colorful neon tunnel will make you surprise with unexpected challenges.",
     "image": "/games/death-run-3d/logo.png",
     "slug": "death-run-3d"
   },
   "desktop-tower-defence": {
     "name": "Desktop Tower Defence",
+    "description": "Desktop Tower Defence is a classic tower defense game where you place towers to stop waves of enemies. Strategically position your defenses and upgrade them to succeed.",
     "image": "/games/flash/img/desktop-tower-defence.png",
     "slug": "desktop-tower-defence",
     "flash": true
   },
   "doge-miner": {
     "name": "Doge Miner",
+    "description": "The most exciting doge mining game! Mine dogecoins, upgrade your equipment, and get to the moon!",
     "image": "/games/doge-miner/logo.png",
     "slug": "doge-miner"
   },
   "doodle-jump": {
     "name": "Doodle Jump",
+    "description": "Doodle Jump is a classic platformer game where you control a little creature called Doodler. Jump from platform to platform, avoid enemies, and collect power-ups to achieve the highest score.",
     "image": "/games/doodle-jump/logo.png",
     "slug": "doodle-jump"
   },
   "doom": {
     "name": "Doom",
+    "description": "Doom is a classic first-person shooter game that set the standard for the genre. Fight your way through hordes of demons and monsters in a fast-paced, action-packed environment.",
     "image": "/games/doom/logo.png",
     "slug": "doom"
   },
   "draw-the-hill": {
     "name": "Draw The Hill",
+    "description": "Draw a path for your car to travel. Use your mouse or draw with your finger. Collect coins along the way and visit the car shop to purchase upgrades.",
     "image": "/games/draw-the-hill/logo.png",
     "slug": "draw-the-hill"
   },
@@ -162,19 +183,21 @@
   },
   "ducklife-2": {
     "name": "Duck Life 2",
+    "description": "The sequel to Duck Life, Duck Life 2 introduces new training methods and competitions. Train your duck to become the best athlete!",
     "image": "/games/flash/img/ducklife2.webp",
     "slug": "ducklife-2",
     "flash": true
   },
   "ducklife3": {
     "name": "Duck Life 3",
+    "description": "Duck Life 3 is the third installment in the Duck Life series. Train your duck in various skills and compete in races to become the champion!",
     "image": "/games/ducklife3/logo.webp",
     "slug": "ducklife3",
     "unity": true
   },
   "ducklife4": {
     "name": "Duck Life 4",
-    "description": "Duck Life is the first game in the Duck Life series. A tornado has struck your farm and destroyed everything. All that remains is a single duck egg. Train this duckling to peak athletic form so you can earn money to rebuild the farm.",
+    "description": "Duck Life 4 is the fourth game in the Duck Life series. Train your duck in new skills and compete in exciting races to become the ultimate champion!",
     "image": "/games/ducklife/logo.png",
     "slug": "ducklife4",
     "unity": true
@@ -187,143 +210,170 @@
   },
   "evil-glitch": {
     "name": "Evil Glitch",
+    "description": "An arcade 2D shoot 'em up with retro aesthetics inspired by 80's media, featuring an universe and plot line based on Sacred Geometry. Players must fight to survive as long as they can evading enemies and destroying their bases to stop the corruption. Compete with your friends or on global leaderboards.",
     "image": "/games/evil-glitch/logo.png",
     "slug": "evil-glitch"
   },
   "fall-boys": {
     "name": "Fall Boys",
+    "description": "A clone of the popular game Fall Guys, where you compete in various mini-games and obstacle courses to be the last one standing.",
     "image": "/games/fall-boys/logo.png",
     "slug": "fall-boys"
   },
   "firewater": {
     "name": "Fireboy and Watergirl",
+    "description": "A classic flash game where you control two characters, Fireboy and Watergirl, to solve puzzles and navigate through various levels.",
     "image": "/games/firewater/logo.png",
     "slug": "firewater"
   },
   "firewater2": {
     "name": "Fireboy and Watergirl 2",
+    "description": "The sequel to Fireboy and Watergirl, this game introduces new levels and challenges for you to solve with your friends.",
     "image": "/games/firewater2/logo.png",
     "slug": "firewater2"
   },
   "fnaf": {
     "name": "Five Nights at Freddy's",
+    "description": "Five Nights at Freddy's is a 2014 point-and-click survival horror game developed and published by Scott Cawthon. The player controls Mike Schmidt, a night security guard at a family pizzeria. Schmidt must complete his shifts while avoiding the homicidal animatronic characters that wander the restaurant at night.",
     "image": "/games/fnaf/logo.png",
     "slug": "fnaf"
   },
   "fnaf2": {
     "name": "Five Nights at Freddy's 2",
+    "description": "Five Nights at Freddy's 2 is a 2014 point-and-click survival horror game developed and published by Scott Cawthon. It is the second installment in the Five Nights at Freddy's series. Set in a fictional pizzeria, the player takes on the role of night security guards Jeremy Fitzgerald and Fritz Smith, defending themselves from the restaurant's hostile animatronic mascots. The player cannot leave their office, but has access to a flashlight and security cameras throughout the restaurant to monitor animatronic activity.",
     "image": "/games/fnaf2/logo.png",
     "slug": "fnaf2"
   },
   "fnaf3": {
     "name": "Five Nights at Freddy's 3",
+    "description": "Five Nights at Freddy's 3 is a 2015 point-and-click survival horror video game developed and published by Scott Cawthon. It is the third installment in the Five Nights at Freddy's series, and takes place in a horror-themed attraction based on the restaurant chain featured in the first two games. ",
     "image": "/games/fnaf3/logo.png",
     "slug": "fnaf3"
   },
   "fnaf4": {
     "name": "Five Nights at Freddy's 4",
+    "description": "Five Nights at Freddy's 4 is a 2015 point-and-click survival horror video game made and published by Scott Cawthon. It is the fourth installment of the Five Nights at Freddy's series. The game takes place in the bedroom of a child, where the player must avoid attack by nightmarish animatronics that stalk them.",
     "image": "/games/fnaf4/logo.png",
     "slug": "fnaf4"
   },
   "game-inside": {
     "name": "Game Inside",
+    "description": "A game inside of a game! Solve unique puzzles based on recursion and logic.",
     "image": "/games/game-inside/logo.png",
     "slug": "game-inside"
   },
   "grindcraft": {
     "name": "Grindcraft",
+    "description": "Grindcraft is a free Minecraft inspired idle clicker game! Grind out items, gather crops, mine resources and fight mobs in the original crafting clicker game. Build items and adventure to new regions. Become a clicker legend!",
     "image": "/games/grindcraft/logo.png",
     "slug": "grindcraft"
   },
   "help-no-brake": {
-    "name": "Help No Brake",
+    "name": "Help, No Brake!",
+    "description": "Fast paced top down action platformer about driving with no brakes. Reach the end of each level without blowing up your car to get the amazing reward of going to the next level.",
     "image": "/games/help-no-brake/logo.webp",
     "slug": "help-no-brake"
   },
   "henry-stickman-breaking-the-bank": {
     "name": "Breaking the Bank",
+    "description": "Help Henry Stickman break into a bank and steal the money! Choose your path and see how your choices affect the outcome.",
     "image": "/games/flash/img/breaking-the-bank.avif",
     "slug": "henry-stickman-breaking-the-bank",
     "flash": true
   },
   "henry-stickman-stealing-the-diamond": {
     "name": "Stealing the Diamond",
+    "description": "Help Henry Stickman steal a diamond from a museum! Choose your path and see how your choices affect the outcome.",
     "image": "/games/flash/img/stealing-the-diamond.avif",
     "slug": "henry-stickman-stealing-the-diamond",
     "flash": true
   },
   "henry-stickman-escaping-the-prison": {
     "name": "Escaping the Prison",
+    "description": "Help Henry Stickman escape from prison! Choose your path and see how your choices affect the outcome.",
     "image": "/games/flash/img/escaping-the-prison.avif",
     "slug": "henry-stickman-escaping-the-prison",
     "flash": true
   },
   "henry-stickman-infiltrating-the-airship": {
     "name": "Infiltrating the Airship",
+    "description": "Help Henry Stickman infiltrate an airship! Choose your path and see how your choices affect the outcome.",
     "image": "/games/flash/img/infiltrating-the-airship.avif",
     "slug": "henry-stickman-infiltrating-the-airship",
     "flash": true
   },
   "henry-stickman-fleeing-the-complex": {
     "name": "Fleeing the Complex",
+    "description": "Help Henry Stickman flee from a complex! Choose your path and see how your choices affect the outcome.",
     "image": "/games/flash/img/fleeing-the-complex.avif",
     "slug": "henry-stickman-fleeing-the-complex",
     "flash": true
   },
   "idle-breakout": {
     "name": "Idle Breakout",
+    "description": "Idle Breakout is an incremental game where you break bricks using balls. Upgrade your balls and unlock new features to progress further.",
     "image": "/games/idle-breakout/logo.png",
     "slug": "idle-breakout"
   },
   "impossible-quiz": {
     "name": "The Impossible Quiz",
+    "description": "The Impossible Quiz is a quiz game that tests your knowledge and logic with tricky questions and unexpected answers. Can you complete it without losing your lives?",
     "image": "/games/flash/img/impossible-quiz.avif",
     "slug": "impossible-quiz",
     "flash": true
   },
   "impossible-quiz-2": {
     "name": "The Impossible Quiz 2",
+    "description": "The sequel to The Impossible Quiz, this game features more tricky questions and challenges. Can you complete it without losing your lives?",
     "image": "/games/flash/img/impossible-quiz-2.avif",
     "slug": "impossible-quiz-2",
     "flash": true
   },
   "just-one-boss": {
     "name": "Just One Boss",
+    "description": "Just One Boss is a unique boss battle game where you face off against a single powerful enemy. Use your skills and strategy to defeat the boss and claim victory.",
     "image": "/games/just-one-boss/logo.png",
     "slug": "just-one-boss"
   },
   "line-rider": {
     "name": "Line Rider",
+    "description": "Line Rider is a classic online game where you draw a line for a sledder to ride on. Create your own tracks and watch the sledder go!",
     "image": "/games/line-rider/logo.png",
     "slug": "line-rider"
   },
   "minecraft-classic": {
     "name": "Minecraft Classic",
+    "description": "Minecraft Classic is a free version of the original Minecraft game. Build and explore in a blocky world with friends.",
     "image": "/games/minecraft-classic/logo.png",
     "slug": "minecraft-classic"
   },
   "minesweeper": {
     "name": "Minesweeper",
+    "description": "Minesweeper is a classic puzzle game where you clear a grid of hidden mines without detonating any of them. Use logic and deduction to uncover safe squares.",
     "image": "/games/minesweeper/logo.png",
     "slug": "minesweeper"
   },
   "moto-x3m": {
     "name": "Moto X3M",
+    "description": "Moto X3M is an exciting bike racing game where you navigate through challenging levels filled with obstacles and ramps. Perform stunts and reach the finish line as fast as you can!",
     "image": "/games/moto-x3m/logo.png",
     "slug": "moto-x3m"
   },
   "moto-x3m-pool": {
-    "name": "Moto X3M Pool Party",
+    "name": "Moto X3M - Pool Party",
+    "description": "Dive into the fun with Moto X3M Pool! An exciting bike racing game set in a pool party environment. Navigate through water slides, jumps, and obstacles to reach the finish line!",
     "image": "/games/moto-x3m-pool/logo.png",
     "slug": "moto-x3m-pool"
   },
   "moto-x3m-spooky": {
-    "name": "Moto X3M Spooky Land",
+    "name": "Moto X3M - Spooky Land",
+    "description": "Get ready for a thrilling ride in Moto X3M Spooky Land! Navigate through haunted levels filled with spooky obstacles and challenges. Can you reach the finish line?",
     "image": "/games/moto-x3m-spooky/logo.png",
     "slug": "moto-x3m-spooky"
   },
   "moto-x3m-winter": {
-    "name": "Moto X3M Winter",
+    "name": "Moto X3M - Winter",
+    "description": "Experience the thrill of winter racing in Moto X3M Winter! Navigate through snowy levels filled with icy obstacles and ramps. Can you conquer the winter challenges?",
     "image": "/games/moto-x3m-winter/logo.png",
     "slug": "moto-x3m-winter"
   },
@@ -335,99 +385,118 @@
   },
   "retro-bowl": {
     "name": "Retro Bowl",
+    "description": "Retro Bowl is a nostalgic American football game that combines classic gameplay with modern mechanics. Build your team, manage your players, and lead them to victory!",
     "image": "/games/retro-bowl/logo.png",
     "slug": "retro-bowl"
   },
   "rooftop-sniper": {
     "name": "Rooftop Snipers",
+    "description": "Rooftop Snipers is a fast-paced multiplayer shooting game where you compete against friends or AI opponents. Use your sniper skills to knock your opponent off the rooftop!",
     "image": "/games/rooftop-sniper/logo.png",
     "slug": "rooftop-sniper",
     "unity": true
   },
   "sans-fight": {
     "name": "Sans Fight",
+    "description": "Sans Fight is a fan-made game based on the popular indie game Undertale. Face off against Sans in a challenging battle that tests your skills and reflexes.",
     "image": "/games/sans-fight/icon-256.png",
     "slug": "sans-fight"
   },
   "slope": {
     "name": "Slope",
+    "description": "Slope is a fast-paced endless runner game where you control a ball rolling down a slope. Avoid obstacles and try to achieve the highest score possible!",
     "image": "/games/slope/logo.png",
     "slug": "slope"
   },
   "sm64": {
     "name": "Super Mario 64",
+    "description": "Super Mario 64 is a 3D platformer game that revolutionized the genre. Join Mario as he explores Princess Peach's castle and collects Power Stars to save her from Bowser.",
     "image": "/games/sm64/logo.png",
     "slug": "sm64"
   },
   "suika-combination": {
     "name": "Suika Combination",
+    "description": "Suika Combination is a fun and addictive puzzle game where you combine fruits to create larger and more valuable fruits. Can you create the ultimate fruit combination?",
     "image": "/games/suika-combination/logo.webp",
     "slug": "suika-combination"
   },
   "superhot": {
     "name": "Superhot",
+    "description": "Superhot is a unique first-person shooter where time moves only when you move. Use strategy and skill to defeat enemies in a stylish and immersive environment.",
     "image": "/games/superhot/logo.png",
     "slug": "superhot"
   },
   "temple-run-2": {
     "name": "Temple Run 2",
+    "description": "Temple Run 2 is an endless running game where you navigate through a treacherous landscape, avoiding obstacles and collecting coins. How far can you run?",
     "image": "/games/temple-run-2/logo.webp",
     "slug": "temple-run-2"
   },
   "there-is-no-game": {
     "name": "There is No Game",
+    "description": "There is No Game is a unique interactive experience that plays with the concept of video games. It's a humorous and clever adventure that breaks the fourth wall.",
     "image": "/games/there-is-no-game/logo.png",
     "slug": "there-is-no-game"
   },
   "tunnelrush": {
     "name": "Tunnel Rush",
+    "description": "Tunnel Rush is a fast-paced endless runner game where you navigate through a colorful tunnel filled with obstacles. How far can you go?",
     "image": "/games/tunnelrush/logo.jpg",
     "slug": "tunnelrush",
     "unity": true
   },
   "unfairmario": {
     "name": "Unfair Mario",
+    "description": "Unfair Mario is a platformer game that challenges your skills and patience. Expect the unexpected as you navigate through tricky levels filled with hidden traps.",
     "image": "/games/flash/img/unfairmario.jpg",
     "slug": "unfairmario",
     "flash": true
   },
   "ul6": {
     "name": "Ultima 6",
+    "description": "Ultima 6 is a classic role-playing game that takes you on an epic adventure in a fantasy world. Explore, battle, and complete quests to save the realm.",
     "image": "/games/ul6/logo.png",
     "slug": "ul6"
   },
   "vex3": {
     "name": "Vex 3",
+    "description": "Vex 3 is a challenging platformer game where you navigate through various levels filled with obstacles and traps. Can you complete all the levels?",
     "image": "/games/vex3/logo.png",
     "slug": "vex3"
   },
   "vex4": {
     "name": "Vex 4",
+    "description": "Vex 4 is the fourth installment in the Vex series. Navigate through challenging levels filled with traps and obstacles. Can you complete them all?",
     "image": "/games/vex4/logo.png",
     "slug": "vex4"
   },
   "vex5": {
     "name": "Vex 5",
+    "description": "Vex 5 is the fifth installment in the Vex series. Experience new levels, traps, and challenges as you navigate through the game.",
     "image": "/games/vex5/logo.png",
     "slug": "vex5"
   },
   "vex6": {
     "name": "Vex 6",
+    "description": "Vex 6 is the sixth installment in the Vex series. Face new challenges and obstacles as you navigate through the game.",
     "image": "/games/vex6/logo.png",
     "slug": "vex6"
   },
   "worlds-hardest-game": {
     "name": "World's Hardest Game",
+    "description": "The World's Hardest Game is a challenging puzzle game where you must navigate through a series of difficult levels filled with obstacles and traps.",
     "image": "/games/worlds-hardest-game/logo.png",
     "slug": "worlds-hardest-game"
   },
   "worlds-hardest-game-2": {
     "name": "World's Hardest Game 2",
+    "description": "The sequel to the World's Hardest Game, this game features even more challenging levels and obstacles to test your skills.",
     "image": "/games/worlds-hardest-game-2/logo.png",
     "slug": "worlds-hardest-game-2"
   },
   "you-are-bezos": {
     "name": "You are Bezos",
+    "description": "You are Bezos is a satirical simulation game where you take on the role of a billionaire and make decisions that impact your wealth and the world around you.",
     "image": "/games/you-are-bezos/logo.png",
     "slug": "you-are-bezos"
   }

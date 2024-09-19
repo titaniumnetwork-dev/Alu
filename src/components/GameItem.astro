@@ -4,7 +4,7 @@ const { game } = Astro.props;
 
 <div class="game" data-name={game.name}>
   <a class="game-link" href=`/game/${game.slug}`>
-    <img class="game-img" src={game.image} alt="" />
+    <img alt={game.description} class="game-img" src={game.image} alt="" />
     <p class="game-title">{game.name}</p>
   </a>
 </div>
