@@ -38,13 +38,6 @@
     "image": "/games/basketball-stars/logo.png",
     "slug": "basketball-stars"
   },
-  "binding-of-isaac": {
-    "name": "The Binding of Isaac",
-    "description": "When Isaac’s mother starts hearing the voice of God demanding a sacrifice be made to prove her faith, Isaac escapes into the basement facing droves of deranged enemies, lost brothers and sisters, his fears, and eventually his mother.",
-    "image": "/games/flash/img/binding-of-isaac.png",
-    "slug": "binding-of-isaac",
-    "flash": true
-  },
   "bloons-tower-defense-2": {
     "name": "Bloons Tower Defense 2",
     "description": "Bloons Tower Defense 2 is a popular tower defense game originally released in Flash by Ninja Kiwi. Strategically place your defenses, upgrade your units, and stop all balloons from passing through.",
@@ -437,6 +430,13 @@
     "description": "There is No Game is a unique interactive experience that plays with the concept of video games. It's a humorous and clever adventure that breaks the fourth wall.",
     "image": "/games/there-is-no-game/logo.png",
     "slug": "there-is-no-game"
+  },
+  "the-binding-of-isaac": {
+    "name": "The Binding of Isaac",
+    "description": "When Isaac’s mother starts hearing the voice of God demanding a sacrifice be made to prove her faith, Isaac escapes into the basement facing droves of deranged enemies, lost brothers and sisters, his fears, and eventually his mother.",
+    "image": "/games/flash/img/binding-of-isaac.png",
+    "slug": "the-binding-of-isaac",
+    "flash": true
   },
   "tunnelrush": {
     "name": "Tunnel Rush",

@@ -4,6 +4,8 @@ import Layout from "src/layouts/Layout.astro";
 import marketplace from "../../json/marketplace.json";
 import MarketplaceIcon from "@components/UI/MarketplaceIcon.astro";
 
+export const prerender = true;
+
 export const getStaticPaths = () => {
   return STATIC_PATHS;
 };

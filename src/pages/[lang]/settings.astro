@@ -9,6 +9,8 @@ import { STATIC_PATHS, i18n } from "@i18n/utils";
 const lang = i18n.getLangFromUrl(Astro.url);
 const t = i18n.useTranslations(lang);
 
+export const prerender = true;
+
 export function getStaticPaths() {
   return STATIC_PATHS;
 }

@@ -6,7 +6,10 @@ import Link from "@components/UI/Link.astro";
 import ProxyRegistrar from "@components/ProxyRegistrar.astro";
 import Input from "@components/UI/Input.astro";
 import FaqCard from "@components/FaqCard.astro";
+
 const t = i18n.inferLangUseTranslations(Astro.url);
+
+export const prerender = true;
 
 export function getStaticPaths() {
   return STATIC_PATHS;
