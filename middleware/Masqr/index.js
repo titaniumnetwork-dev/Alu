@@ -4,7 +4,7 @@ export async function masqrCheck(config, htmlFile) {
   try {
     const loadedHTMLFile = fs.readFileSync(htmlFile, "utf8");
     return async (req, res, next) => {
-      if (config.whitelist.includes(req.headers.host) || req.headers.host.includes("localhost")) {
+      if (config.whitelist.includes(req.hostname)) {
         next();
         return;
       }
