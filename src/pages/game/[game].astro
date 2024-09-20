@@ -7,16 +7,18 @@ import sitemap from 'sitemap-ext:config';
 
 const gamesList = games as GameList;
 
-sitemap(async ({ setSitemap }) => {
+
+sitemap(async ({ setSitemap}) => {
   const gamesList = games as GameList;
   const urls = Object.keys(gamesList);
 	setSitemap(
     urls.map((game) => ({
       sitemap: true,
       params: {
-        game,
-      }
-    }))
+        game: game,
+      },
+    }),
+  )
 	);
 });
 

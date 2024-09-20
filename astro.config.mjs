@@ -13,6 +13,7 @@ export default defineConfig({
   integrations: [
 		sitemap({
 			includeByDefault: true,
+      lastmod: new Date(),
 		}),
   ],
   output: "server",
