@@ -3,7 +3,8 @@ import node from "@astrojs/node";
 import sitemap from "@astrojs/sitemap";
 
 // Check if node is running in production mode
-const prodBuild = process.env.NODE_ENV === "production";
+// const prodBuild = process.env.NODE_ENV === "production";
+const prodBuild = true;
 
 const site = prodBuild ? "https://aluu.xyz" : "http://localhost:3000";
 
@@ -24,6 +25,9 @@ export default defineConfig({
         },
         defaultLocale: "en",
       },
+      customPages: [
+        "/game/*",
+      ]
     }),
   ],
   output: "hybrid",
