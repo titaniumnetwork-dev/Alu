@@ -12,7 +12,7 @@ import dotenv from "dotenv-flow";
 import wisp from "wisp-server-node";
 import router from "./middleware/ProxyExt/index.js";
 import { handler as astroSSR } from "./dist/server/entry.mjs";
-import cookies from "cookie-parser"
+import cookies from "cookie-parser";
 
 dotenv.config();
 
@@ -33,7 +33,7 @@ const rh = rammerhead.createRammerhead({
 const app = express();
 app.use(astroSSR);
 
-app.use(cookies())
+app.use(cookies());
 
 // Set process.env.MASQR_ENABLED to "true" to enable masqr protection.
 if (MASQR_ENABLED == "true") {
@@ -112,7 +112,7 @@ app.get("/search", async (req, res) => {
   }
 });
 app.get("*", (req, res) => {
-  res.sendFile(path.join(process.cwd(), "dist/client/404.html"));
+  res.redirect(302, "/404");
 });
 
 const server = createServer();
