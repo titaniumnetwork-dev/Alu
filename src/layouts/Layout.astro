@@ -13,7 +13,8 @@ interface Props {
 
 const { title, optionalStylesheets } = Astro.props;
 
-const DESCRIPTION = "Alu is a sleek web proxy supporting multiple standards of communication, and wide levels of customization. Similar to other proxies such as Holy Unblocker, Alu allows you to access blocked content while maintaining your privacy.";
+const DESCRIPTION =
+  "Alu is a sleek web proxy supporting multiple standards of communication, and wide levels of customization. Similar to other proxies such as Holy Unblocker, Alu allows you to access blocked content while maintaining your privacy.";
 ---
 
 <!doctype html>
@@ -25,8 +26,8 @@ const DESCRIPTION = "Alu is a sleek web proxy supporting multiple standards of c
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="title" content="Alu" />
-    <meta name="author" content="Titanium Network">
-    <meta name="description" content={DESCRIPTION}/>
+    <meta name="author" content="Titanium Network" />
+    <meta name="description" content={DESCRIPTION} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://aluu.xyz" />
     <meta property="og:title" content="Alu" />
@@ -59,7 +60,7 @@ const DESCRIPTION = "Alu is a sleek web proxy supporting multiple standards of c
       import IDBManager from "@components/ts/IDBManager";
 
       instantiateAlu();
-      
+
       if (!window.idb) {
         const db = IDBManager.loadIDB("AluDB", 1);
         db.onupgradeneeded = () => {
@@ -87,51 +88,50 @@ const DESCRIPTION = "Alu is a sleek web proxy supporting multiple standards of c
     <WelcomeLogging />
     <Footer />
     <style is:global>
-    :root {
-      --background-color: #191724;
-      --background-highlight: #1f1d2e;
-      --accent-color: #26233a;
-      --accent-color-brighter: #2e2b4a;
-      --text-color: #e0def4;
-      --text-color-accent: #c7c5e0;
-      --dropdown-background-color: #1f1d2e;
-    }
-    [data-theme="alu"] {
-      --background-color: #191724;
-      --background-highlight: #1f1d2e;
-      --accent-color: #26233a;
-      --accent-color-brighter: #2e2b4a;
-      --text-color: #e0def4;
-      --text-color-accent: #c7c5e0;
-      --dropdown-background-color: #1f1d2e;
-    }
-    [data-theme="mocha"] {
-      /* Catppucin Mocha theme */
-      --background-color: #1e1e2e;
-      --background-highlight: #45475a;
-      --accent-color: #32324e;
-      --accent-color-brighter: #242539;
-      --text-color: #cdd6f4;
-      --text-color-accent: #bac2de;
-      --dropdown-background-color: #181825;
-    }
+      :root {
+        --background-color: #191724;
+        --background-highlight: #1f1d2e;
+        --accent-color: #26233a;
+        --accent-color-brighter: #2e2b4a;
+        --text-color: #e0def4;
+        --text-color-accent: #c7c5e0;
+        --dropdown-background-color: #1f1d2e;
+      }
+      [data-theme="alu"] {
+        --background-color: #191724;
+        --background-highlight: #1f1d2e;
+        --accent-color: #26233a;
+        --accent-color-brighter: #2e2b4a;
+        --text-color: #e0def4;
+        --text-color-accent: #c7c5e0;
+        --dropdown-background-color: #1f1d2e;
+      }
+      [data-theme="mocha"] {
+        /* Catppucin Mocha theme */
+        --background-color: #1e1e2e;
+        --background-highlight: #45475a;
+        --accent-color: #32324e;
+        --accent-color-brighter: #242539;
+        --text-color: #cdd6f4;
+        --text-color-accent: #bac2de;
+        --dropdown-background-color: #181825;
+      }
 
-    [data-theme="macchiato"] {
-      /* Catppuccin Macchiato Theme */
-      --background-color: #24273a;
-      --background-highlight: #494d64;
-      --accent-color: #323550;
-      --accent-color-brighter: #2a2d42;
-      --text-color: #cad3f5;
-      --text-color-accent: #b8c0e0;
-      --dropdown-background-color: #1e2030;
-    }
+      [data-theme="macchiato"] {
+        /* Catppuccin Macchiato Theme */
+        --background-color: #24273a;
+        --background-highlight: #494d64;
+        --accent-color: #323550;
+        --accent-color-brighter: #2a2d42;
+        --text-color: #cad3f5;
+        --text-color-accent: #b8c0e0;
+        --dropdown-background-color: #1e2030;
+      }
     </style>
     <style is:global lang="scss">
       * {
         box-sizing: border-box;
       }
-
 
       html {
         --s: 50px; /* control the size*/
@@ -139,15 +139,12 @@ const DESCRIPTION = "Alu is a sleek web proxy supporting multiple standards of c
         --c1: color-mix(in srgb, var(--background-color), black var(--darken));
         --c2: color-mix(in srgb, var(--accent-color), black var(--darken));
         --c3: color-mix(in srgb, var(--dropdown-background-color), black var(--darken));
-        
-        --_g: var(--c3) 0 120deg,#0000 0;
-        background:
-          conic-gradient(from -60deg at 50% calc(100%/3),var(--_g)),
-          conic-gradient(from 120deg at 50% calc(200%/3),var(--_g)),
-          conic-gradient(from  60deg at calc(200%/3),var(--c3) 60deg,var(--c2) 0 120deg,#0000 0),
-          conic-gradient(from 180deg at calc(100%/3),var(--c1) 60deg,var(--_g)),
-          linear-gradient(90deg,var(--c1)   calc(100%/6),var(--c2) 0 50%, var(--c1) 0 calc(500%/6),var(--c2) 0);
-        background-size: calc(1.732*var(--s)) var(--s);
+
+        --_g: var(--c3) 0 120deg, #0000 0;
+        background: conic-gradient(from -60deg at 50% calc(100% / 3), var(--_g)), conic-gradient(from 120deg at 50% calc(200% / 3), var(--_g)),
+          conic-gradient(from 60deg at calc(200% / 3), var(--c3) 60deg, var(--c2) 0 120deg, #0000 0), conic-gradient(from 180deg at calc(100% / 3), var(--c1) 60deg, var(--_g)),
+          linear-gradient(90deg, var(--c1) calc(100% / 6), var(--c2) 0 50%, var(--c1) 0 calc(500% / 6), var(--c2) 0);
+        background-size: calc(1.732 * var(--s)) var(--s);
       }
 
       body {
@@ -162,7 +159,7 @@ const DESCRIPTION = "Alu is a sleek web proxy supporting multiple standards of c
         color: var(--text-color);
         opacity: 1;
       }
-      
+
       // button, input {
       //   font-family: "Varela Round", sans-serif;
       // }
