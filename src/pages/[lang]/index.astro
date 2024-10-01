@@ -23,22 +23,22 @@ export function getStaticPaths() {
       <div class="form-wrapper">
         <form class="url-input-form" id="url-input-form">
           <div id="loading-content">Loading Content...</div>
-          <Input className="url-input" inputName="url" placeholder={t("menu.search")} defaultStyles={false} transition:persist autocomplete="off" />
+          <Input className="url-input" inputName="url" placeholder={t("menu.search")} defaultStyles={false} autocomplete="off" />
           <div id="search-suggestions"></div>
         </form>
 
         <div id="top-bar">
           <div class="top-bar-left">
-            <button id="close-button">Close</button>
+            <img id="proxied-favicon" alt="favicon" />
+            <span id="url-text"></span>
+          </div>
+          <div class="top-bar-right">
             <div class="nav-container">
               <img width="32px" height="32px" id="nav-backwards" src="/img/nav/backwards.svg" alt="Backwards Arrow" />
               <img width="32px" height="32px" id="nav-forwards" src="/img/nav/forwards.svg" alt="Forwards Arrow" />
               <img width="32px" height="32px" id="nav-share" src="/img/nav/share.svg" alt="Share Page" />
             </div>
-          </div>
-          <div class="top-bar-right">
-            <img id="proxied-favicon" alt="favicon" />
-            <span id="url-text"></span>
+            <button id="close-button">Close</button>
           </div>
         </div>
         <iframe title="proxy-iframe" id="proxy-frame"></iframe>
@@ -51,10 +51,6 @@ export function getStaticPaths() {
           <h2>{t("faq.whatIsAProxy")}</h2>
           <p>{t("faq.whatIsAProxy.answer")}</p>
         </FaqCard>
-        <!-- <div class="faq-card">
-          <h2>{t("faq.whatIsAProxy")}</h2>
-          <p>{t("faq.whatIsAProxy.answer")}</p>
-        </div> -->
         <FaqCard>
           <h2>{t("faq.contributeToAlu")}</h2>
           <p>

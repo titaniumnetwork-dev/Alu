@@ -146,6 +146,11 @@ const DESCRIPTION =
           linear-gradient(90deg, var(--c1) calc(100% / 6), var(--c2) 0 50%, var(--c1) 0 calc(500% / 6), var(--c2) 0);
         background-size: calc(1.732 * var(--s)) var(--s);
       }
+      
+      html[data-theme="macchiato"], html[data-theme="mocha"] {
+        --c2: color-mix(in srgb, var(--dropdown-background-color), black var(--darken));
+        --c3: color-mix(in srgb, var(--accent-color-brighter), black var(--darken));
+      }
 
       body {
         /* background-color: var(--background-color); */
