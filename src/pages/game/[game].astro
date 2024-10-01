@@ -3,23 +3,21 @@ export const prerender = false;
 import Layout from "../../layouts/Layout.astro";
 import games from "../../json/games.json";
 
-import sitemap from 'sitemap-ext:config';
+import sitemap from "sitemap-ext:config";
 
 const gamesList = games as GameList;
 
-
-sitemap(async ({ setSitemap}) => {
+sitemap(async ({ setSitemap }) => {
   const gamesList = games as GameList;
   const urls = Object.keys(gamesList);
-	setSitemap(
+  setSitemap(
     urls.map((game) => ({
       sitemap: true,
       params: {
         game: game,
       },
-    }),
-  )
-	);
+    }))
+  );
 });
 
 // get the current game based on the information in the url
@@ -63,7 +61,7 @@ classList = classList.trim();
       <div class="game-info">
         <div class="game-info-top">
           <div class="game-info-left">
-            <img class="game-img" src={gameData.image} alt="">
+            <img class="game-img" src={gameData.image} alt="" />
             <p class="game-title">{gameData.name}</p>
           </div>
           <img src="/img/games/fullscreen.svg" alt="Fullscreen" id="game-fullscreen" class="icn" />

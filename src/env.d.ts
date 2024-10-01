@@ -1,3 +1,4 @@
+/// <reference path="../.astro/types.d.ts" />
 /// <reference types="astro/client" />
 
 // ###> astro-i18n/type-generation ###

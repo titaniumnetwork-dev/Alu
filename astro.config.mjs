@@ -11,10 +11,10 @@ const site = prodBuild ? "https://aluu.xyz" : "http://localhost:3000";
 export default defineConfig({
   site: site,
   integrations: [
-		sitemap({
-			includeByDefault: true,
+    sitemap({
+      includeByDefault: true,
       lastmod: new Date(),
-		}),
+    }),
   ],
   output: "server",
   adapter: node({

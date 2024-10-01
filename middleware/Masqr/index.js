@@ -12,7 +12,7 @@ export async function masqrCheck(config, htmlFile) {
 
       if (!req.cookies) {
         // Send an error
-        res.send("Request failed!")
+        res.send("Request failed!");
       }
 
       if (req.cookies.authcheck) {
