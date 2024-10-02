@@ -401,6 +401,12 @@
     "image": "/games/slope/logo.png",
     "slug": "slope"
   },
+  "slope-plus": {
+    "name": "Slope Plus",
+    "description": "Slope Plus is a fast-paced endless runner game where you control a ball rolling down a slope. Avoid obstacles and try to achieve the highest score possible! Slope Plus is a fan remake of Slope with the attempt to fix as many bugs as possible.",
+    "image": "/games/slope-plus/logo.png",
+    "slug": "slope-plus"
+  },
   "sm64": {
     "name": "Super Mario 64",
     "description": "Super Mario 64 is a 3D platformer game that revolutionized the genre. Join Mario as he explores Princess Peach's castle and collects Power Stars to save her from Bowser.",
