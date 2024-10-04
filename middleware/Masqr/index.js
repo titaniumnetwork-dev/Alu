@@ -1,9 +1,10 @@
 import path from "path";
 import fs from "fs";
-export async function masqrCheck(config, htmlFile) {
-  try {
-    const loadedHTMLFile = fs.readFileSync(htmlFile, "utf8");
-    return async (req, res, next) => {
+
+export async function masqrCheck(config) {
+  return async (req, res, next) => {
+    try {
+      const loadedHtmlFile = fs.readFileSync(process.cwd() + "/" + config.htmlFile, "utf8");
       if (config.whitelist.includes(req.hostname)) {
         next();
         return;
@@ -12,7 +13,7 @@ export async function masqrCheck(config, htmlFile) {
 
       if (!req.cookies) {
         // Send an error
-        res.send("Request failed!");
+        return res.send("Request failed!");
       }
 
       if (req.cookies.authcheck) {
@@ -22,7 +23,7 @@ export async function masqrCheck(config, htmlFile) {
       if (!authheader) {
         res.setHeader("WWW-Authenticate", "Basic");
         res.status(401);
-        MasqFail(req, res, loadedHTMLFile);
+        MasqrFail(req, res, loadedHtmlFile);
         return;
       }
       // If we are at this point, then the request should be a valid masqr request, and we are going to check the license server
@@ -36,13 +37,21 @@ export async function masqrCheck(config, htmlFile) {
         });
         res.send(`<script>window.location.href = window.location.href</script>`); // fun hack to make the browser refresh and remove the auth params from the URL
         return;
+      } else {
+        res.setHeader("WWW-Authenticate", "Basic");
+        res.status(401);
+        MasqrFail(req, res, loadedHtmlFile);
+        return;
       }
-    };
-  } catch (err) {
-    return;
-  }
+    } catch (err) {
+      console.error(err);
+      res.status(500);
+      res.send("Internal server error");
+      return;
+    }
+  };
 }
-async function MasqFail(req, res, failureFile) {
+async function MasqrFail(req, res, failureFile) {
   if (!req.headers.host) {
     return;
   }
@@ -57,6 +66,7 @@ async function MasqFail(req, res, failureFile) {
     return;
   } catch (e) {
     res.setHeader("Content-Type", "text/html");
+    res.status(401);
     res.send(failureFile);
     return;
   }

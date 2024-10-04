@@ -16,7 +16,7 @@ import cookies from "cookie-parser";
 
 dotenv.config();
 
-const whiteListedDomains = ["aluu.xyz", "localhost"];
+const whiteListedDomains = ["aluu.xyz"];
 const LICENSE_SERVER_URL = "https://license.mercurywork.shop/validate?license=";
 const MASQR_ENABLED = process.env.MASQR_ENABLED;
 
@@ -31,7 +31,6 @@ const rh = rammerhead.createRammerhead({
   disableHttp2: false,
 });
 const app = express();
-app.use(astroSSR);
 
 app.use(cookies());
 
@@ -39,8 +38,10 @@ app.use(cookies());
 if (MASQR_ENABLED == "true") {
   log("Starting Masqr...");
   const masqrCheck = (await import("./middleware/Masqr/index.js")).masqrCheck;
-  app.use(await masqrCheck({ whitelist: whiteListedDomains, licenseServer: LICENSE_SERVER_URL }, "Checkfailed.html"));
+  app.use(await masqrCheck({ whitelist: whiteListedDomains, licenseServer: LICENSE_SERVER_URL, htmlFile: "Checkfailed.html" }));
 }
+
+app.use(astroSSR);
 
 log("Starting Marketplace Provider...");
 app.use(router);
