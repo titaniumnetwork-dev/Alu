@@ -1,3 +1,4 @@
+import "./middleware/catchErrors.js";
 import { uvPath } from "@titaniumnetwork-dev/ultraviolet";
 import { epoxyPath } from "@mercuryworkshop/epoxy-transport";
 import { libcurlPath } from "@mercuryworkshop/libcurl-transport";
@@ -13,7 +14,6 @@ import wisp from "wisp-server-node";
 import router from "./middleware/ProxyExt/index.js";
 import { handler as astroSSR } from "./dist/server/entry.mjs";
 import cookies from "cookie-parser";
-import "./middleware/catchErrors.js";
 
 dotenv.config();
 
@@ -21,7 +21,8 @@ const whiteListedDomains = ["aluu.xyz", "localhost"];
 const LICENSE_SERVER_URL = "https://license.mercurywork.shop/validate?license=";
 const MASQR_ENABLED = process.env.MASQR_ENABLED;
 
-const log = (message) => console.log(chalk.gray("[Alu] " + message));
+const log = (message) => console.log(chalk.gray.bold("[Alu] " + message));
+const success = (message) => console.log(chalk.green.bold("[Alu] " + message));
 
 const PORT = process.env.PORT;
 log("Starting Rammerhead...");
@@ -137,9 +138,9 @@ server.on("upgrade", (req, socket, head) => {
 });
 
 log("Starting Alu...");
-console.log(chalk.green("[Alu] Alu started successfully!"));
+success("Alu started successfully!");
 server.on("listening", () => {
-  console.log(chalk.green(`[Alu] Server running at http://localhost:${PORT}/.`));
+  success(`Server running at http://localhost:${PORT}/.`);
 });
 
 server.listen({
