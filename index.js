@@ -16,7 +16,7 @@ import cookies from "cookie-parser";
 
 dotenv.config();
 
-const whiteListedDomains = ["aluu.xyz"];
+const whiteListedDomains = ["aluu.xyz", "localhost"];
 const LICENSE_SERVER_URL = "https://license.mercurywork.shop/validate?license=";
 const MASQR_ENABLED = process.env.MASQR_ENABLED;
 
