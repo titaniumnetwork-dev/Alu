@@ -1,30 +1,31 @@
 ---
+import Paintbrush from "@components/icons/paintbrush.astro";
+import Scroll from "@components/icons/scroll.astro";
+
 const { type } = Astro.props;
 
 type Props = {
   type: ExtType;
 };
 
-let icon = "fa-solid fa-paintbrush";
-let abbrTitle = "Style";
-
-if (type === "page" || type === "serviceWorker") {
-  icon = "fa-solid fa-scroll";
-  abbrTitle = "Script";
-}
+const abbrTitle = type === "theme" ? "Theme" : "Script";
 ---
 
 <div class="marketplace-icon">
   <abbr title={abbrTitle}>
-    <i class={icon + " fa-lg marketplace-icon"}></i>
+    {type === "theme" ? <Paintbrush class="icon" /> : <Scroll class="icon" />}
   </abbr>
 </div>
 
-<style>
+<style is:global>
   .marketplace-icon {
     width: 32px;
     filter: brightness(0.8);
     align-self: flex-start;
     padding-bottom: 1rem;
+  }
+
+  .mp-icon {
+    height: 24px;
   }
 </style>

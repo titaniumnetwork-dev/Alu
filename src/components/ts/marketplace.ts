@@ -1,8 +1,8 @@
 import "notyf/notyf.min.css";
 import { Notyf } from "notyf";
 import marketplaceManifest from "../../json/marketplace.json";
-const installButtons = document.getElementsByClassName("btn-install");
 import IDBManager, { loadIDBPromise } from "./IDBManager";
+const installButtons = document.getElementsByClassName("btn-install");
 
 const extManifest = marketplaceManifest as ExtensionMetadataJSON;
 

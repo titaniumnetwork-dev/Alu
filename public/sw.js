@@ -15,7 +15,7 @@ function loadExtensionScripts() {
       let store = transaction.objectStore("InstalledExtensions");
       let request = store.getAll();
       request.onsuccess = () => {
-        let extensions = request.result;
+        let extensions = request.result.filter((extension) => extension.type != "theme");
         extensions.forEach((extension) => {
           eval(atob(extension.scriptCopy));
           const func = self[extension.entryNamespace][extension.entryFunc];
