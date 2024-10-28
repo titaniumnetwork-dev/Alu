@@ -6,6 +6,11 @@ export declare global {
     reset: (key: Alu.ValidStoreKeys) => void;
   };
 
+  // Hacky way to not have to cast the "event" type that lib.dom has to CustomEvent, which is what we actually use.
+  interface Document {
+    addEventListener(type: "setting-tabLoad", listener: (this: Document, ev: CustomEvent) => unknown, options?: boolean | AddEventListenerOptions): void;
+  }
+
   namespace Alu {
     let store: AluStore;
     let settings: {

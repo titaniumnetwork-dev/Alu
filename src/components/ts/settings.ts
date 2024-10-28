@@ -93,8 +93,6 @@ function getLocalStorageValue(localStorageItem: Alu.ValidStoreKeys, dropdownID: 
     const dropdownItem = Array.from(dropdownMenu.children).find((dropdown) => {
       const itemEl = dropdown as HTMLElement;
       const item = Alu.store.get(localStorageItem);
-      console.log("Item Value " + item.value);
-      console.log("Dataset Setting " + itemEl.dataset.setting);
       const find = item.value == itemEl.dataset.setting;
       if (!find && localStorageItem == "wisp" && item.isCustom) {
         // This means we are on localhost, default to custom and return it's innerText (This is a hack)
@@ -140,11 +138,10 @@ function applyDropdownEventListeners(dropdown: HTMLElement | null, optionalCallb
       Alu.store.set(localStorageItem, localStorageItemContent);
       applySavedLocalStorage(localStorageItem, dropdown.id);
       closeDropdown(dropdownSibling.id);
-      if (typeof optionalCallback === "function") {
-        optionalCallback();
-      }
+      return optionalCallback?.();
     };
   });
+
 }
 
 function applyInputListeners(inputs: HTMLInputElement[], localStorageItem: Alu.ValidStoreKeys[]) {
@@ -187,8 +184,6 @@ function addThemeToDropdown(extension: ExtensionMetadata) {
     dropdown.appendChild(themeItem);
   }
 }
-
-loadContent("setting-tab-proxy");
 
 function setupProxySettings() {
   applySavedLocalStorage("proxy", "dropdown__selected-proxy");
@@ -369,8 +364,7 @@ function checkCustomWisp() {
 }
 
 document.addEventListener("setting-tabLoad", (event) => {
-  // I hate doing this :/
-  setupSettings(event as CustomEvent);
+  setupSettings(event);
 });
 
 function navigateToNewLangaugePage() {
@@ -383,4 +377,5 @@ document.addEventListener("astro:after-swap", () => {
   settingsLoad();
   loadContent("setting-tab-proxy");
 });
+loadContent("setting-tab-proxy");
 settingsLoad();
