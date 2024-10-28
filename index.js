@@ -10,7 +10,7 @@ import path from "node:path";
 import rammerhead from "@rubynetwork/rammerhead";
 import chalk from "chalk";
 import dotenv from "dotenv-flow";
-import wisp from "wisp-server-node";
+import { server as wisp, logging } from "@mercuryworkshop/wisp-js/server";
 import router from "./middleware/ProxyExt/index.js";
 import { handler as astroSSR } from "./dist/server/entry.mjs";
 import cookies from "cookie-parser";
@@ -20,6 +20,7 @@ dotenv.config();
 const whiteListedDomains = ["aluu.xyz", "localhost"];
 const LICENSE_SERVER_URL = "https://license.mercurywork.shop/validate?license=";
 const MASQR_ENABLED = process.env.MASQR_ENABLED;
+logging.set_level(logging.WARN);
 
 const log = (message) => console.log(chalk.gray.bold("[Alu] " + message));
 const success = (message) => console.log(chalk.green.bold("[Alu] " + message));

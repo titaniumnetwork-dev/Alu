@@ -31,8 +31,7 @@
     "express": "^4.21.1",
     "notyf": "^3.10.0",
     "sequelize": "^6.37.5",
-    "sqlite3": "^5.1.7",
-    "wisp-server-node": "^1.1.7"
+    "sqlite3": "^5.1.7"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^7.18.0",
