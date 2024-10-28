@@ -10,7 +10,7 @@ import path from "node:path";
 import rammerhead from "@rubynetwork/rammerhead";
 import chalk from "chalk";
 import dotenv from "dotenv-flow";
-import { server as wisp } from "@mercuryworkshop/wisp-js";
+import wisp from "wisp-server-node";
 import router from "./middleware/ProxyExt/index.js";
 import { handler as astroSSR } from "./dist/server/entry.mjs";
 import cookies from "cookie-parser";

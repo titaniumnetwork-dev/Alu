@@ -42,7 +42,7 @@ export default class TransportManager {
 export const TransportMgr = new TransportManager();
 
 export async function initTransport() {
-  await TransportMgr.setTransport(TransportMgr.getTransport(), Alu.store.get("wisp").value);
+  return await TransportMgr.setTransport(TransportMgr.getTransport(), Alu.store.get("wisp").value);
 }
 
 export async function registerAndUpdateSW(): Promise<void> {
