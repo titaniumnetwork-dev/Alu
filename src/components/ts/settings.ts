@@ -141,7 +141,6 @@ function applyDropdownEventListeners(dropdown: HTMLElement | null, optionalCallb
       return optionalCallback?.();
     };
   });
-
 }
 
 function applyInputListeners(inputs: HTMLInputElement[], localStorageItem: Alu.ValidStoreKeys[]) {
@@ -152,7 +151,7 @@ function applyInputListeners(inputs: HTMLInputElement[], localStorageItem: Alu.V
       const value: Alu.KeyObj = {
         name: current.name,
         value: input.value,
-      }
+      };
       if (localStorageItem[i] == "wisp") {
         value.isCustom = true;
       }

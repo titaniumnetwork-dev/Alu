@@ -14,6 +14,7 @@ module.exports = {
     "no-undef": "off",
     "prefer-const": "error",
     "no-case-declarations": "off",
+    "@typescript-eslint/no-explicit-any": "off",
   },
   ignorePatterns: ["env.d.ts"],
   overrides: [

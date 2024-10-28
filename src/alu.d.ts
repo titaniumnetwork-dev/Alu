@@ -8,7 +8,7 @@ export declare global {
 
   // Hacky way to not have to cast the "event" type that lib.dom has to CustomEvent, which is what we actually use.
   interface Document {
-    addEventListener(type: "setting-tabLoad", listener: (this: Document, ev: CustomEvent) => unknown, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: "setting-tabLoad", listener: (this: Document, ev: CustomEvent) => any, options?: boolean | AddEventListenerOptions);
   }
 
   namespace Alu {
