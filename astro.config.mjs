@@ -4,7 +4,7 @@ import sitemap from "@inox-tools/sitemap-ext";
 
 // Check if node is running in production mode
 // const prodBuild = process.env.NODE_ENV === "production";
-const prodBuild = true;
+const prodBuild = process.env.IS_PROD === "true";
 
 const site = prodBuild ? "https://aluu.xyz" : "http://localhost:3000";
 

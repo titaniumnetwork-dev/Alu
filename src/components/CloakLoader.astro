@@ -2,21 +2,21 @@
   function loadCloak() {
     const cloak = Alu.store.get("cloak");
     if (cloak) {
-      if (cloak && typeof cloak.value === "object") {
+      if (cloak && typeof cloak === "object") {
         if (cloak.name != "None") {
-          document.title = cloak.value.name;
+          document.title = cloak.name;
           let link = document.querySelector("link[rel~='icon']") as HTMLLinkElement;
           if (!link) {
             link = document.createElement("link");
             link.rel = "icon";
           }
-          if (!cloak.value.icon.startsWith("http")) {
-            cloak.icon = window.location.origin + cloak.value.icon;
+          if (cloak.icon && !cloak.icon.startsWith("http")) {
+            cloak.icon = window.location.origin + cloak.icon;
           }
-          if (cloak.value.isCustom) {
-            link.href = `/custom-favicon?url=${cloak.value.icon}`;
+          if (cloak.isCustom) {
+            link.href = `/custom-favicon?url=${cloak.icon}`;
           } else {
-            link.href = cloak.value.icon;
+            link.href = cloak.icon!;
           }
 
           document.getElementsByTagName("head")[0].appendChild(link);

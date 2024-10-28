@@ -36,7 +36,7 @@ import SchemaData from "@components/SchemaData.astro";
       import instantiateAlu from "@components/ts/Alu";
       instantiateAlu();
       const lang = Alu.store.get("lang");
-      const redirect = (loc: string) => window.location.href = loc;
+      const redirect = (loc: string) => (window.location.href = loc);
       if (lang) {
         redirect(`/${lang.value}/`);
       } else {

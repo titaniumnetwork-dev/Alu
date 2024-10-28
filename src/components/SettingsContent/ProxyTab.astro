@@ -42,8 +42,9 @@ const transportsList = [
 ];
 
 const wispURLList = [
-  { name: "Alu (US)", value: getWSProtocol() + Astro.url.host + "/wisp/" },
-  { name: "Nebula (US)", value: "wss://nebulaproxy.io/wisp/" },
+  { name: "Alu (US)", value: "wss://aluu.xyz/wisp/" },
+  { name: "Anura (US)", value: "wss://anura.pro/" },
+  { name: "Custom", value: getWSProtocol() + Astro.url.host + "/wisp/" },
 ];
 ---
 
@@ -62,7 +63,7 @@ const wispURLList = [
   </div>
   <div class="setting__wisp_url">
     <label aria-label="Wisp URL" for="dropdown__wisp-url" for="dropdown__wisp-url" class="setting-label">{t("settings.proxy.wispURL")}</label>
-    <Dropdown buttonNameDefault={wispURLList[0].name} dropdownList={wispURLList} localStorageKey="wisp" id="dropdown__wisp-url" />
+    <Dropdown buttonNameDefault={wispURLList[0].value} dropdownList={wispURLList} localStorageKey="wisp" id="dropdown__wisp-url" />
   </div>
   <div class="setting__bare_url">
     <label aria-label="Bare Server URL" for="bare-url-input" class="setting-label">{t("settings.proxy.bareURL")}</label>
@@ -76,7 +77,11 @@ const wispURLList = [
     <button id="reset-button">Reset Settings</button>
   </div>
 </div>
-<div class="setting__searxng-url">
+<div class="setting__wisp-url setting-hidden">
+  <label aria-label="Custom Wisp URL" for="wisp-url-input" class="setting-label">{t("settings.proxy.wispURL")}</label>
+  <Input height="50px" inputName="wisp-url" defaultTextContent={getWSProtocol() + Astro.url.host + "/wisp/"} />
+</div>
+<div class="setting__searxng-url setting-hidden">
   <label aria-label="SearXNG URL" for="searxng-url-input" class="setting-label">{t("settings.proxy.searxngURL")}</label>
   <Input height="50px" inputName="searxng-url" defaultTextContent="https://searxng.site/" />
 </div>

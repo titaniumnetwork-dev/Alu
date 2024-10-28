@@ -80,29 +80,43 @@ function closeDropdown(dropdownID: string) {
   }
 }
 
-function getLocalStorageValue(localStorageItem: Alu.ValidStoreKeys, dropdownID: string) {
-  // I was kinda dumb for not doing this earlier.
+function getLocalStorageValue(localStorageItem: Alu.ValidStoreKeys, dropdownID: string): string | null {
   const dropdown = document.getElementById(dropdownID);
   const dropdownMenu = document.getElementById(dropdownID + "-menu") as HTMLElement;
-  // Janky hack :D
+  // Janky hack
   if (dropdownID == "dropdown__search-engine") {
     return Alu.store.get(localStorageItem).name;
   }
 
   if (dropdown && dropdownMenu) {
-    // Now we find the child that matches localStorageItem.value.
-    const dropdownItem = Array.from(dropdownMenu.children).find((item) => {
-      const itemEl = item as HTMLElement;
-      return Alu.store.get(localStorageItem).value == itemEl.dataset.setting;
+    // Find the child that matches localStorageItem.value.
+    const dropdownItem = Array.from(dropdownMenu.children).find((dropdown) => {
+      const itemEl = dropdown as HTMLElement;
+      const item = Alu.store.get(localStorageItem);
+      console.log("Item Value " + item.value);
+      console.log("Dataset Setting " + itemEl.dataset.setting);
+      const find = item.value == itemEl.dataset.setting;
+      if (!find && localStorageItem == "wisp" && item.isCustom) {
+        // This means we are on localhost, default to custom and return it's innerText (This is a hack)
+        if (!item.isCustom) {
+          const wispInput = document.getElementById("wisp-url-input") as HTMLInputElement;
+          Alu.store.set("wisp", { name: "Custom", value: wispInput.value, isCustom: true });
+        }
+
+        return itemEl.innerText === "Custom";
+      }
+      return find;
     }) as HTMLElement;
-    // Now set the inner text to the name in the dropdownItem.
+    // Set the inner text to the name in the dropdownItem.
     if (dropdownItem) {
       return dropdownItem.innerText;
     } else {
-      console.log(dropdownMenu.children);
       console.error("Dropdown item not found! " + dropdownID);
+      return null;
     }
   }
+  console.error("Dropdown not found! " + dropdownID);
+  return null;
 }
 
 function applySavedLocalStorage(localStorageItem: Alu.ValidStoreKeys, dropdownID: string) {
@@ -112,15 +126,16 @@ function applySavedLocalStorage(localStorageItem: Alu.ValidStoreKeys, dropdownID
   }
 }
 
-function applyDropdownEventListeners(dropdown: HTMLElement, optionalCallback?: () => void) {
+function applyDropdownEventListeners(dropdown: HTMLElement | null, optionalCallback?: () => void) {
+  if (!dropdown) return console.error(`Dropdown not found! ${dropdown}`);
   const dropdownSibling = document.getElementById(dropdown.id + "-menu")!;
   const localStorageItem = dropdown.dataset.localStorageKey as Alu.ValidStoreKeys;
   Array.from(dropdownSibling.children).forEach((child) => {
     const childEl = child as HTMLElement;
     childEl.onclick = () => {
-      const localStorageItemContent: Alu.Key = {
+      const localStorageItemContent: Alu.KeyObj = {
         name: childEl.innerText,
-        value: childEl.dataset.setting!,
+        value: childEl.dataset.setting,
       };
       Alu.store.set(localStorageItem, localStorageItemContent);
       applySavedLocalStorage(localStorageItem, dropdown.id);
@@ -132,17 +147,28 @@ function applyDropdownEventListeners(dropdown: HTMLElement, optionalCallback?: (
   });
 }
 
-function applyInputListeners(input: HTMLInputElement, localStorageItem: Alu.ValidStoreKeys) {
-  input.addEventListener("input", () => {
-    Alu.store.set(localStorageItem, { value: input.value });
-  });
+function applyInputListeners(inputs: HTMLInputElement[], localStorageItem: Alu.ValidStoreKeys[]) {
+  for (let i = 0; i < inputs.length; i++) {
+    const input = inputs[i];
+    input.addEventListener("input", () => {
+      const current = Alu.store.get(localStorageItem[i]);
+      const value: Alu.KeyObj = {
+        name: current.name,
+        value: input.value,
+      }
+      if (localStorageItem[i] == "wisp") {
+        value.isCustom = true;
+      }
+      Alu.store.set(localStorageItem[i], value);
+    });
+  }
 }
 
-function searxngURLInputListener(input: HTMLInputElement) {
-  input.addEventListener("input", () => {
-    Alu.store.set("search", { name: "Searx", value: input.value + "?q=" });
-  });
-}
+// function searxngURLInputListener(input: HTMLInputElement) {
+//   input.addEventListener("input", () => {
+//     Alu.store.set("search", { name: "Searx", value: input.value + "?q=" });
+//   });
+// }
 
 function addThemeToDropdown(extension: ExtensionMetadata) {
   const dropdown = document.getElementById("dropdown__selected-theme-menu");
@@ -186,19 +212,23 @@ function setupProxySettings() {
   }
 
   // Inputs
+  const wispURLInput = document.getElementById("wisp-url-input") as HTMLInputElement;
   const searxngUrlInput = document.getElementById("searxng-url-input") as HTMLInputElement;
   const bareURLInput = document.getElementById("bare-url-input") as HTMLInputElement;
 
-  bareURLInput.value = Alu.store.get("bareUrl").value.toString();
+  bareURLInput.value = Alu.store.get("bareUrl").value!.toString();
+  wispURLInput.value = Alu.store.get("wisp").value!.toString();
   // Proxy settings
   [selectedProxyDropdown, openWithDropdown, currentTransportDropdown, wispURLDropdown].forEach((dropdown) => {
     applyDropdownEventListeners(dropdown!);
   });
-  applyDropdownEventListeners(searchEngineDropdown!, checkSearxng);
+  applyDropdownEventListeners(wispURLDropdown, checkCustomWisp);
+  applyDropdownEventListeners(searchEngineDropdown, checkSearxng);
+  checkCustomWisp();
   checkSearxng();
 
-  searxngURLInputListener(searxngUrlInput);
-  applyInputListeners(bareURLInput, "bareUrl");
+  // searxngURLInputListener(searxngUrlInput);
+  applyInputListeners([bareURLInput, wispURLInput, searxngUrlInput], ["bareUrl", "wisp", "search"]);
 }
 
 function setupCustomizationSettings() {
@@ -231,14 +261,11 @@ function setupCloakingSettings() {
       let cloakIcon = cloakEl.dataset.cloakIcon;
 
       const cloakItem = {
-        name: cloakName,
-        value: {
-          name: cloakName,
-          icon: cloakIcon,
-          isCustom: false,
-        },
-        // eeyikes, make this better later.
-      } as unknown as Alu.Key;
+        name: cloakName!,
+        value: "",
+        icon: cloakIcon!,
+        isCustom: false,
+      };
       Alu.store.set("cloak", cloakItem);
 
       if (cloakName == "None") {
@@ -266,11 +293,11 @@ function setupCloakingSettings() {
 
   const customNameInput = document.getElementById("cloak-custom-name-input") as HTMLInputElement;
   const customFaviconInput = document.getElementById("cloak-custom-favicon-input") as HTMLInputElement;
-  const cloak = Alu.store.get("cloak") as Alu.Key;
-  if (cloak && typeof cloak.value == "object") {
-    if (cloak.value.isCustom) {
-      customNameInput.value = cloak.value.name;
-      customFaviconInput.value = cloak.value.icon;
+  const cloak = Alu.store.get("cloak");
+  if (cloak && cloak.value) {
+    if (cloak.isCustom) {
+      customNameInput.value = cloak.name;
+      customFaviconInput.value = cloak.icon!;
     }
   }
 
@@ -281,9 +308,11 @@ function setupCloakingSettings() {
     let cloakIcon = cloakCustomFavicon.value;
     const cloakItem = {
       name: cloakName,
+      value: "",
       icon: cloakIcon,
       isCustom: true,
     };
+
     Alu.store.set("cloak", cloakItem);
     if (cloakName == "None") {
       Alu.store.remove("cloak");
@@ -303,7 +332,7 @@ function setupCloakingSettings() {
 
 function changeTheme() {
   const theme = Alu.store.get("theme").value;
-  document.documentElement.setAttribute("data-theme", theme.toString());
+  document.documentElement.setAttribute("data-theme", theme!.toString());
 }
 
 function setupSettings(event: CustomEvent) {
@@ -325,6 +354,17 @@ function checkSearxng() {
     searxInput.style.opacity = "1";
   } else {
     searxInput.style.opacity = "0";
+  }
+}
+
+function checkCustomWisp() {
+  const wispURL = Alu.store.get("wisp").name;
+  const wispInput = document.getElementById("wisp-url-input") as HTMLInputElement;
+  if (wispURL == "Custom") {
+    wispInput.parentElement!.style.opacity = "1";
+    wispInput.value = Alu.store.get("wisp").value!.toString();
+  } else {
+    wispInput.parentElement!.style.opacity = "0";
   }
 }
 

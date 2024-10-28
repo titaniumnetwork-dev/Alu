@@ -3,7 +3,8 @@
   const secondaryColor = "#601aab";
   const welcomeMessage = `%cWelcome to Alu!\n%cSystem Information:\n%cOS: ${navigator.platform}\n%cBrowser: ${navigator.userAgent}\n%cCPU Cores: ${navigator.hardwareConcurrency}\n%cMemory: ${navigator.userAgent.includes("Firefox") ? "Not supported in Firefox" : (navigator as any).deviceMemory + "GB"}\n%cPlease include this information in a bug report!`;
 
-  console.log(welcomeMessage, 
+  console.log(
+    welcomeMessage,
     `color: ${primaryColor}; font-size: 2rem; font-weight: bold; text-shadow: 2px 2px 0 ${secondaryColor};`,
     `color: ${primaryColor}; font-size: 1rem; font-weight: bold;`,
     `color: ${primaryColor}; font-size: 0.75rem; font-weight: bold;`,
