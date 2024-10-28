@@ -19,7 +19,7 @@
     "@mercuryworkshop/bare-mux": "^2.1.2",
     "@mercuryworkshop/epoxy-transport": "^2.1.16",
     "@mercuryworkshop/libcurl-transport": "^1.3.10",
-    "@rubynetwork/rammerhead": "^1.3.5",
+    "@rubynetwork/rammerhead": "^1.3.2",
     "@titaniumnetwork-dev/ultraviolet": "^3.2.7",
     "@tomphttp/bare-server-node": "^2.0.4",
     "@types/node": "^20.16.11",
