@@ -1,6 +1,8 @@
 import { defineConfig } from "astro/config";
 import node from "@astrojs/node";
 import sitemap from "@inox-tools/sitemap-ext";
+import dotenv from "dotenv-flow";
+dotenv.config();
 
 // Check if node is running in production mode
 // const prodBuild = process.env.NODE_ENV === "production";

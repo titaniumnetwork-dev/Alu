@@ -1,4 +1,5 @@
 import "./middleware/catchErrors.js";
+import dotenv from "dotenv-flow";
 import { uvPath } from "@titaniumnetwork-dev/ultraviolet";
 import { epoxyPath } from "@mercuryworkshop/epoxy-transport";
 import { libcurlPath } from "@mercuryworkshop/libcurl-transport";
@@ -9,7 +10,6 @@ import { createServer } from "http";
 import path from "node:path";
 import rammerhead from "@rubynetwork/rammerhead";
 import chalk from "chalk";
-import dotenv from "dotenv-flow";
 import { server as wisp, logging } from "@mercuryworkshop/wisp-js/server";
 import router from "./middleware/ProxyExt/index.js";
 import { handler as astroSSR } from "./dist/server/entry.mjs";
