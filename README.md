@@ -21,7 +21,7 @@ Alu is a beautiful, functional, and sleek web proxy that prioritizes customizati
 - 🚀 High performance
 - 🔍 Multiple Search Engines to pick from
 
-# Deploying Alu
+# Deploying Alu (Windows/Linux)
 
 Deploying Alu is about as simple as it gets.
 
@@ -34,6 +34,34 @@ Deploying Alu is about as simple as it gets.
 4. Finally, run `pnpm start` to actually serve Alu! It defaults to port 3000 for everything, but this can be specified in an env file.
 
 Congrats! You should now be running your very own instance of Alu! 🎉
+
+# But wait! I'm on a chromebook! How do I make my own instance on it?
+
+Simple!
+
+1. First, fork this repository into your Github account. You'll need it for later!
+
+2. Now go to pipeops.io and register an account (If your school email doesn't work, try making a new email on a service such as tuta.com or proton.me [assuming those sites aren't blocked for you])
+
+3. During your registration, it will ask where you want to create your server. Since you're likely broke as hell and don't have any money (which I'm assuming you are, since you're a person likely under the age of obtaining a driver's license.), select "On PipeOps".
+
+4. Now it will ask you to customize your server "before takeoff", select the "Nova Sapa" plan, and then click "Proceed".
+
+5. Congrats! You've set up a server to run Alu on! Now, for the next part, under the section where it says "Establish Your Cloud Presence: Account Setup", select Github, then once pipeops has auto-magically connected itself to your Github account and redirected back to the pipeops website, click the button that says "Proceed".
+
+6. It will now ask you for a project type. Click the one labeled "Web".
+
+7. Now, it will ask you for a "Git Provider Account" and to select or add an organization. Open the "Git Provider Account" dropdown and select "Github". A new button should now appear labeled "Install PipeOps Git", click the button and install it. Now, click on the "Select/Add Organization" dropdown and select your Github account, you should now see a list of all your repositories! Find the fork of Alu you created in it, and now click the button that says "Proceed".
+
+8. You'll now be on a new screen labeled "Project Summary", don't worry about anything here! Just scroll down and click the "Proceed" button once again.
+
+9. Thanks to the fact Alu is able to be dockerized, the build method on the new screen will automatically register with "Docker", and you'll want to use it to build the proxy, so don't change it!
+
+10. You're now ready to deploy your proxy and make a new instince of Alu! Click "Deploy", and wait for couple minutes for the magical code hamsters of pipeops to make it.
+
+11. Congrats! You've now made a new instance of Alu and are ready to start using it! Happy proxying!
+
+-Written by Mister_Matey <3
 
 > [!WARNING]
 > Recursing all submodules will install [alu-games](https://github.com/wearrrrr/alu-games) as well. This repo contains _all_ games for Alu and is quite large! If you wish to skip it, simply remove `--recurse-submodules` from your clone command.
