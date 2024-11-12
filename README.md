@@ -21,7 +21,7 @@ Alu is a beautiful, functional, and sleek web proxy that prioritizes customizati
 - 🚀 High performance
 - 🔍 Multiple Search Engines to pick from
 
-# Deploying Alu (Windows/Linux)
+# Deploying Alu (on Windows/Linux)
 
 Deploying Alu is about as simple as it gets.
 
@@ -59,7 +59,7 @@ Simple!
 
 10. You're now ready to deploy your proxy and make a new instince of Alu! Click "Deploy", and wait for couple minutes for the magical code hamsters of pipeops to make it.
 
-11. Congrats! You've now made a new instance of Alu and are ready to start using it! Happy proxying!
+11. Congrats! You've now made a new instance of Alu and are ready to start using it, if you've done everything right, you should have set up something like ([https://enormous-degree.pipeops.app/en/](url)!
 
 -Written by Mister_Matey <3
 
