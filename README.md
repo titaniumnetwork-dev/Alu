@@ -41,7 +41,7 @@ Simple!
 
 1. First, fork this repository into your Github account. You'll need it for later!
 
-2. Now go to pipeops.io and register an account (If your school email doesn't work, try making a new email on a service such as tuta.com or proton.me [assuming those sites aren't blocked for you])
+2. Now go to [pipeops.io](url) and register an account (If your school email doesn't work, try making a new email on a service such as [tuta.com](url) or [proton.me](url) [assuming those sites aren't blocked for you])
 
 3. During your registration, it will ask where you want to create your server. Since you're likely broke as hell and don't have any money (which I'm assuming you are, since you're a person likely under the age of obtaining a driver's license.), select "On PipeOps".
 
