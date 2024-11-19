@@ -5,3 +5,4 @@ node_modules/
 npm-debug.log*
 .env
 public/games/**
+exempt_masqr.txt

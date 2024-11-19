@@ -14,10 +14,18 @@ import { server as wisp, logging } from "@mercuryworkshop/wisp-js/server";
 import router from "./middleware/ProxyExt/index.js";
 import { handler as astroSSR } from "./dist/server/entry.mjs";
 import cookies from "cookie-parser";
+import { existsSync, readFileSync } from "fs";
 
 dotenv.config();
 
 const whiteListedDomains = ["aluu.xyz", "localhost"];
+
+if (existsSync("exempt_masqr.txt")) {
+  const file = readFileSync("exempt_masqr.txt", "utf-8");
+  const exemptDomains = file.split("\n");
+  whiteListedDomains.push(...exemptDomains); 
+}
+
 const LICENSE_SERVER_URL = "https://license.mercurywork.shop/validate?license=";
 const MASQR_ENABLED = process.env.MASQR_ENABLED;
 logging.set_level(logging.WARN);
