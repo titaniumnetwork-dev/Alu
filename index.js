@@ -23,7 +23,9 @@ const whiteListedDomains = ["aluu.xyz", "localhost"];
 if (existsSync("exempt_masqr.txt")) {
   const file = readFileSync("exempt_masqr.txt", "utf-8");
   const exemptDomains = file.split("\n");
-  whiteListedDomains.push(...exemptDomains); 
+  exemptDomains.forEach((domain) => {
+    whiteListedDomains.push(domain.trim());
+  })
 }
 
 const LICENSE_SERVER_URL = "https://license.mercurywork.shop/validate?license=";
