@@ -166,7 +166,7 @@ function applyInputListeners(inputs: HTMLInputElement[], localStorageItem: Alu.V
 //   });
 // }
 
-function addThemeToDropdown(extension: ExtensionMetadata) {
+function addThemeToDropdown(extension: ExtThemeMetadata) {
   const dropdown = document.getElementById("dropdown__selected-theme-menu");
   if (dropdown) {
     // TODO: Figure out why addThemeToDropdown is being called 6 times
@@ -230,7 +230,7 @@ function setupCustomizationSettings() {
   store.getAll().onsuccess = (event) => {
     const result = (event.target as IDBRequest).result;
     if (result) {
-      result.forEach((extension: ExtensionMetadata) => {
+      result.forEach((extension: ExtThemeMetadata) => {
         if (extension.type === "theme" && extension.themeName) {
           // Create a dropdown item for the theme
           addThemeToDropdown(extension);

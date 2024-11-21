@@ -7,7 +7,7 @@
         // TODO: Get rid of this ugly type assertion!!
         const result = (event.target as IDBRequest).result;
             if (result) {
-                result.forEach((extension: ExtensionMetadata) => {
+                result.forEach((extension: ExtPageMetadata) => {
                     if (extension.type === "page") {
                         const decoder = new TextDecoder();
                         const script = decoder.decode(extension.scriptCopy!);

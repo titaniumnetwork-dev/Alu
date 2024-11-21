@@ -15,7 +15,7 @@ module.exports = {
     "prefer-const": "error",
     "no-case-declarations": "off"
   },
-  ignorePatterns: ["env.d.ts"],
+  ignorePatterns: ["env.d.ts", "middleware/", "public/"],
   overrides: [
     {
       files: ["*.astro"],

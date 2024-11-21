@@ -17,7 +17,7 @@
     store.getAll().onsuccess = (event) => {
       const result = (event.target as IDBRequest).result;
       if (result) {
-        result.forEach((extension: ExtensionMetadata) => {
+        result.forEach((extension: ExtThemeMetadata) => {
           if (extension.type === "theme" && extension.themeName) {
             // Load theme CSS
             const decoder = new TextDecoder();

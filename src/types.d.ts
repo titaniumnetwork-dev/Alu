@@ -36,13 +36,21 @@ interface ExtensionMetadata {
   version: string;
   image: string;
   script: string;
-  pages?: string[];
-  entryNamespace?: string;
-  entryFunc?: string;
-  init?: string;
   scriptCopy?: Uint8Array | null;
   type: ExtType;
-  themeName?: string;
+}
+
+interface ExtServiceWorkerMetadata extends ExtensionMetadata {
+  entryNamespace: string;
+  entryFunc: string;
+}
+
+interface ExtPageMetadata extends ExtensionMetadata {
+  init: string;
+}
+
+interface ExtThemeMetadata extends ExtensionMetadata {
+  themeName: string;
 }
 
 type ExtensionMetadataJSON = Record<string, ExtensionMetadata>;
