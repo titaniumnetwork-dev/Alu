@@ -84,7 +84,7 @@
 
       const iframe = document.getElementById("proxy-frame") as HTMLIFrameElement;
       const topbar = document.getElementById("top-bar") as HTMLDivElement;
-      const closeButton = document.getElementById("close-button")!;
+      const closeButton = document.getElementById("nav-close")!;
       const backwardsButton = document.getElementById("nav-backwards")!;
       const forwardsButton = document.getElementById("nav-forwards")!;
       const reloadButton = document.getElementById("nav-reload")!;
@@ -168,7 +168,7 @@
             position: { x: "right", y: "bottom" },
             dismissible: true,
             ripple: true,
-          }).success("Copied to clipboard!");
+          }).success("Copied URL to clipboard!");
         };
       }
     }, 100);

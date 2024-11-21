@@ -6,6 +6,7 @@ import Link from "@components/UI/Link.astro";
 import ProxyRegistrar from "@components/ProxyRegistrar.astro";
 import Input from "@components/UI/Input.astro";
 import FaqCard from "@components/FaqCard.astro";
+import IFrameNav from "@components/frame/IFrameNav.astro";
 
 const t = i18n.inferLangUseTranslations(Astro.url);
 
@@ -27,21 +28,7 @@ export function getStaticPaths() {
           <div id="search-suggestions"></div>
         </form>
 
-        <div id="top-bar">
-          <div class="top-bar-left">
-            <img id="proxied-favicon" alt="favicon" />
-            <span id="url-text"></span>
-          </div>
-          <div class="top-bar-right">
-            <div class="nav-container">
-              <img width="32px" height="32px" id="nav-backwards" src="/img/nav/backwards.svg" alt="Backward" />
-              <img width="32px" height="32px" id="nav-forwards" src="/img/nav/forwards.svg" alt="Forward" />
-              <img width="28px" height="32px" id="nav-reload" src="/img/nav/reload.svg" alt="Reload Page" />
-              <img width="28px" height="32px" id="nav-share" src="/img/nav/share.svg" alt="Share Page" />
-            </div>
-            <button id="close-button">Close</button>
-          </div>
-        </div>
+        <IFrameNav />
         <iframe title="proxy-iframe" id="proxy-frame"></iframe>
       </div>
     </section>

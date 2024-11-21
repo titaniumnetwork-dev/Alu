@@ -8,11 +8,10 @@ type Props = {
   type: ExtType;
 };
 
-const abbrTitle = type === "theme" ? "Theme" : "Script";
 ---
 
 <div class="marketplace-icon">
-  <abbr title={abbrTitle}>
+  <abbr title={type === "theme" ? "Theme" : "Script"}>
     {type === "theme" ? <Paintbrush class="icon" /> : <Scroll class="icon" />}
   </abbr>
 </div>

@@ -9,6 +9,15 @@
     "entryNamespace": "adblockExt",
     "entryFunc": "filterRequest"
   },
+  "dev.wearr.eruda": {
+    "title": "Eruda",
+    "description": "Eruda provides a complete inspect element experience for devices where it is not available.",
+    "version": "1.0.0",
+    "image": "/marketplace/eruda/banner.png",
+    "script": "/marketplace/eruda/eruda.js",
+    "type": "page",
+    "init": "eruda.init()"
+  },
   "dev.wearr.oled-theme": {
     "title": "OLED Theme",
     "description": "A beautiful OLED theme for Alu.",

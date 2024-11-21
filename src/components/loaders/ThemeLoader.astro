@@ -3,7 +3,7 @@
 
   function switchTheme() {
     const currentTheme = Alu.store.get("theme");
-    document.documentElement.setAttribute("data-theme", currentTheme.value);
+    document.documentElement.setAttribute("data-theme", currentTheme.value!);
   }
 
   switchTheme();
@@ -20,17 +20,21 @@
         result.forEach((extension: ExtensionMetadata) => {
           if (extension.type === "theme" && extension.themeName) {
             // Load theme CSS
-            loadStyleFromAtob(atob(extension.scriptCopy!));
+            const decoder = new TextDecoder();
+            const style = decoder.decode(extension.scriptCopy!);
+
+
+            loadStyleFromString(style);
 
             document.addEventListener("astro:after-swap", () => {
-              loadStyleFromAtob(atob(extension.scriptCopy!));
+              loadStyleFromString(style);
             });
           }
         });
       }
     };
   };
-  function loadStyleFromAtob(style: string) {
+  function loadStyleFromString(style: string) {
     const styleEl = document.createElement("style");
     styleEl.textContent = style;
     document.head.appendChild(styleEl);

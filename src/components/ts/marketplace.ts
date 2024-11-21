@@ -79,7 +79,13 @@ Array.from(installButtons).forEach((btn) => {
 
 async function getMarketplaceObj(slug: string): Promise<ExtensionMetadata> {
   const manifest = extManifest[slug];
-  manifest.scriptCopy = btoa(await fetch(manifest.script).then((res) => res.text()));
+  if (manifest == null) {
+    throw new Error("Extension not found!");
+  }
+  // This is for the scriptCopy field, which is a uint8 array of the script
+  const contents = await fetch(manifest.script).then((res) => res.text());
+  const encoder = new TextEncoder();
+  manifest.scriptCopy = encoder.encode(contents);
   return manifest;
 }
 

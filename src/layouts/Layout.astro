@@ -2,8 +2,9 @@
 import { ViewTransitions } from "astro:transitions";
 import Header from "@components/UI/Header.astro";
 import Footer from "@components/UI/Footer.astro";
-import ThemeLoader from "@components/ThemeLoader.astro";
-import CloakLoader from "@components/CloakLoader.astro";
+import ThemeLoader from "@components/loaders/ThemeLoader.astro";
+import CloakLoader from "@components/loaders/CloakLoader.astro";
+import PageScriptLoader from "@components/loaders/PageScriptLoader.astro";
 import WelcomeLogging from "@components/WelcomeLogging.astro";
 import SchemaData from "@components/SchemaData.astro";
 interface Props {
@@ -23,6 +24,7 @@ const DESCRIPTION =
     <link href="/varela-round.css" rel="stylesheet" />
     <ThemeLoader transition:persist />
     <CloakLoader transition:persist />
+    <PageScriptLoader transition:persist />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="title" content="Alu" />
@@ -259,18 +261,13 @@ const DESCRIPTION =
         height: 32px;
         width: 32px;
       }
-      #close-button {
-        padding: 5px;
-        padding-inline: 40px;
-        border: none;
-        background-color: var(--background-highlight);
-        color: var(--text-color-accent);
-        border-radius: 15px;
-        cursor: pointer;
-      }
 
       .nav-container {
-        margin-top: 5px;
+        height: 100%;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        align-items: center;
       }
       @media (max-width: 484px) {
         .nav-container {

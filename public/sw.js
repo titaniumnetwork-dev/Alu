@@ -15,9 +15,13 @@ function loadExtensionScripts() {
       let store = transaction.objectStore("InstalledExtensions");
       let request = store.getAll();
       request.onsuccess = () => {
-        let extensions = request.result.filter((extension) => extension.type != "theme");
+        let extensions = request.result.filter((extension) => extension.type == "serviceWorker");
         extensions.forEach((extension) => {
-          eval(atob(extension.scriptCopy));
+          const decoder = new TextDecoder();
+          const contents = decoder.decode(extension.script);
+
+
+          eval(contents);
           const func = self[extension.entryNamespace][extension.entryFunc];
           switch (extension.type) {
             case "serviceWorker": 

@@ -39,7 +39,8 @@ interface ExtensionMetadata {
   pages?: string[];
   entryNamespace?: string;
   entryFunc?: string;
-  scriptCopy?: string;
+  init?: string;
+  scriptCopy?: Uint8Array | null;
   type: ExtType;
   themeName?: string;
 }
