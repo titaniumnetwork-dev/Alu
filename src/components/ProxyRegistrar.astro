@@ -84,10 +84,11 @@
 
       const iframe = document.getElementById("proxy-frame") as HTMLIFrameElement;
       const topbar = document.getElementById("top-bar") as HTMLDivElement;
-      const closeButton = document.getElementById("close-button") as HTMLButtonElement;
-      const backwardsButton = document.getElementById("nav-backwards") as HTMLImageElement;
-      const forwardsButton = document.getElementById("nav-forwards") as HTMLImageElement;
-      const shareButton = document.getElementById("nav-share") as HTMLImageElement;
+      const closeButton = document.getElementById("close-button")!;
+      const backwardsButton = document.getElementById("nav-backwards")!;
+      const forwardsButton = document.getElementById("nav-forwards")!;
+      const reloadButton = document.getElementById("nav-reload")!;
+      const shareButton = document.getElementById("nav-share")!;
       const preference = Alu.store.get("proxy").value;
       if (preference === "ultraviolet") {
         iframe.src = window.__uv$config.prefix + window.__uv$config.encodeUrl(url);
@@ -148,6 +149,11 @@
         backwardsButton.onclick = () => {
           if (iframe.contentWindow) {
             iframe.contentWindow.history.back();
+          }
+        };
+        reloadButton.onclick = () => {
+          if (iframe.contentWindow) {
+            iframe.contentWindow.location.reload();
           }
         };
         shareButton.onclick = () => {
