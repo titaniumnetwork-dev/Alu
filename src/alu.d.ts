@@ -14,8 +14,8 @@ export declare global {
     type DefaultKeys = {
       [key: string]: Key;
     };
-    // tf? if I remove boolean it breaks in settings.ts. I don't know why.
-    type Key = Record<string?, string | KeyObj>;
+
+    type Key = Record<string, string | KeyObj>;
 
     type KeyObj = {
       name: string;
