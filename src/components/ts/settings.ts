@@ -1,3 +1,5 @@
+import EventMgr from "./EventMgr";
+
 // Alu.settings.loadedContentStorage = {};
 document.addEventListener("astro:before-swap", () => {
   Alu.settings.currentTab = "";
@@ -28,7 +30,7 @@ function loadContent(tabID: string) {
     setTimeout(() => {
       currentContent.innerHTML = Alu.settings.loadedContentStorage[tabID];
       currentContent.style.opacity = "1";
-      document.dispatchEvent(new CustomEvent("setting-tabLoad", { detail: tabID }));
+      EventMgr.dispatch("setting-tabLoad", tabID);
     }, 250);
   }
 }

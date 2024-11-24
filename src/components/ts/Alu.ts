@@ -4,6 +4,7 @@ function instantiateAlu() {
   if (globalThis.Alu) return;
   globalThis.Alu = {
     store: new AluStore(),
+    eventList: {},
     settings: {
       loadedContentStorage: {},
       currentTab: "",

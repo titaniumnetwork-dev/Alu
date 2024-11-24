@@ -10,9 +10,10 @@ const t = i18n.useTranslations(lang);
       <a href={`/${lang}/`} class="header-item flex-item"><img class="nav-img" src="/favicon.svg" alt="Alu Logo" /><span>{t("nav.brand")}</span></a>
     </div>
     <div class="right">
+      <a href={`/${lang}/donate/`}      class="header-item">Donate</a>
       <a href={`/${lang}/marketplace/`} class="header-item">Marketplace</a>
-      <a href={`/${lang}/games/`} class="header-item">{t("nav.games")}</a>
-      <a href={`/${lang}/settings/`} class="header-item">{t("nav.settings")}</a>
+      <a href={`/${lang}/games/`}       class="header-item">{t("nav.games")}</a>
+      <a href={`/${lang}/settings/`}    class="header-item">{t("nav.settings")}</a>
     </div>
   </div>
 </nav>
@@ -37,9 +38,12 @@ const t = i18n.useTranslations(lang);
     box-shadow: -2px 5px 10px 0 var(--accent-color);
   }
 
-  @media (max-width: 425px) {
+  @media (max-width: 600px) {
     .title-background {
-      padding-inline: 1.5rem;
+      padding-inline: 0.5rem;
+    }
+    .right > a:first-child {
+      display: none;
     }
   }
 
@@ -47,7 +51,7 @@ const t = i18n.useTranslations(lang);
   .right {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 10px;
   }
 
   .header-item {

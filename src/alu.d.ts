@@ -6,6 +6,7 @@ export declare global {
 
   namespace Alu {
     let store: AluStore;
+    let eventList: Record<string, EventListener>;
     let settings: {
       loadedContentStorage: Record<string, string>;
       currentTab: string;

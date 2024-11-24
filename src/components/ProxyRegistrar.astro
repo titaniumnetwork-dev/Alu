@@ -2,14 +2,15 @@
   import { TransportMgr, initTransport } from "./ts/TransportManager";
   import "notyf/notyf.min.css";
   import { Notyf } from "notyf";
+  import EventMgr from "./ts/EventMgr";
 
   const form = document.querySelector("form");
   let input = document.querySelector("input")!;
-  document.addEventListener("astro:after-swap", initForm);
+  EventMgr.listen("astro:after-swap", initForm);
   function initForm() {
     const formEle = document.querySelector("form") as HTMLFormElement;
     input = document.querySelector("input") as HTMLInputElement;
-    if (formEle) formEle.addEventListener("submit", formEventListener);
+    if (formEle) EventMgr.listen("submit", formEventListener, formEle);
   }
   if (form) {
     form.addEventListener("submit", formEventListener);
