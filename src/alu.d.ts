@@ -1,11 +1,4 @@
 export declare global {
-  type AluStore = {
-    get: (key: Alu.ValidStoreKeys) => Alu.KeyObj;
-    set: (key: Alu.ValidStoreKeys, value: Alu.KeyObj) => void;
-    remove: (key: Alu.ValidStoreKeys) => void;
-    reset: (key: Alu.ValidStoreKeys) => void;
-  };
-
   // Hacky way to not have to cast the "event" type that lib.dom has to CustomEvent, which is what we actually use.
   interface Document {
     addEventListener(type: "setting-tabLoad", listener: (this: Document, ev: CustomEvent) => any, options?: boolean | AddEventListenerOptions);

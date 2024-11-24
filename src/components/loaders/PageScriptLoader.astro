@@ -1,30 +1,28 @@
 <script>
-    import IDBManager from "@components/ts/IDBManager";
-    const idb = IDBManager.loadIDB("AluDB", 1)
-    
-    idb.onsuccess = () => {
-        IDBManager.GetStore("InstalledExtensions", "readonly").getAll().onsuccess = (event) => {
-        // TODO: Get rid of this ugly type assertion!!
-        const result = (event.target as IDBRequest).result;
-            if (result) {
-                result.forEach((extension: ExtPageMetadata) => {
-                    if (extension.type === "page") {
-                        const decoder = new TextDecoder();
-                        const script = decoder.decode(extension.scriptCopy!);
-                        const scriptEl = document.createElement("script");
-                        scriptEl.textContent = script;
-                        document.head.appendChild(scriptEl);
-                        
-                        // Call extension.init if it exists
-                        if (extension.init) {
-                            const init = new Function(extension.init);
-                            init();
-                        }
-                    }
-                });
+  import IDBManager from "@components/ts/IDBManager";
+  const idb = IDBManager.loadIDB("AluDB", 1);
+
+  idb.onsuccess = () => {
+    IDBManager.GetStore("InstalledExtensions", "readonly").getAll().onsuccess = (event) => {
+      // TODO: Get rid of this ugly type assertion!!
+      const result = (event.target as IDBRequest).result;
+      if (result) {
+        result.forEach((extension: ExtPageMetadata) => {
+          if (extension.type === "page") {
+            const decoder = new TextDecoder();
+            const script = decoder.decode(extension.scriptCopy!);
+            const scriptEl = document.createElement("script");
+            scriptEl.textContent = script;
+            document.head.appendChild(scriptEl);
+
+            // Call extension.init if it exists
+            if (extension.init) {
+              const init = new Function(extension.init);
+              init();
             }
-        };
+          }
+        });
+      }
     };
-
-
+  };
 </script>

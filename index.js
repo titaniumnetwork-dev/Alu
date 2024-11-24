@@ -25,7 +25,7 @@ if (existsSync("exempt_masqr.txt")) {
   const exemptDomains = file.split("\n");
   exemptDomains.forEach((domain) => {
     whiteListedDomains.push(domain.trim());
-  })
+  });
 }
 
 const LICENSE_SERVER_URL = "https://license.mercurywork.shop/validate?license=";

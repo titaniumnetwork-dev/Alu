@@ -23,7 +23,6 @@
             const decoder = new TextDecoder();
             const style = decoder.decode(extension.scriptCopy!);
 
-
             loadStyleFromString(style);
 
             document.addEventListener("astro:after-swap", () => {

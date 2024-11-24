@@ -17,7 +17,11 @@ type Extension = {
   name: string;
   script: string;
   type: ExtType;
+
 };
+
+// This just makes it shorter to type
+type HTMLButton = HTMLButtonElement;
 
 /* 
   - title: The title of the extension

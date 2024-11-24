@@ -18,7 +18,7 @@ function loadExtensionScripts() {
         let extensions = request.result.filter((extension) => extension.type == "serviceWorker");
         extensions.forEach((extension) => {
           const decoder = new TextDecoder();
-          const contents = decoder.decode(extension.script);
+          const contents = decoder.decode(extension.scriptCopy);
 
 
           eval(contents);

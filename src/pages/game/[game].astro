@@ -9,9 +9,8 @@ const gamesList = games as GameList;
 
 sitemap(async ({ setSitemap }) => {
   const gamesList = games as GameList;
-  const urls = Object.keys(gamesList);
   setSitemap(
-    urls.map((game) => ({
+    Object.keys(gamesList).map((game) => ({
       sitemap: true,
       params: {
         game: game,

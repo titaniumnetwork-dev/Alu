@@ -13,7 +13,7 @@ module.exports = {
     "no-unused-vars": "error",
     "no-undef": "off",
     "prefer-const": "error",
-    "no-case-declarations": "off"
+    "no-case-declarations": "off",
   },
   ignorePatterns: ["env.d.ts", "middleware/", "public/"],
   overrides: [
@@ -35,7 +35,7 @@ module.exports = {
       extends: ["plugin:@typescript-eslint/recommended"],
       rules: {
         "@typescript-eslint/no-explicit-any": "off",
-      }
+      },
     },
     {
       // Define the configuration for `<script>` tag.
