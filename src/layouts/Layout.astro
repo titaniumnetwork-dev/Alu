@@ -136,17 +136,17 @@ const DESCRIPTION =
       }
 
       html {
-        --s: 50px; /* control the size*/
-        --darken: 30%;
-        --c1: color-mix(in srgb, var(--background-color), black var(--darken));
-        --c2: color-mix(in srgb, var(--accent-color), black var(--darken));
-        --c3: color-mix(in srgb, var(--dropdown-background-color), black var(--darken));
-
+        --size: 50px;
+        --darken: 0%;
+        --c1: var(--background-color);
+        --c2: var(--accent-color);
+        --c3: var(--dropdown-background-color);
         --_g: var(--c3) 0 120deg, #0000 0;
+
         background: conic-gradient(from -60deg at 50% calc(100% / 3), var(--_g)), conic-gradient(from 120deg at 50% calc(200% / 3), var(--_g)),
           conic-gradient(from 60deg at calc(200% / 3), var(--c3) 60deg, var(--c2) 0 120deg, #0000 0), conic-gradient(from 180deg at calc(100% / 3), var(--c1) 60deg, var(--_g)),
           linear-gradient(90deg, var(--c1) calc(100% / 6), var(--c2) 0 50%, var(--c1) 0 calc(500% / 6), var(--c2) 0);
-        background-size: calc(1.732 * var(--s)) var(--s);
+        background-size: calc(1.732 * var(--size)) var(--size);
 
         scrollbar-width: none;
 
