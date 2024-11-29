@@ -2,7 +2,8 @@
 const { game } = Astro.props;
 ---
 
-<div class="game" data-name={game.name}>
+<div class="game" data-name={game.name} data-id={game.slug}>
+  <img class="pin-icon" src="/img/games/pin-outline.svg" />
   <a class="game-link" href=`/game/${game.slug}`>
     <img alt={game.name} class="game-img" src={game.image} alt="" />
     <p class="game-title">{game.name}</p>
@@ -11,9 +12,10 @@ const { game } = Astro.props;
 
 <style>
   .game {
+    position: relative;
     background-color: var(--accent-color);
     border: 2px solid var(--text-color);
-    padding: 1rem;
+    padding: 1.2rem;
     padding-bottom: 0;
     display: flex;
     align-items: center;
@@ -36,5 +38,14 @@ const { game } = Astro.props;
     text-align: center;
     font-size: 18px;
     height: 48px;
+  }
+
+  .pin-icon {
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    cursor: pointer;
   }
 </style>

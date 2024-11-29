@@ -21,22 +21,28 @@ export function getStaticPaths() {
     <Input inputName="games-search" placeholder={t("games.search")} height="30px" />
   </div>
   <div class="no-results"></div>
-  <main id="main-content" class="grid">
-    {
-      Object.keys(games).map((key) => {
-        const game = (games as any)[key];
-        return <GameItem game={game} />;
-      })
-    }
+  <main id="main-content">
+    <div class="pinned-games grid"></div>
+    <div class="all-games grid">
+      {
+        Object.keys(games).map((key) => {
+          const game = (games as any)[key];
+          return <GameItem game={game} />;
+        })
+      }
+    </div>
+    <button id="reset-pinned">Reset Pinned Games</button>
   </main>
 </Layout>
 
 <script>
   const search = document.getElementById("games-search-input") as HTMLInputElement;
-  const mainContent = document.getElementById("main-content") as HTMLDivElement;
+  const allGames = document.getElementsByClassName("all-games")[0] as HTMLDivElement;
+  const pinnedGames = document.getElementsByClassName("pinned-games")[0] as HTMLDivElement;
+  
   search.addEventListener("input", () => {
     const filter = search.value.toUpperCase();
-    const games = mainContent.children;
+    const games = allGames.children;
     let results = 0;
     for (let i = 0; i < games.length; i++) {
       const game = games[i] as HTMLDivElement;
@@ -48,19 +54,82 @@ export function getStaticPaths() {
         game.style.display = "none";
       }
     }
+    const noResults = document.querySelector(".no-results") as HTMLDivElement;
     if (results === 0) {
-      const noResults = document.querySelector(".no-results") as HTMLDivElement;
       if (noResults) {
         noResults.style.display = "block";
         noResults.innerHTML = "No results found";
       }
     } else {
-      const noResults = document.querySelector(".no-results") as HTMLDivElement;
       if (noResults) {
         noResults.style.display = "none";
       }
     }
   });
+
+  const pins = document.querySelectorAll(".pin-icon");
+  const localStoragePins = localStorage.getItem("alu__savedPins") || "[]"
+  const savedPins = JSON.parse(localStoragePins);
+
+  pins.forEach((pin) => {
+    const game = pin.parentElement as HTMLDivElement;
+    const gameName = game.getAttribute("data-id")!;
+    const isPinned = savedPins.includes(gameName);
+
+    if (isPinned) {
+      game.classList.add("pinned");
+      pin.setAttribute("src", "/img/games/pin.svg");
+      pinnedGames.appendChild(game);
+      if (allGames.contains(game)) {
+        allGames.removeChild(game);
+      }
+
+    }
+
+
+    pin.addEventListener("click", () => {
+      const game = pin.parentElement as HTMLDivElement;
+      const gameName = game.getAttribute("data-id")!;
+      const isPinned = game.classList.contains("pinned");
+      if (isPinned) {
+        game.classList.remove("pinned");
+        savedPins.splice(savedPins.indexOf(gameName), 1);
+        localStorage.setItem("alu__savedPins", JSON.stringify(savedPins));
+        pin.setAttribute("src", "/img/games/pin-outline.svg");
+        allGames.prepend(game);
+        if (pinnedGames.contains(game)) {
+          pinnedGames.removeChild(game);
+        }
+        // Sort all games alphabetically again
+        const allGamesArray = Array.from(allGames.children);
+        allGamesArray.sort((a, b) => {
+          const aName = a.getAttribute("data-id")!;
+          const bName = b.getAttribute("data-id")!;
+          return aName.localeCompare(bName);
+        });
+        allGamesArray.forEach((game) => {
+          allGames.appendChild(game);
+        });
+      } else {
+        game.classList.add("pinned");
+        savedPins.push(gameName);
+        localStorage.setItem("alu__savedPins", JSON.stringify(savedPins));
+        pin.setAttribute("src", "/img/games/pin.svg");
+        pinnedGames.appendChild(game);
+        if (allGames.contains(game)) {
+          allGames.removeChild(game);
+        }
+      }
+    });
+  });
+
+  const resetPinned = document.getElementById("reset-pinned") as HTMLButtonElement;
+  
+  resetPinned.addEventListener("click", () => {
+    localStorage.setItem("alu__savedPins", "[]");
+    window.location.reload();
+  });
+
 </script>
 
 <style>
@@ -79,7 +148,7 @@ export function getStaticPaths() {
     text-align: center;
     justify-content: center;
     gap: 1rem;
-    width: 90%;
+    width: 85%;
     margin: 0 auto;
     margin-top: 20px;
   }
@@ -91,5 +160,17 @@ export function getStaticPaths() {
     font-size: 2rem;
     margin-top: 10px;
     display: none;
+  }
+
+  #reset-pinned {
+    display: block;
+    margin: 0 auto;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: var(--accent-color-brighter);
+    color: var(--text-color);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
   }
 </style>

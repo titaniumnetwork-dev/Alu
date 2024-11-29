@@ -38,6 +38,21 @@
     "image": "/games/basketball-stars/logo.png",
     "slug": "basketball-stars"
   },
+  "bitlife": {
+    "name": "BitLife",
+    "description": "BitLife is a life simulator that lets you live your life however you want. Make choices that will affect your character's life from birth to death.",
+    "image": "/games/bitlife/logo.png",
+    "slug": "bitlife",
+    "unity": true,
+    "vertical": true
+  },
+  "bloons": {
+    "name": "Bloons",
+    "description": "The first ever bloons game! Pop the balloons with darts and complete the levels. A simple yet surprisingly addictive game.",
+    "image": "/games/flash/img/bloons.webp",
+    "slug": "bloons",
+    "flash": true
+  },
   "bloons-tower-defense-2": {
     "name": "Bloons Tower Defense 2",
     "description": "Bloons Tower Defense 2 is a popular tower defense game originally released in Flash by Ninja Kiwi. Strategically place your defenses, upgrade your units, and stop all balloons from passing through.",
@@ -52,27 +67,12 @@
     "slug": "bloons-tower-defense-4",
     "flash": true
   },
-  "bloons": {
-    "name": "Bloons",
-    "description": "The first ever bloons game! Pop the balloons with darts and complete the levels. A simple yet surprisingly addictive game.",
-    "image": "/games/flash/img/bloons.webp",
-    "slug": "bloons",
-    "flash": true
-  },
   "bloxors": {
     "name": "Bloxors",
     "description": "Bloxorz is a tricky puzzle game that tests your logical skills and sheer brain power. The objective is to get the block into the square hole and avoid falling off the edge. Put your brain to the test and see how far you get!",
     "image": "/games/flash/img/bloxorz.png",
     "slug": "bloxors",
     "flash": true
-  },
-  "bitlife": {
-    "name": "BitLife",
-    "description": "BitLife is a life simulator that lets you live your life however you want. Make choices that will affect your character's life from birth to death.",
-    "image": "/games/bitlife/logo.png",
-    "slug": "bitlife",
-    "unity": true,
-    "vertical": true
   },
   "cannon-basketball-4": {
     "name": "Cannon Basketball 4",
@@ -274,18 +274,18 @@
     "slug": "henry-stickman-breaking-the-bank",
     "flash": true
   },
-  "henry-stickman-stealing-the-diamond": {
-    "name": "Stealing the Diamond",
-    "description": "Help Henry Stickman steal a diamond from a museum! Choose your path and see how your choices affect the outcome.",
-    "image": "/games/flash/img/stealing-the-diamond.avif",
-    "slug": "henry-stickman-stealing-the-diamond",
-    "flash": true
-  },
   "henry-stickman-escaping-the-prison": {
     "name": "Escaping the Prison",
     "description": "Help Henry Stickman escape from prison! Choose your path and see how your choices affect the outcome.",
     "image": "/games/flash/img/escaping-the-prison.avif",
     "slug": "henry-stickman-escaping-the-prison",
+    "flash": true
+  },
+  "henry-stickman-fleeing-the-complex": {
+    "name": "Fleeing the Complex",
+    "description": "Help Henry Stickman flee from a complex! Choose your path and see how your choices affect the outcome.",
+    "image": "/games/flash/img/fleeing-the-complex.avif",
+    "slug": "henry-stickman-fleeing-the-complex",
     "flash": true
   },
   "henry-stickman-infiltrating-the-airship": {
@@ -295,11 +295,11 @@
     "slug": "henry-stickman-infiltrating-the-airship",
     "flash": true
   },
-  "henry-stickman-fleeing-the-complex": {
-    "name": "Fleeing the Complex",
-    "description": "Help Henry Stickman flee from a complex! Choose your path and see how your choices affect the outcome.",
-    "image": "/games/flash/img/fleeing-the-complex.avif",
-    "slug": "henry-stickman-fleeing-the-complex",
+  "henry-stickman-stealing-the-diamond": {
+    "name": "Stealing the Diamond",
+    "description": "Help Henry Stickman steal a diamond from a museum! Choose your path and see how your choices affect the outcome.",
+    "image": "/games/flash/img/stealing-the-diamond.avif",
+    "slug": "henry-stickman-stealing-the-diamond",
     "flash": true
   },
   "idle-breakout": {
@@ -431,18 +431,18 @@
     "image": "/games/temple-run-2/logo.webp",
     "slug": "temple-run-2"
   },
-  "there-is-no-game": {
-    "name": "There is No Game",
-    "description": "There is No Game is a unique interactive experience that plays with the concept of video games. It's a humorous and clever adventure that breaks the fourth wall.",
-    "image": "/games/there-is-no-game/logo.png",
-    "slug": "there-is-no-game"
-  },
   "the-binding-of-isaac": {
     "name": "The Binding of Isaac",
     "description": "When Isaac’s mother starts hearing the voice of God demanding a sacrifice be made to prove her faith, Isaac escapes into the basement facing droves of deranged enemies, lost brothers and sisters, his fears, and eventually his mother.",
     "image": "/games/flash/img/binding-of-isaac.png",
     "slug": "the-binding-of-isaac",
     "flash": true
+  },
+  "there-is-no-game": {
+    "name": "There is No Game",
+    "description": "There is No Game is a unique interactive experience that plays with the concept of video games. It's a humorous and clever adventure that breaks the fourth wall.",
+    "image": "/games/there-is-no-game/logo.png",
+    "slug": "there-is-no-game"
   },
   "tunnelrush": {
     "name": "Tunnel Rush",
@@ -451,18 +451,18 @@
     "slug": "tunnelrush",
     "unity": true
   },
+  "ul6": {
+    "name": "Ultima 6",
+    "description": "Ultima 6 is a classic role-playing game that takes you on an epic adventure in a fantasy world. Explore, battle, and complete quests to save the realm.",
+    "image": "/games/ul6/logo.png",
+    "slug": "ul6"
+  },
   "unfairmario": {
     "name": "Unfair Mario",
     "description": "Unfair Mario is a platformer game that challenges your skills and patience. Expect the unexpected as you navigate through tricky levels filled with hidden traps.",
     "image": "/games/flash/img/unfairmario.jpg",
     "slug": "unfairmario",
     "flash": true
-  },
-  "ul6": {
-    "name": "Ultima 6",
-    "description": "Ultima 6 is a classic role-playing game that takes you on an epic adventure in a fantasy world. Explore, battle, and complete quests to save the realm.",
-    "image": "/games/ul6/logo.png",
-    "slug": "ul6"
   },
   "vex3": {
     "name": "Vex 3",
