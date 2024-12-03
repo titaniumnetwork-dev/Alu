@@ -17,7 +17,7 @@
     "@astrojs/sitemap": "^3.2.1",
     "@mercuryworkshop/bare-as-module3": "^2.2.5",
     "@mercuryworkshop/bare-mux": "^2.1.5",
-    "@mercuryworkshop/epoxy-transport": "^2.1.12",
+    "@mercuryworkshop/epoxy-transport": "^2.1.26",
     "@mercuryworkshop/libcurl-transport": "^1.3.14",
     "@mercuryworkshop/wisp-js": "^0.3.3",
     "@rubynetwork/rammerhead": "^1.3.5",
