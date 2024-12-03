@@ -1,7 +1,7 @@
 import { defineConfig } from "astro/config";
 import node from "@astrojs/node";
-import sitemap from "@inox-tools/sitemap-ext";
 import dotenv from "dotenv-flow";
+import sitemap from '@astrojs/sitemap';
 dotenv.config();
 
 // Check if node is running in production mode
@@ -14,7 +14,6 @@ export default defineConfig({
   site: site,
   integrations: [
     sitemap({
-      includeByDefault: true,
       lastmod: new Date(),
     }),
   ],

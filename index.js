@@ -8,10 +8,8 @@ import { baremuxPath } from "@mercuryworkshop/bare-mux/node";
 import express from "express";
 import { createServer } from "http";
 import path from "node:path";
-import rammerhead from "@rubynetwork/rammerhead";
 import chalk from "chalk";
-import { server as wisp, logging } from "@mercuryworkshop/wisp-js/server";
-import router from "./middleware/ProxyExt/index.js";
+import { server as wisp, logging as wispLogging } from "@mercuryworkshop/wisp-js/server";
 import { handler as astroSSR } from "./dist/server/entry.mjs";
 import cookies from "cookie-parser";
 import { existsSync, readFileSync } from "fs";
@@ -30,19 +28,12 @@ if (existsSync("exempt_masqr.txt")) {
 
 const LICENSE_SERVER_URL = "https://license.mercurywork.shop/validate?license=";
 const MASQR_ENABLED = process.env.MASQR_ENABLED;
-logging.set_level(logging.WARN);
+wispLogging.set_level(wispLogging.WARN);
 
 const log = (message) => console.log(chalk.gray.bold("[Alu] " + message));
 const success = (message) => console.log(chalk.green.bold("[Alu] " + message));
 
 const PORT = process.env.PORT;
-log("Starting Rammerhead...");
-const rh = rammerhead.createRammerhead({
-  logLevel: "info",
-  reverseProxy: false,
-  disableLocalStorageSync: false,
-  disableHttp2: false,
-});
 const app = express();
 
 app.use(cookies());
@@ -55,9 +46,6 @@ if (MASQR_ENABLED == "true") {
 }
 
 app.use(astroSSR);
-
-log("Starting Marketplace Provider...");
-app.use(router);
 
 app.use(express.static(path.join(process.cwd(), "static")));
 app.use(express.static(path.join(process.cwd(), "build")));
@@ -131,17 +119,11 @@ app.get("*", (req, res) => {
 
 const server = createServer();
 server.on("request", (req, res) => {
-  if (rammerhead.shouldRouteRh(req)) {
-    rammerhead.routeRhRequest(rh, req, res);
-  } else {
-    app(req, res);
-  }
+  app(req, res);
 });
 
 server.on("upgrade", (req, socket, head) => {
-  if (rammerhead.shouldRouteRh(req)) {
-    rammerhead.routeRhUpgrade(rh, req, socket, head);
-  } else if (req.url.endsWith("/wisp/")) {
+  if (req.url.endsWith("/wisp/")) {
     wisp.routeRequest(req, socket, head);
   } else {
     socket.end();

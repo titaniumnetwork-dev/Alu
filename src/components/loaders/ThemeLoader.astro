@@ -1,5 +1,8 @@
 <script>
   import IDBManager from "@components/ts/IDBManager";
+  import instantiateAlu from "@components/ts/Alu";
+
+  await instantiateAlu();
 
   function switchTheme() {
     const currentTheme = Alu.store.get("theme");

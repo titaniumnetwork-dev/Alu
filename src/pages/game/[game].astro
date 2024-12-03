@@ -3,21 +3,7 @@ export const prerender = false;
 import Layout from "../../layouts/Layout.astro";
 import games from "../../json/games.json";
 
-import sitemap from "sitemap-ext:config";
-
 const gamesList = games as GameList;
-
-sitemap(async ({ setSitemap }) => {
-  const gamesList = games as GameList;
-  setSitemap(
-    Object.keys(gamesList).map((game) => ({
-      sitemap: true,
-      params: {
-        game: game,
-      },
-    }))
-  );
-});
 
 // get the current game based on the information in the url
 const game = Astro.params.game;

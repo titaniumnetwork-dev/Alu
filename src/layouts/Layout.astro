@@ -1,4 +1,6 @@
 ---
+
+
 import { ViewTransitions } from "astro:transitions";
 import Header from "@components/UI/Header.astro";
 import Footer from "@components/UI/Footer.astro";
@@ -44,7 +46,7 @@ const DESCRIPTION =
     <link rel="sitemap" href="/sitemap-index.xml" />
     <SchemaData />
     {
-      optionalStylesheets?.map((item) => {
+      optionalStylesheets?.map((item: string) => {
         return <link rel="stylesheet" class="style-load" href={item} />;
       })
     }
@@ -56,25 +58,6 @@ const DESCRIPTION =
       }
       gtag("js", new Date());
       gtag("config", "G-P1JX4G9KSF");
-    </script>
-    <script>
-      import instantiateAlu from "@components/ts/Alu";
-      import IDBManager from "@components/ts/IDBManager";
-
-      instantiateAlu();
-
-      if (!window.idb) {
-        const db = IDBManager.loadIDB("AluDB", 1);
-        db.onupgradeneeded = () => {
-          window.idb = db.result;
-          IDBManager.SetIDB(window.idb);
-          IDBManager.CreateStore("InstalledExtensions", { keyPath: "slug" });
-        };
-        db.onsuccess = () => {
-          window.idb = db.result;
-          IDBManager.SetIDB(window.idb);
-        };
-      }
     </script>
     <script src="@components/ts/AluStore.ts"></script>
     <meta name="generator" content={Astro.generator} />

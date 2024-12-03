@@ -2,7 +2,15 @@
   import IDBManager from "@components/ts/IDBManager";
   const idb = IDBManager.loadIDB("AluDB", 1);
 
-  idb.onsuccess = () => {
+  idb.onupgradeneeded = (event) => {
+    const db = (event.target as IDBOpenDBRequest).result;
+    db.createObjectStore("InstalledExtensions", { keyPath: "slug" });
+  };
+
+  // Create a store for installed extensions
+  
+  idb.onsuccess = (event) => {
+    IDBManager.SetIDB((event.target as IDBOpenDBRequest).result);
     IDBManager.GetStore("InstalledExtensions", "readonly").getAll().onsuccess = (event) => {
       // TODO: Get rid of this ugly type assertion!!
       const result = (event.target as IDBRequest).result;
