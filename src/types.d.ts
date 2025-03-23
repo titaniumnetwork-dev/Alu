@@ -1,5 +1,5 @@
 interface Window {
-  AluStore: AluStore;
+  PyrusStore: PyrusStore;
   __uv$config: {
     prefix: string;
     encodeUrl: (url: string) => string;

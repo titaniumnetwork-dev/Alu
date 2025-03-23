@@ -1,11 +1,11 @@
-import AluStore from "./AluStore";
+import PyrusStore from "./PyrusStore";
 import IDBManager from "./IDBManager";
 
-async function instantiateAlu(): Promise<void> {
+async function instantiatePyrus(): Promise<void> {
   return new Promise((resolve) => {
-    if (globalThis.Alu) return;
-    globalThis.Alu = {
-      store: new AluStore(),
+    if (globalThis.Pyrus) return;
+    globalThis.Pyrus = {
+      store: new PyrusStore(),
       eventList: {},
       settings: {
         loadedContentStorage: {},
@@ -14,7 +14,7 @@ async function instantiateAlu(): Promise<void> {
     };
   
     if (!window.idb) {
-      const db = IDBManager.loadIDB("AluDB", 1);
+      const db = IDBManager.loadIDB("PyrusDB", 1);
       db.onupgradeneeded = () => {
         window.idb = db.result;
         IDBManager.SetIDB(window.idb);
@@ -29,4 +29,4 @@ async function instantiateAlu(): Promise<void> {
   });
 }
 
-export default instantiateAlu;
+export default instantiatePyrus;

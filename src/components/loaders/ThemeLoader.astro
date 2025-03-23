@@ -1,11 +1,11 @@
 <script>
   import IDBManager from "@components/ts/IDBManager";
-  import instantiateAlu from "@components/ts/Alu";
+  import instantiatePyrus from "@components/ts/Pyrus";
 
-  await instantiateAlu();
+  await instantiatePyrus();
 
   function switchTheme() {
-    const currentTheme = Alu.store.get("theme");
+    const currentTheme = Pyrus.store.get("theme");
     document.documentElement.setAttribute("data-theme", currentTheme.value!);
   }
 
@@ -13,7 +13,7 @@
 
   document.addEventListener("astro:after-swap", switchTheme);
 
-  const idb = IDBManager.loadIDB("AluDB", 1);
+  const idb = IDBManager.loadIDB("PyrusDB", 1);
 
   idb.onsuccess = () => {
     const store = IDBManager.GetStore("InstalledExtensions", "readonly");

@@ -1,15 +1,15 @@
 {
   "ultraviolet": "Ultraviolet",
 
-  "pages.home": "家 | Alu",
-  "pages.games": "游戏 | Alu",
-  "pages.settings": "设置 | Alu",
+  "pages.home": "家 | Pyrus",
+  "pages.games": "游戏 | Pyrus",
+  "pages.settings": "设置 | Pyrus",
 
-  "nav.brand": "Alu",
+  "nav.brand": "Pyrus",
   "nav.games": "游戏",
   "nav.settings": "设置",
 
-  "menu.welcome": "欢迎来到 Alu",
+  "menu.welcome": "欢迎来到 Pyrus",
   "menu.search": "搜索网络...",
 
   "faq.title": "常见问题解答",
@@ -20,17 +20,17 @@
   "faq.noBareClients": "\"there are no bare clients.\"是什么意思？",
   "faq.noBareClients.answer": "发生此特定错误的原因有多种，但最常见的原因是代理加载失败。请重新加载页面，如果问题仍然存在，请提交 GitHub 问题！",
 
-  "faq.contributeToAlu": "我能为 Alu 做出什么贡献？",
-  "faq.contributeToAlu.answer.segment1": "传播 Alu 的消息是一个很好的开始，但如果您真的喜欢 Alu，并且想要私人链接，请考虑通过 Patreon 支持我！",
-  "faq.contributeToAlu.answer.patreonLinkText": "您可以在这里支持我！",
-  "faq.contributeToAlu.answer.segment2": "感谢您帮助 Alu 变得伟大！",
+  "faq.contributeToPyrus": "我能为 Pyrus 做出什么贡献？",
+  "faq.contributeToPyrus.answer.segment1": "传播 Pyrus 的消息是一个很好的开始，但如果您真的喜欢 Pyrus，并且想要私人链接，请考虑通过 Patreon 支持我！",
+  "faq.contributeToPyrus.answer.patreonLinkText": "您可以在这里支持我！",
+  "faq.contributeToPyrus.answer.segment2": "感谢您帮助 Pyrus 变得伟大！",
 
-  "footer.brand": "Alu",
+  "footer.brand": "Pyrus",
   "footer.madeWithLove": "由 wearr 用❤️制作",
   "footer.poweredBy": "Titanium Network",
   "footer.services": "服务",
   "footer.socials": "社交",
-  "footer.aluProject": "Alu 项目",
+  "footer.aluProject": "Pyrus 项目",
 
   "games.title": "游戏",
   "games.search": "搜索...",
@@ -50,7 +50,7 @@
 
   "settings.customization": "定制",
   "settings.customization.theme": "主题",
-  "settings.customization.theme.Alu": "Alu",
+  "settings.customization.theme.Pyrus": "Pyrus",
   "settings.customization.theme.Macchiato": "Macchiato",
   "settings.customization.theme.Mocha": "Mocha",
   "settings.customization.language": "语言",

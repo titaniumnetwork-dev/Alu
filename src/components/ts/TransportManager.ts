@@ -4,19 +4,19 @@ type transportConfig = {
   wisp: string;
 };
 export default class TransportManager {
-  private transport: Alu.Key;
+  private transport: Pyrus.Key;
   connection: BareMuxConnection;
 
-  constructor(transport?: Alu.Key) {
+  constructor(transport?: Pyrus.Key) {
     this.connection = new BareMuxConnection("/baremux/worker.js");
     if (transport) {
       this.transport = transport;
     }
-    this.transport = Alu.store.get("transport");
+    this.transport = Pyrus.store.get("transport");
   }
   async updateTransport() {
     try {
-      const selectedTransport = Alu.store.get("transport");
+      const selectedTransport = Pyrus.store.get("transport");
       await this.setTransport(selectedTransport);
     } catch (err) {
       throw new Error("Failed to update transport! Try reloading. \nError: " + err);
@@ -27,12 +27,12 @@ export default class TransportManager {
     return this.transport;
   }
 
-  async setTransport(transport: Alu.Key, wispURL: string = Alu.store.get("wisp").value) {
+  async setTransport(transport: Pyrus.Key, wispURL: string = Pyrus.store.get("wisp").value) {
     this.transport = transport;
     const transportConfig: transportConfig = { wisp: wispURL };
 
     if (this.transport.value == "/baremod/index.mjs") {
-      return await this.connection.setTransport(transport.value.toString(), [Alu.store.get("bareUrl").value]);
+      return await this.connection.setTransport(transport.value.toString(), [Pyrus.store.get("bareUrl").value]);
     }
 
     await this.connection.setTransport(transport.value.toString(), [transportConfig]);
@@ -42,7 +42,7 @@ export default class TransportManager {
 export const TransportMgr = new TransportManager();
 
 export async function initTransport() {
-  return await TransportMgr.setTransport(TransportMgr.getTransport(), Alu.store.get("wisp").value);
+  return await TransportMgr.setTransport(TransportMgr.getTransport(), Pyrus.store.get("wisp").value);
 }
 
 export async function registerAndUpdateSW(): Promise<void> {

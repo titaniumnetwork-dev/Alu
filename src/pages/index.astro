@@ -7,20 +7,20 @@ import SchemaData from "@components/SchemaData.astro";
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta name="title" content="Alu" />
+    <meta name="title" content="Pyrus" />
     <meta name="author" content="Titanium Network" />
-    <meta name="description" content="Alu is a sleek web proxy supporting multiple standards of communication, and wide levels of customization." />
+    <meta name="description" content="Pyrus is a sleek web proxy supporting multiple standards of communication, and wide levels of customization." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://aluu.xyz" />
-    <meta property="og:title" content="Alu" />
-    <meta property="og:description" content="Alu is a sleek web proxy supporting multiple standards of communication, and wide levels of customization." />
+    <meta property="og:title" content="Pyrus" />
+    <meta property="og:description" content="Pyrus is a sleek web proxy supporting multiple standards of communication, and wide levels of customization." />
     <meta property="og:image" content="/logo.png" />
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="https://aluu.xyz" />
-    <meta property="twitter:title" content="Alu" />
-    <meta property="twitter:description" content="Alu is a sleek web proxy supporting multiple standards of communication, and wide levels of customization." />
+    <meta property="twitter:title" content="Pyrus" />
+    <meta property="twitter:description" content="Pyrus is a sleek web proxy supporting multiple standards of communication, and wide levels of customization." />
     <meta property="twitter:image" content="/logo.png" />
-    <script src="@components/ts/AluStore.ts"></script>
+    <script src="@components/ts/PyrusStore.ts"></script>
     <script src="https://www.googletagmanager.com/gtag/js?id=G-P1JX4G9KSF" is:inline></script>
     <SchemaData />
     <script is:inline>
@@ -33,34 +33,34 @@ import SchemaData from "@components/SchemaData.astro";
       gtag("config", "G-P1JX4G9KSF");
     </script>
     <script>
-      import instantiateAlu from "@components/ts/Alu";
-      instantiateAlu();
-      const lang = Alu.store.get("lang");
+      import instantiatePyrus from "@components/ts/Pyrus";
+      instantiatePyrus();
+      const lang = Pyrus.store.get("lang");
       const redirect = (loc: string) => (window.location.href = loc);
       if (lang) {
         redirect(`/${lang.value}/`);
       } else {
         const lang = navigator.language;
         if (lang.includes("ja")) {
-          Alu.store.set("lang", { value: "jp" });
+          Pyrus.store.set("lang", { value: "jp" });
           redirect("/jp/");
         } else if (lang.includes("es")) {
-          Alu.store.set("lang", { value: "fr" });
+          Pyrus.store.set("lang", { value: "fr" });
           redirect("/fr/");
         } else if (lang.includes("fr")) {
-          Alu.store.set("lang", { value: "es" });
+          Pyrus.store.set("lang", { value: "es" });
           redirect("/es/");
         } else if (lang.includes("pt")) {
-          Alu.store.set("lang", { value: "pt" });
+          Pyrus.store.set("lang", { value: "pt" });
           redirect("/pt/");
         } else if (lang.includes("ru")) {
-          Alu.store.set("lang", { value: "ru" });
+          Pyrus.store.set("lang", { value: "ru" });
           redirect("/ru/");
         } else if (lang.includes("zh")) {
-          Alu.store.set("lang", { value: "zh" });
+          Pyrus.store.set("lang", { value: "zh" });
           redirect("/zh/");
         } else {
-          Alu.store.set("lang", { value: "en" });
+          Pyrus.store.set("lang", { value: "en" });
           redirect("/en/");
         }
       }

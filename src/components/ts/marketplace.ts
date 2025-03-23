@@ -132,9 +132,9 @@ async function uninstallExtension(slug: string): Promise<InstallReturn> {
         reject({ code: EXT_RETURN.INSTALL_FAILED, slug: slug });
       }
       if (ext.result.type === "theme") {
-        const theme = Alu.store.get("theme");
+        const theme = Pyrus.store.get("theme");
         if (theme.value == ext.result.themeName) {
-          Alu.store.reset("theme");
+          Pyrus.store.reset("theme");
         }
       }
       const deleteRequest = store.delete(slug);
@@ -189,7 +189,7 @@ async function InitIDB() {
     document.getElementById("support-warning")!.innerText = "Your browser doesn't support IndexedDB. Please use a different browser!";
     return;
   }
-  await loadIDBPromise("AluDB", 1);
+  await loadIDBPromise("PyrusDB", 1);
   if (IDBManager.GetIDB() != null) {
     getInstallStatus();
     return;

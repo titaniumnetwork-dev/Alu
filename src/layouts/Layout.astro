@@ -17,7 +17,7 @@ interface Props {
 const { title, optionalStylesheets } = Astro.props;
 
 const DESCRIPTION =
-  "Alu is a sleek web proxy supporting multiple standards of communication, and wide levels of customization. Similar to other proxies such as Holy Unblocker, Alu allows you to access blocked content while maintaining your privacy.";
+  "Pyrus is a sleek web proxy supporting multiple standards of communication, and wide levels of customization. Similar to other proxies such as Holy Unblocker, Pyrus allows you to access blocked content while maintaining your privacy.";
 ---
 
 <!doctype html>
@@ -29,17 +29,17 @@ const DESCRIPTION =
     <PageScriptLoader transition:persist />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta name="title" content="Alu" />
+    <meta name="title" content="Pyrus" />
     <meta name="author" content="Titanium Network" />
     <meta name="description" content={DESCRIPTION} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://aluu.xyz" />
-    <meta property="og:title" content="Alu" />
+    <meta property="og:title" content="Pyrus" />
     <meta property="og:description" content={DESCRIPTION} />
     <meta property="og:image" content="/favicon.svg" />
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="https://aluu.xyz" />
-    <meta property="twitter:title" content="Alu" />
+    <meta property="twitter:title" content="Pyrus" />
     <meta property="twitter:description" content={DESCRIPTION} />
     <meta property="twitter:image" content="/favicon.svg" />
     <link rel="canonical" href={Astro.url.href} />
@@ -59,7 +59,7 @@ const DESCRIPTION =
       gtag("js", new Date());
       gtag("config", "G-P1JX4G9KSF");
     </script>
-    <script src="@components/ts/AluStore.ts"></script>
+    <script src="@components/ts/PyrusStore.ts"></script>
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <ViewTransitions />
@@ -74,22 +74,22 @@ const DESCRIPTION =
     <Footer />
     <style is:global>
       :root {
-        --background-color: #191724;
-        --background-highlight: #1f1d2e;
-        --accent-color: #26233a;
-        --accent-color-brighter: #2e2b4a;
+        --background-color: #241717;
+        --background-highlight: #2e1d1d;
+        --accent-color: #3a2323;
+        --accent-color-brighter: #4a2b2b;
         --text-color: #e0def4;
         --text-color-accent: #c7c5e0;
-        --dropdown-background-color: #1f1d2e;
+        --dropdown-background-color: #2e1d1d;
       }
       [data-theme="alu"] {
-        --background-color: #191724;
-        --background-highlight: #1f1d2e;
-        --accent-color: #26233a;
-        --accent-color-brighter: #2e2b4a;
+        --background-color: #241717;
+        --background-highlight: #2e1d1d;
+        --accent-color: #3a2323;
+        --accent-color-brighter: #4a2b2b;
         --text-color: #e0def4;
         --text-color-accent: #c7c5e0;
-        --dropdown-background-color: #1f1d2e;
+        --dropdown-background-color: #2e1d1d;
       }
       [data-theme="mocha"] {
         /* Catppucin Mocha theme */

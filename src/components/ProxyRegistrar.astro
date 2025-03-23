@@ -25,7 +25,7 @@
   }, 500);
 
   async function getProxyURL() {
-    const preference = Alu.store.get("proxy").value;
+    const preference = Pyrus.store.get("proxy").value;
     let url = input.value.trim();
     if (!isUrl(url)) url = getSearchEngine() + url;
     if (preference === "ultraviolet") {
@@ -57,8 +57,8 @@
     await initTransport();
     // The setTimeout is because service workers are a little silly and can take a while longer to register despite .then being called, which causes a bug on the first load.
     setTimeout(async () => {
-      const openWith = Alu.store.get("openpage");
-      const proxy = Alu.store.get("proxy");
+      const openWith = Pyrus.store.get("openpage");
+      const proxy = Pyrus.store.get("proxy");
       let url = input!.value.trim();
       if (!isUrl(url)) url = getSearchEngine() + url;
       else if (!(url.startsWith("https://") || url.startsWith("http://"))) url = "http://" + url;
@@ -90,7 +90,7 @@
       const forwardsButton = document.getElementById("nav-forwards")!;
       const reloadButton = document.getElementById("nav-reload")!;
       const shareButton = document.getElementById("nav-share")!;
-      const preference = Alu.store.get("proxy").value;
+      const preference = Pyrus.store.get("proxy").value;
       if (preference === "ultraviolet") {
         iframe.src = window.__uv$config.prefix + window.__uv$config.encodeUrl(url);
       } else if (preference == "rammerhead") {
@@ -202,7 +202,7 @@
   }
 
   function getSearchEngine() {
-    return Alu.store.get("search").value;
+    return Pyrus.store.get("search").value;
   }
 
   function updateProxiedFavicon(iframe: HTMLIFrameElement) {

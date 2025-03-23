@@ -12,17 +12,17 @@ export function getStaticPaths() {
 }
 ---
 
-<Layout title="Donate | Alu">
+<Layout title="Donate | Pyrus">
     <main id="main-content">
-        <h1 class="title-text">Donating to Alu</h1>
+        <h1 class="title-text">Donating to Pyrus</h1>
         <section id="donate">
-            <h3 class="thank-you-title">Thank you for your interest in donating to Alu! All support helps grow Alu into a better proxy for everyone!</h3>
+            <h3 class="thank-you-title">Thank you for your interest in donating to Pyrus! All support helps grow Pyrus into a better proxy for everyone!</h3>
 
             <h2>Donate through Patreon:</h2>
-            <p>Alu is on Patreon! You can donate to Alu through Patreon and get some cool perks in return. Check out our Patreon page <Link href="https://www.patreon.com/wearr/membership" newTab>here!</Link></p>
+            <p>Pyrus is on Patreon! You can donate to Pyrus through Patreon and get some cool perks in return. Check out our Patreon page <Link href="https://www.patreon.com/wearr/membership" newTab>here!</Link></p>
             
             <h2>Donate through Cryptocurrencies</h2>
-            <p>Alu accepts donations through cryptocurrencies. You can donate to Alu using the following addresses:</p>
+            <p>Pyrus accepts donations through cryptocurrencies. You can donate to Pyrus using the following addresses:</p>
             <div class="wallet-list-item"><span class="wallet-list-title">Bitcoin: </span> bc1q4znsy2uz3zxcg8djgrur7fcs6t0gek9pckpztu</div>
             <div class="wallet-list-item"><span class="wallet-list-title">Monero:  </span> 4BAuZm7PqC4NHvjrhVLmksLG7Y1j9jePMUVR1bVrgaNEW2eWL9Ffpugidi5QWs4ofV8NtDUN3qLUZE6NHPA1dkmQFnE4g1C</div>
             <div class="wallet-list-item"><span class="wallet-list-title">Ethereum:</span> 0x1D954D78aC53757348eD73793579241390d8A120</div>
@@ -48,6 +48,12 @@ export function getStaticPaths() {
         </script>
 
         <style>
+            #donate {
+                background-color: rgb(from var(--accent-color-brighter) r g b / 0.75);
+                padding: 10px;
+                border-radius: 0.5rem;
+                box-shadow: 6px 6px 10px 0px var(--background-color);
+            }
             .thank-you-title {
                 padding-top: 0.5rem;
                 padding-bottom: 0.5rem;

@@ -1,15 +1,15 @@
 {
   "ultraviolet": "Ultraviolet",
 
-  "pages.home": "Home | Alu",
-  "pages.games": "Games | Alu",
-  "pages.settings": "Settings | Alu",
+  "pages.home": "Home | Pyrus",
+  "pages.games": "Games | Pyrus",
+  "pages.settings": "Settings | Pyrus",
 
-  "nav.brand": "Alu",
+  "nav.brand": "Pyrus",
   "nav.games": "Games",
   "nav.settings": "Settings",
 
-  "menu.welcome": "Welcome to Alu",
+  "menu.welcome": "Welcome to Pyrus",
   "menu.search": "Search the web...",
 
   "faq.title": "Frequently Asked Questions",
@@ -20,17 +20,17 @@
   "faq.noBareClients": "What does \"there are no bare clients\" mean?",
   "faq.noBareClients.answer": "There are a couple reasons this particular error happens, but it's most commonly an issue with the proxy failing to load. Please reload the page, and if the problem persists, make a GitHub issue!",
 
-  "faq.contributeToAlu": "How can I contribute to Alu?",
-  "faq.contributeToAlu.answer.segment1": "Spreading the word of Alu is a great start, but if you really enjoy Alu, and want private links, consider supporting me through Patreon! ",
-  "faq.contributeToAlu.answer.patreonLinkText": " You can support me here!",
-  "faq.contributeToAlu.answer.segment2": " Thank you for helping to make Alu great!",
+  "faq.contributeToPyrus": "How can I contribute to Pyrus?",
+  "faq.contributeToPyrus.answer.segment1": "Spreading the word of Pyrus is a great start, but if you really enjoy Pyrus, and want private links, consider supporting me through Patreon! ",
+  "faq.contributeToPyrus.answer.patreonLinkText": " You can support me here!",
+  "faq.contributeToPyrus.answer.segment2": " Thank you for helping to make Pyrus great!",
 
-  "footer.brand": "Alu",
+  "footer.brand": "Pyrus",
   "footer.madeWithLove": "Made with ❤️ by wearr",
   "footer.poweredBy": "Titanium Network",
   "footer.services": "Services",
   "footer.socials": "Socials",
-  "footer.aluProject": "Alu Project",
+  "footer.aluProject": "Pyrus Project",
 
   "games.title": "Games",
   "games.search": "Search...",
@@ -50,7 +50,7 @@
 
   "settings.customization": "Customization",
   "settings.customization.theme": "Theme",
-  "settings.customization.theme.Alu": "Alu",
+  "settings.customization.theme.Pyrus": "Pyrus",
   "settings.customization.theme.Macchiato": "Macchiato",
   "settings.customization.theme.Mocha": "Mocha",
   "settings.customization.language": "Language",

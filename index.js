@@ -30,8 +30,8 @@ const LICENSE_SERVER_URL = "https://license.mercurywork.shop/validate?license=";
 const MASQR_ENABLED = process.env.MASQR_ENABLED;
 wispLogging.set_level(wispLogging.WARN);
 
-const log = (message) => console.log(chalk.gray.bold("[Alu] " + message));
-const success = (message) => console.log(chalk.green.bold("[Alu] " + message));
+const log = (message) => console.log(chalk.gray.bold("[Pyrus] " + message));
+const success = (message) => console.log(chalk.green.bold("[Pyrus] " + message));
 
 const PORT = process.env.PORT;
 const app = express();
@@ -130,8 +130,8 @@ server.on("upgrade", (req, socket, head) => {
   }
 });
 
-log("Starting Alu...");
-success("Alu started successfully!");
+log("Starting Pyrus...");
+success("Pyrus started successfully!");
 server.on("listening", () => {
   success(`Server running at http://localhost:${PORT}/.`);
 });

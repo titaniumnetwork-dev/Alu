@@ -6,7 +6,7 @@ const getWSProtocol = () => {
   }
 };
 
-const KEYSTORE: Alu.DefaultKeys = {
+const KEYSTORE: Pyrus.DefaultKeys = {
   proxy: {
     name: "Auto",
     value: "auto",
@@ -20,7 +20,7 @@ const KEYSTORE: Alu.DefaultKeys = {
     value: "embed",
   },
   wisp: {
-    name: "Alu (US)",
+    name: "Pyrus (US)",
     value: getWSProtocol() + window.location.host + "/wisp/",
   },
   bareUrl: {
@@ -31,44 +31,44 @@ const KEYSTORE: Alu.DefaultKeys = {
     value: "/epoxy/index.mjs",
   },
   theme: {
-    name: "Alu",
+    name: "Pyrus",
     value: "alu",
   },
 };
 
-if (localStorage.getItem("AluStore") === null) {
-  localStorage.setItem("AluStore", JSON.stringify(KEYSTORE));
+if (localStorage.getItem("PyrusStore") === null) {
+  localStorage.setItem("PyrusStore", JSON.stringify(KEYSTORE));
 }
 
-class AluStore {
-  #store: Alu.DefaultKeys;
+class PyrusStore {
+  #store: Pyrus.DefaultKeys;
   constructor() {
-    const localstore = localStorage.getItem("AluStore");
+    const localstore = localStorage.getItem("PyrusStore");
     if (!localstore) {
-      localStorage.setItem("AluStore", JSON.stringify(KEYSTORE));
+      localStorage.setItem("PyrusStore", JSON.stringify(KEYSTORE));
     }
-    this.#store = JSON.parse(localStorage.getItem("AluStore") || "{}");
+    this.#store = JSON.parse(localStorage.getItem("PyrusStore") || "{}");
   }
-  public getStore(): Alu.DefaultKeys {
+  public getStore(): Pyrus.DefaultKeys {
     return this.#store;
   }
-  public get(key: Alu.ValidStoreKeys): Alu.Key {
+  public get(key: Pyrus.ValidStoreKeys): Pyrus.Key {
     return this.#store[key];
   }
-  public set(key: Alu.ValidStoreKeys, value: Alu.Key): void {
+  public set(key: Pyrus.ValidStoreKeys, value: Pyrus.Key): void {
     this.#store[key] = value;
     this.save();
   }
-  public reset(key: Alu.ValidStoreKeys) {
+  public reset(key: Pyrus.ValidStoreKeys) {
     this.set(key, KEYSTORE[key]);
   }
-  public remove(key: Alu.ValidStoreKeys) {
+  public remove(key: Pyrus.ValidStoreKeys) {
     delete this.#store[key];
     this.save();
   }
   private save(): void {
-    localStorage.setItem("AluStore", JSON.stringify(this.#store));
+    localStorage.setItem("PyrusStore", JSON.stringify(this.#store));
   }
 }
 
-export default AluStore;
+export default PyrusStore;

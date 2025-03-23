@@ -1,7 +1,7 @@
 {
   "dev.wearr.adblock": {
-    "title": "Alu Adblocker",
-    "description": "Alu Adblocker is the best adblocker for web proxy services. Blocking up to 97% of all trackers and ads.",
+    "title": "Pyrus Adblocker",
+    "description": "Pyrus Adblocker is the best adblocker for web proxy services. Blocking up to 97% of all trackers and ads.",
     "version": "0.1.0",
     "image": "/marketplace/adblock/banner.png",
     "script": "/marketplace/adblock/index.js",
@@ -20,7 +20,7 @@
   },
   "dev.wearr.oled-theme": {
     "title": "OLED Theme",
-    "description": "A beautiful OLED theme for Alu.",
+    "description": "A beautiful OLED theme for Pyrus.",
     "version": "0.1.0",
     "image": "/marketplace/oled-theme/theme.png",
     "script": "/marketplace/oled-theme/theme.css",
@@ -29,7 +29,7 @@
   },
   "dev.wearr.dracula-theme": {
     "title": "Dracula Theme",
-    "description": "A port of the Dracula theme for Alu.",
+    "description": "A port of the Dracula theme for Pyrus.",
     "version": "1.0.0",
     "image": "/marketplace/dracula-theme/logo.svg",
     "script": "/marketplace/dracula-theme/theme.css",
@@ -38,7 +38,7 @@
   },
   "dev.wearr.nord-theme": {
     "title": "Nord Theme",
-    "description": "A port of the Nord theme for Alu.",
+    "description": "A port of the Nord theme for Pyrus.",
     "version": "1.0.0",
     "image": "/marketplace/nord-theme/logo.png",
     "script": "/marketplace/nord-theme/theme.css",
@@ -47,7 +47,7 @@
   },
   "dev.wearr.synthwave84": {
     "title": "Synthwave '84",
-    "description": "A port of the Synthwave '84 theme for Alu.",
+    "description": "A port of the Synthwave '84 theme for Pyrus.",
     "version": "1.0.0",
     "image": "/marketplace/synthwave84/logo.png",
     "script": "/marketplace/synthwave84/theme.css",
@@ -56,7 +56,7 @@
   },
   "dev.wearr.atom-one-dark": {
     "title": "Atom One Dark",
-    "description": "A port of the Atom One Dark theme for Alu.",
+    "description": "A port of the Atom One Dark theme for Pyrus.",
     "version": "1.0.0",
     "image": "/marketplace/atom-one-dark/logo.png",
     "script": "/marketplace/atom-one-dark/theme.css",

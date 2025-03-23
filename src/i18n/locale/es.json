@@ -1,15 +1,15 @@
 {
   "ultraviolet": "Ultravioleta",
 
-  "pages.home": "Inicio | Alu",
-  "pages.games": "Juegos | Alu",
-  "pages.settings": "Configuración | Alu",
+  "pages.home": "Inicio | Pyrus",
+  "pages.games": "Juegos | Pyrus",
+  "pages.settings": "Configuración | Pyrus",
 
-  "nav.brand": "Alu",
+  "nav.brand": "Pyrus",
   "nav.games": "Juegos",
   "nav.settings": "Ajustes",
 
-  "menu.welcome": "Bienvenido a Alu",
+  "menu.welcome": "Bienvenido a Pyrus",
   "menu.search": "Buscar en la web...",
 
   "faq.title": "Preguntas frecuentes",
@@ -20,17 +20,17 @@
   "faq.noBareClients": "¿Qué significa \"there are no bare clients\"?",
   "faq.noBareClients.answer": "Hay un par de razones por las que ocurre este error en particular, pero lo más común es que sea un problema con el proxy que no se carga. Por favor, vuelva a cargar la página y, si el problema persiste, ¡haga un problema de GitHub!",
 
-  "faq.contributeToAlu": "¿Cómo puedo contribuir a Alu?",
-  "faq.contributeToAlu.answer.segment1": "Correr la voz de Alu es un gran comienzo, pero si realmente disfrutas de Alu y quieres enlaces privados, ¡considera apoyarme a través de Patreon!",
-  "faq.contributeToAlu.answer.patreonLinkText": "¡Puedes apoyarme aquí!",
-  "faq.contributeToAlu.answer.segment2": "¡Gracias por ayudar a hacer que Alu sea genial!",
+  "faq.contributeToPyrus": "¿Cómo puedo contribuir a Pyrus?",
+  "faq.contributeToPyrus.answer.segment1": "Correr la voz de Pyrus es un gran comienzo, pero si realmente disfrutas de Pyrus y quieres enlaces privados, ¡considera apoyarme a través de Patreon!",
+  "faq.contributeToPyrus.answer.patreonLinkText": "¡Puedes apoyarme aquí!",
+  "faq.contributeToPyrus.answer.segment2": "¡Gracias por ayudar a hacer que Pyrus sea genial!",
 
-  "footer.brand": "Alu",
+  "footer.brand": "Pyrus",
   "footer.madeWithLove": "Hecho con ❤️ por el usuario",
   "footer.poweredBy": "Titanium Network",
   "footer.services": "Servicios",
   "footer.socials": "Sociales",
-  "footer.aluProject": "Proyecto Alu",
+  "footer.aluProject": "Proyecto Pyrus",
 
   "games.title": "Juegos",
   "games.search": "Buscar...",
@@ -50,7 +50,7 @@
 
   "settings.customization": "Personalización",
   "settings.customization.theme": "Tema",
-  "settings.customization.theme.Alu": "Alu",
+  "settings.customization.theme.Pyrus": "Pyrus",
   "settings.customization.theme.Macchiato": "Macchiato",
   "settings.customization.theme.Mocha": "Mocha",
   "settings.customization.language": "Idioma",

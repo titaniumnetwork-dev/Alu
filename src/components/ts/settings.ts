@@ -1,9 +1,9 @@
 import EventMgr from "./EventMgr";
 
-// Alu.settings.loadedContentStorage = {};
+// Pyrus.settings.loadedContentStorage = {};
 document.addEventListener("astro:before-swap", () => {
-  Alu.settings.currentTab = "";
-  Alu.settings.loadedContentStorage = {};
+  Pyrus.settings.currentTab = "";
+  Pyrus.settings.loadedContentStorage = {};
 });
 settingsLoad();
 loadContent("setting-tab-proxy");
@@ -11,7 +11,7 @@ function settingsLoad() {
   Array.from(document.getElementsByClassName("setting-tab")).forEach((tab) => {
     const contentToLoad = document.getElementById("content-" + tab.id);
     if (contentToLoad) {
-      Alu.settings.loadedContentStorage[tab.id] = contentToLoad.innerHTML;
+      Pyrus.settings.loadedContentStorage[tab.id] = contentToLoad.innerHTML;
       contentToLoad.remove();
     }
 
@@ -22,13 +22,13 @@ function settingsLoad() {
   });
 }
 function loadContent(tabID: string) {
-  if (Alu.settings.currentTab == tabID) return;
-  else Alu.settings.currentTab = tabID;
+  if (Pyrus.settings.currentTab == tabID) return;
+  else Pyrus.settings.currentTab = tabID;
   const currentContent = document.getElementById("current-content");
   if (currentContent) {
     currentContent.style.opacity = "0";
     setTimeout(() => {
-      currentContent.innerHTML = Alu.settings.loadedContentStorage[tabID];
+      currentContent.innerHTML = Pyrus.settings.loadedContentStorage[tabID];
       currentContent.style.opacity = "1";
       EventMgr.dispatch("setting-tabLoad", tabID);
     }, 250);
@@ -82,25 +82,25 @@ function closeDropdown(dropdownID: string) {
   }
 }
 
-function getLocalStorageValue(localStorageItem: Alu.ValidStoreKeys, dropdownID: string): string | null {
+function getLocalStorageValue(localStorageItem: Pyrus.ValidStoreKeys, dropdownID: string): string | null {
   const dropdown = document.getElementById(dropdownID);
   const dropdownMenu = document.getElementById(dropdownID + "-menu") as HTMLElement;
   // Janky hack
   if (dropdownID == "dropdown__search-engine") {
-    return Alu.store.get(localStorageItem).name;
+    return Pyrus.store.get(localStorageItem).name;
   }
 
   if (dropdown && dropdownMenu) {
     // Find the child that matches localStorageItem.value.
     const dropdownItem = Array.from(dropdownMenu.children).find((dropdown) => {
       const itemEl = dropdown as HTMLElement;
-      const item = Alu.store.get(localStorageItem);
+      const item = Pyrus.store.get(localStorageItem);
       const find = item.value == itemEl.dataset.setting;
       if (!find && localStorageItem == "wisp" && item.isCustom) {
         // This means we are on localhost, default to custom and return it's innerText (This is a hack)
         if (!item.isCustom) {
           const wispInput = document.getElementById("wisp-url-input") as HTMLInputElement;
-          Alu.store.set("wisp", { name: "Custom", value: wispInput.value, isCustom: true });
+          Pyrus.store.set("wisp", { name: "Custom", value: wispInput.value, isCustom: true });
         }
 
         return itemEl.innerText === "Custom";
@@ -119,9 +119,9 @@ function getLocalStorageValue(localStorageItem: Alu.ValidStoreKeys, dropdownID: 
   return null;
 }
 
-function applySavedLocalStorage(localStorageItem: Alu.ValidStoreKeys, dropdownID: string) {
+function applySavedLocalStorage(localStorageItem: Pyrus.ValidStoreKeys, dropdownID: string) {
   const dropdown_toggle = document.getElementById(dropdownID) as HTMLElement;
-  if (dropdown_toggle && Alu.store.get(localStorageItem)) {
+  if (dropdown_toggle && Pyrus.store.get(localStorageItem)) {
     dropdown_toggle.innerText = getLocalStorageValue(localStorageItem, dropdownID)!;
   }
 }
@@ -129,15 +129,15 @@ function applySavedLocalStorage(localStorageItem: Alu.ValidStoreKeys, dropdownID
 function applyDropdownEventListeners(dropdown: HTMLElement | null, optionalCallback?: () => void) {
   if (!dropdown) return console.error(`Dropdown not found! ${dropdown}`);
   const dropdownSibling = document.getElementById(dropdown.id + "-menu")!;
-  const localStorageItem = dropdown.dataset.localStorageKey as Alu.ValidStoreKeys;
+  const localStorageItem = dropdown.dataset.localStorageKey as Pyrus.ValidStoreKeys;
   Array.from(dropdownSibling.children).forEach((child) => {
     const childEl = child as HTMLElement;
     childEl.onclick = () => {
-      const localStorageItemContent: Alu.KeyObj = {
+      const localStorageItemContent: Pyrus.KeyObj = {
         name: childEl.innerText,
         value: childEl.dataset.setting,
       };
-      Alu.store.set(localStorageItem, localStorageItemContent);
+      Pyrus.store.set(localStorageItem, localStorageItemContent);
       applySavedLocalStorage(localStorageItem, dropdown.id);
       closeDropdown(dropdownSibling.id);
       return optionalCallback?.();
@@ -145,26 +145,26 @@ function applyDropdownEventListeners(dropdown: HTMLElement | null, optionalCallb
   });
 }
 
-function applyInputListeners(inputs: HTMLInputElement[], localStorageItem: Alu.ValidStoreKeys[]) {
+function applyInputListeners(inputs: HTMLInputElement[], localStorageItem: Pyrus.ValidStoreKeys[]) {
   for (let i = 0; i < inputs.length; i++) {
     const input = inputs[i];
     input.addEventListener("input", () => {
-      const current = Alu.store.get(localStorageItem[i]);
-      const value: Alu.KeyObj = {
+      const current = Pyrus.store.get(localStorageItem[i]);
+      const value: Pyrus.KeyObj = {
         name: current.name,
         value: input.value,
       };
       if (localStorageItem[i] == "wisp") {
         value.isCustom = true;
       }
-      Alu.store.set(localStorageItem[i], value);
+      Pyrus.store.set(localStorageItem[i], value);
     });
   }
 }
 
 // function searxngURLInputListener(input: HTMLInputElement) {
 //   input.addEventListener("input", () => {
-//     Alu.store.set("search", { name: "Searx", value: input.value + "?q=" });
+//     Pyrus.store.set("search", { name: "Searx", value: input.value + "?q=" });
 //   });
 // }
 
@@ -202,7 +202,7 @@ function setupProxySettings() {
   const resetSettings = document.getElementById("reset-button");
   if (resetSettings) {
     resetSettings.onclick = () => {
-      localStorage.removeItem("AluStore");
+      localStorage.removeItem("PyrusStore");
       window.location.reload();
     };
   }
@@ -212,8 +212,8 @@ function setupProxySettings() {
   const searxngUrlInput = document.getElementById("searxng-url-input") as HTMLInputElement;
   const bareURLInput = document.getElementById("bare-url-input") as HTMLInputElement;
 
-  bareURLInput.value = Alu.store.get("bareUrl").value!.toString();
-  wispURLInput.value = Alu.store.get("wisp").value!.toString();
+  bareURLInput.value = Pyrus.store.get("bareUrl").value!.toString();
+  wispURLInput.value = Pyrus.store.get("wisp").value!.toString();
   // Proxy settings
   [selectedProxyDropdown, openWithDropdown, currentTransportDropdown, wispURLDropdown].forEach((dropdown) => {
     applyDropdownEventListeners(dropdown!);
@@ -262,11 +262,11 @@ function setupCloakingSettings() {
         icon: cloakIcon!,
         isCustom: false,
       };
-      Alu.store.set("cloak", cloakItem);
+      Pyrus.store.set("cloak", cloakItem);
 
       if (cloakName == "None") {
-        Alu.store.remove("cloak");
-        cloakName = "Settings | Alu";
+        Pyrus.store.remove("cloak");
+        cloakName = "Settings | Pyrus";
         cloakIcon = "/favicon.svg";
       }
       let link = document.querySelector("link[rel~='icon']") as HTMLLinkElement;
@@ -289,7 +289,7 @@ function setupCloakingSettings() {
 
   const customNameInput = document.getElementById("cloak-custom-name-input") as HTMLInputElement;
   const customFaviconInput = document.getElementById("cloak-custom-favicon-input") as HTMLInputElement;
-  const cloak = Alu.store.get("cloak");
+  const cloak = Pyrus.store.get("cloak");
   if (cloak && cloak.value) {
     if (cloak.isCustom) {
       customNameInput.value = cloak.name;
@@ -309,10 +309,10 @@ function setupCloakingSettings() {
       isCustom: true,
     };
 
-    Alu.store.set("cloak", cloakItem);
+    Pyrus.store.set("cloak", cloakItem);
     if (cloakName == "None") {
-      Alu.store.remove("cloak");
-      cloakName = "Settings | Alu";
+      Pyrus.store.remove("cloak");
+      cloakName = "Settings | Pyrus";
       cloakIcon = "/favicon.svg";
     }
     let link = document.querySelector("link[rel~='icon']") as HTMLLinkElement;
@@ -327,7 +327,7 @@ function setupCloakingSettings() {
 }
 
 function changeTheme() {
-  const theme = Alu.store.get("theme").value;
+  const theme = Pyrus.store.get("theme").value;
   document.documentElement.setAttribute("data-theme", theme!.toString());
 }
 
@@ -344,7 +344,7 @@ function setupSettings(event: CustomEvent) {
 
 function checkSearxng() {
   // Callback for search engine dropdown
-  const searchEngine = Alu.store.get("search");
+  const searchEngine = Pyrus.store.get("search");
   const searxInput = document.getElementsByClassName("setting__searxng-url")[0] as HTMLElement;
   if (searchEngine.name == "Searx") {
     searxInput.style.opacity = "1";
@@ -354,11 +354,11 @@ function checkSearxng() {
 }
 
 function checkCustomWisp() {
-  const wispURL = Alu.store.get("wisp").name;
+  const wispURL = Pyrus.store.get("wisp").name;
   const wispInput = document.getElementById("wisp-url-input") as HTMLInputElement;
   if (wispURL == "Custom") {
     wispInput.parentElement!.style.opacity = "1";
-    wispInput.value = Alu.store.get("wisp").value!.toString();
+    wispInput.value = Pyrus.store.get("wisp").value!.toString();
   } else {
     wispInput.parentElement!.style.opacity = "0";
   }
@@ -369,7 +369,7 @@ document.addEventListener("setting-tabLoad", (event) => {
 });
 
 function navigateToNewLangaugePage() {
-  const value = Alu.store.get("lang").value;
+  const value = Pyrus.store.get("lang").value;
   const currentLanguage = window.location.pathname.split("/")[1];
   if (value == currentLanguage) return;
   window.location.href = `/${value}/settings`;

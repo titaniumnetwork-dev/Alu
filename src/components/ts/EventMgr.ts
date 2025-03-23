@@ -1,6 +1,6 @@
 class EventMgr {
     static listen(name: string, listener: EventListener, target?: EventTarget, opts: AddEventListenerOptions = {}) {
-        window.Alu.eventList[name] = listener;
+        window.Pyrus.eventList[name] = listener;
         (target || document).addEventListener(name, listener, opts);
 
         return {

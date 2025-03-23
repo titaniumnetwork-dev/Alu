@@ -4,8 +4,8 @@ export declare global {
     addEventListener(type: "setting-tabLoad", listener: (this: Document, ev: CustomEvent) => any, options?: boolean | AddEventListenerOptions);
   }
 
-  namespace Alu {
-    let store: AluStore;
+  namespace Pyrus {
+    let store: PyrusStore;
     let eventList: Record<string, EventListener>;
     let settings: {
       loadedContentStorage: Record<string, string>;

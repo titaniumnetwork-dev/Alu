@@ -1,15 +1,15 @@
 {
   "ultraviolet": "Ultraviolet",
 
-  "pages.home": "Página principal | Alu",
-  "pages.games": "Jogos | Alu",
-  "pages.settings": "Definições | Alu",
+  "pages.home": "Página principal | Pyrus",
+  "pages.games": "Jogos | Pyrus",
+  "pages.settings": "Definições | Pyrus",
 
-  "nav.brand": "Alu",
+  "nav.brand": "Pyrus",
   "nav.games": "Jogos",
   "nav.settings": "Definições",
 
-  "menu.welcome": "Bem-vindo ao Alu",
+  "menu.welcome": "Bem-vindo ao Pyrus",
   "menu.search": "Pesquisar na internet...",
 
   "faq.title": "Perguntas frequentes",
@@ -20,17 +20,17 @@
   "faq.noBareClients": "O que significa \"there are no bare clients\"?",
   "faq.noBareClients.answer": "Existem alguns motivos pelos quais este erro ocorre, mas geralmente deve-se a uma falha ao carregar o proxy. Tente recarregar a página e, caso o problema persiste, abra uma issue no GitHub!",
 
-  "faq.contributeToAlu": "Como posso contribuir para Alu?",
-  "faq.contributeToAlu.answer.segment1": "Divulgar Alu é suficiente, mas, se gostares bastante do Alu e quiseres links privados, considera apoiar-me pelo Patreon!",
-  "faq.contributeToAlu.answer.patreonLinkText": "Podes apoiar-me aqui!",
-  "faq.contributeToAlu.answer.segment2": "Obrigado por ajudar a tornar o Alu excelente!",
+  "faq.contributeToPyrus": "Como posso contribuir para Pyrus?",
+  "faq.contributeToPyrus.answer.segment1": "Divulgar Pyrus é suficiente, mas, se gostares bastante do Pyrus e quiseres links privados, considera apoiar-me pelo Patreon!",
+  "faq.contributeToPyrus.answer.patreonLinkText": "Podes apoiar-me aqui!",
+  "faq.contributeToPyrus.answer.segment2": "Obrigado por ajudar a tornar o Pyrus excelente!",
 
-  "footer.brand": "Alu",
+  "footer.brand": "Pyrus",
   "footer.madeWithLove": "Feito com ❤️ por wearr",
   "footer.poweredBy": "Titanium Network",
   "footer.services": "Serviços",
   "footer.socials": "Redes sociais",
-  "footer.aluProject": "Projeto Alu",
+  "footer.aluProject": "Projeto Pyrus",
 
   "games.title": "Jogos",
   "games.search": "Pesquisa...",
@@ -50,7 +50,7 @@
 
   "settings.customization": "Customização",
   "settings.customization.theme": "Tema",
-  "settings.customization.theme.Alu": "Alu",
+  "settings.customization.theme.Pyrus": "Pyrus",
   "settings.customization.theme.Macchiato": "Macchiato",
   "settings.customization.theme.Mocha": "Mocha",
   "settings.customization.language": "Idioma",

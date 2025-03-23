@@ -9,7 +9,7 @@ const ww = new WorkerWare({
 
 function loadExtensionScripts() {
   try {
-    let db = indexedDB.open("AluDB", 1);
+    let db = indexedDB.open("PyrusDB", 1);
     db.onsuccess = () => {
       try {
         let transaction = db.result.transaction("InstalledExtensions", "readonly");

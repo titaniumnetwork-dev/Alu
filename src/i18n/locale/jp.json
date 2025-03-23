@@ -1,15 +1,15 @@
 {
   "ultraviolet": "Ultraviolet",
 
-  "pages.home": "ホーム | Alu",
-  "pages.games": "ゲーム | Alu",
-  "pages.settings": "設定 | Alu",
+  "pages.home": "ホーム | Pyrus",
+  "pages.games": "ゲーム | Pyrus",
+  "pages.settings": "設定 | Pyrus",
 
-  "nav.brand": "Alu",
+  "nav.brand": "Pyrus",
   "nav.games": "ゲーム",
   "nav.settings": "設定",
 
-  "menu.welcome": "Aluへようこそ",
+  "menu.welcome": "Pyrusへようこそ",
   "menu.search": "検索",
 
   "faq.title": "よくある質問",
@@ -20,17 +20,17 @@
   "faq.noBareClients": "エラー「there are no bare clients.」とは",
   "faq.noBareClients.answer": "このエラーは、通常はプロキシのロードに失敗したことを意味します。ページをリロードするか、GitHubで問題を作成してください。",
 
-  "faq.contributeToAlu": "貢献をするには",
-  "faq.contributeToAlu.answer.segment1": "Alu を広めることは素晴らしいことです。プライベートリンクが必要な場合は、Patreon を通じて私をサポートすることを検討してください。",
-  "faq.contributeToAlu.answer.patreonLinkText": "ここで私に貢献できます",
-  "faq.contributeToAlu.answer.segment2": "Aluに貢献していただきありがとうございます。",
+  "faq.contributeToPyrus": "貢献をするには",
+  "faq.contributeToPyrus.answer.segment1": "Pyrus を広めることは素晴らしいことです。プライベートリンクが必要な場合は、Patreon を通じて私をサポートすることを検討してください。",
+  "faq.contributeToPyrus.answer.patreonLinkText": "ここで私に貢献できます",
+  "faq.contributeToPyrus.answer.segment2": "Pyrusに貢献していただきありがとうございます。",
 
-  "footer.brand": "Alu",
+  "footer.brand": "Pyrus",
   "footer.madeWithLove": "wearrによる❤️で作られました",
   "footer.poweredBy": "Titanium Network",
   "footer.services": "サービス",
   "footer.socials": "ソーシャル",
-  "footer.aluProject": "Alu Project",
+  "footer.aluProject": "Pyrus Project",
 
   "games.title": "ゲーム",
   "games.search": "検索...",
@@ -50,7 +50,7 @@
 
   "settings.customization": "カスタマイズ",
   "settings.customization.theme": "テーマ",
-  "settings.customization.theme.Alu": "Alu",
+  "settings.customization.theme.Pyrus": "Pyrus",
   "settings.customization.theme.Macchiato": "マキアート",
   "settings.customization.theme.Mocha": "モカ",
   "settings.customization.language": "言語",
