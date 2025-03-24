@@ -28,6 +28,7 @@
     const preference = Pyrus.store.get("proxy").value;
     let url = input.value.trim();
     if (!isUrl(url)) url = getSearchEngine() + url;
+    else if (!(url.startsWith("https://") || url.startsWith("http://"))) url = "http://" + url;
     if (preference === "ultraviolet") {
       return window.__uv$config.prefix + window.__uv$config.encodeUrl(url);
     } else if (preference == "rammerhead") {
